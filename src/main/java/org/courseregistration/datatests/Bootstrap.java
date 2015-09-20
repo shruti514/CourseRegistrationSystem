@@ -4,42 +4,59 @@ import java.util.Scanner;
 
 public class Bootstrap {
 
-    public static void main(String[] args) {
+	private static String exitCode = "5";
 
+	public static void main(String[] args) {
 
-        System.out.println("Type: 'Quit' to exit application.");
+		System.out.println();
+		printMenu();
+		Scanner scanner = new Scanner(System.in);
+		String input = "";
+		while ((input = scanner.nextLine()) != null
+				&& input.trim().length() != 0
+				&& !"quit".equalsIgnoreCase(input)) {
 
-        System.out.println("1. Query to search for courses taught in Fall-2016");
-        System.out.println("Select * from Section s where s.session='Fall-2016'");
+			switch (input) {
+			case "1":
+				System.out.println();
+				StudentQueries student = new StudentQueries();
+				student.startStudentMenuExecution();
+				System.out.println("Executing Student Queries");
+				break;
 
-        System.out.println("2. Query to enroll Student for course CMPE 272 taught by Prof.xyz in Fall 2015");
-        System.out.println("Select * from Section s where s.session='Fall-2016'");
+			case "2":
+				Queries.executeQuery_1();
+				break;
 
-        System.out.println("3. Query to search for courses taught in Fall-2016");
-        System.out.println("Select * from Section s where s.session='Fall-2016'");
+			case "3":
+				Queries.executeQuery_1();
+				break;
 
-        System.out.println("4. Query to search for courses taught in Fall-2016");
-        System.out.println("Select * from Section s where s.session='Fall-2016'");
+			case "4":
+				break;
 
+			case "5":
+				break;
 
-        Scanner scanner = new Scanner(System.in);
-        String input = "";
-            while ((input = scanner.nextLine()) != null && input.length() != 0 && ! "quit".equalsIgnoreCase(input)){
-                switch(input){
-                    case "1":
-                           Queries.executeQuery_1();
-                        break;
-                    case "2":
-                        Queries.executeQuery_1();
-                        break;
-                    case "3":
-                        Queries.executeQuery_1();
-                        break;
-                    case "4":
-                        Queries.executeQuery_1();
-                        break;
+			}
+			if (input.trim().equalsIgnoreCase(exitCode)) {
+				break;
+			}
 
-                }
-            }
-    }
+			System.out.println();
+			printMenu();
+		}
+	}
+
+	private static void printMenu() {
+		System.out.println("**** Main Menu ****");
+		System.out.println("1. Student Menu");
+		System.out.println("2. Professor Menu");
+		System.out.println("3. Admin Menu");
+		System.out.println("4. Database Menu");
+		System.out.println(exitCode + ". Exit");
+		System.out.println();
+		System.out.println("Please select your choice: ");
+	}
+
 }
