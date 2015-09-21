@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 /*
  * This is a singleton class to return connection object
@@ -17,7 +19,7 @@ public class DatabaseConnector {
 	static String PORT = "3307";
 
 	static final String DB_URL = "jdbc:mysql://" + IPADRESS + ":" + PORT
-			+ "/courseregistartion";
+			+ "/student_registration_database";
 
 	// Database credentials
 
@@ -39,6 +41,25 @@ public class DatabaseConnector {
 			}
 		}
 		return connection;
+	}
+
+	public boolean getAllTables() {
+		try {
+			getDBConnection();
+
+			PreparedStatement statement = connection
+					.prepareStatement("show tables");
+			ResultSet set = statement.executeQuery();
+			while (set.next()) {
+				String name = set.getString(1);
+				System.out.println("Table: " + name);
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+		return true;
 	}
 
 	public static void getUserAndPWD() {

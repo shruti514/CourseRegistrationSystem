@@ -33,6 +33,8 @@ public class Bootstrap {
 				break;
 
 			case "4":
+				DatabaseConnector dbConnector = new DatabaseConnector();
+				dbConnector.getAllTables();
 				break;
 
 			case "5":
