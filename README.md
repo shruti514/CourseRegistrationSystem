@@ -1,15 +1,18 @@
 # CMPE-272-DB-TESTING
 
 
-You will see 3 classes :
-Bootstrap :
-Its like a main class
-DatabaseConnector
-Here Shraddha's code will go for JDBC connection
-Queries
-Here we have to write Queries based on use cases
-You can directly run this code from any editor like eclipse or idea.
-Also, I have added a POM file which will generate a JAR file with all the dependencies we will be using.
+- To run the project you should have maven, java and mysql on your machine
+- To run it in eclipse 
+        - Clone git respository
+        - Open the project as Maven Project 
+- To update all maven dependencies use following command
+        -  mvn clean install 
+- To create Executable jar file use following command
+        -  mvn clean compile assembly:single 
+- To connect to a database other than given in the code change **presistence.xml 
+        - Change the value of the property **javax.persistence.jdbc.url in that file
 
-To create a .jar file you have run following command:
-            mvn clean compile assembly:single
+
+
+
+           
