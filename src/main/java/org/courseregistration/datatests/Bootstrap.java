@@ -8,7 +8,11 @@ public class Bootstrap {
 
 	public static void main(String[] args) {
 
-		System.out.println();
+        HibernateUtils.initEntityManager();
+
+       DataGenerator.generateData();
+
+        System.out.println();
 		printMenu();
 		Scanner scanner = new Scanner(System.in);
 		String input = "";
@@ -48,6 +52,8 @@ public class Bootstrap {
 			System.out.println();
 			printMenu();
 		}
+
+       // HibernateUtils.closeEntityManager();
 	}
 
 	private static void printMenu() {
