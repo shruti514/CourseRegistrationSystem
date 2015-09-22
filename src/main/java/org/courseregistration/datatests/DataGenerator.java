@@ -137,7 +137,7 @@ public class DataGenerator {
 
         System.out.println("****************"+result.getFirstName()+"****************");
 
-        HibernateUtils.closeEntityManager();
+
 
 
     }

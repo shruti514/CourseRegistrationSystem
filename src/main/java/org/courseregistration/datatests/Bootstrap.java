@@ -9,8 +9,8 @@ public class Bootstrap {
 	public static void main(String[] args) {
 
         HibernateUtils.initEntityManager();
-
-       DataGenerator.generateData();
+        //This is just for now till we dont have data
+        DataGenerator.generateData();
 
         System.out.println();
 		printMenu();
@@ -18,7 +18,7 @@ public class Bootstrap {
 		String input = "";
 		while ((input = scanner.nextLine()) != null
 				&& input.trim().length() != 0
-				&& !"quit".equalsIgnoreCase(input)) {
+				&& !exitCode.equals(input)) {
 
 			switch (input) {
 			case "1":
@@ -39,13 +39,6 @@ public class Bootstrap {
 			case "4":
 				DatabaseConnector dbConnector = new DatabaseConnector();
 				dbConnector.getAllTables();
-				break;
-
-			case "5":
-				break;
-
-			}
-			if (input.trim().equalsIgnoreCase(exitCode)) {
 				break;
 			}
 

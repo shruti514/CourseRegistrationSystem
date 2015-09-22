@@ -13,18 +13,10 @@ import java.util.Set;
 
 public class CourseRepository {
 
-    public Object[][] findCourseBy(){
-
-        EntityManagerFactory em = HibernateUtils.getEntityManagerFactory();
+    public List<Section> findCourseBy(){
         EntityManager entityManager = HibernateUtils.getEntityManager();
         Query nativeQuery = entityManager.createNativeQuery("select * from section_info", Section.class);
-        List<Section> resultList = (List<Section>) nativeQuery.getResultList();
-
-        String[] columnNames = { "Comlumn1", "Column2", "Column3" };
-        Object[][] toReturn = {{"data1","data2","data3"},{"data4","data5","data6"},{"data7","data8","data9"},};
-
-
-        return toReturn;
+        return (List<Section>) nativeQuery.getResultList();
     }
 
 }

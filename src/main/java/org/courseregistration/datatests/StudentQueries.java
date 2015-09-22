@@ -1,5 +1,10 @@
 package org.courseregistration.datatests;
 
+import dnl.utils.text.table.TextTable;
+import org.courseregistration.model.Section;
+import org.courseregistration.repositories.CourseRepository;
+
+import java.util.List;
 import java.util.Scanner;
 
 /*
@@ -23,15 +28,29 @@ public class StudentQueries {
 		String input = "";
 		while ((input = scanner.nextLine()) != null
 				&& input.trim().length() != 0
-				&& !"quit".equalsIgnoreCase(input)) {
+				&& !exitCode.equals(input)) {
 
 			switch (input) {
-			case "1":
-				break;
+                case "1":
+                    CourseRepository courseRepository = new CourseRepository();
+                    List<Section> searchedCourses = courseRepository.findCourseBy();
 
-			}
-			if (input.trim().equalsIgnoreCase(exitCode)) {
-				break;
+                    String [] columnsToPrint = {"section_id","course_id","course_code"};
+                    Object[][] dataToPrint = new Object[searchedCourses.size()][3];
+                    for(int i=0;i<searchedCourses.size();i=i+1){
+                        Section section = searchedCourses.get(i);
+                        dataToPrint[i][0] = section.getId();
+                        dataToPrint[i][1] = section.getCourse().getId();
+                        dataToPrint[i][2] = section.getCourse().getCode();
+                    }
+
+                    TextTable tt = new TextTable(columnsToPrint,dataToPrint);
+                    tt.printTable();
+
+                    break;
+                case "2":
+
+                    break;
 			}
 
 			System.out.println();
