@@ -6,15 +6,16 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name="student_details")
 public class Student {
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid")
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "student_id")
-    private String id;
+    private UUID id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -64,11 +65,11 @@ public class Student {
                 inverseJoinColumns = {@JoinColumn(name="section_id")})
     private List<Section> sections = Lists.newArrayList();
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

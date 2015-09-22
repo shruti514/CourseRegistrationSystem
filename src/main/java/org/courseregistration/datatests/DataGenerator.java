@@ -65,6 +65,16 @@ public class DataGenerator {
         course.setNumOfCredits(3);
         course.setPrerequisiteCourse("Operating systems");
         course.setProgram("Graduate");
+
+
+        Course course2 = new Course();
+        course2.setCode("CMPE-283");
+        course2.setName("Virtualization Technology");
+        course2.setDepartment("Engineering");
+        course2.setDescription("Some Course Description");
+        course2.setNumOfCredits(3);
+        course2.setPrerequisiteCourse("NONE");
+        course2.setProgram("Graduate");
         //==========================================
 
         Professor professor1 = new Professor();
@@ -123,8 +133,9 @@ public class DataGenerator {
         section1.setProfessor(professor1);
         section1.setCourse(course);
 
-        entityManager.getTransaction().begin();
 
+        entityManager.getTransaction().begin();
+        entityManager.persist(course2);
         entityManager.persist(student2);
         entityManager.persist(professor1);
 

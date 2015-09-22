@@ -1,8 +1,10 @@
 package org.courseregistration.datatests;
 
 import dnl.utils.text.table.TextTable;
+import org.courseregistration.model.Course;
 import org.courseregistration.model.Section;
 import org.courseregistration.repositories.CourseRepository;
+import org.courseregistration.repositories.SectionRespository;
 
 import java.util.List;
 import java.util.Scanner;
@@ -31,25 +33,36 @@ public class StudentQueries {
 				&& !exitCode.equals(input)) {
 
 			switch (input) {
-                case "1":
-                    CourseRepository courseRepository = new CourseRepository();
-                    List<Section> searchedCourses = courseRepository.findCourseBy();
+                case "1": // Search for Course
+                    SectionRespository sectionRespository = new SectionRespository();
+                    List<Section> searchedCourses = sectionRespository.findCourseBy();
 
-                    String [] columnsToPrint = {"section_id","course_id","course_code"};
-                    Object[][] dataToPrint = new Object[searchedCourses.size()][3];
+                    String [] columnsToPrint_1 = {"section_id","course_id","course_code"};
+                    Object[][] dataToPrint_1 = new Object[searchedCourses.size()][3];
                     for(int i=0;i<searchedCourses.size();i=i+1){
                         Section section = searchedCourses.get(i);
-                        dataToPrint[i][0] = section.getId();
-                        dataToPrint[i][1] = section.getCourse().getId();
-                        dataToPrint[i][2] = section.getCourse().getCode();
+                        dataToPrint_1[i][0] = section.getId();
+                        dataToPrint_1[i][1] = section.getCourse().getId();
+                        dataToPrint_1[i][2] = section.getCourse().getCode();
                     }
 
-                    TextTable tt = new TextTable(columnsToPrint,dataToPrint);
-                    tt.printTable();
+                    this.printTable(columnsToPrint_1,dataToPrint_1);
 
                     break;
-                case "2":
+                case "2"://List available courses
+                    CourseRepository courseRepository = new CourseRepository();
+                    List<Course> courses = courseRepository.findAllCourses();
 
+                    String [] columnsToPrint_2 = {"course_id","course_code","course_name"};
+                    Object[][] dataToPrint_2 = new Object[courses.size()][3];
+                    for(int i=0;i<courses.size();i=i+1){
+                        Course course = courses.get(i);
+                        dataToPrint_2[i][0] = course.getId();
+                        dataToPrint_2[i][1] = course.getCode();
+                        dataToPrint_2[i][2] = course.getName();
+                    }
+
+                    this.printTable(columnsToPrint_2,dataToPrint_2);
                     break;
 			}
 
@@ -58,6 +71,12 @@ public class StudentQueries {
 		}
 
 	}
+
+    private void printTable(String[] columnsToPrint, Object[][] dataToPrint){
+        TextTable tt = new TextTable(columnsToPrint,dataToPrint);
+        tt.printTable();
+    }
+
 
 	/*
 	 * Printing Student related Menu

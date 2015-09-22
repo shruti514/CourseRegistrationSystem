@@ -10,7 +10,7 @@ public class Bootstrap {
 
         HibernateUtils.initEntityManager();
         //This is just for now till we dont have data
-        DataGenerator.generateData();
+        //DataGenerator.generateData();
 
         System.out.println();
 		printMenu();
@@ -19,7 +19,7 @@ public class Bootstrap {
 		while ((input = scanner.nextLine()) != null
 				&& input.trim().length() != 0
 				&& !exitCode.equals(input)) {
-
+            System.out.println(input);
 			switch (input) {
 			case "1":
 				System.out.println();
@@ -46,7 +46,8 @@ public class Bootstrap {
 			printMenu();
 		}
 
-       // HibernateUtils.closeEntityManager();
+       System.out.println("****EXITING****");
+       HibernateUtils.closeEntityManager();
 	}
 
 	private static void printMenu() {

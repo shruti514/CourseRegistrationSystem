@@ -12,10 +12,10 @@ import java.util.UUID;
 public class Professor {
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid")
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "professor_id")
-    private String id;
+    private UUID id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -67,11 +67,11 @@ public class Professor {
     @Temporal(value= TemporalType.TIME)
     private Date officeHoursToTime;
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
