@@ -9,10 +9,13 @@ import java.util.UUID;
 @Table(name="course_details")
 public class Course {
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @GenericGenerator(name = "sequence", strategy = "sequence", parameters = {
+        @org.hibernate.annotations.Parameter(name = "sequenceName", value = "sequence"),
+        @org.hibernate.annotations.Parameter(name = "allocationSize", value = "1"),
+    })
+    @GeneratedValue(generator = "sequence", strategy=GenerationType.SEQUENCE)
     @Column(name="course_id")
-    private UUID id;
+    private Long id;
 
     @Column(name="code")
     private String code;
@@ -35,11 +38,11 @@ public class Course {
     @Column(name="program")
     private String program;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

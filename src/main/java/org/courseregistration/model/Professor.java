@@ -12,10 +12,13 @@ import java.util.UUID;
 public class Professor {
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @GenericGenerator(name = "sequence", strategy = "sequence", parameters = {
+        @org.hibernate.annotations.Parameter(name = "sequenceName", value = "sequence"),
+        @org.hibernate.annotations.Parameter(name = "allocationSize", value = "1"),
+    })
+    @GeneratedValue(generator = "sequence", strategy=GenerationType.SEQUENCE)
     @Column(name = "professor_id")
-    private UUID id;
+    private Long id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -67,11 +70,11 @@ public class Professor {
     @Temporal(value= TemporalType.TIME)
     private Date officeHoursToTime;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

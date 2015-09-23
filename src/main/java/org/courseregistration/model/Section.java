@@ -13,10 +13,13 @@ import java.util.UUID;
 public class Section {
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @GenericGenerator(name = "sequence", strategy = "sequence", parameters = {
+        @org.hibernate.annotations.Parameter(name = "sequenceName", value = "sequence"),
+        @org.hibernate.annotations.Parameter(name = "allocationSize", value = "1"),
+    })
+    @GeneratedValue(generator = "sequence", strategy=GenerationType.SEQUENCE)
     @Column(name = "section_id")
-    private UUID id;
+    private Long id;
 
     @OneToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE},fetch = FetchType.LAZY)
     @JoinColumn(name = "professor_id")
@@ -64,11 +67,11 @@ public class Section {
     @ManyToMany(mappedBy = "sections")
     private List<Student> students;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
