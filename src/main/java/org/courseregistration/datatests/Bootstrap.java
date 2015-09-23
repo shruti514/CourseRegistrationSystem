@@ -7,10 +7,12 @@ public class Bootstrap {
 	private static String exitCode = "5";
 
 	public static void main(String[] args) {
-
+        //If error comment below line
         HibernateUtils.initEntityManager();
+
+        //If error comment below line
         //This is just for now till we dont have data
-        //DataGenerator.generateData();
+        DataGenerator.generateData();
 
         System.out.println();
 		printMenu();
@@ -47,6 +49,7 @@ public class Bootstrap {
 		}
 
        System.out.println("****EXITING****");
+       //If error comment below line
        HibernateUtils.closeEntityManager();
 	}
 
