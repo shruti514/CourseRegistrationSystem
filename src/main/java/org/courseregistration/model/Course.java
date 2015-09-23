@@ -17,25 +17,25 @@ public class Course {
     @Column(name="course_id")
     private Long id;
 
-    @Column(name="code")
+    @Column(name="code",nullable = false)
     private String code;
 
-    @Column(name="name")
+    @Column(name="name",nullable = false)
     private String name ;
 
     @Column(name="description")
     private String description;
 
-    @Column(name="no_of_credits")
+    @Column(name="no_of_credits", nullable = false)
     private Integer numOfCredits;
 
     @Column(name="pre_requisite_course")
     private String prerequisiteCourse;
 
-    @Column(name="department")
+    @Column(name="department",nullable = false)
     private String department;
 
-    @Column(name="program")
+    @Column(name="program",nullable = false)
     private String program;
 
     public Long getId() {

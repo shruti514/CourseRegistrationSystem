@@ -20,46 +20,46 @@ public class Student {
     @Column(name = "student_id")
     private Long id;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name",nullable = false)
     private String firstName;
 
     @Column(name = "middle_name")
     private String middleName;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name",nullable = false)
     private String lastName;
 
-    @Column(name = "email_id")
+    @Column(name = "email_id",nullable = false)
     private String emailId;
 
-    @Column(name = "phone_number")
+    @Column(name = "phone_number",nullable = false)
     private String phoneNumber;
 
-    @Column(name = "date_of_birth")
+    @Column(name = "date_of_birth",nullable = false)
     private Date dateOfBirth;
 
-    @Column(name = "address1")
+    @Column(name = "address1",nullable = false)
     private String address1;
 
     @Column(name = "address2")
     private String address2;
 
-    @Column(name="city")
+    @Column(name="city",nullable = false)
     private String city;
 
-    @Column(name="state")
+    @Column(name="state",nullable = false)
     private String state;
 
-    @Column(name="country")
+    @Column(name="country",nullable = false)
     private String country;
 
-    @Column(name = "zip_code")
+    @Column(name = "zip_code",nullable = false)
     private String zipCode;
 
-    @Column(name="admissionType")
+    @Column(name="admissionType",nullable = false)
     private String admissionType;
 
-    @Column(name="previous_degree")
+    @Column(name="previous_degree",nullable = false)
     private String previousDegree;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
