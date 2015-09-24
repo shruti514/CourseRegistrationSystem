@@ -9,15 +9,10 @@ import java.util.List;
 
 @Entity
 @Table(name="section_info")
-@SequenceGenerator(name="sequence", sequenceName="sequence", allocationSize=1, initialValue=100000)
 public class Section {
 
     @Id
-    @GenericGenerator(name = "sequence", strategy = "sequence", parameters = {
-        @org.hibernate.annotations.Parameter(name = "sequenceName", value = "sequence"),
-        @org.hibernate.annotations.Parameter(name = "allocationSize", value = "1"),
-        @org.hibernate.annotations.Parameter(name = "initialValue", value = "100000"),
-    })
+    @SequenceGenerator(name="sequence", sequenceName="sequence", allocationSize=1, initialValue=100000)
     @GeneratedValue(generator = "sequence", strategy=GenerationType.SEQUENCE)
     @Column(name = "section_id")
     private Long id;
