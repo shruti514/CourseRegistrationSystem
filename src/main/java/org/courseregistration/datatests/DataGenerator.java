@@ -48,7 +48,7 @@ public class DataGenerator {
         student2.setAdmissionType("Accepted - Conditionally");
 
         Calendar calendar2 = Calendar.getInstance();
-        calendar2.set(1986,8,7);
+        calendar2.set(1986,Calendar.AUGUST,7);
         student2.setDateOfBirth(calendar2.getTime());
 
         student2.setEmailId("alice@gmail.com");
@@ -56,7 +56,47 @@ public class DataGenerator {
         student2.setPreviousDegree("BE Comp Engineering");
 
         //==========================================
+        Student student3 = new Student();
+        student3.setFirstName("Sarah");
+        student3.setMiddleName("V.");
+        student3.setLastName("Rossie");
+        student3.setAddress1("209 E Indio Ave");
+        student3.setAddress2("");
+        student3.setCity("Fremont");
+        student3.setState("CA");
+        student3.setCountry("USA");
+        student3.setZipCode("94536");
+        student3.setAdmissionType("Accepted");
 
+        Calendar calendar3 = Calendar.getInstance();
+        calendar3.set(1987,Calendar.JULY,28);
+        student3.setDateOfBirth(calendar1.getTime());
+
+        student3.setEmailId("sarah@gmail.com");
+        student3.setPhoneNumber("+1 508 664 7260");
+        student3.setPreviousDegree("BE");
+        //==========================================
+        Student student4 = new Student();
+        student4.setFirstName("John");
+        student4.setMiddleName("R.");
+        student4.setLastName("Edward");
+        student4.setAddress1("201 W California Ave");
+        student4.setAddress2("");
+        student4.setCity("Sunnyvale");
+        student4.setState("CA");
+        student4.setCountry("USA");
+        student4.setZipCode("94086");
+        student4.setAdmissionType("Accepted");
+
+        Calendar calendar4 = Calendar.getInstance();
+        calendar4.set(1988,Calendar.FEBRUARY,5);
+        student4.setDateOfBirth(calendar1.getTime());
+
+        student4.setEmailId("John@gmail.com");
+        student4.setPhoneNumber("+1 408 386 7260");
+        student4.setPreviousDegree("Bsc Comp Science");
+
+        //==========================================
         Course course = new Course();
         course.setCode("CMPE-272");
         course.setName("Enterprise Software Platforms");
@@ -92,18 +132,18 @@ public class DataGenerator {
         professor1.setYearsOfExperience(12);
 
         Calendar prof_calendar1 = Calendar.getInstance();
-        prof_calendar1.set(1986,8,7);
+        prof_calendar1.set(1986,Calendar.AUGUST,7);
         professor1.setDateOfBirth(prof_calendar1.getTime());
 
         professor1.setEmailId("alice@gmail.com");
         professor1.setPhoneNumber("+1 408 376 7860");
 
         Calendar prof1_calendar1 = Calendar.getInstance();
-        prof1_calendar1.set(0,0,0,10,0);
+        prof1_calendar1.set(0,Calendar.JULY,0,10,0);
         professor1.setOfficeHoursFromTime(prof1_calendar1.getTime());
 
         Calendar prof1_calendar2 = Calendar.getInstance();
-        prof1_calendar2.set(0,0,0,17,0);
+        prof1_calendar2.set(0,Calendar.MAY,0,17,0);
         professor1.setOfficeHoursToTime(prof1_calendar2.getTime());
     //===================================================================
 
