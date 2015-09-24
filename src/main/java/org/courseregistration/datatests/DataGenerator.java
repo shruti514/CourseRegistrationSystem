@@ -89,6 +89,7 @@ public class DataGenerator {
         professor1.setCountry("USA");
         professor1.setZipCode("95134");
         professor1.setFacultyType("Permanant");
+        professor1.setYearsOfExperience(12);
 
         Calendar prof_calendar1 = Calendar.getInstance();
         prof_calendar1.set(1986,8,7);
@@ -125,6 +126,8 @@ public class DataGenerator {
         section1.setModeOfInstruction("In Class");
         section1.setRoomNumber("EM-501");
         section1.setSemester("Fall-2015");
+        section1.setTotalCapacity(40);
+        section1.setWaitListCapacity(20);
 
 
 

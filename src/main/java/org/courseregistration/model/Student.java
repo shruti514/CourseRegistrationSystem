@@ -10,11 +10,13 @@ import java.util.UUID;
 
 @Entity
 @Table(name="student_details")
+@SequenceGenerator(name="sequence", sequenceName="sequence", allocationSize=1, initialValue=100000)
 public class Student {
     @Id
     @GenericGenerator(name = "sequence", strategy = "sequence", parameters = {
         @org.hibernate.annotations.Parameter(name = "sequenceName", value = "sequence"),
         @org.hibernate.annotations.Parameter(name = "allocationSize", value = "1"),
+        @org.hibernate.annotations.Parameter(name = "initialValue", value = "100000"),
     })
     @GeneratedValue(generator = "sequence", strategy=GenerationType.SEQUENCE)
     @Column(name = "student_id")
@@ -36,6 +38,7 @@ public class Student {
     private String phoneNumber;
 
     @Column(name = "date_of_birth",nullable = false)
+    @Temporal(value = TemporalType.DATE)
     private Date dateOfBirth;
 
     @Column(name = "address1",nullable = false)
@@ -65,7 +68,13 @@ public class Student {
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name="enrolled_student",
                 joinColumns = {@JoinColumn(name="student_id")},
-                inverseJoinColumns = {@JoinColumn(name="section_id")})
+                inverseJoinColumns = {@JoinColumn(name="section_id")},
+        foreignKey = @ForeignKey(name="FK_student_section"),
+        uniqueConstraints = {
+            @UniqueConstraint(columnNames = {
+                "student_id",
+                "section_id"
+            })})
     private List<Section> sections = Lists.newArrayList();
 
     public Long getId() {
