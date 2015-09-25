@@ -2,24 +2,32 @@ package org.courseregistration.datatests;
 
 import java.util.Scanner;
 
+import javax.persistence.EntityManager;
+
 public class Bootstrap {
 
 	private static String exitCode = "5";
+	protected static EntityManager emf;
 
 	public static void main(String[] args) {
 
-        HibernateUtils.initEntityManager();
-        //This is just for now till we dont have data
-        //DataGenerator.generateData();
-
-        System.out.println();
-		printMenu();
+		System.out.println("Do you want to change connection details[y/n]: ");
 		Scanner scanner = new Scanner(System.in);
+		String line = scanner.nextLine();
+		if (line.equalsIgnoreCase("y")) {
+			DatabaseConnector.changeConnectionValues();
+		}
+
+		HibernateUtils.initEntityManager();
+		// This is just for now till we don't have data
+		// DataGenerator.generateData();
+
+		System.out.println();
+		printMenu();
 		String input = "";
 		while ((input = scanner.nextLine()) != null
-				&& input.trim().length() != 0
-				&& !exitCode.equals(input)) {
-            System.out.println(input);
+				&& input.trim().length() != 0 && !exitCode.equals(input)) {
+			System.out.println(input);
 			switch (input) {
 			case "1":
 				System.out.println();
@@ -46,8 +54,8 @@ public class Bootstrap {
 			printMenu();
 		}
 
-       System.out.println("****EXITING****");
-       HibernateUtils.closeEntityManager();
+		System.out.println("****EXITING****");
+		HibernateUtils.closeEntityManager();
 	}
 
 	private static void printMenu() {
