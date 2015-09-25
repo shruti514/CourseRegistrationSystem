@@ -3,43 +3,42 @@ package org.courseregistration.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Entity
 @Table(name="course_details")
 public class Course {
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @SequenceGenerator(name="sequence", sequenceName="sequence", allocationSize=1, initialValue=100000)
+    @GeneratedValue(generator = "sequence", strategy=GenerationType.SEQUENCE)
     @Column(name="course_id")
-    private UUID id;
+    private Long id;
 
-    @Column(name="code")
+    @Column(name="code",nullable = false)
     private String code;
 
-    @Column(name="name")
+    @Column(name="name",nullable = false)
     private String name ;
 
     @Column(name="description")
     private String description;
 
-    @Column(name="no_of_credits")
+    @Column(name="no_of_credits", nullable = false)
     private Integer numOfCredits;
 
     @Column(name="pre_requisite_course")
     private String prerequisiteCourse;
 
-    @Column(name="department")
+    @Column(name="department",nullable = false)
     private String department;
 
-    @Column(name="program")
+    @Column(name="program",nullable = false)
     private String program;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

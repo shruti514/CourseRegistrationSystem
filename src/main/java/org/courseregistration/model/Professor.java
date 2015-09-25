@@ -12,66 +12,67 @@ import java.util.UUID;
 public class Professor {
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @SequenceGenerator(name="sequence", sequenceName="sequence", allocationSize=1, initialValue=100000)
+    @GeneratedValue(generator = "sequence", strategy=GenerationType.SEQUENCE)
     @Column(name = "professor_id")
-    private UUID id;
+    private Long id;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name",nullable = false)
     private String firstName;
 
     @Column(name = "middle_name")
     private String middleName;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name",nullable = false)
     private String lastName;
 
-    @Column(name = "email_id")
+    @Column(name = "email_id",nullable = false)
     private String emailId;
 
-    @Column(name = "phone_number")
+    @Column(name = "phone_number",nullable = false)
     private String phoneNumber;
 
-    @Column(name = "date_of_birth")
+    @Column(name = "date_of_birth",nullable = false)
+    @Temporal(value=TemporalType.DATE)
     private Date dateOfBirth;
 
-    @Column(name = "address1")
+    @Column(name = "address1",nullable = false)
     private String address1;
 
     @Column(name = "address2")
     private String address2;
 
-    @Column(name="city")
+    @Column(name="city",nullable = false)
     private String city;
 
-    @Column(name="state")
+    @Column(name="state",nullable = false)
     private String state;
 
-    @Column(name="country")
+    @Column(name="country",nullable = false)
     private String country;
 
-    @Column(name = "zip_code")
+    @Column(name = "zip_code",nullable = false)
     private String zipCode;
 
-    @Column(name="faculty_type")
+    @Column(name="faculty_type",nullable = false)
     private String facultyType;
 
-    @Column(name="years_of_experience")
+    @Column(name="years_of_experience",nullable = false)
     private Integer yearsOfExperience;
 
-    @Column(name="office_hours_from_time")
+    @Column(name="office_hours_from_time",nullable = false)
     @Temporal(value= TemporalType.TIME)
     private Date officeHoursFromTime;
 
-    @Column(name="office_hours_to_time")
+    @Column(name="office_hours_to_time",nullable = false)
     @Temporal(value= TemporalType.TIME)
     private Date officeHoursToTime;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

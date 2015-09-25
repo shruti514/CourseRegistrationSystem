@@ -142,8 +142,8 @@ public class DatabaseConnector {
 		properties.put("javax.persistence.jdbc.user", username);
 		properties.put("javax.persistence.jdbc.password", password);
 		try {
-			emf = Persistence.createEntityManagerFactory("dynamicJPA",
-					properties);
+			emf = Persistence.createEntityManagerFactory(
+					"student_registration_system", properties);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

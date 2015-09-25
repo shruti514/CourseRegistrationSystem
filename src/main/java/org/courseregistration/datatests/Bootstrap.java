@@ -10,8 +10,16 @@ public class Bootstrap {
 	protected static EntityManager emf;
 
 	public static void main(String[] args) {
-
 		System.out.println("Do you want to change connection details[y/n]: ");
+		// If error comment below line
+		// HibernateUtils.initEntityManager();
+
+		// If error comment below line
+		// This is just for now till we dont have data
+		// DataGenerator.generateData();
+
+		System.out.println();
+		printMenu();
 		Scanner scanner = new Scanner(System.in);
 		String line = scanner.nextLine();
 		if (line.equalsIgnoreCase("y")) {
@@ -54,7 +62,7 @@ public class Bootstrap {
 			printMenu();
 		}
 
-		System.out.println("****EXITING****");
+		// If error comment below line
 		HibernateUtils.closeEntityManager();
 	}
 

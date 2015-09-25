@@ -6,69 +6,67 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name="section_info")
 public class Section {
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @SequenceGenerator(name="sequence", sequenceName="sequence", allocationSize=1, initialValue=100000)
+    @GeneratedValue(generator = "sequence", strategy=GenerationType.SEQUENCE)
     @Column(name = "section_id")
-    private UUID id;
+    private Long id;
 
     @OneToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE},fetch = FetchType.LAZY)
-    @JoinColumn(name = "professor_id")
+    @JoinColumn(name = "professor_id", foreignKey=@ForeignKey(name="FK_section_professor"))
     private Professor professor;
 
     @OneToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE},fetch = FetchType.LAZY)
-    @JoinColumn(name = "course_id")
+    @JoinColumn(name = "course_id", foreignKey=@ForeignKey(name="FK_section_course"))
     private Course course;
 
-    @Column(name = "semester")
+    @Column(name = "semester",nullable = false)
     private String semester;
 
-    @Column(name = "class_start_time")
+    @Column(name = "class_start_time",nullable = false)
     @Temporal(value=TemporalType.TIME)
     private Date classStartTime;
 
-    @Column(name = "class_end_time")
+    @Column(name = "class_end_time",nullable = false)
     @Temporal(value=TemporalType.TIME)
     private Date classEndTime;
 
-    @Column(name="day_of_week")
+    @Column(name="day_of_week",nullable = false)
     private String dayOfWeek;
 
-    @Column(name="class_start_date")
+    @Column(name="class_start_date",nullable = false)
+    @Temporal(value=TemporalType.DATE)
     private Date startDate;
 
-    @Column(name = "class_end_date")
+    @Column(name = "class_end_date",nullable = false)
+    @Temporal(value=TemporalType.DATE)
     private Date endDate;
 
-    @Column(name = "room_number")
+    @Column(name = "room_number",nullable = false)
     private String roomNumber;
 
-    @Column(name = "total_capacity")
+    @Column(name = "total_capacity",nullable = false)
     private Integer totalCapacity;
 
-    @Column(name="wait_list")
-    private Integer waitList;
-
-    @Column(name="wait_list_capacity")
+    @Column(name="wait_list_capacity",nullable = false)
     private Integer waitListCapacity;
 
-    @Column(name="mode_of_instruction")
+    @Column(name="mode_of_instruction",nullable = false)
     private String modeOfInstruction;
 
     @ManyToMany(mappedBy = "sections")
     private List<Student> students;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -150,14 +148,6 @@ public class Section {
 
     public void setTotalCapacity(Integer totalCapacity) {
         this.totalCapacity = totalCapacity;
-    }
-
-    public Integer getWaitList() {
-        return waitList;
-    }
-
-    public void setWaitList(Integer waitList) {
-        this.waitList = waitList;
     }
 
     public Integer getWaitListCapacity() {
