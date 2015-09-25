@@ -1,5 +1,8 @@
 package org.courseregistration.datatests;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -10,8 +13,8 @@ public class HibernateUtils {
 
 	public static void initEntityManager() {
 		if (entityManager == null) {
-			entityManagerFactory = Persistence
-					.createEntityManagerFactory("student_registration_system");
+			entityManagerFactory = Persistence.createEntityManagerFactory(
+					"student_registration_system", createProperties());
 			entityManager = entityManagerFactory.createEntityManager();
 		}
 
@@ -38,6 +41,18 @@ public class HibernateUtils {
 
 	public static void setEntityManager(EntityManager emf) {
 		entityManager = emf;
+	}
+
+	private static Map<String, String> createProperties() {
+
+		Map<String, String> properties = new HashMap<String, String>();
+		properties.put("javax.persistence.jdbc.driver",
+				DatabaseConnector.JDBC_DRIVER);
+		properties.put("javax.persistence.jdbc.url", DatabaseConnector.DB_URL);
+		properties.put("javax.persistence.jdbc.user", DatabaseConnector.USER);
+		properties.put("javax.persistence.jdbc.password",
+				DatabaseConnector.PASS);
+		return properties;
 	}
 
 }

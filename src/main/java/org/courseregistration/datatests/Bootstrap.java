@@ -10,29 +10,16 @@ public class Bootstrap {
 	protected static EntityManager emf;
 
 	public static void main(String[] args) {
-		System.out.println("Do you want to change connection details[y/n]: ");
 		// If error comment below line
-		// HibernateUtils.initEntityManager();
+		HibernateUtils.initEntityManager();
 
-		// If error comment below line
 		// This is just for now till we dont have data
 		// DataGenerator.generateData();
 
+		String input = "";
 		System.out.println();
 		printMenu();
 		Scanner scanner = new Scanner(System.in);
-		String line = scanner.nextLine();
-		if (line.equalsIgnoreCase("y")) {
-			DatabaseConnector.changeConnectionValues();
-		}
-
-		HibernateUtils.initEntityManager();
-		// This is just for now till we don't have data
-		// DataGenerator.generateData();
-
-		System.out.println();
-		printMenu();
-		String input = "";
 		while ((input = scanner.nextLine()) != null
 				&& input.trim().length() != 0 && !exitCode.equals(input)) {
 			System.out.println(input);

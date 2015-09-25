@@ -6,12 +6,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 /*
  * This is a singleton class to return connection object
@@ -119,34 +113,5 @@ public class DatabaseConnector {
 			// TODO: handle exception
 		}
 
-	}
-
-	public static void changeConnectionValues() {
-
-		getUserAndPWD();
-		getIPOfServer();
-		getServerPort();
-
-		HibernateUtils.setEntityManager(getEntityManager(JDBC_DRIVER, DB_URL,
-				USER, PASS));
-	}
-
-	protected static EntityManager getEntityManager(String driver, String url,
-			String username, String password) {
-		EntityManagerFactory emf = null;
-		EntityManager em = null;
-
-		Map properties = new HashMap();
-		properties.put("javax.persistence.jdbc.driver", driver);
-		properties.put("javax.persistence.jdbc.url", url);
-		properties.put("javax.persistence.jdbc.user", username);
-		properties.put("javax.persistence.jdbc.password", password);
-		try {
-			emf = Persistence.createEntityManagerFactory(
-					"student_registration_system", properties);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return em = (EntityManager) emf.createEntityManager();
 	}
 }
