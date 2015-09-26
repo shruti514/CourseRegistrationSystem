@@ -27,25 +27,14 @@ public class HibernateUtils {
 		return entityManager;
 	}
 
-	public static EntityManagerFactory getEntityManagerFactory() {
-		if (entityManagerFactory == null) {
-			HibernateUtils.initEntityManager();
-		}
-		return entityManagerFactory;
-	}
-
 	public static void closeEntityManager() {
 		entityManager.close();
 		entityManagerFactory.close();
 	}
 
-	public static void setEntityManager(EntityManager emf) {
-		entityManager = emf;
-	}
-
 	private static Map<String, String> createProperties() {
 
-		Map<String, String> properties = new HashMap<String, String>();
+		Map<String, String> properties = new HashMap<>();
 		properties.put("javax.persistence.jdbc.driver",
 				DatabaseConnector.JDBC_DRIVER);
 		properties.put("javax.persistence.jdbc.url", DatabaseConnector.DB_URL);

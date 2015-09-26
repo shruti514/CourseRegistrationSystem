@@ -14,7 +14,7 @@ public class Bootstrap {
 		HibernateUtils.initEntityManager();
 
 		// This is just for now till we dont have data
-		// DataGenerator.generateData();
+		DataGenerator.generateData();
 
 		String input = "";
 		System.out.println();
@@ -41,7 +41,7 @@ public class Bootstrap {
 
 			case "4":
 				DatabaseConnector dbConnector = new DatabaseConnector();
-				dbConnector.getAllTables();
+				//dbConnector.getAllTables();
 				break;
 			}
 
