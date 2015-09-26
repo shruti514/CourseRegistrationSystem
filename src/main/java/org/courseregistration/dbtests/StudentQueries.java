@@ -1,10 +1,10 @@
-package org.courseregistration.datatests;
+package org.courseregistration.dbtests;
 
 import dnl.utils.text.table.TextTable;
 import org.courseregistration.model.Course;
 import org.courseregistration.model.Section;
-import org.courseregistration.repositories.CourseRepository;
-import org.courseregistration.repositories.SectionRespository;
+import org.courseregistration.dao.CourseDAO;
+import org.courseregistration.dao.SectionDAO;
 
 import java.util.List;
 import java.util.Scanner;
@@ -34,24 +34,12 @@ public class StudentQueries {
 
 			switch (input) {
                 case "1": // Search for Course
-                    SectionRespository sectionRespository = new SectionRespository();
-                    List<Section> searchedCourses = sectionRespository.findCourseBy();
 
-                    String [] columnsToPrint_1 = {"section_id","course_id","course_code"};
-                    Object[][] dataToPrint_1 = new Object[searchedCourses.size()][3];
-                    for(int i=0;i<searchedCourses.size();i=i+1){
-                        Section section = searchedCourses.get(i);
-                        dataToPrint_1[i][0] = section.getId();
-                        dataToPrint_1[i][1] = section.getCourse().getId();
-                        dataToPrint_1[i][2] = section.getCourse().getCode();
-                    }
-
-                    this.printTable(columnsToPrint_1,dataToPrint_1);
 
                     break;
                 case "2"://List available courses
-                    CourseRepository courseRepository = new CourseRepository();
-                    List<Course> courses = courseRepository.findAllCourses();
+                    CourseDAO courseDAO = new CourseDAO(HibernateUtils.getEntityManager());
+                    List<Course> courses = courseDAO.findAll();
 
                     String [] columnsToPrint_2 = {"course_id","course_code","course_name"};
                     Object[][] dataToPrint_2 = new Object[courses.size()][3];

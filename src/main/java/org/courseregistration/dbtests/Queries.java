@@ -1,4 +1,4 @@
-package org.courseregistration.datatests;
+package org.courseregistration.dbtests;
 
 
 import dnl.utils.text.table.TextTable;

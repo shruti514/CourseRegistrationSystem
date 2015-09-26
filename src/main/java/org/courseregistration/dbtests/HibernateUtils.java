@@ -1,4 +1,4 @@
-package org.courseregistration.datatests;
+package org.courseregistration.dbtests;
 
 import java.util.HashMap;
 import java.util.Map;
