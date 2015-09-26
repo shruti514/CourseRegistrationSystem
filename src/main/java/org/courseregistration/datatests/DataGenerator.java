@@ -74,47 +74,28 @@ public class DataGenerator {
 
         student3.setEmailId("sarah@gmail.com");
         student3.setPhoneNumber("+1 508 664 7260");
-        student3.setPreviousDegree("BE");
+        student3.setPreviousDegree("Bachelor of commerce");
         //==========================================
         Student student4 = new Student();
-        student4.setFirstName("John");
-        student4.setMiddleName("R.");
-        student4.setLastName("Edward");
-        student4.setAddress1("201 W California Ave");
+        student4.setFirstName("Alan");
+        student4.setMiddleName("V.");
+        student4.setLastName("Simon");
+        student4.setAddress1("4356 Waterford Ave");
         student4.setAddress2("");
-        student4.setCity("Sunnyvale");
+        student4.setCity("San Diego");
         student4.setState("CA");
         student4.setCountry("USA");
-        student4.setZipCode("94086");
-        student4.setAdmissionType("Accepted");
+        student4.setZipCode("45632");
+        student4.setAdmissionType("Rejected");
 
         Calendar calendar4 = Calendar.getInstance();
-        calendar4.set(1988,Calendar.FEBRUARY,5);
+        calendar4.set(1983,Calendar.SEPTEMBER,5);
         student4.setDateOfBirth(calendar1.getTime());
 
-        student4.setEmailId("John@gmail.com");
-        student4.setPhoneNumber("+1 408 386 7260");
-        student4.setPreviousDegree("Bsc Comp Science");
+        student4.setEmailId("V.Alan@gmail.com");
+        student4.setPhoneNumber("+1 407 654 8760");
+        student4.setPreviousDegree("Bachelor of Arts");
 
-        //==========================================
-        Course course = new Course();
-        course.setCode("CMPE-272");
-        course.setName("Enterprise Software Platforms");
-        course.setDepartment("Engineering");
-        course.setDescription("Some Course Description");
-        course.setNumOfCredits(3);
-        course.setPrerequisiteCourse("Operating systems");
-        course.setProgram("Graduate");
-
-
-        Course course2 = new Course();
-        course2.setCode("CMPE-283");
-        course2.setName("Virtualization Technology");
-        course2.setDepartment("Engineering");
-        course2.setDescription("Some Course Description");
-        course2.setNumOfCredits(3);
-        course2.setPrerequisiteCourse("NONE");
-        course2.setProgram("Graduate");
         //==========================================
 
         Professor professor1 = new Professor();
@@ -132,20 +113,187 @@ public class DataGenerator {
         professor1.setYearsOfExperience(12);
 
         Calendar prof_calendar1 = Calendar.getInstance();
-        prof_calendar1.set(1986,Calendar.AUGUST,7);
+        prof_calendar1.set(1986, Calendar.AUGUST, 7);
         professor1.setDateOfBirth(prof_calendar1.getTime());
 
         professor1.setEmailId("alice@gmail.com");
         professor1.setPhoneNumber("+1 408 376 7860");
 
         Calendar prof1_calendar1 = Calendar.getInstance();
-        prof1_calendar1.set(0,Calendar.JULY,0,10,0);
+        prof1_calendar1.set(0, Calendar.JULY, 0, 10, 0);
         professor1.setOfficeHoursFromTime(prof1_calendar1.getTime());
 
         Calendar prof1_calendar2 = Calendar.getInstance();
-        prof1_calendar2.set(0,Calendar.MAY,0,17,0);
+        prof1_calendar2.set(0, Calendar.MAY, 0, 17, 0);
         professor1.setOfficeHoursToTime(prof1_calendar2.getTime());
+
+        Professor professor2 = new Professor();
+
+        professor2.setFirstName("Alice");
+        professor2.setMiddleName("W.");
+        professor2.setLastName("Campbell");
+        professor2.setAddress1("65 Rio Robles E");
+        professor2.setAddress2("");
+        professor2.setCity("San Jose");
+        professor2.setState("CA");
+        professor2.setCountry("USA");
+        professor2.setZipCode("95134");
+        professor2.setFacultyType("Permanant");
+        professor2.setYearsOfExperience(12);
+
+        Calendar prof_calendar2 = Calendar.getInstance();
+        prof_calendar2.set(1986, Calendar.AUGUST, 7);
+        professor2.setDateOfBirth(prof_calendar2.getTime());
+
+        professor2.setEmailId("alice@gmail.com");
+        professor2.setPhoneNumber("+1 408 376 7860");
+
+        Calendar prof2_calendar1= Calendar.getInstance();
+        prof2_calendar1.set(0, Calendar.JULY, 0, 10, 0);
+        professor1.setOfficeHoursFromTime(prof2_calendar1.getTime());
+
+        Calendar prof2_calendar2 = Calendar.getInstance();
+        prof2_calendar2.set(0, Calendar.MAY, 0, 17, 0);
+        professor2.setOfficeHoursToTime(prof2_calendar2.getTime());
+
+        Professor professor3 = new Professor();
+
+        professor3.setFirstName("Alice");
+        professor3.setMiddleName("W.");
+        professor3.setLastName("Campbell");
+        professor3.setAddress1("65 Rio Robles E");
+        professor3.setAddress2("");
+        professor3.setCity("San Jose");
+        professor3.setState("CA");
+        professor3.setCountry("USA");
+        professor3.setZipCode("95134");
+        professor3.setFacultyType("Permanant");
+        professor3.setYearsOfExperience(12);
+
+        Calendar prof_calendar3 = Calendar.getInstance();
+        prof_calendar3.set(1986, Calendar.AUGUST, 7);
+        professor3.setDateOfBirth(prof_calendar3.getTime());
+
+        professor3.setEmailId("alice@gmail.com");
+        professor3.setPhoneNumber("+1 408 376 7860");
+
+        Calendar prof3_calendar1 = Calendar.getInstance();
+        prof3_calendar1.set(0, Calendar.JULY, 0, 10, 0);
+        professor3.setOfficeHoursFromTime(prof3_calendar1.getTime());
+
+        Calendar prof3_calendar2 = Calendar.getInstance();
+        prof3_calendar2.set(0, Calendar.MAY, 0, 17, 0);
+        professor1.setOfficeHoursToTime(prof3_calendar2.getTime());
+
+        Professor professor4 = new Professor();
+
+        professor4.setFirstName("Alice");
+        professor4.setMiddleName("W.");
+        professor4.setLastName("Campbell");
+        professor4.setAddress1("65 Rio Robles E");
+        professor4.setAddress2("");
+        professor4.setCity("San Jose");
+        professor4.setState("CA");
+        professor4.setCountry("USA");
+        professor4.setZipCode("95134");
+        professor4.setFacultyType("Permanant");
+        professor4.setYearsOfExperience(12);
+
+        Calendar prof_calendar4 = Calendar.getInstance();
+        prof_calendar4.set(1986, Calendar.AUGUST, 7);
+        professor4.setDateOfBirth(prof_calendar4.getTime());
+
+        professor4.setEmailId("alice@gmail.com");
+        professor4.setPhoneNumber("+1 408 376 7860");
+
+        Calendar prof4_calendar1 = Calendar.getInstance();
+        prof4_calendar1.set(0, Calendar.JULY, 0, 10, 0);
+        professor4.setOfficeHoursFromTime(prof4_calendar1.getTime());
+
+        Calendar prof4_calendar2 = Calendar.getInstance();
+        prof4_calendar2.set(0, Calendar.MAY, 0, 17, 0);
+        professor4.setOfficeHoursToTime(prof4_calendar2.getTime());
+
+        Professor professor5 = new Professor();
+
+        professor5.setFirstName("Alice");
+        professor5.setMiddleName("W.");
+        professor5.setLastName("Campbell");
+        professor5.setAddress1("65 Rio Robles E");
+        professor5.setAddress2("");
+        professor5.setCity("San Jose");
+        professor5.setState("CA");
+        professor5.setCountry("USA");
+        professor5.setZipCode("95134");
+        professor5.setFacultyType("Permanant");
+        professor5.setYearsOfExperience(12);
+
+        Calendar prof_calendar5 = Calendar.getInstance();
+        prof_calendar5.set(1986, Calendar.AUGUST, 7);
+        professor5.setDateOfBirth(prof_calendar5.getTime());
+
+        professor5.setEmailId("alice@gmail.com");
+        professor5.setPhoneNumber("+1 408 376 7860");
+
+        Calendar prof5_calendar1 = Calendar.getInstance();
+        prof5_calendar1.set(0, Calendar.JULY, 0, 10, 0);
+        professor5.setOfficeHoursFromTime(prof5_calendar1.getTime());
+
+        Calendar prof5_calendar2 = Calendar.getInstance();
+        prof5_calendar2.set(0, Calendar.MAY, 0, 17, 0);
+        professor5.setOfficeHoursToTime(prof5_calendar2.getTime());
     //===================================================================
+        Course  course1=new Course();
+
+        course1.setCode("");
+        course1.setName("");
+        course1.setDescription("");
+        course1.setDepartment("");
+        course1.setNumOfCredits(9);
+        course1.setPrerequisiteCourse("");
+        course1.setProgram("");
+
+        Course  course2=new Course();
+
+        course2.setCode("");
+        course2.setName("");
+        course2.setDescription("");
+        course2.setDepartment("");
+        course2.setNumOfCredits(9);
+        course2.setPrerequisiteCourse("");
+        course2.setProgram("");
+
+        Course  course3=new Course();
+
+        course3.setCode("");
+        course3.setName("");
+        course3.setDescription("");
+        course3.setDepartment("");
+        course3.setNumOfCredits(9);
+        course3.setPrerequisiteCourse("");
+        course3.setProgram("");
+
+        Course  course4=new Course();
+
+        course4.setCode("");
+        course4.setName("");
+        course4.setDescription("");
+        course4.setDepartment("");
+        course4.setNumOfCredits(9);
+        course4.setPrerequisiteCourse("");
+        course4.setProgram("");
+
+        Course  course5=new Course();
+
+        course5.setCode("");
+        course5.setName("");
+        course5.setDescription("");
+        course5.setDepartment("");
+        course5.setNumOfCredits(9);
+        course5.setPrerequisiteCourse("");
+        course5.setProgram("");
+
+        //===================================================================
 
         Section section1 = new Section();
 
@@ -174,11 +322,11 @@ public class DataGenerator {
 
 
         section1.setProfessor(professor1);
-        section1.setCourse(course);
+        section1.setCourse(course1);
 
 
         entityManager.getTransaction().begin();
-        entityManager.persist(course2);
+        entityManager.persist(course1);
         entityManager.persist(student2);
         entityManager.persist(professor1);
 
