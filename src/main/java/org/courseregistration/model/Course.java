@@ -3,15 +3,17 @@ package org.courseregistration.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.UUID;
 
 @Entity
 @Table(name="course_details")
-public class Course {
+public class Course implements Serializable{
     @Id
-    @SequenceGenerator(name="sequence", sequenceName="sequence", allocationSize=1, initialValue=100000)
-    @GeneratedValue(generator = "sequence", strategy=GenerationType.SEQUENCE)
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name="course_id")
-    private Long id;
+    private UUID id;
 
     @Column(name="code",nullable = false)
     private String code;
@@ -34,11 +36,11 @@ public class Course {
     @Column(name="program",nullable = false)
     private String program;
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

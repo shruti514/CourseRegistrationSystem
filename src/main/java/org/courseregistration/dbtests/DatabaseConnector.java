@@ -1,4 +1,4 @@
-package org.courseregistration.datatests;
+package org.courseregistration.dbtests;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
