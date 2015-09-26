@@ -536,7 +536,9 @@ public class DataGenerator {
         entityManager.persist(student7);
 
         student1.addSection(section1);
+
       //  entityManager.persist(student1);
+
         entityManager.getTransaction().commit();
 
         Student result= entityManager.find(Student.class, student1.getId());
