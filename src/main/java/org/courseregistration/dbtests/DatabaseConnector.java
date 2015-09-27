@@ -13,6 +13,7 @@ public class DatabaseConnector {
 	// static String DBNAME = "student_registration_database";
 
 	static String PORT = "3306";
+	// static String PORT = "3307";
 
 	static final String DB_URL = "jdbc:mysql://" + IPADRESS + ":" + PORT + "/"
 			+ DBNAME;
@@ -22,5 +23,6 @@ public class DatabaseConnector {
 	static String USER = "root";
 
 	static String PASS = "";
+	// static String PASS = "root";
 
 }
