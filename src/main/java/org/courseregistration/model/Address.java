@@ -1,36 +1,27 @@
 package org.courseregistration.model;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.UUID;
 
-/**
- * Created by Shital on 9/27/2015.
- */
 
 @Entity
 @Table(name = "address")
-@PrimaryKeyJoinColumn(name = "user_id")
 public class Address implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @SequenceGenerator(name="sequence", sequenceName="sequence", allocationSize=1, initialValue=100000)
+    @GeneratedValue(generator = "sequence", strategy=GenerationType.SEQUENCE)
     @Column(name = "address_id")
-    private UUID id;
-
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "address")
+    private Long id;
 
     @Column(name = "street_name", nullable = false)
-    private String street_name;
+    private String streetName;
 
     @Column(name = "apt_no", nullable = false)
-    private Integer apt_no;
+    private Integer aptNo;
 
     @Column(name="zip_code", nullable = false)
-    private Integer zip_code;
+    private Integer zipcode;
 
     @Column(name = "city", nullable = false)
     private String city;
@@ -38,36 +29,66 @@ public class Address implements Serializable {
     @Column(name = "state", nullable = false)
     private String state;
 
-    public UUID getId() {return id;}
-    public void setId(UUID id) {this.id = id;}
-
-    public String getStreetName() {return street_name;}
-    public void setStreetName(String street_name) {
-        this.street_name= street_name;
+    public Long getId() {
+        return id;
     }
 
-    public Integer getAptNo(){return apt_no;}
-    public void setAptNo(Integer apt_no){this.apt_no=apt_no;}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Integer getZipCode(){return zip_code;}
-    public void setZipCode(Integer zip_code){this.zip_code=zip_code;}
+    public String getStreetName() {
+        return streetName;
+    }
 
-    public String setCity(){return city;}
-    public void setCity(String city){this.city=city;}
+    public void setStreetName(String streetName) {
+        this.streetName = streetName;
+    }
 
-    public String setState(){return state;}
-    public void setState(String state){this.state=state;}
+    public Integer getAptNo() {
+        return aptNo;
+    }
+
+    public void setAptNo(Integer aptNo) {
+        this.aptNo = aptNo;
+    }
+
+    public Integer getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(Integer zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Address)) return false;
 
         Address address = (Address) o;
 
-        if (!street_name.equals(address.street_name)) return false;
-        if (!apt_no.equals(address.apt_no)) return false;
-        if (!zip_code.equals(address.zip_code)) return false;
+        if (!id.equals(address.id)) return false;
+        if (!streetName.equals(address.streetName)) return false;
+        if (aptNo != null ? !aptNo.equals(address.aptNo) : address.aptNo != null) return false;
+        if (!zipcode.equals(address.zipcode)) return false;
         if (!city.equals(address.city)) return false;
         return state.equals(address.state);
 
@@ -75,9 +96,10 @@ public class Address implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = street_name.hashCode();
-        result = 31 * result + apt_no.hashCode();
-        result = 31 * result + zip_code.hashCode();
+        int result = id.hashCode();
+        result = 31 * result + streetName.hashCode();
+        result = 31 * result + (aptNo != null ? aptNo.hashCode() : 0);
+        result = 31 * result + zipcode.hashCode();
         result = 31 * result + city.hashCode();
         result = 31 * result + state.hashCode();
         return result;

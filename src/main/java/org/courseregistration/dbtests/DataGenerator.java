@@ -28,7 +28,7 @@ public class DataGenerator {
         student1Address.setAptNo(86);
         student1Address.setCity("Sunnyvale");
         student1Address.setState("CA");
-        student1Address.setZipCode(94086);
+        student1Address.setZipcode(94086);
 
         student1.setAddress(student1Address);
         student1.setAdmissionType("Accepted");
@@ -52,7 +52,7 @@ public class DataGenerator {
         student2Address.setAptNo(1028);
         student2Address.setCity("San Jose");
         student2Address.setState("CA");
-        student2Address.setZipCode(95134);
+        student2Address.setZipcode(95134);
 
         student2.setAddress(student2Address);
         student2.setAdmissionType("Accepted - Conditionally");
@@ -76,7 +76,7 @@ public class DataGenerator {
         student3Address.setAptNo(456);
         student3Address.setCity("Fremont");
         student3Address.setState("CA");
-        student3Address.setZipCode(94536);
+        student3Address.setZipcode(94536);
 
         student3.setAddress(student3Address);
         student3.setAdmissionType("Accepted");
@@ -100,7 +100,7 @@ public class DataGenerator {
         student4Address.setAptNo(15);
         student4Address.setCity("San Diego");
         student4Address.setState("CA");
-        student4Address.setZipCode(45632);
+        student4Address.setZipcode(45632);
 
         student4.setAddress(student4Address);
         student4.setAdmissionType("Rejected");
@@ -125,7 +125,7 @@ public class DataGenerator {
         student5Address.setAptNo(653);
         student5Address.setCity("San Jose");
         student5Address.setState("CA");
-        student5Address.setZipCode(95112);
+        student5Address.setZipcode(95112);
 
         student5.setAddress(student5Address);
         student5.setAdmissionType("Waiting");
@@ -150,7 +150,7 @@ public class DataGenerator {
         student6Address.setAptNo(71);
         student6Address.setCity("Richmond");
         student6Address.setState("CA");
-        student6Address.setZipCode(23225);
+        student6Address.setZipcode(23225);
 
         student6.setAddress(student6Address);
         student6.setAdmissionType("Classified-Graduate");
@@ -174,7 +174,7 @@ public class DataGenerator {
         student7Address.setAptNo(724);
         student7Address.setCity("Los Angeles");
         student7Address.setState("CA");
-        student7Address.setZipCode(90055);
+        student7Address.setZipcode(90055);
 
         student7.setAddress(student7Address);
         student7.setAdmissionType("Classified-Graduate");
@@ -200,7 +200,7 @@ public class DataGenerator {
         professor1Address.setAptNo(90);
         professor1Address.setCity("San Jose");
         professor1Address.setState("CA");
-        professor1Address.setZipCode(95134);
+        professor1Address.setZipcode(95134);
 
         professor1.setAddress(professor1Address);
         professor1.setFacultyType("Permanant");
@@ -233,7 +233,7 @@ public class DataGenerator {
         professor2Address.setAptNo(66);
         professor2Address.setCity("Santa Clara");
         professor2Address.setState("CA");
-        professor2Address.setZipCode(95054);
+        professor2Address.setZipcode(95054);
 
         professor2.setAddress(professor2Address);
         professor2.setFacultyType("Permanant");
@@ -266,7 +266,7 @@ public class DataGenerator {
         professor3Address.setAptNo(167);
         professor3Address.setCity("San Francisco");
         professor3Address.setState("CA");
-        professor3Address.setZipCode(78534);
+        professor3Address.setZipcode(78534);
 
         professor3.setAddress(professor3Address);
         professor3.setFacultyType("Permanant");
@@ -299,7 +299,7 @@ public class DataGenerator {
         professor4Address.setAptNo(48);
         professor4Address.setCity("Fremont");
         professor4Address.setState("CA");
-        professor4Address.setZipCode(94536);
+        professor4Address.setZipcode(94536);
 
         professor4.setAddress(professor4Address);
         professor4.setFacultyType("Visiting");
@@ -332,7 +332,7 @@ public class DataGenerator {
         professor5Address.setAptNo(10);
         professor5Address.setCity("Santa Clara");
         professor5Address.setState("CA");
-        professor5Address.setZipCode(95134);
+        professor5Address.setZipcode(95134);
 
         professor5.setAddress(professor5Address);
         professor5.setFacultyType("Permanant");
@@ -364,7 +364,7 @@ public class DataGenerator {
         professor6Address.setAptNo(18);
         professor6Address.setCity("Anchorage");
         professor6Address.setState("Alaska");
-        professor6Address.setZipCode(99522);
+        professor6Address.setZipcode(99522);
 
         professor6.setAddress(professor6Address);
         professor6.setFacultyType("Full-Time");
