@@ -122,7 +122,7 @@ public class SectionDAOTest extends BaseTest {
 
         Section sectionFromDB = entityManager.find(Section.class,section.getId());
 
-        //entityManager.createNativeQuery("select * from enrolled_student s where s.student_id=".getId()).executeUpdate();
+        entityManager.createNativeQuery("select * from enrolled_student s where s.student_id="+student.getId()).executeUpdate();
 
         assertNull(sectionFromDB);
 
