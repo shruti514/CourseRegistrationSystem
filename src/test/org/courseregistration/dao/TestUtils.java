@@ -1,10 +1,7 @@
 package org.courseregistration.dao;
 
 import com.google.common.math.LongMath;
-import org.courseregistration.model.Course;
-import org.courseregistration.model.Professor;
-import org.courseregistration.model.Section;
-import org.courseregistration.model.Student;
+import org.courseregistration.model.*;
 
 import java.util.Calendar;
 
@@ -37,18 +34,24 @@ public class TestUtils {
         return section;
     }
 
+    public static Address  createAddress(){
+        Address address = new Address();
+        address.setState("CA");
+        address.setAptNo(23);
+        address.setCity("San Jose");
+        address.setStreetName("Street name");
+        address.setZipcode(49982);
+
+        return address;
+    }
+
     public static Student createStudent(long collegeId, String name) {
         Student student1 = new Student();
         student1.setCollegeId(collegeId);
         student1.setFirstName(name);
         student1.setMiddleName("R.");
         student1.setLastName("Edward");
-        student1.setAddress1("201 W California Ave");
-        student1.setAddress2("");
-        student1.setCity("Sunnyvale");
-        student1.setState("CA");
-        student1.setCountry("USA");
-        student1.setZipCode("94086");
+        student1.setAddress(createAddress());
         student1.setAdmissionType("Accepted");
 
         Calendar calendar1 = Calendar.getInstance();
@@ -68,12 +71,7 @@ public class TestUtils {
         professor.setMiddleName("W.");
         professor.setCollegeId(collegeId);
         professor.setLastName("Campbell");
-        professor.setAddress1("65 Rio Robles E");
-        professor.setAddress2("");
-        professor.setCity("San Jose");
-        professor.setState("CA");
-        professor.setCountry("USA");
-        professor.setZipCode("95134");
+        professor.setAddress(createAddress());
         professor.setFacultyType("Permanant");
         professor.setYearsOfExperience(12);
 

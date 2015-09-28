@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import org.courseregistration.model.Course;
 import org.courseregistration.model.Professor;
 import org.courseregistration.model.Section;
+import org.courseregistration.model.Student;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
@@ -94,4 +95,37 @@ public class SectionDAOTest extends BaseTest {
         assertEquals(courseFromDB,course);
         assertNull(sectionFromDB);
     }
+
+    //removing a section does not affect Student associated
+    @Test
+    public void test_referential_integrity_deleting_a_section_should_not_affect_student(){
+        Professor professor = TestUtils.createProfessor(13298L,"Prof.Tom");
+        Course course = TestUtils.createCourse("CMPE-789","Databases");
+        Student student = TestUtils.createStudent(4342L,"student");
+
+        Section section = TestUtils.createSection(professor,course);
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(section);
+        student.addSection(section);
+        entityManager.persist(student);
+        entityManager.flush();
+        entityManager.clear();
+        entityManager.getTransaction().commit();
+
+        Student fromDb = entityManager.find(Student.class, student.getId());
+        assertEquals(1,fromDb.getSections().size());
+        assertEquals(fromDb,student);
+
+        sectionDAO.delete(section.getId());
+
+
+        Section sectionFromDB = entityManager.find(Section.class,section.getId());
+
+        //entityManager.createNativeQuery("select * from enrolled_student s where s.student_id=".getId()).executeUpdate();
+
+        assertNull(sectionFromDB);
+
+    }
+
 }
