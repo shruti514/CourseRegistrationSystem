@@ -53,7 +53,6 @@ public class DataGenerator {
         student2Address.setCity("San Jose");
         student2Address.setState("CA");
         student2Address.setZipcode(95134);
-
         student2.setAddress(student2Address);
         student2.setAdmissionType("Accepted - Conditionally");
 
@@ -172,7 +171,7 @@ public class DataGenerator {
         Address student7Address = new Address();
         student7Address.setStreetName("86 Sauthoff Junction");
         student7Address.setAptNo(724);
-        student7Address.setCity("Los Angeles");
+        student7Address.setCity("Los Angels");
         student7Address.setState("CA");
         student7Address.setZipcode(90055);
 
@@ -203,7 +202,7 @@ public class DataGenerator {
         professor1Address.setZipcode(95134);
 
         professor1.setAddress(professor1Address);
-        professor1.setFacultyType("Permanant");
+        professor1.setFacultyType("Permanent");
         professor1.setYearsOfExperience(12);
 
         Calendar prof_calendar1 = Calendar.getInstance();
@@ -214,11 +213,11 @@ public class DataGenerator {
         professor1.setPhoneNumber("+1-408-376-7860");
 
         Calendar prof1_calendar1 = Calendar.getInstance();
-        prof1_calendar1.set(0, 0, 10, 10, 0);
+        prof1_calendar1.set(0, 0, 0, 10, 0,0);
         professor1.setOfficeHoursFromTime(prof1_calendar1.getTime());
 
         Calendar prof1_calendar2 = Calendar.getInstance();
-        prof1_calendar2.set(0, 0, 10, 12, 30);
+        prof1_calendar2.set(0, 0, 0, 12, 30,0);
         professor1.setOfficeHoursToTime(prof1_calendar2.getTime());
 
         Professor professor2 = new Professor();
@@ -236,7 +235,7 @@ public class DataGenerator {
         professor2Address.setZipcode(95054);
 
         professor2.setAddress(professor2Address);
-        professor2.setFacultyType("Permanant");
+        professor2.setFacultyType("Permanent");
         professor2.setYearsOfExperience(17);
 
         Calendar prof_calendar2 = Calendar.getInstance();
@@ -247,11 +246,11 @@ public class DataGenerator {
         professor2.setPhoneNumber("+1-503-634-07630");
 
         Calendar prof2_calendar1= Calendar.getInstance();
-        prof2_calendar1.set(0, 0, 15, 8, 45);
+        prof2_calendar1.set(0, 0, 0, 8, 45,0);
         professor2.setOfficeHoursFromTime(prof2_calendar1.getTime());
 
         Calendar prof2_calendar2 = Calendar.getInstance();
-        prof2_calendar2.set(0, 0, 15, 13, 30);
+        prof2_calendar2.set(0, 0, 0, 13, 30,0);
         professor2.setOfficeHoursToTime(prof2_calendar2.getTime());
 
         Professor professor3 = new Professor();
@@ -269,7 +268,7 @@ public class DataGenerator {
         professor3Address.setZipcode(78534);
 
         professor3.setAddress(professor3Address);
-        professor3.setFacultyType("Permanant");
+        professor3.setFacultyType("Permanent");
         professor3.setYearsOfExperience(25);
 
         Calendar prof_calendar3 = Calendar.getInstance();
@@ -280,11 +279,11 @@ public class DataGenerator {
         professor3.setPhoneNumber("+1-408-774-7860");
 
         Calendar prof3_calendar1 = Calendar.getInstance();
-        prof3_calendar1.set(0, 0, 28, 10, 0);
+        prof3_calendar1.set(0, 0, 0, 10, 0,0);
         professor3.setOfficeHoursFromTime(prof3_calendar1.getTime());
 
         Calendar prof3_calendar2 = Calendar.getInstance();
-        prof3_calendar2.set(0, 0, 28, 15, 0);
+        prof3_calendar2.set(0, 0, 0, 15, 0,0);
         professor3.setOfficeHoursToTime(prof3_calendar2.getTime());
 
         Professor professor4 = new Professor();
@@ -313,11 +312,11 @@ public class DataGenerator {
         professor4.setPhoneNumber("+1-564-376-9160");
 
         Calendar prof4_calendar1 = Calendar.getInstance();
-        prof4_calendar1.set(0, 0, 14, 14, 0);
+        prof4_calendar1.set(0, 0, 0, 14, 0,0);
         professor4.setOfficeHoursFromTime(prof4_calendar1.getTime());
 
         Calendar prof4_calendar2 = Calendar.getInstance();
-        prof4_calendar2.set(0, 0, 14, 17, 0);
+        prof4_calendar2.set(0, 0, 0, 17, 0,0);
         professor4.setOfficeHoursToTime(prof4_calendar2.getTime());
 
         Professor professor5 = new Professor();
@@ -335,7 +334,7 @@ public class DataGenerator {
         professor5Address.setZipcode(95134);
 
         professor5.setAddress(professor5Address);
-        professor5.setFacultyType("Permanant");
+        professor5.setFacultyType("Permanent");
         professor5.setYearsOfExperience(9);
 
         Calendar prof_calendar5 = Calendar.getInstance();
@@ -346,11 +345,11 @@ public class DataGenerator {
         professor5.setPhoneNumber("+1-712-354-0062");
 
         Calendar prof5_calendar1 = Calendar.getInstance();
-        prof5_calendar1.set(0, 0, 9, 11, 30);
+        prof5_calendar1.set(0, 0, 0, 11, 30,0);
         professor5.setOfficeHoursFromTime(prof5_calendar1.getTime());
 
         Calendar prof5_calendar2 = Calendar.getInstance();
-        prof5_calendar2.set(0, 0,9,14,30);
+        prof5_calendar2.set(0, 0,0,14,30,0);
         professor5.setOfficeHoursToTime(prof5_calendar2.getTime());
 
         Professor professor6= new Professor();
@@ -378,11 +377,11 @@ public class DataGenerator {
         professor6.setPhoneNumber("1-723-327-1856");
 
         Calendar prof6_calendar1= Calendar.getInstance();
-        prof6_calendar1.set(0,0,12,11,15);
+        prof6_calendar1.set(0,0,0,11,15,0);
         professor6.setOfficeHoursFromTime(prof6_calendar1.getTime());
 
         Calendar prof6_calendar2= Calendar.getInstance();
-        prof6_calendar2.set(0,0,12,15,30);
+        prof6_calendar2.set(0,0,0,15,30,0);
         professor6.setOfficeHoursToTime(prof6_calendar2.getTime());
         //===================================================================
         Course  course1=new Course();
@@ -449,11 +448,11 @@ public class DataGenerator {
         Section section1 = new Section();
 
         Calendar classStartDateTimeSection1 = Calendar.getInstance();
-        classStartDateTimeSection1.set(2015, Calendar.AUGUST, 24,18,0);
+        classStartDateTimeSection1.set(2015, Calendar.AUGUST, 24,18,0,0);
         section1.setClassStartTime(classStartDateTimeSection1.getTime());
 
         Calendar classEndDateTimeSection1 = Calendar.getInstance();
-        classEndDateTimeSection1.set(2015, Calendar.DECEMBER, 12, 20, 45);
+        classEndDateTimeSection1.set(2015, Calendar.DECEMBER, 12, 20, 45,0);
         section1.setClassEndTime(classEndDateTimeSection1.getTime());
 
         section1.setDayOfWeek("Thursday");
@@ -471,11 +470,11 @@ public class DataGenerator {
         Section section2 = new Section();
 
         Calendar classStartDateTime2 = Calendar.getInstance();
-        classStartDateTime2.set(2016, Calendar.JANUARY, 26, 18, 30);
+        classStartDateTime2.set(2016, Calendar.JANUARY, 26, 18, 30,0);
         section2.setClassStartTime(classStartDateTime2.getTime());
 
         Calendar classEndDateTimeSection2 = Calendar.getInstance();
-        classEndDateTimeSection2.set(2016, Calendar.MAY, 5, 20, 30);
+        classEndDateTimeSection2.set(2016, Calendar.MAY, 5, 20, 30,0);
         section2.setClassEndTime(classEndDateTimeSection2.getTime());
 
         section2.setDayOfWeek("Friday");
@@ -493,11 +492,11 @@ public class DataGenerator {
         Section section3 = new Section();
 
         Calendar classStartDateTimeSection3 = Calendar.getInstance();
-        classStartDateTimeSection3.set(2016, Calendar.AUGUST, 21,18,0);
+        classStartDateTimeSection3.set(2016, Calendar.AUGUST, 21,18,0,0);
         section3.setClassStartTime(classStartDateTimeSection1.getTime());
 
         Calendar classEndDateTimeSection3 = Calendar.getInstance();
-        classEndDateTimeSection3.set(2016, Calendar.DECEMBER, 8, 20, 45);
+        classEndDateTimeSection3.set(2016, Calendar.DECEMBER, 8, 20, 45,0);
         section3.setClassEndTime(classEndDateTimeSection3.getTime());
 
         section3.setDayOfWeek("Monday");
@@ -515,11 +514,11 @@ public class DataGenerator {
         Section section4 = new Section();
 
         Calendar classStartDateTimeSection4 = Calendar.getInstance();
-        classStartDateTimeSection4.set(2016, Calendar.JUNE, 4,9,0);
+        classStartDateTimeSection4.set(2016, Calendar.JUNE, 4,9,0,0);
         section4.setClassStartTime(classStartDateTimeSection4.getTime());
 
         Calendar classEndDateTimeSection4 = Calendar.getInstance();
-        classEndDateTimeSection4.set(2016, Calendar.AUGUST, 20, 20, 45);
+        classEndDateTimeSection4.set(2016, Calendar.AUGUST, 20, 20,45,0);
         section4.setClassEndTime(classEndDateTimeSection4.getTime());
 
         section4.setDayOfWeek("Saturday");
@@ -537,11 +536,11 @@ public class DataGenerator {
         Section section5 = new Section();
 
         Calendar classStartDateTimeSection5 = Calendar.getInstance();
-        classStartDateTimeSection5.set(2016, Calendar.JANUARY, 10,17,30);
+        classStartDateTimeSection5.set(2016, Calendar.JANUARY, 10,17,30,0);
         section5.setClassStartTime(classStartDateTimeSection5.getTime());
 
         Calendar classEndDateTimeSection5 = Calendar.getInstance();
-        classEndDateTimeSection5.set(2016, Calendar.MAY, 26, 20, 15);
+        classEndDateTimeSection5.set(2016, Calendar.MAY, 26, 20, 15,0);
         section5.setClassEndTime(classEndDateTimeSection5.getTime());
 
         section5.setDayOfWeek("Wednesday");
@@ -556,12 +555,15 @@ public class DataGenerator {
         section5.setCourse(course5);
         section5.setProfessor(professor5);
         //--------------------------------------------------------------------------
-        Role student_role= new Role();
-        Role admin_role=new Role();
-        Role professor_role = new Role();
-       //--------------------------------------------------------------------------
-        Address address1 = new Address();
+        Role role1= new Role();
+        role1.setName("Student");
 
+        Role role2=new Role();
+        role2.setName("Administrator");
+
+        Role role3 = new Role();
+        role3.setName("professor");
+       //--------------------------------------------------------------------------
 
         entityManager.getTransaction().begin();
         entityManager.persist(course1);

@@ -59,6 +59,7 @@ public class Section implements Serializable {
     private String modeOfInstruction;
 
     @ManyToMany(mappedBy = "sections")
+
     private List<Student> students;
 
     public Long getId() {
