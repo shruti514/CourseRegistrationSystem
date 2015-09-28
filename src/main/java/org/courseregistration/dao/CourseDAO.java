@@ -18,6 +18,7 @@ public class CourseDAO extends GenericDAO<Course> {
 
     private static final Logger logger = LoggerFactory.getLogger(CourseDAO.class);
 
+    @Override
     public List<Course> findAll() {
         logger.debug("about to load all Courses");
         String query = "from Course order by code asc";

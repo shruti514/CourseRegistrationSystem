@@ -8,16 +8,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 @RunWith(BlockJUnit4ClassRunner.class)
 public class SectionDAOTest extends BaseTest {
@@ -27,29 +23,19 @@ public class SectionDAOTest extends BaseTest {
     @Test
     public void testFindCourseByCriteria() throws Exception {
         //Data For 2 Sections
-        Professor professor = TestUtils.createNewProfessor(890897L,"Thomas");
+        Professor professor = TestUtils.createProfessor(8904897L, "Thomas");
         Course course1 = TestUtils.createCourse("CMPE-281", "Cloud Technologies");
         Section section1 = TestUtils.createSection(professor, course1);
 
-        Professor professorForSection2 = TestUtils.createNewProfessor(897554L, "Prof.ABC");
+        Professor professorForSection2 = TestUtils.createProfessor(897554L, "Prof.ABC");
         Course course2 = TestUtils.createCourse("CMPE-283", "Cloud Technologies");
         Section section2 = TestUtils.createSection(professorForSection2,course2);
 
         entityManager.getTransaction().begin();
         entityManager.persist(section1);
         entityManager.persist(section2);
-        entityManager.flush();
         entityManager.getTransaction().commit();
 
-
-        //Checks to see if correct data exists in DB
-        assertNotNull(professor.getId());
-        assertNotNull(professorForSection2.getId());
-        assertNotNull(section1.getId());
-
-        assertNotNull(course1.getId());
-        assertNotNull(course2.getId());
-        assertNotNull(section2.getId());
 
         //Search Section based on criteria
         Map<SearchCriteria,String> criteria = Maps.newHashMap();
@@ -63,5 +49,49 @@ public class SectionDAOTest extends BaseTest {
         assertEquals(section1.getCourse().getName(),foundSections.get(0).getCourse().getName());
         assertEquals(section1.getProfessor().getFirstName(),foundSections.get(0).getProfessor().getFirstName());
 
+    }
+
+    @Test
+    public void test_find_all(){
+
+        Section section1 = TestUtils.createSection(232423L,"Prof.abc","CMPE-343");
+        Section section2 = TestUtils.createSection(3453445L,"Prof.xyz","CMPE-183");
+        Section section3 = TestUtils.createSection(45465546L,"Prof.pqr","CMPE-789");
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(section1);
+        entityManager.persist(section2);
+        entityManager.persist(section3);
+        entityManager.getTransaction().commit();
+
+        List<Section> sections = sectionDAO.findAll();
+
+
+        assertEquals(3, sections.size());
+    }
+
+    //removing a section does not affect Professor/course
+    @Test
+    public void test_referential_integrity_deleting_a_section(){
+        Professor professor = TestUtils.createProfessor(13298L,"Prof.Tom");
+        Course course = TestUtils.createCourse("CMPE-789","Databases");
+
+        Section section = TestUtils.createSection(professor,course);
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(section);
+        entityManager.flush();
+        entityManager.clear();
+        entityManager.getTransaction().commit();
+
+        sectionDAO.delete(section.getId());
+
+        Professor professorFromDB = entityManager.find(Professor.class, professor.getId());
+        Course courseFromDB = entityManager.find(Course.class,course.getId());
+        Section sectionFromDB = entityManager.find(Section.class,section.getId());
+
+        assertEquals(professorFromDB,professor);
+        assertEquals(courseFromDB,course);
+        assertNull(sectionFromDB);
     }
 }

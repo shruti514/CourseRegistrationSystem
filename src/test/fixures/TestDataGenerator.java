@@ -11,7 +11,7 @@ import java.util.Calendar;
 
 public class TestDataGenerator {
 
-    public static void generateData() {
+   /* public static void generateData() {
         EntityManager entityManager = org.courseregistration.dbtests.HibernateUtils.getEntityManager();
 
         Student student1 = new Student();
@@ -152,7 +152,7 @@ public class TestDataGenerator {
         System.out.println("****************" + result.getFirstName() + "****************");
 
 
-    }
+    }*/
 
 
 }

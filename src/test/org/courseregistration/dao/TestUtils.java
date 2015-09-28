@@ -1,5 +1,6 @@
 package org.courseregistration.dao;
 
+import com.google.common.math.LongMath;
 import org.courseregistration.model.Course;
 import org.courseregistration.model.Professor;
 import org.courseregistration.model.Section;
@@ -36,7 +37,7 @@ public class TestUtils {
         return section;
     }
 
-    public static Student createNewStudent(long collegeId, String name) {
+    public static Student createStudent(long collegeId, String name) {
         Student student1 = new Student();
         student1.setCollegeId(collegeId);
         student1.setFirstName(name);
@@ -60,7 +61,7 @@ public class TestUtils {
         return student1;
     }
 
-    public static Professor createNewProfessor(long collegeId, String name) {
+    public static Professor createProfessor(long collegeId, String name) {
         Professor professor = new Professor();
 
         professor.setFirstName(name);
@@ -105,5 +106,12 @@ public class TestUtils {
         course.setPrerequisiteCourse("Operating System");
         course.setProgram("Software Engineering");
         return course;
+    }
+
+    public static Section createSection(long collegeId, String professorName, String courseCode) {
+        Professor professor = createProfessor(collegeId,professorName);
+        Course course = createCourse(courseCode,"Course Name");
+
+        return createSection(professor,course);
     }
 }

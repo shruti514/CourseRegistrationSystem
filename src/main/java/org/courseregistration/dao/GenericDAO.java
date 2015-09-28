@@ -5,10 +5,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
-class GenericDAO<T extends Serializable> {
+abstract class GenericDAO<T extends Serializable> {
     private final Class<T> clazz;
     private final EntityManager entityManager;
     private static final Logger logger = LoggerFactory.getLogger(GenericDAO.class);
@@ -18,7 +20,7 @@ class GenericDAO<T extends Serializable> {
         this.entityManager = entityManager;
     }
 
-    public T findById(UUID id) {
+    public T findById(Long id) {
 
         T toReturn = null;
         try {
@@ -31,6 +33,8 @@ class GenericDAO<T extends Serializable> {
         return (toReturn);
     }
 
+    public abstract List<T> findAll();
+
     public T update(T updatedObject) {
         logger.debug("Updating object of type: {}", clazz.getName());
 
@@ -38,8 +42,6 @@ class GenericDAO<T extends Serializable> {
         try {
             entityManager.getTransaction().begin();
             mergedInstance = entityManager.merge(updatedObject);
-           // entityManager.flush();
-            //entityManager.detach(mergedInstance);
             entityManager.getTransaction().commit();
         } catch (Exception exception) {
             logger.error("Error updating object of type: {}", clazz.getName(), exception);
@@ -57,8 +59,6 @@ class GenericDAO<T extends Serializable> {
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(newObject);
-           // entityManager.flush();
-           // entityManager.detach(newObject);
             entityManager.getTransaction().commit();
         } catch (Exception exception) {
             logger.error("Error saving object of type: {}", clazz.getName(), exception);
@@ -81,7 +81,7 @@ class GenericDAO<T extends Serializable> {
         logger.debug("Done deleting object of type: {}", clazz.getName());
     }
 
-    public void delete(UUID id) {
+    public void delete(Long id) {
         T toDelete = entityManager.find(clazz, id);
         if (toDelete != null) {
             logger.debug("Deleting a object of type: {} with id: {}", clazz.getName(), id);

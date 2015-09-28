@@ -18,7 +18,7 @@ public class BaseTest {
     @BeforeClass
     public static void setUp() throws Exception {
         entityManager = HibernateUtils.getEntityManager();
-        TestDataGenerator.generateData();
+        //TestDataGenerator.generateData();
     }
 
     @AfterClass

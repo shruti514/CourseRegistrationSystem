@@ -10,10 +10,10 @@ import java.util.UUID;
 @Table(name = "course_details")
 public class Course implements Serializable {
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @SequenceGenerator(name="sequence", sequenceName="sequence", allocationSize=1, initialValue=100000)
+    @GeneratedValue(generator = "sequence", strategy=GenerationType.SEQUENCE)
     @Column(name = "course_id")
-    private UUID id;
+    private Long id;
 
     @Column(name = "code", nullable = false)
     private String code;
@@ -36,11 +36,11 @@ public class Course implements Serializable {
     @Column(name = "program", nullable = false)
     private String program;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

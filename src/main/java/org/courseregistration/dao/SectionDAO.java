@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.criteria.*;
 import java.util.List;
 import java.util.Map;
@@ -89,5 +90,15 @@ public class SectionDAO extends GenericDAO<Section> {
                 return new LikePredicate((CriteriaBuilderImpl)cb,courseJoin.get("code"),"%"+queryParam+"%");
         }
         return null;
+    }
+
+    @Override
+    public List<Section> findAll() {
+        logger.debug("about to load all Sections");
+        String query = "Select s from Section s order by s.course.code asc";
+        List<Section> sections = entityManager.createQuery(query, Section.class)
+            .getResultList();
+        logger.debug("returning all({}) Sections", sections.size());
+        return sections;
     }
 }

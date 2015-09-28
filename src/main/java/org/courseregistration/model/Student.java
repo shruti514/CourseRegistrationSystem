@@ -10,7 +10,6 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name = "user_id")
 public class Student extends User {
 
-
     @Column(name = "admissionType", nullable = false)
     private String admissionType;
 

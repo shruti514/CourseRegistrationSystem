@@ -15,10 +15,10 @@ import java.util.UUID;
 @Inheritance(strategy = InheritanceType.JOINED)
 class User implements Serializable {
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @SequenceGenerator(name="sequence", sequenceName="sequence", allocationSize=1, initialValue=100000)
+    @GeneratedValue(generator = "sequence", strategy=GenerationType.SEQUENCE)
     @Column(name = "user_id")
-    private UUID id;
+    private Long id;
 
     @Column(name = "college_id", nullable = false, unique = true)
     private Long collegeId;
@@ -69,10 +69,6 @@ class User implements Serializable {
         inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> roles = new HashSet<Role>();
 
-    public UUID getId() {
-        return id;
-    }
-
     public String getHashedPassword() {
         return hashedPassword;
     }
@@ -89,7 +85,11 @@ class User implements Serializable {
         this.roles = roles;
     }
 
-    public void setId(UUID id) {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -213,7 +213,6 @@ class User implements Serializable {
         if (!lastName.equals(user.lastName)) return false;
         if (!emailId.equals(user.emailId)) return false;
         if (!phoneNumber.equals(user.phoneNumber)) return false;
-        if (!dateOfBirth.equals(user.dateOfBirth)) return false;
         if (!address1.equals(user.address1)) return false;
         if (address2 != null ? !address2.equals(user.address2) : user.address2 != null) return false;
         if (!city.equals(user.city)) return false;

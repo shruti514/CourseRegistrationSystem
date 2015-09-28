@@ -18,6 +18,7 @@ public class ProfessorDAO extends GenericDAO<Professor> {
 
     private static final Logger logger = LoggerFactory.getLogger(ProfessorDAO.class);
 
+    @Override
     public List<Professor> findAll() {
         logger.debug("about to load all Professors");
         String query = "from Professor order by firstName asc";

@@ -1,23 +1,20 @@
 package org.courseregistration.model;
 
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "section_info")
 public class Section implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @SequenceGenerator(name="sequence", sequenceName="sequence", allocationSize=1, initialValue=100000)
+    @GeneratedValue(generator = "sequence", strategy=GenerationType.SEQUENCE)
     @Column(name = "section_id")
-    private UUID id;
+    private Long id;
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "professor_id", foreignKey = @ForeignKey(name = "FK_section_professor"))
@@ -64,11 +61,11 @@ public class Section implements Serializable {
     @ManyToMany(mappedBy = "sections")
     private List<Student> students;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -172,9 +169,7 @@ public class Section implements Serializable {
         return students;
     }
 
-    public void setStudents(List<Student> students) {
-        this.students = students;
-    }
+
 
     @Override
     public boolean equals(Object o) {

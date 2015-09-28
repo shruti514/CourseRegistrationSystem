@@ -54,4 +54,28 @@ public class Professor extends User {
     public void setOfficeHoursToTime(Date officeHoursToTime) {
         this.officeHoursToTime = officeHoursToTime;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Professor)) return false;
+        if (!super.equals(o)) return false;
+
+        Professor professor = (Professor) o;
+
+        if (!facultyType.equals(professor.facultyType)) return false;
+
+        return yearsOfExperience.equals(professor.yearsOfExperience);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + facultyType.hashCode();
+        result = 31 * result + yearsOfExperience.hashCode();
+        result = 31 * result + officeHoursFromTime.hashCode();
+        result = 31 * result + officeHoursToTime.hashCode();
+        return result;
+    }
 }
