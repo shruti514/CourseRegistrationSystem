@@ -9,8 +9,12 @@
         -  mvn clean install 
 - To create Executable jar file use following command
         -  mvn clean compile assembly:single 
-- To connect to a database other than given in the code change **presistence.xml 
-        - Change the value of the property **javax.persistence.jdbc.url in that file
+- To connect to the database while running the Bootstrap class (main class) provide following arguments:
+  -DIPADDRESS=localhost
+  -DPORT=3306
+  -DDBNAME=hibernate_test
+  -DUSER=root
+  -DPASS=root
 
 
 
