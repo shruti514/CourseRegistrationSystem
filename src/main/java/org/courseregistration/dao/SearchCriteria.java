@@ -1,27 +1,16 @@
 package org.courseregistration.dao;
 
 
-
 public enum SearchCriteria {
 
-    COURSE_NAME("like"),
-    DEPARTMENT("equal"),
-    SEMESTER("equal"),
-    DAY_OF_WEEK("equal"),
-    PROFESSOR_NAME_BEGINS_WITH("like"),
-    PROFESSOR_NAME_ENDS_WITH("like"),
-    PROFESSOR_NAME_EXACTLY("equal"),
-    COURSE_NUMBER_EXACTLY("equal"),
-    COURSE_NUMBER_LESS_THAN_OR_EQUAL("equal"),
-    COURSE_NUMBER_GREATER_THAN_OR_EQUAL("equal"),
-    COURSE_NUMBER_CONTAINS("like");
-
-
-
-    private SearchCriteria(String operator){
-        this.operator = operator;
-    }
-
-    private String operator;
-
+    COURSE_NAME_CONTAINS,
+    DEPARTMENT_EQUALS,
+    SEMESTER_EQUALS,
+    DAY_OF_WEEK_EQUALS,
+    PROFESSOR_FIRST_NAME_CONTAINS,
+    COURSE_CODE_CONTAINS,
+    PROFESSOR_LAST_NAME_CONTAINS,
+    PROFESSOR_LAST_NAME_EQUALS,
+    PROFESSOR_FIRST_NAME_EQUALS,
+    COURSE_CODE_EQUALS,
 }

@@ -8,13 +8,13 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name="roles")
+@Table(name = "roles")
 public class Role {
 
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name="role_id")
+    @Column(name = "role_id")
     private UUID id;
 
     @Column(nullable = false)

@@ -15,6 +15,7 @@ public class CourseDAO extends GenericDAO<Course> {
         super(Course.class, entityManager);
         this.entityManager = entityManager;
     }
+
     private static final Logger logger = LoggerFactory.getLogger(CourseDAO.class);
 
     public List<Course> findAll() {
@@ -25,8 +26,6 @@ public class CourseDAO extends GenericDAO<Course> {
         logger.debug("returning all({}) Courses", courses.size());
         return courses;
     }
-
-
 
 
 }

@@ -1,9 +1,7 @@
 package org.courseregistration.dao;
 
 
-import org.courseregistration.model.Course;
 import org.courseregistration.model.Professor;
-import org.courseregistration.model.Student;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +15,7 @@ public class ProfessorDAO extends GenericDAO<Professor> {
         super(Professor.class, entityManager);
         this.entityManager = entityManager;
     }
+
     private static final Logger logger = LoggerFactory.getLogger(ProfessorDAO.class);
 
     public List<Professor> findAll() {

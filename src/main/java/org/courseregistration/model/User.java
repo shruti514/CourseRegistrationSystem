@@ -11,62 +11,62 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name="users")
-@Inheritance(strategy=InheritanceType.JOINED)
-class User implements Serializable{
+@Table(name = "users")
+@Inheritance(strategy = InheritanceType.JOINED)
+class User implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name="user_id")
+    @Column(name = "user_id")
     private UUID id;
 
-    @Column(name = "college_id",nullable = false,unique = true)
+    @Column(name = "college_id", nullable = false, unique = true)
     private Long collegeId;
 
     @Column(name = "password")
     private String hashedPassword;
 
-    @Column(name = "first_name",nullable = false)
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
     @Column(name = "middle_name")
     private String middleName;
 
-    @Column(name = "last_name",nullable = false)
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "email_id",nullable = false)
+    @Column(name = "email_id", nullable = false)
     private String emailId;
 
-    @Column(name = "phone_number",nullable = false)
+    @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
-    @Column(name = "date_of_birth",nullable = false)
+    @Column(name = "date_of_birth", nullable = false)
     @Temporal(value = TemporalType.DATE)
     private Date dateOfBirth;
 
-    @Column(name = "address1",nullable = false)
+    @Column(name = "address1", nullable = false)
     private String address1;
 
     @Column(name = "address2")
     private String address2;
 
-    @Column(name="city",nullable = false)
+    @Column(name = "city", nullable = false)
     private String city;
 
-    @Column(name="state",nullable = false)
+    @Column(name = "state", nullable = false)
     private String state;
 
-    @Column(name="country",nullable = false)
+    @Column(name = "country", nullable = false)
     private String country;
 
-    @Column(name = "zip_code",nullable = false)
+    @Column(name = "zip_code", nullable = false)
     private String zipCode;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
-        joinColumns = { @JoinColumn(name = "user_id") },
-        inverseJoinColumns = { @JoinColumn(name = "role_id") })
+        joinColumns = {@JoinColumn(name = "user_id")},
+        inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> roles = new HashSet<Role>();
 
     public UUID getId() {
@@ -195,5 +195,53 @@ class User implements Serializable{
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        if (!id.equals(user.id)) return false;
+        if (!collegeId.equals(user.collegeId)) return false;
+        if (hashedPassword != null ? !hashedPassword.equals(user.hashedPassword) : user.hashedPassword != null)
+            return false;
+        if (!firstName.equals(user.firstName)) return false;
+        if (!middleName.equals(user.middleName)) return false;
+        if (!lastName.equals(user.lastName)) return false;
+        if (!emailId.equals(user.emailId)) return false;
+        if (!phoneNumber.equals(user.phoneNumber)) return false;
+        if (!dateOfBirth.equals(user.dateOfBirth)) return false;
+        if (!address1.equals(user.address1)) return false;
+        if (address2 != null ? !address2.equals(user.address2) : user.address2 != null) return false;
+        if (!city.equals(user.city)) return false;
+        if (!state.equals(user.state)) return false;
+        if (!country.equals(user.country)) return false;
+        if (!zipCode.equals(user.zipCode)) return false;
+        return roles.equals(user.roles);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + collegeId.hashCode();
+        result = 31 * result + (hashedPassword != null ? hashedPassword.hashCode() : 0);
+        result = 31 * result + firstName.hashCode();
+        result = 31 * result + middleName.hashCode();
+        result = 31 * result + lastName.hashCode();
+        result = 31 * result + emailId.hashCode();
+        result = 31 * result + phoneNumber.hashCode();
+        result = 31 * result + dateOfBirth.hashCode();
+        result = 31 * result + address1.hashCode();
+        result = 31 * result + (address2 != null ? address2.hashCode() : 0);
+        result = 31 * result + city.hashCode();
+        result = 31 * result + state.hashCode();
+        result = 31 * result + country.hashCode();
+        result = 31 * result + zipCode.hashCode();
+        result = 31 * result + roles.hashCode();
+        return result;
     }
 }

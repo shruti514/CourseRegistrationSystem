@@ -1,5 +1,12 @@
 package org.courseregistration.dbtests;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 /*
  * This is a singleton class to return connection object
  */

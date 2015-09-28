@@ -1,29 +1,26 @@
 package org.courseregistration.model;
 
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.util.Date;
-import java.util.UUID;
 
 @Entity
-@Table(name="professor_details")
+@Table(name = "professor_details")
 @PrimaryKeyJoinColumn(name = "user_id")
-public class Professor extends User{
+public class Professor extends User {
 
-    @Column(name="faculty_type",nullable = false)
+    @Column(name = "faculty_type", nullable = false)
     private String facultyType;
 
-    @Column(name="years_of_experience",nullable = false)
+    @Column(name = "years_of_experience", nullable = false)
     private Integer yearsOfExperience;
 
-    @Column(name="office_hours_from_time",nullable = false)
-    @Temporal(value= TemporalType.TIME)
+    @Column(name = "office_hours_from_time", nullable = false)
+    @Temporal(value = TemporalType.TIME)
     private Date officeHoursFromTime;
 
-    @Column(name="office_hours_to_time",nullable = false)
-    @Temporal(value= TemporalType.TIME)
+    @Column(name = "office_hours_to_time", nullable = false)
+    @Temporal(value = TemporalType.TIME)
     private Date officeHoursToTime;
 
     public String getFacultyType() {

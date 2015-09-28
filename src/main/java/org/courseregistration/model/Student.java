@@ -6,29 +6,28 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="student_details")
-@PrimaryKeyJoinColumn(name="user_id")
-public class Student extends User  {
+@Table(name = "student_details")
+@PrimaryKeyJoinColumn(name = "user_id")
+public class Student extends User {
 
 
-    @Column(name="admissionType",nullable = false)
+    @Column(name = "admissionType", nullable = false)
     private String admissionType;
 
-    @Column(name="previous_degree",nullable = false)
+    @Column(name = "previous_degree", nullable = false)
     private String previousDegree;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name="enrolled_student",
-                joinColumns = {@JoinColumn(name="student_id")},
-                inverseJoinColumns = {@JoinColumn(name="section_id")},
-        foreignKey = @ForeignKey(name="FK_student_section"),
+    @JoinTable(name = "enrolled_student",
+        joinColumns = {@JoinColumn(name = "student_id")},
+        inverseJoinColumns = {@JoinColumn(name = "section_id")},
+        foreignKey = @ForeignKey(name = "FK_student_section"),
         uniqueConstraints = {
             @UniqueConstraint(columnNames = {
                 "student_id",
                 "section_id"
             })})
     private List<Section> sections = Lists.newArrayList();
-
 
 
     public String getAdmissionType() {
@@ -55,7 +54,13 @@ public class Student extends User  {
         this.sections = sections;
     }
 
-    public void addSection(Section section){
+    public void addSection(Section section) {
         this.sections.add(section);
+    }
+
+    public void dropSection(Section section) {
+        if(this.sections.contains(section)){
+            this.sections.remove(section);
+        }
     }
 }

@@ -334,7 +334,7 @@ public class DataGenerator {
         Calendar prof6_calendar2= Calendar.getInstance();
         prof6_calendar2.set(0,0,12,15,30);
         professor6.setOfficeHoursToTime(prof6_calendar2.getTime());
-    //===================================================================
+        //===================================================================
         Course  course1=new Course();
 
         course1.setCode("CHEM-055");
@@ -505,7 +505,7 @@ public class DataGenerator {
         section5.setWaitListCapacity(10);
         section5.setCourse(course5);
         section5.setProfessor(professor5);
- //--------------------------------------------------------------------------
+        //--------------------------------------------------------------------------
 
         entityManager.getTransaction().begin();
         entityManager.persist(course1);
@@ -513,7 +513,7 @@ public class DataGenerator {
         entityManager.persist(course3);
         entityManager.persist(course4);
         entityManager.persist(course5);
-  ;
+        ;
         entityManager.persist(professor1);
         entityManager.persist(professor2);
         entityManager.persist(professor3);
@@ -537,7 +537,7 @@ public class DataGenerator {
 
         student1.addSection(section1);
 
-      //  entityManager.persist(student1);
+        //  entityManager.persist(student1);
 
         entityManager.getTransaction().commit();
 

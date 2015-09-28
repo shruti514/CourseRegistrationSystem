@@ -7,33 +7,33 @@ import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
-@Table(name="course_details")
-public class Course implements Serializable{
+@Table(name = "course_details")
+public class Course implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name="course_id")
+    @Column(name = "course_id")
     private UUID id;
 
-    @Column(name="code",nullable = false)
+    @Column(name = "code", nullable = false)
     private String code;
 
-    @Column(name="name",nullable = false)
-    private String name ;
+    @Column(name = "name", nullable = false)
+    private String name;
 
-    @Column(name="description")
+    @Column(name = "description")
     private String description;
 
-    @Column(name="no_of_credits", nullable = false)
+    @Column(name = "no_of_credits", nullable = false)
     private Integer numOfCredits;
 
-    @Column(name="pre_requisite_course")
+    @Column(name = "pre_requisite_course")
     private String prerequisiteCourse;
 
-    @Column(name="department",nullable = false)
+    @Column(name = "department", nullable = false)
     private String department;
 
-    @Column(name="program",nullable = false)
+    @Column(name = "program", nullable = false)
     private String program;
 
     public UUID getId() {
@@ -98,5 +98,34 @@ public class Course implements Serializable{
 
     public void setProgram(String program) {
         this.program = program;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Course)) return false;
+
+        Course course = (Course) o;
+
+        if (!id.equals(course.id)) return false;
+        if (!code.equals(course.code)) return false;
+        if (!name.equals(course.name)) return false;
+        if (!description.equals(course.description)) return false;
+        if (!numOfCredits.equals(course.numOfCredits)) return false;
+        if (!department.equals(course.department)) return false;
+        return program.equals(course.program);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + code.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + description.hashCode();
+        result = 31 * result + numOfCredits.hashCode();
+        result = 31 * result + department.hashCode();
+        result = 31 * result + program.hashCode();
+        return result;
     }
 }

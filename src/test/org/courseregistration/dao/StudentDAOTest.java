@@ -1,24 +1,21 @@
 package org.courseregistration.dao;
 
-import com.sun.xml.internal.rngom.parse.host.Base;
-import org.courseregistration.dbtests.DataGenerator;
-import org.courseregistration.dbtests.HibernateUtils;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import org.courseregistration.model.Course;
 import org.courseregistration.model.Professor;
 import org.courseregistration.model.Section;
 import org.courseregistration.model.Student;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
 
-
 import javax.persistence.EntityTransaction;
-import javax.transaction.Transaction;
 import java.util.List;
 import java.util.UUID;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static org.junit.Assert.*;
 
 @RunWith(BlockJUnit4ClassRunner.class)
@@ -30,11 +27,11 @@ public class StudentDAOTest extends BaseTest {
 
         List<Student> students = studentDAO.findAll();
 
-        assertEquals("Number of students do not match",2,students.size());
+        assertEquals("Number of students do not match", 4, students.size());
     }
 
     @Test
-    public void find_student_by_id() throws Exception{
+    public void find_student_by_id() throws Exception {
 
         StudentDAO studentDAO = new StudentDAO(entityManager);
 
@@ -42,65 +39,88 @@ public class StudentDAOTest extends BaseTest {
 
         Student actual = studentDAO.findById(expected.getId());
 
-        assertEquals(expected.getId(),(actual.getId()));
-        assertEquals(expected.getFirstName(),(actual.getFirstName()));
-        assertEquals(expected.getLastName(),(actual.getLastName()));
-        assertEquals(expected.getMiddleName(),(actual.getMiddleName()));
+        assertEquals(expected.getId(), (actual.getId()));
+        assertEquals(expected.getFirstName(), (actual.getFirstName()));
+        assertEquals(expected.getLastName(), (actual.getLastName()));
+        assertEquals(expected.getMiddleName(), (actual.getMiddleName()));
     }
 
+
     @Test
-    public void update_student_by_adding_a_new_course() throws  Exception{
+    public void update_student_by_dropping_a_course() throws Exception {
 
         StudentDAO studentDAO = new StudentDAO(entityManager);
-        ProfessorDAO professorDAO = new ProfessorDAO(entityManager);
-        CourseDAO courseDAO = new CourseDAO(entityManager);
 
-        Student existingStudent = studentDAO.findAll().get(0);
-        Professor existingProfessor = professorDAO.findAll().get(0);
-        Course existingCourse = courseDAO.findAll().get(0);
+        Student student = TestUtils.createNewStudent(187354L,"Daniel");
+        Professor professor = TestUtils.createNewProfessor(890897L,"Thomas");
+        Course course = TestUtils.createCourse("CMPE-281","Cloud Technologies");
+        Section section = TestUtils.createSection(professor,course);
 
-        Section section = TestUtils.createSection(existingProfessor,existingCourse);
-        section.setSemester("Fall-2016");
-        section.setModeOfInstruction("online");
+        student.addSection(section);
+        entityManager.persist(student);
 
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-        entityManager.merge(section);
-        entityManager.persist(section);
-        entityManager.flush();
-        entityManager.detach(section);
-        transaction.commit();
+        assertNotNull(student.getId());
+        assertNotNull(section.getId());
+        assertEquals(1,student.getSections().size());
+        assertEquals(section,student.getSections().get(0));
 
-        int numberOfSectionsBeforeUpdate = existingStudent.getSections().size();
+        student.dropSection(section);
 
-        existingStudent.addSection(section);
-        Student updatedStudent = studentDAO.update(existingStudent);
+        studentDAO.update(student);
 
-        List<Section> updatedSections = updatedStudent.getSections();
+        Student updatedStudent = entityManager.find(Student.class, student.getId());
 
-        assertEquals(numberOfSectionsBeforeUpdate+1,updatedSections.size());
-
+        assertEquals(0,updatedStudent.getSections().size());
     }
 
     @Test
-    public void delete_student_by_id(){
+    public void update_student_by_adding_a_course() throws Exception {
 
-        StudentDAO dao = new StudentDAO(entityManager);
+        StudentDAO studentDAO = new StudentDAO(entityManager);
 
-        List<Student> students = dao.findAll();
-        int totalNumberOfStudents = students.size();
-        Student student = students.get(1);
+        Student student = TestUtils.createNewStudent(187354L,"Daniel");
+        Professor professor = TestUtils.createNewProfessor(890897L,"Thomas");
+        Course course = TestUtils.createCourse("CMPE-281", "Cloud Technologies");
+        Section section = TestUtils.createSection(professor, course);
 
-        UUID idTobeDeleted = student.getId();
+        Professor professorForSection2 = TestUtils.createNewProfessor(897554L, "Prof.ABC");
+        Section section2 = TestUtils.createSection(professorForSection2,course);
 
+        student.addSection(section);
+        entityManager.persist(student);
+        entityManager.persist(section2);
 
-        dao.delete(idTobeDeleted);
+        assertNotNull(student.getId());
+        assertNotNull(section.getId());
+        assertEquals(1,student.getSections().size());
+        assertEquals(section,student.getSections().get(0));
 
-        List<Student> studentsAfterDelete = dao.findAll();
-        Student byId = dao.findById(idTobeDeleted);
+        student.addSection(section2);
 
-        assertEquals(totalNumberOfStudents - 1, studentsAfterDelete.size());
-        assertNull(byId);
+        studentDAO.update(student);
+
+        Student updatedStudent = entityManager.find(Student.class, student.getId());
+
+        assertEquals(2,updatedStudent.getSections().size());
+        assertTrue(Iterables.elementsEqual(newArrayList(section, section2), updatedStudent.getSections()));
+    }
+
+    @Test
+    public void delete_student_by_id() {
+        StudentDAO studentDAO = new StudentDAO(entityManager);
+
+        Student student = TestUtils.createNewStudent(12345656,"Shrutee");
+        entityManager.getTransaction().begin();
+        entityManager.persist(student);
+        entityManager.flush();
+        entityManager.clear();
+        entityManager.getTransaction().commit();
+
+        studentDAO.delete(student.getId());
+
+        Student updatedStudent = entityManager.find(Student.class,student.getId());
+
+        assertNull(updatedStudent);
     }
 
 

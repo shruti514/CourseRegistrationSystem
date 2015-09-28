@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-  <property name="FILE_LOCATION" value=".\logs" />
+  <property name="FILE_LOCATION" value="/Users/shruteegangras/Projects"/>
 
   <appender name="FILE-AUDIT"
             class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -26,11 +26,11 @@
 
   <logger name="org.courseregistration" level="debug"
           additivity="false">
-    <appender-ref ref="FILE-AUDIT" />
+    <appender-ref ref="FILE-AUDIT"/>
   </logger>
 
   <root level="error">
-    <appender-ref ref="FILE-AUDIT" />
+    <appender-ref ref="FILE-AUDIT"/>
   </root>
 
 </configuration>
