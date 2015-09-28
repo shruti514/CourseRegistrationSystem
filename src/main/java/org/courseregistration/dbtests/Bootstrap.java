@@ -1,8 +1,12 @@
 package org.courseregistration.dbtests;
 
+import java.util.List;
 import java.util.Scanner;
 
 import javax.persistence.EntityManager;
+
+import org.courseregistration.dao.StudentDAO;
+import org.courseregistration.model.Student;
 
 public class Bootstrap {
 
@@ -17,18 +21,23 @@ public class Bootstrap {
 		DataGenerator.generateData();
 
 		String input = "";
-		System.out.println();
+		System.out.println("***********************************************");
+		System.out.println("Welcome to Student Course Registartion System!");
+		System.out.println("***********************************************");
 		printMenu();
 		Scanner scanner = new Scanner(System.in);
 		while ((input = scanner.nextLine()) != null
 				&& input.trim().length() != 0
 				&& !exitCode.equalsIgnoreCase(input)) {
 			System.out.println(input);
-			switch (input) {
-			case "1":
-				System.out.println();
-				break;
+			switch (input.toLowerCase()) {
+			case "search":
+				StudentDAO dao = new StudentDAO(
+						HibernateUtils.getEntityManager());
+				List<Student> list = dao.findAll();
 
+				System.out.println("List of Students: " + list);
+				break;
 			case "2":
 
 				break;
