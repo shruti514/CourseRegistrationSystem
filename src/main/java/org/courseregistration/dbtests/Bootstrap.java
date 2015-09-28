@@ -1,65 +1,69 @@
 package org.courseregistration.dbtests;
 
-import javax.persistence.EntityManager;
 import java.util.Scanner;
+
+import javax.persistence.EntityManager;
 
 public class Bootstrap {
 
-    private static String exitCode = "5";
-    protected static EntityManager emf;
+	private static String exitCode = "exit";
+	protected static EntityManager emf;
 
-    public static void main(String[] args) {
-        // If error comment below line
-        HibernateUtils.initEntityManager();
+	public static void main(String[] args) {
+		// If error comment below line
+		HibernateUtils.initEntityManager();
 
-        // This is just for now till we dont have data
-        DataGenerator.generateData();
+		// This is just for now till we dont have data
+		DataGenerator.generateData();
 
-        String input = "";
-        System.out.println();
-        printMenu();
-        Scanner scanner = new Scanner(System.in);
-        while ((input = scanner.nextLine()) != null
-            && input.trim().length() != 0 && !exitCode.equals(input)) {
-            System.out.println(input);
-            switch (input) {
-                case "1":
-                    System.out.println();
-                    StudentQueries student = new StudentQueries();
-                    student.startStudentMenuExecution();
-                    System.out.println("Executing Student Queries");
-                    break;
+		String input = "";
+		System.out.println();
+		printMenu();
+		Scanner scanner = new Scanner(System.in);
+		while ((input = scanner.nextLine()) != null
+				&& input.trim().length() != 0 && !exitCode.equals(input)) {
+			System.out.println(input);
+			switch (input) {
+			case "1":
+				System.out.println();
+				break;
 
-                case "2":
+			case "2":
 
-                    break;
+				break;
 
-                case "3":
-                   ;
-                    break;
+			case "3":
+				;
+				break;
 
-                case "4":
+			case "exit":
+				break;
+			}
+			if (exitCode.equals(input)) {
+				System.out.println("Signing off.");
+				break;
+			}
 
-                    break;
-            }
+			System.out.println();
+			printMenu();
+		}
 
-            System.out.println();
-            printMenu();
-        }
+		// If error comment below line
+		HibernateUtils.closeEntityManager();
+	}
 
-        // If error comment below line
-        HibernateUtils.closeEntityManager();
-    }
+	private static void printMenu() {
 
-    private static void printMenu() {
-        System.out.println("**** Main Menu ****");
-        System.out.println("1. Student Menu");
-        System.out.println("2. Professor Menu");
-        System.out.println("3. Admin Menu");
-        System.out.println("4. Database Menu");
-        System.out.println(exitCode + ". Exit");
-        System.out.println();
-        System.out.println("Please select your choice: ");
-    }
+		System.out.print("[write quit to exit]# ");
+
+		// System.out.println("**** Main Menu ****");
+		// System.out.println("1. Student Menu");
+		// System.out.println("2. Professor Menu");
+		// System.out.println("3. Admin Menu");
+		// System.out.println("4. Database Menu");
+		// System.out.println(exitCode + ". Exit");
+		// System.out.println();
+		// System.out.println("Please select your choice: ");
+	}
 
 }
