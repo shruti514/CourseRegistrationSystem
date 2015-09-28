@@ -6,7 +6,7 @@ import javax.persistence.EntityManager;
 
 public class Bootstrap {
 
-	private static String exitCode = "exit";
+	private static String exitCode = "quit";
 	protected static EntityManager emf;
 
 	public static void main(String[] args) {
@@ -21,7 +21,8 @@ public class Bootstrap {
 		printMenu();
 		Scanner scanner = new Scanner(System.in);
 		while ((input = scanner.nextLine()) != null
-				&& input.trim().length() != 0 && !exitCode.equals(input)) {
+				&& input.trim().length() != 0
+				&& !exitCode.equalsIgnoreCase(input)) {
 			System.out.println(input);
 			switch (input) {
 			case "1":
