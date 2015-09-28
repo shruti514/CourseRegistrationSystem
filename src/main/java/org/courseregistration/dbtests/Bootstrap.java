@@ -31,16 +31,15 @@ public class Bootstrap {
                     break;
 
                 case "2":
-                    Queries.executeQuery_1();
+
                     break;
 
                 case "3":
-                    Queries.executeQuery_1();
+                   ;
                     break;
 
                 case "4":
-                    DatabaseConnector dbConnector = new DatabaseConnector();
-                    //dbConnector.getAllTables();
+
                     break;
             }
 

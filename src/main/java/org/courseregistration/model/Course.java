@@ -21,7 +21,7 @@ public class Course implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition ="Text",length = 65535)
     private String description;
 
     @Column(name = "no_of_credits", nullable = false)

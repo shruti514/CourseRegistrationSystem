@@ -61,6 +61,7 @@ public class DataGenerator {
         student3.setFirstName("Sarah");
         student3.setMiddleName("V.");
         student3.setLastName("Rossie");
+        student3.setCollegeId(89078345345L);
         student3.setAddress1("209 E Indio Ave");
         student3.setAddress2("Apt 456");
         student3.setCity("Fremont");
@@ -82,6 +83,7 @@ public class DataGenerator {
         student4.setFirstName("Alan");
         student4.setMiddleName("V.");
         student4.setLastName("Simon");
+        student4.setCollegeId(9459345L);
         student4.setAddress1("4356 Waterford Ave");
         student4.setAddress2("Apt 15");
         student4.setCity("San Diego");
@@ -103,6 +105,7 @@ public class DataGenerator {
         student5.setFirstName("Olivia");
         student5.setMiddleName("s.");
         student5.setLastName("Alexander");
+        student5.setCollegeId(64574L);
         student5.setAddress1("101 San Fernando");
         student5.setAddress2("Apt 653");
         student5.setCity("San Jose");
@@ -124,6 +127,7 @@ public class DataGenerator {
         student6.setFirstName("Edward");
         student6.setMiddleName("Cinacma");
         student6.setLastName("Simpson");
+        student6.setCollegeId(4534L);
         student6.setAddress1("0442 Melrose Street");
         student6.setAddress2("Apt 71");
         student6.setCity("Richmond");
@@ -144,6 +148,7 @@ public class DataGenerator {
         student7.setFirstName("Fred");
         student7.setMiddleName("H.");
         student7.setLastName("Ross");
+        student7.setCollegeId(5457L);
         student7.setAddress1("86 Sauthoff Junction");
         student7.setAddress2("Apt 724");
         student7.setCity("Los Angeles");
@@ -194,6 +199,7 @@ public class DataGenerator {
         Professor professor2 = new Professor();
 
         professor2.setFirstName("Mike");
+        professor2.setCollegeId(1234L);
         professor2.setMiddleName("W.");
         professor2.setLastName("Larkin");
         professor2.setAddress1("7642 Scott Blvd");
@@ -214,7 +220,7 @@ public class DataGenerator {
 
         Calendar prof2_calendar1= Calendar.getInstance();
         prof2_calendar1.set(0, 0,15,8,45);
-        professor1.setOfficeHoursFromTime(prof2_calendar1.getTime());
+        professor2.setOfficeHoursFromTime(prof2_calendar1.getTime());
 
         Calendar prof2_calendar2 = Calendar.getInstance();
         prof2_calendar2.set(0, 0, 15,13,30);
@@ -225,6 +231,7 @@ public class DataGenerator {
         professor3.setFirstName("Rakesh");
         professor3.setMiddleName("C.");
         professor3.setLastName("Ranjan");
+        professor3.setCollegeId(453L);
         professor3.setAddress1("70 S Market St");
         professor3.setAddress2("Apt 167");
         professor3.setCity("San Francisco");
@@ -247,13 +254,14 @@ public class DataGenerator {
 
         Calendar prof3_calendar2 = Calendar.getInstance();
         prof3_calendar2.set(0,0,28,15,0);
-        professor1.setOfficeHoursToTime(prof3_calendar2.getTime());
+        professor3.setOfficeHoursToTime(prof3_calendar2.getTime());
 
         Professor professor4 = new Professor();
 
         professor4.setFirstName("Erica");
         professor4.setMiddleName("A.");
         professor4.setLastName("Bing");
+        professor4.setCollegeId(676L);
         professor4.setAddress1("901 Stevenson Blvd");
         professor4.setAddress2("Apt 48");
         professor4.setCity("Fremont");
@@ -283,6 +291,7 @@ public class DataGenerator {
         professor5.setFirstName("Emily");
         professor5.setMiddleName("U.");
         professor5.setLastName("Davis");
+        professor5.setCollegeId(444L);
         professor5.setAddress1("876 Lawrence St");
         professor5.setAddress2("Apt 10");
         professor5.setCity("Santa Clara");
@@ -311,6 +320,7 @@ public class DataGenerator {
         professor6.setFirstName("Sandra");
         professor6.setMiddleName("AA");
         professor6.setLastName("Hill");
+        professor6.setCollegeId(666L);
         professor6.setAddress1("48455 Pierstorff Avenue");
         professor6.setAddress2("Apt 18");
         professor6.setCity("Anchorage");
