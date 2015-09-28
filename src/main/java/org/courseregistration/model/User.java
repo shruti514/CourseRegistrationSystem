@@ -45,7 +45,7 @@ class User implements Serializable {
     @Temporal(value = TemporalType.DATE)
     private Date dateOfBirth;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
     @JoinColumn(name = "address_id", foreignKey = @ForeignKey(name = "FK_user_address"),nullable = false)
     private Address address;
 
