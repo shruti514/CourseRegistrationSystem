@@ -4,8 +4,11 @@ import org.courseregistration.model.Course;
 import org.courseregistration.model.Professor;
 import org.courseregistration.model.Section;
 import org.courseregistration.model.Student;
+import org.courseregistration.model.Role;
+import org.courseregistration.model.Address;
 
 import javax.persistence.EntityManager;
+import javax.xml.ws.soap.Addressing;
 import java.util.Calendar;
 
 
@@ -516,6 +519,12 @@ public class DataGenerator {
         section5.setCourse(course5);
         section5.setProfessor(professor5);
         //--------------------------------------------------------------------------
+        Role student_role= new Role();
+        Role admin_role=new Role();
+        Role professor_role = new Role();
+       //--------------------------------------------------------------------------
+        Address address1 = new Address();
+
 
         entityManager.getTransaction().begin();
         entityManager.persist(course1);
@@ -523,7 +532,7 @@ public class DataGenerator {
         entityManager.persist(course3);
         entityManager.persist(course4);
         entityManager.persist(course5);
-        ;
+
         entityManager.persist(professor1);
         entityManager.persist(professor2);
         entityManager.persist(professor3);
