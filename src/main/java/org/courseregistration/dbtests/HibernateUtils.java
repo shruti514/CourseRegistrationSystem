@@ -13,8 +13,8 @@ public class HibernateUtils {
 
 	public static void initEntityManager() {
 		if (entityManager == null) {
-			entityManagerFactory = Persistence.createEntityManagerFactory(
-					"student_registration_system", createProperties());
+			entityManagerFactory = Persistence
+					.createEntityManagerFactory("student_registration_system");
 			entityManager = entityManagerFactory.createEntityManager();
 		}
 
