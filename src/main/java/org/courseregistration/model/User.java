@@ -45,7 +45,10 @@ class User implements Serializable {
     @Temporal(value = TemporalType.DATE)
     private Date dateOfBirth;
 
-    @Column(name = "address1", nullable = false)
+    @Column(name = "address", nullable = false)
+    private Address address;
+
+    /*@Column(name = "address1", nullable = false)
     private String address1;
 
     @Column(name = "address2")
@@ -61,7 +64,7 @@ class User implements Serializable {
     private String country;
 
     @Column(name = "zip_code", nullable = false)
-    private String zipCode;
+    private String zipCode;*/
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
@@ -149,7 +152,15 @@ class User implements Serializable {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getAddress1() {
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    /*public String getAddress1() {
         return address1;
     }
 
@@ -195,7 +206,7 @@ class User implements Serializable {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
-    }
+    }*/
 
     @Override
     public boolean equals(Object o) {
@@ -213,12 +224,13 @@ class User implements Serializable {
         if (!lastName.equals(user.lastName)) return false;
         if (!emailId.equals(user.emailId)) return false;
         if (!phoneNumber.equals(user.phoneNumber)) return false;
-        if (!address1.equals(user.address1)) return false;
+        if (!address.equals(user.address)) return false;
+        /*if (!address1.equals(user.address1)) return false;
         if (address2 != null ? !address2.equals(user.address2) : user.address2 != null) return false;
         if (!city.equals(user.city)) return false;
         if (!state.equals(user.state)) return false;
         if (!country.equals(user.country)) return false;
-        if (!zipCode.equals(user.zipCode)) return false;
+        if (!zipCode.equals(user.zipCode)) return false;*/
         return roles.equals(user.roles);
 
     }
@@ -234,12 +246,13 @@ class User implements Serializable {
         result = 31 * result + emailId.hashCode();
         result = 31 * result + phoneNumber.hashCode();
         result = 31 * result + dateOfBirth.hashCode();
-        result = 31 * result + address1.hashCode();
+        result = 31 * result + address.hashCode();
+        /*result = 31 * result + address1.hashCode();
         result = 31 * result + (address2 != null ? address2.hashCode() : 0);
         result = 31 * result + city.hashCode();
         result = 31 * result + state.hashCode();
         result = 31 * result + country.hashCode();
-        result = 31 * result + zipCode.hashCode();
+        result = 31 * result + zipCode.hashCode();*/
         result = 31 * result + roles.hashCode();
         return result;
     }

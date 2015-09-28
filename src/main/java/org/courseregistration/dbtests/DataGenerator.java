@@ -22,16 +22,19 @@ public class DataGenerator {
         student1.setFirstName("John");
         student1.setMiddleName("R.");
         student1.setLastName("Edward");
-        student1.setAddress1("201 W California Ave");
-        student1.setAddress2("Apt 86");
-        student1.setCity("Sunnyvale");
-        student1.setState("CA");
-        student1.setCountry("USA");
-        student1.setZipCode("94086");
+
+        Address student1Address = new Address();
+        student1Address.setStreetName("201 W California Ave");
+        student1Address.setAptNo(86);
+        student1Address.setCity("Sunnyvale");
+        student1Address.setState("CA");
+        student1Address.setZipCode(94086);
+
+        student1.setAddress(student1Address);
         student1.setAdmissionType("Accepted");
 
         Calendar calendar1 = Calendar.getInstance();
-        calendar1.set(1988,Calendar.FEBRUARY,5);
+        calendar1.set(1988, Calendar.FEBRUARY, 5);
         student1.setDateOfBirth(calendar1.getTime());
 
         student1.setEmailId("John@gmail.com");
@@ -43,60 +46,67 @@ public class DataGenerator {
         student2.setMiddleName("W.");
         student2.setCollegeId((long) 123456788);
         student2.setLastName("Campbell");
-        student2.setAddress1("65 Rio Robles E");
-        student2.setAddress2("Apt 1028");
-        student2.setCity("San Jose");
-        student2.setState("CA");
-        student2.setCountry("USA");
-        student2.setZipCode("95134");
+
+        Address student2Address = new Address();
+        student2Address.setStreetName("65 Rio Robles E");
+        student2Address.setAptNo(1028);
+        student2Address.setCity("San Jose");
+        student2Address.setState("CA");
+        student2Address.setZipCode(95134);
+
+        student2.setAddress(student2Address);
         student2.setAdmissionType("Accepted - Conditionally");
 
         Calendar calendar2 = Calendar.getInstance();
-        calendar2.set(1986,Calendar.AUGUST,7);
+        calendar2.set(1986, Calendar.AUGUST, 7);
         student2.setDateOfBirth(calendar2.getTime());
 
         student2.setEmailId("alice@gmail.com");
         student2.setPhoneNumber("+1-408-376-7860");
         student2.setPreviousDegree("BE Comp Engineering");
 
-
         Student student3 = new Student();
         student3.setFirstName("Sarah");
         student3.setMiddleName("V.");
         student3.setLastName("Rossie");
         student3.setCollegeId(89078345345L);
-        student3.setAddress1("209 E Indio Ave");
-        student3.setAddress2("Apt 456");
-        student3.setCity("Fremont");
-        student3.setState("CA");
-        student3.setCountry("USA");
-        student3.setZipCode("94536");
+
+        Address student3Address = new Address();
+        student3Address.setStreetName("209 E Indio Ave");
+        student3Address.setAptNo(456);
+        student3Address.setCity("Fremont");
+        student3Address.setState("CA");
+        student3Address.setZipCode(94536);
+
+        student3.setAddress(student3Address);
         student3.setAdmissionType("Accepted");
 
         Calendar calendar3 = Calendar.getInstance();
-        calendar3.set(1987,Calendar.JULY,28);
+        calendar3.set(1987, Calendar.JULY, 28);
         student3.setDateOfBirth(calendar3.getTime());
 
         student3.setEmailId("sarah@gmail.com");
         student3.setPhoneNumber("+1-508-664-7260");
         student3.setPreviousDegree("Bachelor of commerce");
 
-
         Student student4 = new Student();
         student4.setFirstName("Alan");
         student4.setMiddleName("V.");
         student4.setLastName("Simon");
         student4.setCollegeId(9459345L);
-        student4.setAddress1("4356 Waterford Ave");
-        student4.setAddress2("Apt 15");
-        student4.setCity("San Diego");
-        student4.setState("CA");
-        student4.setCountry("USA");
-        student4.setZipCode("45632");
+
+        Address student4Address = new Address();
+        student4Address.setStreetName("4356 Waterford Ave");
+        student4Address.setAptNo(15);
+        student4Address.setCity("San Diego");
+        student4Address.setState("CA");
+        student4Address.setZipCode(45632);
+
+        student4.setAddress(student4Address);
         student4.setAdmissionType("Rejected");
 
         Calendar calendar4 = Calendar.getInstance();
-        calendar4.set(1983,Calendar.SEPTEMBER,5);
+        calendar4.set(1983, Calendar.SEPTEMBER, 5);
         student4.setDateOfBirth(calendar4.getTime());
 
         student4.setEmailId("V.Alan@gmail.com");
@@ -109,16 +119,19 @@ public class DataGenerator {
         student5.setMiddleName("s.");
         student5.setLastName("Alexander");
         student5.setCollegeId(64574L);
-        student5.setAddress1("101 San Fernando");
-        student5.setAddress2("Apt 653");
-        student5.setCity("San Jose");
-        student5.setState("CA");
-        student5.setCountry("USA");
-        student5.setZipCode("95112");
+
+        Address student5Address = new Address();
+        student5Address.setStreetName("101 San Fernando");
+        student5Address.setAptNo(653);
+        student5Address.setCity("San Jose");
+        student5Address.setState("CA");
+        student5Address.setZipCode(95112);
+
+        student5.setAddress(student5Address);
         student5.setAdmissionType("Waiting");
 
         Calendar calendar5 = Calendar.getInstance();
-        calendar5.set(1990,Calendar.DECEMBER,23);
+        calendar5.set(1990, Calendar.DECEMBER, 23);
         student5.setDateOfBirth(calendar5.getTime());
 
         student5.setEmailId("Alexander.olivia1986@gmail.com");
@@ -131,16 +144,19 @@ public class DataGenerator {
         student6.setMiddleName("Cinacma");
         student6.setLastName("Simpson");
         student6.setCollegeId(4534L);
-        student6.setAddress1("0442 Melrose Street");
-        student6.setAddress2("Apt 71");
-        student6.setCity("Richmond");
-        student6.setState("Virginia");
-        student6.setCountry("USA");
-        student6.setZipCode("23225");
+
+        Address student6Address = new Address();
+        student6Address.setStreetName("0442 Melrose Street");
+        student6Address.setAptNo(71);
+        student6Address.setCity("Richmond");
+        student6Address.setState("CA");
+        student6Address.setZipCode(23225);
+
+        student6.setAddress(student6Address);
         student6.setAdmissionType("Classified-Graduate");
 
         Calendar calendar6 = Calendar.getInstance();
-        calendar6.set(1993,Calendar.AUGUST,10);
+        calendar6.set(1993, Calendar.AUGUST, 10);
         student6.setDateOfBirth(calendar6.getTime());
 
         student6.setEmailId("esimpson8@youku.com");
@@ -152,12 +168,15 @@ public class DataGenerator {
         student7.setMiddleName("H.");
         student7.setLastName("Ross");
         student7.setCollegeId(5457L);
-        student7.setAddress1("86 Sauthoff Junction");
-        student7.setAddress2("Apt 724");
-        student7.setCity("Los Angeles");
-        student7.setState("CA");
-        student7.setCountry("USA");
-        student7.setZipCode("90055");
+
+        Address student7Address = new Address();
+        student7Address.setStreetName("86 Sauthoff Junction");
+        student7Address.setAptNo(724);
+        student7Address.setCity("Los Angeles");
+        student7Address.setState("CA");
+        student7Address.setZipCode(90055);
+
+        student7.setAddress(student7Address);
         student7.setAdmissionType("Classified-Graduate");
 
         Calendar calendar7 = Calendar.getInstance();
@@ -175,12 +194,15 @@ public class DataGenerator {
         professor1.setMiddleName("W.");
         professor1.setCollegeId((long) 123456779);
         professor1.setLastName("Campbell");
-        professor1.setAddress1("65 Rio Robles E");
-        professor1.setAddress2("Apt 90");
-        professor1.setCity("San Jose");
-        professor1.setState("CA");
-        professor1.setCountry("USA");
-        professor1.setZipCode("95134");
+
+        Address professor1Address = new Address();
+        professor1Address.setStreetName("65 Rio Robles E");
+        professor1Address.setAptNo(90);
+        professor1Address.setCity("San Jose");
+        professor1Address.setState("CA");
+        professor1Address.setZipCode(95134);
+
+        professor1.setAddress(professor1Address);
         professor1.setFacultyType("Permanant");
         professor1.setYearsOfExperience(12);
 
@@ -205,12 +227,15 @@ public class DataGenerator {
         professor2.setCollegeId(1234L);
         professor2.setMiddleName("W.");
         professor2.setLastName("Larkin");
-        professor2.setAddress1("7642 Scott Blvd");
-        professor2.setAddress2("Apt 66");
-        professor2.setCity("Santa Clara");
-        professor2.setState("CA");
-        professor2.setCountry("USA");
-        professor2.setZipCode("95054");
+
+        Address professor2Address = new Address();
+        professor2Address.setStreetName("7642 Scott Blvd");
+        professor2Address.setAptNo(66);
+        professor2Address.setCity("Santa Clara");
+        professor2Address.setState("CA");
+        professor2Address.setZipCode(95054);
+
+        professor2.setAddress(professor2Address);
         professor2.setFacultyType("Permanant");
         professor2.setYearsOfExperience(17);
 
@@ -222,11 +247,11 @@ public class DataGenerator {
         professor2.setPhoneNumber("+1-503-634-07630");
 
         Calendar prof2_calendar1= Calendar.getInstance();
-        prof2_calendar1.set(0, 0,15,8,45);
+        prof2_calendar1.set(0, 0, 15, 8, 45);
         professor2.setOfficeHoursFromTime(prof2_calendar1.getTime());
 
         Calendar prof2_calendar2 = Calendar.getInstance();
-        prof2_calendar2.set(0, 0, 15,13,30);
+        prof2_calendar2.set(0, 0, 15, 13, 30);
         professor2.setOfficeHoursToTime(prof2_calendar2.getTime());
 
         Professor professor3 = new Professor();
@@ -235,12 +260,15 @@ public class DataGenerator {
         professor3.setMiddleName("C.");
         professor3.setLastName("Ranjan");
         professor3.setCollegeId(453L);
-        professor3.setAddress1("70 S Market St");
-        professor3.setAddress2("Apt 167");
-        professor3.setCity("San Francisco");
-        professor3.setState("CA");
-        professor3.setCountry("USA");
-        professor3.setZipCode("78534");
+
+        Address professor3Address = new Address();
+        professor3Address.setStreetName("70 S Market St");
+        professor3Address.setAptNo(167);
+        professor3Address.setCity("San Francisco");
+        professor3Address.setState("CA");
+        professor3Address.setZipCode(78534);
+
+        professor3.setAddress(professor3Address);
         professor3.setFacultyType("Permanant");
         professor3.setYearsOfExperience(25);
 
@@ -252,11 +280,11 @@ public class DataGenerator {
         professor3.setPhoneNumber("+1-408-774-7860");
 
         Calendar prof3_calendar1 = Calendar.getInstance();
-        prof3_calendar1.set(0,0,28,10,0);
+        prof3_calendar1.set(0, 0, 28, 10, 0);
         professor3.setOfficeHoursFromTime(prof3_calendar1.getTime());
 
         Calendar prof3_calendar2 = Calendar.getInstance();
-        prof3_calendar2.set(0,0,28,15,0);
+        prof3_calendar2.set(0, 0, 28, 15, 0);
         professor3.setOfficeHoursToTime(prof3_calendar2.getTime());
 
         Professor professor4 = new Professor();
@@ -265,12 +293,15 @@ public class DataGenerator {
         professor4.setMiddleName("A.");
         professor4.setLastName("Bing");
         professor4.setCollegeId(676L);
-        professor4.setAddress1("901 Stevenson Blvd");
-        professor4.setAddress2("Apt 48");
-        professor4.setCity("Fremont");
-        professor4.setState("CA");
-        professor4.setCountry("USA");
-        professor4.setZipCode("94536");
+
+        Address professor4Address = new Address();
+        professor4Address.setStreetName("901 Stevenson Blvd");
+        professor4Address.setAptNo(48);
+        professor4Address.setCity("Fremont");
+        professor4Address.setState("CA");
+        professor4Address.setZipCode(94536);
+
+        professor4.setAddress(professor4Address);
         professor4.setFacultyType("Visiting");
         professor4.setYearsOfExperience(5);
 
@@ -295,12 +326,15 @@ public class DataGenerator {
         professor5.setMiddleName("U.");
         professor5.setLastName("Davis");
         professor5.setCollegeId(444L);
-        professor5.setAddress1("876 Lawrence St");
-        professor5.setAddress2("Apt 10");
-        professor5.setCity("Santa Clara");
-        professor5.setState("CA");
-        professor5.setCountry("USA");
-        professor5.setZipCode("95134");
+
+        Address professor5Address = new Address();
+        professor5Address.setStreetName("876 Lawrence St");
+        professor5Address.setAptNo(10);
+        professor5Address.setCity("Santa Clara");
+        professor5Address.setState("CA");
+        professor5Address.setZipCode(95134);
+
+        professor5.setAddress(professor5Address);
         professor5.setFacultyType("Permanant");
         professor5.setYearsOfExperience(9);
 
@@ -312,7 +346,7 @@ public class DataGenerator {
         professor5.setPhoneNumber("+1-712-354-0062");
 
         Calendar prof5_calendar1 = Calendar.getInstance();
-        prof5_calendar1.set(0,0,9,11,30);
+        prof5_calendar1.set(0, 0, 9, 11, 30);
         professor5.setOfficeHoursFromTime(prof5_calendar1.getTime());
 
         Calendar prof5_calendar2 = Calendar.getInstance();
@@ -324,12 +358,15 @@ public class DataGenerator {
         professor6.setMiddleName("AA");
         professor6.setLastName("Hill");
         professor6.setCollegeId(666L);
-        professor6.setAddress1("48455 Pierstorff Avenue");
-        professor6.setAddress2("Apt 18");
-        professor6.setCity("Anchorage");
-        professor6.setState("Alaska");
-        professor6.setCountry("USA");
-        professor6.setZipCode("99522");
+
+        Address professor6Address = new Address();
+        professor6Address.setStreetName("48455 Pierstorff Avenue");
+        professor6Address.setAptNo(18);
+        professor6Address.setCity("Anchorage");
+        professor6Address.setState("Alaska");
+        professor6Address.setZipCode(99522);
+
+        professor6.setAddress(professor6Address);
         professor6.setFacultyType("Full-Time");
         professor6.setYearsOfExperience(20);
 
