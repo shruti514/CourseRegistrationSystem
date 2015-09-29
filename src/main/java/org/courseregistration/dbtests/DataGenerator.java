@@ -536,7 +536,7 @@ public class DataGenerator {
         section3.setSemester("Fall-2016");
         section3.setTotalCapacity(45);
         section3.setWaitListCapacity(20);
-        section3.setCourse(course3);
+        section3.setCourse(course2);
         section3.setProfessor(professor3);
 
         Section section4 = new Section();
@@ -580,7 +580,7 @@ public class DataGenerator {
         section5.setSemester("Spring-2016");
         section5.setTotalCapacity(40);
         section5.setWaitListCapacity(10);
-        section5.setCourse(course5);
+        section5.setCourse(course4);
         section5.setProfessor(professor5);
 
 
