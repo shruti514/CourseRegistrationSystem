@@ -16,6 +16,14 @@
   -DUSER=root
   -DPASS=root
 
+- To set the Isolation Level for our projectfor MySQL, fire the below query:
+   SET @@GLOBAL.tx_isolation = 'READ-COMMITTED';
+
+- To check the Isolation Level on your MySQL DB, fire the below query:
+   SELECT @@GLOBAL.tx_isolation, @@tx_isolation;
+
+
+
 
 
 
