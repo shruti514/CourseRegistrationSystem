@@ -167,8 +167,6 @@ public class Bootstrap {
                     String courseString = updatedStudent.getSections().size() >1?"courses":"course";
 
                     System.out.println("        ----You are enrolled for "+updatedStudent.getSections().size()+" "+courseString+"----");
-                    System.out.println();
-                    System.out.println("        ------------------Your Courses------------------");
 
 					for (Section section : updatedStudent.getSections()) {
 						System.out.println(section.toString());
@@ -202,8 +200,6 @@ public class Bootstrap {
 
                     String courseString = updatedJohn.getSections().size() >1?"courses":"course";
                     System.out.println("        ----You are enrolled for "+updatedJohn.getSections().size()+" "+courseString+"----");
-                    System.out.println();
-                    System.out.println("        ------------------Your Courses------------------");
 
 					for (Section section : updatedJohn.getSections()) {
 						System.out.println(section.toString());
@@ -245,10 +241,11 @@ public class Bootstrap {
 				Section courseSection = fetchSection("CS-218", "Larkin");
 				int total_seats = courseSection.getTotalCapacity();
 				int enrolled_students = courseSection.getStudents().size();
-
-				System.out.println("Section: " + courseSection.toString());
-				printProperMessage("Success", "This course has "
-						+ (total_seats - enrolled_students) + " open seats");
+                System.out.println();
+                printProperMessage("Success", "This course has "
+                    + (total_seats - enrolled_students) + " open seats");
+                System.out.println();
+                System.out.println("Section: " + courseSection.toString());
 				System.out.println();
 
 				break;
