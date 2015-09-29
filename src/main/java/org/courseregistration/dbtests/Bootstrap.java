@@ -26,7 +26,7 @@ public class Bootstrap {
 		HibernateUtils.initEntityManager();
 
 		// This is just for now till we dont have data
-		DataGenerator.generateData();
+		//DataGenerator.generateData();
 		EntityManager entityManager = HibernateUtils.getEntityManager();
 
 		String input = "";
