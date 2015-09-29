@@ -123,11 +123,11 @@ public class Address implements Serializable {
 		// TODO Auto-generated method stub
 
 		StringBuilder builder = new StringBuilder();
-		builder.append("\n\tStreet :\t" + streetName);
-		builder.append("\n\tApartment no :\t" + aptNo);
-		builder.append("\n\tCity :\t" + city);
-		builder.append("\n\tZip code :\t" + zipcode);
-		builder.append("\n\tState :\t" + state);
+		builder.append("\n\t[Address: " + streetName);
+		builder.append(" #" + aptNo);
+		builder.append(", " + city);
+		builder.append(" " + zipcode);
+		builder.append(", " + state + " ]");
 		return builder.toString();
 
 	}

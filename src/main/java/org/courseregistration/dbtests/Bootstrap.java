@@ -65,7 +65,7 @@ public class Bootstrap {
 		while ((this.input = scanner.nextLine()) != null
 				&& !exitCode.equalsIgnoreCase(this.input)) {
 
-			if (this.getArgumentsAndCommand())
+			if (this.getCommandAndSingleParameter())
 				this.executeCommand();
 			else {
 				printError();
@@ -80,7 +80,7 @@ public class Bootstrap {
 		}
 	}
 
-	private boolean getArgumentsAndCommand() {
+	private boolean getCommandAndSingleParameter() {
 		try {
 			String temp = this.input.toLowerCase().trim();
 			if (temp.contains("=")) {
@@ -177,8 +177,7 @@ public class Bootstrap {
 			if (studentJohn.getSections().contains(coursesByProfMike.get(0)))
 				studentJohn.dropSection(coursesByProfMike.get(0));
 			else
-				printProperMessage(
-						"Error",
+				printProperMessage("Error",
 						"John, You have not registered to the course CS-218 taken by Professor Larkin!");
 
 			Student updatedJohn = studentDAO.update(studentJohn);
