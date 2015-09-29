@@ -5,7 +5,9 @@ import java.util.Scanner;
 
 import javax.persistence.EntityManager;
 
+import org.courseregistration.dao.CourseDAO;
 import org.courseregistration.dao.StudentDAO;
+import org.courseregistration.model.Course;
 import org.courseregistration.model.Student;
 
 public class Bootstrap {
@@ -19,6 +21,7 @@ public class Bootstrap {
 
 		// This is just for now till we dont have data
 		DataGenerator.generateData();
+		EntityManager entityManager = HibernateUtils.getEntityManager();
 
 		String input = "";
 		System.out.println("***********************************************");
@@ -31,19 +34,30 @@ public class Bootstrap {
 				&& !exitCode.equalsIgnoreCase(input)) {
 			System.out.println(input);
 			switch (input.toLowerCase()) {
-			case "search $":
-				StudentDAO dao = new StudentDAO(
-						HibernateUtils.getEntityManager());
-				List<Student> list = dao.findAll();
+			case "list all students":
+				StudentDAO dao = new StudentDAO(entityManager);
+				List<Student> studentlist = dao.findAll();
 
-				System.out.println("List of Students: " + list);
+				System.out
+						.println("List of Students: \n ________________________________");
+				for (Student student : studentlist) {
+					System.out.println(student.toString());
+				}
 				break;
-			case "2":
+
+			case "list all courses":
+				CourseDAO courseDao = new CourseDAO(entityManager);
+				List<Course> courselist = courseDao.findAll();
+				System.out
+						.println("List of Courses: \n ________________________________");
+				for (Course course : courselist) {
+					System.out.println(course.toString());
+				}
 
 				break;
 
 			case "3":
-				;
+
 				break;
 
 			case "exit":
