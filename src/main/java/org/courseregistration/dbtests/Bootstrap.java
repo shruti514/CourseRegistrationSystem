@@ -240,7 +240,7 @@ public class Bootstrap {
 
 				break;
 
-			case "search for course by courseid":
+			case "search for course by course code":
 				criteria.clear();
 				criteria.put(SearchCriteria.COURSE_CODE_EQUALS, this.parameter);
 				searchCoursesByCriteria("No courses found of this course ID");
@@ -359,10 +359,10 @@ public class Bootstrap {
 		System.out
 				.println("show number of open seats in course cs-218 of professor larkin");
 
-		System.out.println("search for courses by session=xyz");
+		System.out.println("search for courses by Session=Fall-2015");
 		System.out.println("search for courses by day of a week=Friday");
 		System.out.println("search for courses by professor=Ranjan");
-		System.out.println("search for course by courseid=CS-218");
+		System.out.println("search for course by course code=CS-218");
 		System.out.println("search courses by name=Quantitative Analysis");
 		System.out.println("search for courses by department=Computer Science");
 	}
