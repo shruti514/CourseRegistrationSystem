@@ -343,19 +343,27 @@ public class Bootstrap {
 	}
 
 	private void printHelp() {
-		System.out.println("search for courses by session=xyz");
-		System.out.println("search for courses by day of a week=xyz");
-		System.out.println("search for courses by professor=xyz");
-		System.out.println("search for course by courseid=xyz");
-		System.out.println("search courses by name=xyz");
-		System.out.println("register for course to courseid=xyz");
-		System.out.println("drop from course where courseid=xyz");
+
+		System.out.println("list all students");
+		System.out.println("list all courses");
+		System.out.println("list all professors");
+		System.out
+				.println("as a student i should be able to search for a course which matches exactly cs-218");
+		System.out
+				.println("as a student i should be able to add a course cs-218 conducted by professor larkin");
+		System.out
+				.println("as a student i should be able to drop a course cs-218 conducted by professor larkin");
 		System.out
 				.println("list the students from course cs-218 of professor larkin");
-		System.out.println("list of sections of John");
+		System.out.println("list of sections of john");
 		System.out
 				.println("show number of open seats in course cs-218 of professor larkin");
 
-		System.out.println("search for courses by department=xyz");
+		System.out.println("search for courses by session=xyz");
+		System.out.println("search for courses by day of a week=Friday");
+		System.out.println("search for courses by professor=Ranjan");
+		System.out.println("search for course by courseid=CS-218");
+		System.out.println("search courses by name=Quantitative Analysis");
+		System.out.println("search for courses by department=Computer Science");
 	}
 }
