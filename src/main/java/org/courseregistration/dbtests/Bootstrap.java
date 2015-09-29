@@ -7,10 +7,12 @@ import java.util.Scanner;
 import javax.persistence.EntityManager;
 
 import org.courseregistration.dao.CourseDAO;
+import org.courseregistration.dao.ProfessorDAO;
 import org.courseregistration.dao.SearchCriteria;
 import org.courseregistration.dao.SectionDAO;
 import org.courseregistration.dao.StudentDAO;
 import org.courseregistration.model.Course;
+import org.courseregistration.model.Professor;
 import org.courseregistration.model.Section;
 import org.courseregistration.model.Student;
 
@@ -25,6 +27,8 @@ public class Bootstrap {
 	private Map<SearchCriteria, String> criteria;
 	private SectionDAO sectionDAO;
 	private CourseDAO courseDAO;
+	private ProfessorDAO professorDAO;
+	private StudentDAO studentDAO;
 
 	private String input = "";
 	private String command;
@@ -35,6 +39,8 @@ public class Bootstrap {
 		criteria = Maps.newHashMap();
 		sectionDAO = new SectionDAO(entityManager);
 		courseDAO = new CourseDAO(entityManager);
+		professorDAO = new ProfessorDAO(entityManager);
+		studentDAO = new StudentDAO(entityManager);
 	}
 
 	public static void main(String[] args) {
@@ -111,12 +117,22 @@ public class Bootstrap {
 			break;
 
 		case "list all courses":
-			CourseDAO courseDao = new CourseDAO(entityManager);
-			List<Course> courselist = courseDao.findAll();
+			// CourseDAO courseDao = new CourseDAO(entityManager);
+			List<Course> courselist = courseDAO.findAll();
 			System.out
 					.println("List of Courses: \n ________________________________");
 			for (Course course : courselist) {
 				System.out.println(course.toString());
+			}
+
+			break;
+
+		case "list all professors":
+			List<Professor> professorList = professorDAO.findAll();
+			System.out
+					.println("List of Courses: \n ________________________________");
+			for (Professor professor : professorList) {
+				System.out.println(professor.toString());
 			}
 
 			break;
@@ -214,6 +230,21 @@ public class Bootstrap {
 						"No courses found in this Department");
 			break;
 
+		case "list of students from courseid":
+			criteria.clear();
+			criteria.put(SearchCriteria.COURSE_CODE_EQUALS, this.parameter);
+
+			List<Section> studentsByCourse = sectionDAO
+					.findCourseByCriteria(criteria);
+
+			if (studentsByCourse.size() > 0)
+				for (Section course : studentsByCourse) {
+					System.out.println(course.toString());
+				}
+			else
+				printProperMessage("ERROR",
+						"No courses found in this Department");
+			break;
 		case "":
 			break;
 
