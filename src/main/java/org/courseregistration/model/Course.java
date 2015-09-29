@@ -144,7 +144,7 @@ public class Course implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("\n\tCourse Details:");
+		builder.append("\n\tCourse Details:__________________________________");
 		builder.append("\n\tCode: " + code);
 		builder.append(", Name: " + name);
 		builder.append(" [ Credits: " + numOfCredits + "]");

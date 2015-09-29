@@ -245,8 +245,8 @@ public class Section implements Serializable {
 		StringBuilder builder = new StringBuilder();
 		builder.append("\n\tSemester: " + semester);
 		builder.append(course.toString());
-		builder.append("\n\tClass timings From " + classStartTime + " To "
-				+ classEndTime);
+		builder.append("\n\t[ Class timings From " + classStartTime + " To "
+				+ classEndTime + "] ");
 		builder.append("on " + dayOfWeek + " in a week");
 		builder.append("\n\t[ Class Schedule: " + startDate);
 		builder.append(" to " + endDate + "]");
