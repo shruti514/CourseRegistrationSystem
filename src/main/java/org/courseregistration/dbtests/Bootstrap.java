@@ -31,7 +31,7 @@ public class Bootstrap {
 				&& !exitCode.equalsIgnoreCase(input)) {
 			System.out.println(input);
 			switch (input.toLowerCase()) {
-			case "search":
+			case "search $":
 				StudentDAO dao = new StudentDAO(
 						HibernateUtils.getEntityManager());
 				List<Student> list = dao.findAll();
