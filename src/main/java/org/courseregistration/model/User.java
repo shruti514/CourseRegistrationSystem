@@ -183,14 +183,7 @@ class User implements Serializable {
 			return false;
 		if (!address.equals(user.address))
 			return false;
-		/*
-		 * if (!address1.equals(user.address1)) return false; if (address2 !=
-		 * null ? !address2.equals(user.address2) : user.address2 != null)
-		 * return false; if (!city.equals(user.city)) return false; if
-		 * (!state.equals(user.state)) return false; if
-		 * (!country.equals(user.country)) return false; if
-		 * (!zipCode.equals(user.zipCode)) return false;
-		 */
+
 		return roles.equals(user.roles);
 
 	}
@@ -208,13 +201,6 @@ class User implements Serializable {
 		result = 31 * result + phoneNumber.hashCode();
 		result = 31 * result + dateOfBirth.hashCode();
 		result = 31 * result + address.hashCode();
-		/*
-		 * result = 31 * result + address1.hashCode(); result = 31 * result +
-		 * (address2 != null ? address2.hashCode() : 0); result = 31 * result +
-		 * city.hashCode(); result = 31 * result + state.hashCode(); result = 31
-		 * * result + country.hashCode(); result = 31 * result +
-		 * zipCode.hashCode();
-		 */
 		result = 31 * result + roles.hashCode();
 		return result;
 	}
@@ -230,7 +216,6 @@ class User implements Serializable {
 		builder.append("\n\tContact Number :\t" + phoneNumber);
 		builder.append("\n\tDate of birth :\t" + dateOfBirth);
 		builder.append(address.toString());
-		// builder.append("\n\tAddress :\t" + address);
 		return builder.toString();
 
 	}
