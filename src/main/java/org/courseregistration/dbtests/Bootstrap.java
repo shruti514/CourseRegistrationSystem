@@ -158,6 +158,9 @@ public class Bootstrap {
 							"John, You have already registered to the course CS-218 taken by Professor Larkin!");
 				else {
 					student.addSection(coursesByID.get(0));
+					printProperMessage("Success",
+							"You are Successfully registerred to the course CS-218 by Prof. Larkin");
+					System.out.println();
 
 					Student updatedStudent = studentDAO.update(student);
 
@@ -184,12 +187,57 @@ public class Bootstrap {
 				else {
 
 					studentJohn.dropSection(coursesByProfMike.get(0));
+					printProperMessage("Success",
+							"You are successfully dropped out from course: CS-218");
+					System.out.println();
+
 					Student updatedJohn = studentDAO.update(studentJohn);
 
 					for (Section section : updatedJohn.getSections()) {
 						System.out.println(section.toString());
 					}
 				}
+				break;
+
+			case "list the students from course cs-218 of professor larkin":
+				// TODO Shraddha
+				Section section = fetchSection("CS-218", "Larkin");
+				List<Student> studentsList = section.getStudents();
+
+				if (studentsList.size() > 0) {
+					for (Student currStudent : studentsList) {
+						System.out.println(currStudent.toString());
+					}
+				} else {
+					printProperMessage("ERROR", section.getCourse().getCode()
+							+ " has no students registerred. ");
+				}
+				break;
+
+			case "list of sections of John":
+
+				Student studentSections = loadStudentJohn();
+				List<Section> sectionsList = studentSections.getSections();
+
+				if (sectionsList.size() > 0)
+					for (Section course : sectionsList) {
+						System.out.println(course.toString());
+					}
+				else
+					printProperMessage("ERROR", studentSections.getFirstName()
+							+ " is not registered to any course. ");
+				break;
+
+			case "show number of open seats in course cs-218 of professor larkin":
+				Section courseSection = fetchSection("CS-218", "Larkin");
+				int total_seats = courseSection.getTotalCapacity();
+				int enrolled_students = courseSection.getStudents().size();
+
+				System.out.println("Section: " + courseSection.toString());
+				printProperMessage("Success", "This course has "
+						+ (total_seats - enrolled_students) + " open seats");
+				System.out.println();
+
 				break;
 
 			case "search for course by courseid":
@@ -230,22 +278,10 @@ public class Bootstrap {
 				searchCoursesByCriteria("No courses found in this Department");
 				break;
 
-			case "list of sessions of student":
-				criteria.clear();
-				criteria.put(SearchCriteria.STUDENT_LAST_NAME_EQUALS,
-						this.parameter);
-
-				List<Section> studentsByCourse = sectionDAO
-						.findCourseByCriteria(criteria);
-
-				if (studentsByCourse.size() > 0)
-					for (Section course : studentsByCourse) {
-						System.out.println(course.toString());
-					}
-				else
-					printProperMessage("ERROR",
-							"There is no Student with Last Name: "
-									+ this.parameter);
+			case "help":
+				System.out.println();
+				printHelp();
+				System.out.println();
 				break;
 
 			case "":
@@ -264,6 +300,14 @@ public class Bootstrap {
 						Student.class).setParameter("firstName", "john")
 				.getSingleResult();
 
+	}
+
+	private Section fetchSection(String courseId, String professor) {
+		return entityManager
+				.createQuery(
+						"select s from Section s where s.course.code=:courseId and s.professor.lastName=:lastname",
+						Section.class).setParameter("courseId", courseId)
+				.setParameter("lastname", professor).getSingleResult();
 	}
 
 	private void searchCoursesByCriteria(String errorMsg) {
@@ -296,5 +340,22 @@ public class Bootstrap {
 		System.out.println("***********************************************");
 		System.out.println("Welcome to Student Course Registartion System!");
 		System.out.println("***********************************************");
+	}
+
+	private void printHelp() {
+		System.out.println("search for courses by session=xyz");
+		System.out.println("search for courses by day of a week=xyz");
+		System.out.println("search for courses by professor=xyz");
+		System.out.println("search for course by courseid=xyz");
+		System.out.println("search courses by name=xyz");
+		System.out.println("register for course to courseid=xyz");
+		System.out.println("drop from course where courseid=xyz");
+		System.out
+				.println("list the students from course cs-218 of professor larkin");
+		System.out.println("list of sections of John");
+		System.out
+				.println("show number of open seats in course cs-218 of professor larkin");
+
+		System.out.println("search for courses by department=xyz");
 	}
 }
