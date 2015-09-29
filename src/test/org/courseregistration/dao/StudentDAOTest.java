@@ -70,7 +70,7 @@ public class StudentDAOTest extends BaseTest {
 
         assertNotNull(student.getId());
         assertNotNull(section.getId());
-        assertEquals(1,student.getSections().size());
+        assertEquals(1, student.getSections().size());
         assertEquals(section,student.getSections().get(0));
 
         student.dropSection(section);
@@ -149,11 +149,12 @@ public class StudentDAOTest extends BaseTest {
     }
 
     //student has a section associated.Deleting a student also deletes a row from "enrolled_students"
+    // cascading delete
     @Test
     public void test_referential_integrity(){
         Student student = TestUtils.createStudent(454L,"student");
 
-        Section section =TestUtils.createSection(656L,"Prof.John","CMPE-865");
+        Section section =TestUtils.createSection(656L, "Prof.John", "CMPE-865");
 
         student.addSection(section);
 
@@ -167,8 +168,52 @@ public class StudentDAOTest extends BaseTest {
         List resultList = entityManager.createNativeQuery("select * from enrolled_student s where s.student_id=" + student.getId()).getResultList();
 
         assertNull(updatedStudent);
-        assertEquals(0,resultList.size());
+        assertEquals(0, resultList.size());
+    }
+
+    // A user should not be allowed to insert  value of foreign key in enrolled_student table
+    @Test
+    public void test_referential_integrity2() {
+
+        entityManager.getTransaction().begin();
+        entityManager.createNativeQuery("insert into enrolled_student (student_id, section_id) VALUES (444,555)").executeUpdate();
+        entityManager.getTransaction().commit();
+
     }
 
 
+    // Checking the Isolation Level (READ COMMITTED)
+    @Test
+    public void test_isolation_level () {
+
+      /*  entityManager.createNativeQuery("insert into student_details(admissionType, previous_degree, user_id) VALUES ('GGG','HHH', 555)").executeUpdate();
+        entityManager.getTransaction().commit();
+        entityManager.createNativeQuery("select * from student_details").executeUpdate();
+
+        entityManager.createNativeQuery("insert into student_details(admissionType, previous_degree, user_id) VALUES ('JJJ','GGG', 888)").executeUpdate();
+        entityManager.createNativeQuery("select * from student_details").executeUpdate();*/
+
+        Student student = TestUtils.createStudent(6595L, "test");
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(student);
+        entityManager.getTransaction().commit();
+
+        Student studentFromDB = entityManager.find(Student.class, student.getId());
+
+        System.out.println(studentFromDB.toString()+ studentFromDB.getFirstName() );
+
+        studentFromDB.setFirstName("test2");
+
+        entityManager.getTransaction().begin();
+        entityManager.merge(studentFromDB);
+        Student studentFromDB2 = entityManager.find(Student.class, student.getId());
+        System.out.println(studentFromDB2.toString() + studentFromDB2.getFirstName());
+        entityManager.getTransaction().commit();
+
+        Student studentFromDB3 = entityManager.find(Student.class, student.getId());
+        System.out.println(studentFromDB2.toString()+studentFromDB3.getFirstName());
+        assertEquals(studentFromDB, student);
+
+    }
 }

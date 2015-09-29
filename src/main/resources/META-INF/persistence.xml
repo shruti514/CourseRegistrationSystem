@@ -17,6 +17,8 @@
       <property name="javax.persistence.jdbc.user" value="${USER}" />
       <property name="javax.persistence.jdbc.password" value="${PASS}" />
 
+      <property name="hibernate.connection.autocommit" value="false" />
+      <property name="hibernate.connection.isolation" value="2"/> <!-- 1: READ UNCOMMITTED 2: READ COMMITTED 3: REPEATABLE READ 4: SERIALIZABLE -->
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
       <property name="hibernate.show_sql" value="true" />
       <property name="hibernate.hbm2ddl.auto" value="create" />

@@ -32,4 +32,17 @@ public class CourseDAOTest extends BaseTest{
         assertEquals("Number of courses do not match", 2, courses.size());
         assertTrue(Iterables.elementsEqual(courses, Lists.newArrayList(course2,course1)));
     }
+
+
+    // Checking the Isolation Level (READ COMMITTED)
+    @Test
+    public void check_isolation_level(){
+        entityManager.getTransaction().begin();
+        entityManager.createNativeQuery("insert into roles(role_id, name) values (3833, 'student')").executeUpdate();
+        entityManager.getTransaction().commit();
+
+        entityManager.getTransaction().begin();
+        entityManager.createNativeQuery("insert into roles(role_id, name) values (7777, 'professor')").executeUpdate();
+
+    }
 }
