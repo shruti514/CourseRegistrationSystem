@@ -46,13 +46,13 @@ public class Bootstrap {
 	public static void main(String[] args) {
 		// If error comment below line
 		HibernateUtils.initEntityManager();
+        // This is just for now till we don't have data
+        // DataGenerator.generateData();
 
-		// This is just for now till we don't have data
-		// DataGenerator.generateData();
+        Bootstrap program = new Bootstrap();
+        program.printWelcomeMessage();
+        program.printCommandEntry();
 
-		Bootstrap program = new Bootstrap();
-		program.printWelcomeMessage();
-		program.printCommandEntry();
 
 		program.getInputQueryFromUser();
 
@@ -253,7 +253,7 @@ public class Bootstrap {
 
 				break;
 
-			case "search for course by courseid":
+			case "search for course by course code":
 				criteria.clear();
 				criteria.put(SearchCriteria.COURSE_CODE_EQUALS, this.parameter);
 				searchCoursesByCriteria("No courses found of this course ID");
@@ -350,33 +350,32 @@ public class Bootstrap {
 	}
 
 	private void printWelcomeMessage() {
-		System.out.println("***********************************************");
+        System.out.println("***********************************************");
 		System.out.println("Welcome to Student Course Registartion System!");
 		System.out.println("***********************************************");
 	}
 
 	private void printHelp() {
 
-		System.out.println("list all students");
-		System.out.println("list all courses");
-		System.out.println("list all professors");
+		System.out.println("List all Students");
+		System.out.println("List all Courses");
+		System.out.println("List all Professors");
 		System.out
-				.println("as a student i should be able to search for a course which matches exactly cs-218");
+				.println("As a student I should be able to search for a course which matches exactly CS-218");
 		System.out
-				.println("as a student i should be able to add a course cs-218 conducted by professor larkin");
+				.println("As a student I should be able to ADD a course CS-218 conducted by professor Larkin");
 		System.out
-				.println("as a student i should be able to drop a course cs-218 conducted by professor larkin");
+				.println("As a student I should be able to DROP a course CS-218 conducted by professor Larkin");
 		System.out
-				.println("list the students from course cs-218 of professor larkin");
-		System.out.println("list of sections of john");
-		System.out
-				.println("show number of open seats in course cs-218 of professor larkin");
+				.println("List the students from course CS-218 of professor Larkin");
+		System.out.println("List of sections of John");
+		System.out.println("Show number of open seats in course CS-218 of professor Larkin");
 
-		System.out.println("search for courses by session=xyz");
-		System.out.println("search for courses by day of a week=Friday");
-		System.out.println("search for courses by professor=Ranjan");
-		System.out.println("search for course by courseid=CS-218");
-		System.out.println("search courses by name=Quantitative Analysis");
-		System.out.println("search for courses by department=Computer Science");
+		System.out.println("Search for courses by Session=Fall-2015");
+		System.out.println("Search for courses by day of a week=Friday");
+		System.out.println("Search for courses by professor=Ranjan");
+		System.out.println("Search for course by course code=CS-218");
+		System.out.println("search for courses by name=Quantitative Analysis");
+		System.out.println("Search for courses by department=Computer Science");
 	}
 }
