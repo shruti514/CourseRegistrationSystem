@@ -258,10 +258,14 @@ public class Bootstrap {
 	}
 
 	private void searchCoursesByCriteria(String errorMsg) {
+		int counter = 1;
 		List<Section> coursesByID = sectionDAO.findCourseByCriteria(criteria);
 		if (coursesByID.size() > 0)
 			for (Section course : coursesByID) {
+				System.out.println("__________________________________"
+						+ counter + "___________________________________");
 				System.out.println(course.toString());
+				counter++;
 			}
 		else
 			printProperMessage("ERROR", errorMsg);

@@ -1,6 +1,5 @@
 package org.courseregistration.dbtests;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.courseregistration.model.Course;
 import org.courseregistration.model.Professor;
@@ -10,7 +9,6 @@ import org.courseregistration.model.Role;
 import org.courseregistration.model.Address;
 
 import javax.persistence.EntityManager;
-import javax.xml.ws.soap.Addressing;
 import java.util.Calendar;
 
 
