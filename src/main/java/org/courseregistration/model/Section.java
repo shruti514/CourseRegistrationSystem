@@ -243,7 +243,6 @@ public class Section implements Serializable {
 		// TODO Auto-generated method stub
 
 		StringBuilder builder = new StringBuilder();
-		builder.append("\n\tProfessor name :\t" + professor);
 		builder.append("\n\tSemester :\t" + semester);
 		builder.append("\n\tClass timings From :\t" + classStartTime + " To "
 				+ classEndTime);
@@ -253,7 +252,10 @@ public class Section implements Serializable {
 		builder.append("\n\tRoom number :\t" + roomNumber);
 		builder.append("\n\tTotal capacity :\t" + totalCapacity);
 		builder.append("\n\tWait list capacity :\t" + waitListCapacity);
+
 		builder.append("\n\tMode of Instruction :\t" + modeOfInstruction);
+
+		builder.append(professor.toString());
 
 		return builder.toString();
 	}
