@@ -1,121 +1,134 @@
 package org.courseregistration.model;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "address")
 public class Address implements Serializable {
 
-    @Id
-    @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1, initialValue = 100000)
-    @GeneratedValue(generator = "sequence", strategy = GenerationType.SEQUENCE)
-    @Column(name = "address_id")
-    private Long id;
+	@Id
+	@SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1, initialValue = 100000)
+	@GeneratedValue(generator = "sequence", strategy = GenerationType.SEQUENCE)
+	@Column(name = "address_id")
+	private Long id;
 
-    @Column(name = "street_name", nullable = false)
-    private String streetName;
+	@Column(name = "street_name", nullable = false)
+	private String streetName;
 
-    @Column(name = "apt_no", nullable = false)
-    private Integer aptNo;
+	@Column(name = "apt_no", nullable = false)
+	private Integer aptNo;
 
-    @Column(name = "zip_code", nullable = false)
-    private Integer zipcode;
+	@Column(name = "zip_code", nullable = false)
+	private Integer zipcode;
 
-    @Column(name = "city", nullable = false)
-    private String city;
+	@Column(name = "city", nullable = false)
+	private String city;
 
-    @Column(name = "state", nullable = false)
-    private String state;
+	@Column(name = "state", nullable = false)
+	private String state;
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getStreetName() {
-        return streetName;
-    }
+	public String getStreetName() {
+		return streetName;
+	}
 
-    public void setStreetName(String streetName) {
-        this.streetName = streetName;
-    }
+	public void setStreetName(String streetName) {
+		this.streetName = streetName;
+	}
 
-    public Integer getAptNo() {
-        return aptNo;
-    }
+	public Integer getAptNo() {
+		return aptNo;
+	}
 
-    public void setAptNo(Integer aptNo) {
-        this.aptNo = aptNo;
-    }
+	public void setAptNo(Integer aptNo) {
+		this.aptNo = aptNo;
+	}
 
-    public Integer getZipcode() {
-        return zipcode;
-    }
+	public Integer getZipcode() {
+		return zipcode;
+	}
 
-    public void setZipcode(Integer zipcode) {
-        this.zipcode = zipcode;
-    }
+	public void setZipcode(Integer zipcode) {
+		this.zipcode = zipcode;
+	}
 
-    public String getCity() {
-        return city;
-    }
+	public String getCity() {
+		return city;
+	}
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+	public void setCity(String city) {
+		this.city = city;
+	}
 
-    public String getState() {
-        return state;
-    }
+	public String getState() {
+		return state;
+	}
 
-    public void setState(String state) {
-        this.state = state;
-    }
+	public void setState(String state) {
+		this.state = state;
+	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (!(o instanceof Address))
+			return false;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Address)) return false;
+		Address address = (Address) o;
 
-        Address address = (Address) o;
+		if (!id.equals(address.id))
+			return false;
+		if (!streetName.equals(address.streetName))
+			return false;
+		if (aptNo != null ? !aptNo.equals(address.aptNo)
+				: address.aptNo != null)
+			return false;
+		if (!zipcode.equals(address.zipcode))
+			return false;
+		if (!city.equals(address.city))
+			return false;
+		return state.equals(address.state);
 
-        if (!id.equals(address.id)) return false;
-        if (!streetName.equals(address.streetName)) return false;
-        if (aptNo != null ? !aptNo.equals(address.aptNo) : address.aptNo != null) return false;
-        if (!zipcode.equals(address.zipcode)) return false;
-        if (!city.equals(address.city)) return false;
-        return state.equals(address.state);
+	}
 
-    }
+	@Override
+	public int hashCode() {
+		int result = id.hashCode();
+		result = 31 * result + streetName.hashCode();
+		result = 31 * result + (aptNo != null ? aptNo.hashCode() : 0);
+		result = 31 * result + zipcode.hashCode();
+		result = 31 * result + city.hashCode();
+		result = 31 * result + state.hashCode();
+		return result;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + streetName.hashCode();
-        result = 31 * result + (aptNo != null ? aptNo.hashCode() : 0);
-        result = 31 * result + zipcode.hashCode();
-        result = 31 * result + city.hashCode();
-        result = 31 * result + state.hashCode();
-        return result;
-    }
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
 
-    @Override
-    public String toString() {
-        // TODO Auto-generated method stub
+		StringBuilder builder = new StringBuilder();
+		builder.append("\n\tStreet :\t" + streetName);
+		builder.append("\n\tApartment no :\t" + aptNo);
+		builder.append("\n\tCity :\t" + city);
+		builder.append("\n\tZip code :\t" + zipcode);
+		builder.append("\n\tState :\t" + state);
+		return builder.toString();
 
-        StringBuilder builder = new StringBuilder();
-        builder.append("\n\tStreet :\t" + streetName);
-        builder.append("\n\tApartment no :\t" + aptNo);
-        builder.append("\n\tCity :\t" + city);
-        builder.append("\n\tZip code :\t" + zipcode);
-        builder.append("\n\tState :\t" + state);
-        return builder.toString();
-
-    }
+	}
 }
