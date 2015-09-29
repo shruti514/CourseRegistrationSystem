@@ -71,6 +71,7 @@ public class Student extends User {
 
 		String userDetails = super.toString();
 		StringBuilder builder = new StringBuilder();
+		builder.append("\n\tStudent:__________________________________");
 		builder.append(userDetails);
 		builder.append("\n\tAdmission Type :\t" + admissionType);
 		builder.append("\n\tPrevious Degree :\t" + previousDegree);

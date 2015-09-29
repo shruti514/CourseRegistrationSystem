@@ -94,6 +94,7 @@ public class Professor extends User {
 
 		String userDetails = super.toString();
 		StringBuilder builder = new StringBuilder();
+		builder.append("\n\tProfessor:__________________________________");
 		builder.append(userDetails);
 		builder.append("\n\tFaculty type:\t" + facultyType);
 		builder.append("\n\tYears of Experience:\t" + yearsOfExperience);

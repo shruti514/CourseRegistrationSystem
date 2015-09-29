@@ -182,7 +182,8 @@ public class Bootstrap {
 
 		case "list of students from courseid":
 			criteria.clear();
-			criteria.put(SearchCriteria.COURSE_CODE_EQUALS, this.parameter);
+			criteria.put(SearchCriteria.STUDENT_LAST_NAME_EQUALS,
+					this.parameter);
 
 			List<Section> studentsByCourse = sectionDAO
 					.findCourseByCriteria(criteria);
@@ -193,7 +194,7 @@ public class Bootstrap {
 				}
 			else
 				printProperMessage("ERROR",
-						"No courses found in this Department");
+						"There is no Student with Last Name: " + this.parameter);
 			break;
 		case "":
 			break;
