@@ -1,11 +1,5 @@
 package org.courseregistration.dbtests;
 
-import org.hibernate.Session;
-
-import java.sql.Connection;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -35,16 +29,5 @@ public class HibernateUtils {
 		entityManagerFactory.close();
 	}
 
-	private static Map<String, String> createProperties() {
-
-		Map<String, String> properties = new HashMap<>();
-		properties.put("javax.persistence.jdbc.driver",
-				DatabaseConnector.JDBC_DRIVER);
-		properties.put("javax.persistence.jdbc.url", DatabaseConnector.DB_URL);
-		properties.put("javax.persistence.jdbc.user", DatabaseConnector.USER);
-		properties.put("javax.persistence.jdbc.password",
-				DatabaseConnector.PASS);
-		return properties;
-	}
 
 }
