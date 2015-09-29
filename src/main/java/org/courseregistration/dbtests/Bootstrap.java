@@ -46,13 +46,13 @@ public class Bootstrap {
 	public static void main(String[] args) {
 		// If error comment below line
 		HibernateUtils.initEntityManager();
+        // This is just for now till we don't have data
+        // DataGenerator.generateData();
 
-		// This is just for now till we don't have data
-		// DataGenerator.generateData();
+        Bootstrap program = new Bootstrap();
+        program.printWelcomeMessage();
+        program.printCommandEntry();
 
-		Bootstrap program = new Bootstrap();
-		program.printWelcomeMessage();
-		program.printCommandEntry();
 
 		program.getInputQueryFromUser();
 
@@ -337,7 +337,7 @@ public class Bootstrap {
 	}
 
 	private void printWelcomeMessage() {
-		System.out.println("***********************************************");
+        System.out.println("***********************************************");
 		System.out.println("Welcome to Student Course Registartion System!");
 		System.out.println("***********************************************");
 	}
@@ -356,14 +356,13 @@ public class Bootstrap {
 		System.out
 				.println("List the students from course CS-218 of professor Larkin");
 		System.out.println("List of sections of John");
-		System.out
-				.println("Show number of open seats in course CS-218 of professor Larkin");
+		System.out.println("Show number of open seats in course CS-218 of professor Larkin");
 
 		System.out.println("Search for courses by Session=Fall-2015");
 		System.out.println("Search for courses by day of a week=Friday");
 		System.out.println("Search for courses by professor=Ranjan");
 		System.out.println("Search for course by course code=CS-218");
-		System.out.println("Search courses by name=Quantitative Analysis");
+		System.out.println("search for courses by name=Quantitative Analysis");
 		System.out.println("Search for courses by department=Computer Science");
 	}
 }
