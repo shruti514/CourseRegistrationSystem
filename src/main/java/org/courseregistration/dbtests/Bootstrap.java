@@ -159,14 +159,21 @@ public class Bootstrap {
 				else {
 					student.addSection(coursesByID.get(0));
 					printProperMessage("Success",
-							"You are Successfully registerred to the course CS-218 by Prof. Larkin");
+							"You are Successfully registered to the course CS-218 by Prof. Larkin");
 					System.out.println();
 
 					Student updatedStudent = studentDAO.update(student);
 
+                    String courseString = updatedStudent.getSections().size() >1?"courses":"course";
+
+                    System.out.println("        ----You are enrolled for "+updatedStudent.getSections().size()+" "+courseString+"----");
+                    System.out.println();
+                    System.out.println("        ------------------Your Courses------------------");
+
 					for (Section section : updatedStudent.getSections()) {
 						System.out.println(section.toString());
-					}
+                        System.out.println("        ------------------------------------------");
+                    }
 				}
 				break;
 
@@ -193,9 +200,15 @@ public class Bootstrap {
 
 					Student updatedJohn = studentDAO.update(studentJohn);
 
+                    String courseString = updatedJohn.getSections().size() >1?"courses":"course";
+                    System.out.println("        ----You are enrolled for "+updatedJohn.getSections().size()+" "+courseString+"----");
+                    System.out.println();
+                    System.out.println("        ------------------Your Courses------------------");
+
 					for (Section section : updatedJohn.getSections()) {
 						System.out.println(section.toString());
-					}
+                        System.out.println("        ------------------------------------------");
+                    }
 				}
 				break;
 
@@ -333,7 +346,7 @@ public class Bootstrap {
 	}
 
 	private void printCommandEntry() {
-		System.out.print("[write quit to exit]# ");
+		System.out.print("[type 'quit' to exit]# ");
 	}
 
 	private void printWelcomeMessage() {
