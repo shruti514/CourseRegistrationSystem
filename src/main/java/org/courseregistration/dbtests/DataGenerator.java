@@ -1,5 +1,7 @@
 package org.courseregistration.dbtests;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import org.courseregistration.model.Course;
 import org.courseregistration.model.Professor;
 import org.courseregistration.model.Section;
@@ -17,8 +19,20 @@ public class DataGenerator {
     public static void generateData(){
         EntityManager entityManager = org.courseregistration.dbtests.HibernateUtils.getEntityManager();
 
+        //--------------------------------------------------------------------------
+        Role role1= new Role();
+        role1.setName("Student");
+
+        Role role2=new Role();
+        role2.setName("Administrator");
+
+        Role role3 = new Role();
+        role3.setName("Professor");
+        //--------------------------------------------------------------------------
+
         Student student1 = new Student();
         student1.setCollegeId((long) 123456789);
+        student1.setRoles(Sets.newHashSet(role1));
         student1.setFirstName("John");
         student1.setMiddleName("R.");
         student1.setLastName("Edward");
@@ -554,18 +568,13 @@ public class DataGenerator {
         section5.setWaitListCapacity(10);
         section5.setCourse(course5);
         section5.setProfessor(professor5);
-        //--------------------------------------------------------------------------
-        Role role1= new Role();
-        role1.setName("Student");
 
-        Role role2=new Role();
-        role2.setName("Administrator");
-
-        Role role3 = new Role();
-        role3.setName("professor");
-       //--------------------------------------------------------------------------
 
         entityManager.getTransaction().begin();
+        entityManager.persist(role1);
+        entityManager.persist(role2);
+        entityManager.persist(role3);
+
         entityManager.persist(course1);
         entityManager.persist(course2);
         entityManager.persist(course3);
