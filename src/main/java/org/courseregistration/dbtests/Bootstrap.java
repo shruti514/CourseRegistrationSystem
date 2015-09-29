@@ -214,7 +214,7 @@ public class Bootstrap {
 				}
 				break;
 
-			case "list of sections of John":
+			case "list of sections of john":
 
 				Student studentSections = loadStudentJohn();
 				List<Section> sectionsList = studentSections.getSections();
