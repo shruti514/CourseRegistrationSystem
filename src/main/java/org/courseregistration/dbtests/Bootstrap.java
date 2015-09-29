@@ -180,7 +180,7 @@ public class Bootstrap {
 			searchCoursesByCriteria("No courses found in this Department");
 			break;
 
-		case "list of students from courseid":
+		case "list of sessions of student":
 			criteria.clear();
 			criteria.put(SearchCriteria.STUDENT_LAST_NAME_EQUALS,
 					this.parameter);
