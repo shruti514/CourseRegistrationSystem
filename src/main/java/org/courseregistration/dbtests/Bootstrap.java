@@ -344,26 +344,26 @@ public class Bootstrap {
 
 	private void printHelp() {
 
-		System.out.println("list all students");
-		System.out.println("list all courses");
-		System.out.println("list all professors");
+		System.out.println("List all Students");
+		System.out.println("List all Courses");
+		System.out.println("List all Professors");
 		System.out
-				.println("as a student i should be able to search for a course which matches exactly cs-218");
+				.println("As a student I should be able to search for a course which matches exactly CS-218");
 		System.out
-				.println("as a student i should be able to add a course cs-218 conducted by professor larkin");
+				.println("As a student I should be able to ADD a course CS-218 conducted by professor Larkin");
 		System.out
-				.println("as a student i should be able to drop a course cs-218 conducted by professor larkin");
+				.println("As a student I should be able to DROP a course CS-218 conducted by professor Larkin");
 		System.out
-				.println("list the students from course cs-218 of professor larkin");
-		System.out.println("list of sections of john");
+				.println("List the students from course CS-218 of professor Larkin");
+		System.out.println("List of sections of John");
 		System.out
-				.println("show number of open seats in course cs-218 of professor larkin");
+				.println("Show number of open seats in course CS-218 of professor Larkin");
 
-		System.out.println("search for courses by Session=Fall-2015");
-		System.out.println("search for courses by day of a week=Friday");
-		System.out.println("search for courses by professor=Ranjan");
-		System.out.println("search for course by course code=CS-218");
-		System.out.println("search courses by name=Quantitative Analysis");
-		System.out.println("search for courses by department=Computer Science");
+		System.out.println("Search for courses by Session=Fall-2015");
+		System.out.println("Search for courses by day of a week=Friday");
+		System.out.println("Search for courses by professor=Ranjan");
+		System.out.println("Search for course by course code=CS-218");
+		System.out.println("Search courses by name=Quantitative Analysis");
+		System.out.println("Search for courses by department=Computer Science");
 	}
 }
