@@ -20,19 +20,19 @@ public class DataGenerator {
         EntityManager entityManager = org.courseregistration.dbtests.HibernateUtils.getEntityManager();
 
         //--------------------------------------------------------------------------
-        Role role1= new Role();
-        role1.setName("Student");
+        Role student_role= new Role();
+        student_role.setName("Student");
 
-        Role role2=new Role();
-        role2.setName("Administrator");
+        Role professor_role=new Role();
+        professor_role.setName("Professor");
 
-        Role role3 = new Role();
-        role3.setName("Professor");
+        Role admin_role = new Role();
+        admin_role.setName("Administrator");
         //--------------------------------------------------------------------------
 
         Student student1 = new Student();
+        student1.setRoles(Sets.newHashSet(student_role));
         student1.setCollegeId((long) 123456789);
-        student1.setRoles(Sets.newHashSet(role1));
         student1.setFirstName("John");
         student1.setMiddleName("R.");
         student1.setLastName("Edward");
@@ -56,6 +56,7 @@ public class DataGenerator {
         student1.setPreviousDegree("Bsc Comp Science");
 
         Student student2 = new Student();
+        student2.setRoles(Sets.newHashSet(student_role));
         student2.setFirstName("Alice");
         student2.setMiddleName("W.");
         student2.setCollegeId((long) 123456788);
@@ -79,6 +80,7 @@ public class DataGenerator {
         student2.setPreviousDegree("BE Comp Engineering");
 
         Student student3 = new Student();
+        student3.setRoles(Sets.newHashSet(student_role));
         student3.setFirstName("Sarah");
         student3.setMiddleName("V.");
         student3.setLastName("Rossie");
@@ -103,6 +105,7 @@ public class DataGenerator {
         student3.setPreviousDegree("Bachelor of commerce");
 
         Student student4 = new Student();
+        student4.setRoles(Sets.newHashSet(student_role));
         student4.setFirstName("Alan");
         student4.setMiddleName("V.");
         student4.setLastName("Simon");
@@ -128,6 +131,7 @@ public class DataGenerator {
 
 
         Student student5 = new Student();
+        student5.setRoles(Sets.newHashSet(student_role));
         student5.setFirstName("Olivia");
         student5.setMiddleName("s.");
         student5.setLastName("Alexander");
@@ -153,6 +157,7 @@ public class DataGenerator {
 
         Student student6 = new Student();
 
+        student6.setRoles(Sets.newHashSet(student_role));
         student6.setFirstName("Edward");
         student6.setMiddleName("Cinacma");
         student6.setLastName("Simpson");
@@ -177,6 +182,8 @@ public class DataGenerator {
         student6.setPreviousDegree("BSc, Computer Engineering");
 
         Student student7 = new Student();
+
+        student7.setRoles(Sets.newHashSet(student_role));
         student7.setFirstName("Fred");
         student7.setMiddleName("H.");
         student7.setLastName("Ross");
@@ -203,6 +210,7 @@ public class DataGenerator {
 
         Professor professor1 = new Professor();
 
+        professor1.setRoles(Sets.newHashSet(professor_role));
         professor1.setFirstName("Alice");
         professor1.setMiddleName("W.");
         professor1.setCollegeId((long) 123456779);
@@ -236,6 +244,7 @@ public class DataGenerator {
 
         Professor professor2 = new Professor();
 
+        professor2.setRoles(Sets.newHashSet(professor_role));
         professor2.setFirstName("Mike");
         professor2.setCollegeId(1234L);
         professor2.setMiddleName("W.");
@@ -269,6 +278,7 @@ public class DataGenerator {
 
         Professor professor3 = new Professor();
 
+        professor3.setRoles(Sets.newHashSet(professor_role));
         professor3.setFirstName("Rakesh");
         professor3.setMiddleName("C.");
         professor3.setLastName("Ranjan");
@@ -302,6 +312,7 @@ public class DataGenerator {
 
         Professor professor4 = new Professor();
 
+        professor4.setRoles(Sets.newHashSet(professor_role));
         professor4.setFirstName("Erica");
         professor4.setMiddleName("A.");
         professor4.setLastName("Bing");
@@ -335,6 +346,7 @@ public class DataGenerator {
 
         Professor professor5 = new Professor();
 
+        professor5.setRoles(Sets.newHashSet(professor_role));
         professor5.setFirstName("Emily");
         professor5.setMiddleName("U.");
         professor5.setLastName("Davis");
@@ -367,6 +379,8 @@ public class DataGenerator {
         professor5.setOfficeHoursToTime(prof5_calendar2.getTime());
 
         Professor professor6= new Professor();
+
+        professor6.setRoles(Sets.newHashSet(professor_role));
         professor6.setFirstName("Sandra");
         professor6.setMiddleName("AA");
         professor6.setLastName("Hill");
@@ -571,9 +585,9 @@ public class DataGenerator {
 
 
         entityManager.getTransaction().begin();
-        entityManager.persist(role1);
-        entityManager.persist(role2);
-        entityManager.persist(role3);
+        entityManager.persist(student_role);
+        entityManager.persist(professor_role);
+        entityManager.persist(admin_role);
 
         entityManager.persist(course1);
         entityManager.persist(course2);
@@ -608,7 +622,5 @@ public class DataGenerator {
 
         entityManager.getTransaction().commit();
 
-        Student result= entityManager.find(Student.class, student1.getId());
-        System.out.println("****************"+result.getFirstName()+"****************");
-    }
+       }
 }
