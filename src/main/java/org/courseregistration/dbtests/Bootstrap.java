@@ -24,6 +24,7 @@ public class Bootstrap {
 	private EntityManager entityManager;
 	private Map<SearchCriteria, String> criteria;
 	private SectionDAO sectionDAO;
+	private CourseDAO courseDAO;
 
 	private String input = "";
 	private String command;
@@ -33,6 +34,7 @@ public class Bootstrap {
 		entityManager = HibernateUtils.getEntityManager();
 		criteria = Maps.newHashMap();
 		sectionDAO = new SectionDAO(entityManager);
+		courseDAO = new CourseDAO(entityManager);
 	}
 
 	public static void main(String[] args) {
@@ -129,13 +131,100 @@ public class Bootstrap {
 				System.out.println(course.toString());
 			}
 			break;
+
+		case "search for course by courseid":
+			criteria.clear();
+			criteria.put(SearchCriteria.COURSE_CODE_EQUALS, this.parameter);
+			List<Section> coursesByID = sectionDAO
+					.findCourseByCriteria(criteria);
+			if (coursesByID.size() > 0)
+				for (Section course : coursesByID) {
+					System.out.println(course.toString());
+				}
+			else
+				printProperMessage("ERROR", "No courses found of this type");
+			break;
+
+		case "search for courses by professor":
+			criteria.clear();
+			criteria.put(SearchCriteria.PROFESSOR_LAST_NAME_EQUALS,
+					this.parameter);
+			List<Section> coursesByProf = sectionDAO
+					.findCourseByCriteria(criteria);
+			if (coursesByProf.size() > 0)
+				for (Section course : coursesByProf) {
+					System.out.println(course.toString());
+				}
+			else
+				printProperMessage("ERROR",
+						"No courses found of this professor");
+			break;
+
+		case "search for courses by session":
+			criteria.clear();
+			criteria.put(SearchCriteria.SEMESTER_EQUALS, this.parameter);
+			List<Section> coursesBySem = sectionDAO
+					.findCourseByCriteria(criteria);
+			if (coursesBySem.size() > 0)
+				for (Section course : coursesBySem) {
+					System.out.println(course.toString());
+				}
+			else
+				printProperMessage("ERROR", "No courses found in this semester");
+			break;
+
+		case "search for courses by name":
+			criteria.clear();
+			criteria.put(SearchCriteria.COURSE_NAME_CONTAINS, this.parameter);
+			List<Section> coursesByName = sectionDAO
+					.findCourseByCriteria(criteria);
+			if (coursesByName.size() > 0)
+				for (Section course : coursesByName) {
+					System.out.println(course.toString());
+				}
+			else
+				printProperMessage("ERROR", "No courses found of this Name");
+			break;
+
+		case "search for courses by day of a week":
+			criteria.clear();
+			criteria.put(SearchCriteria.DAY_OF_WEEK_EQUALS, this.parameter);
+			List<Section> coursesOnADay = sectionDAO
+					.findCourseByCriteria(criteria);
+			if (coursesOnADay.size() > 0)
+				for (Section course : coursesOnADay) {
+					System.out.println(course.toString());
+				}
+			else
+				printProperMessage("ERROR",
+						"No courses found on this day of week");
+			break;
+
+		case "search for courses by department":
+			criteria.clear();
+			criteria.put(SearchCriteria.DEPARTMENT_EQUALS, this.parameter);
+			List<Section> coursesByDeptName = sectionDAO
+					.findCourseByCriteria(criteria);
+			if (coursesByDeptName.size() > 0)
+				for (Section course : coursesByDeptName) {
+					System.out.println(course.toString());
+				}
+			else
+				printProperMessage("ERROR",
+						"No courses found in this Department");
+			break;
+
 		case "":
 			break;
-		default:
 
+		default:
 			printError();
 			break;
 		}
+	}
+
+	private void printProperMessage(String tag, String message) {
+		System.out.println(tag + ": " + message);
 	}
 
 	private void printError() {
