@@ -243,15 +243,15 @@ public class Section implements Serializable {
 		// TODO Auto-generated method stub
 
 		StringBuilder builder = new StringBuilder();
-		builder.append("\n\tSemester :\t" + semester);
-		builder.append("\n\tClass timings From :\t" + classStartTime + " To "
+		builder.append("\n\tSemester: " + semester);
+		builder.append("\n\tClass timings From " + classStartTime + " To "
 				+ classEndTime);
-		builder.append("\n\tDay of the week :\t" + dayOfWeek);
-		builder.append("\n\tStart date of class :\t" + startDate);
-		builder.append("\n\tEnd date of class :\t" + endDate);
-		builder.append("\n\tRoom number :\t" + roomNumber);
-		builder.append("\n\tTotal capacity :\t" + totalCapacity);
-		builder.append("\n\tWait list capacity :\t" + waitListCapacity);
+		builder.append("on " + dayOfWeek + " in a week");
+		builder.append("\n\t[ Class Schedule: " + startDate);
+		builder.append(" to " + endDate + "]");
+		builder.append(" Room: " + roomNumber);
+		builder.append("\n\t[ Capacity: total-" + totalCapacity);
+		builder.append(", Wait list-" + waitListCapacity + "]");
 
 		builder.append("\n\tMode of Instruction :\t" + modeOfInstruction);
 

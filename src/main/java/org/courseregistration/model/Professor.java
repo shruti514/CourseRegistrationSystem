@@ -97,8 +97,8 @@ public class Professor extends User {
 		builder.append("\n\tProfessor:__________________________________");
 		builder.append(userDetails);
 		builder.append("\n\t[ Faculty type: " + facultyType);
-		builder.append(",Years of Experience: " + yearsOfExperience);
-		builder.append(",Office hours: from " + officeHoursFromTime + " to "
+		builder.append(", Years of Experience: " + yearsOfExperience);
+		builder.append(", Office hours: from " + officeHoursFromTime + " to "
 				+ officeHoursToTime + "] ");
 
 		return builder.toString();

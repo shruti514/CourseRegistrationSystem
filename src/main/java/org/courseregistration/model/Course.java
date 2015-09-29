@@ -144,13 +144,14 @@ public class Course implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("\n\tCourse code :\t" + code);
-		builder.append("\n\tCourse Name :\t" + name);
-		builder.append("\n\tCourse Description :\t" + description);
-		builder.append("\n\tNumber of credits :\t" + numOfCredits);
-		builder.append("\n\tPrerequisites :\t" + prerequisiteCourse);
-		builder.append("\n\tDepartment :\t" + department);
-		builder.append("\n\tProgram :\t" + program);
+		builder.append("\n\tCourse Details:");
+		builder.append("\n\tCode: " + code);
+		builder.append(", Name: " + name);
+		builder.append(" [ Credits: " + numOfCredits + "]");
+		builder.append("\n\t[ Course Description: " + description + "]");
+		builder.append("\n\t[ Prerequisites: " + prerequisiteCourse + "]");
+		builder.append("\n\t[ Department: " + department);
+		builder.append(", Program: " + program + "]");
 		return builder.toString();
 	}
 }

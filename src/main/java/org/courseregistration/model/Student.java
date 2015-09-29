@@ -74,7 +74,7 @@ public class Student extends User {
 		builder.append("\n\tStudent:__________________________________");
 		builder.append(userDetails);
 		builder.append("\n\t[ Admission Type: " + admissionType);
-		builder.append(",Previous Degree: " + previousDegree + "]");
+		builder.append(", Previous Degree: " + previousDegree + "]");
 
 		return builder.toString();
 	}
