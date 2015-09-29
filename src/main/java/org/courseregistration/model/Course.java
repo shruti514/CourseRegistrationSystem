@@ -151,6 +151,6 @@ public class Course implements Serializable {
 		builder.append("\n\tPrerequisites :\t" + prerequisiteCourse);
 		builder.append("\n\tDepartment :\t" + department);
 		builder.append("\n\tProgram :\t" + program);
-		return super.toString();
+		return builder.toString();
 	}
 }

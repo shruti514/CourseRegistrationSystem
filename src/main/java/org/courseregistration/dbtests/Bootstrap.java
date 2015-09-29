@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 import javax.persistence.EntityManager;
 
-import com.google.common.collect.Maps;
 import org.courseregistration.dao.CourseDAO;
 import org.courseregistration.dao.SearchCriteria;
 import org.courseregistration.dao.SectionDAO;
@@ -14,6 +13,8 @@ import org.courseregistration.dao.StudentDAO;
 import org.courseregistration.model.Course;
 import org.courseregistration.model.Section;
 import org.courseregistration.model.Student;
+
+import com.google.common.collect.Maps;
 
 public class Bootstrap {
 
@@ -38,7 +39,7 @@ public class Bootstrap {
 				&& input.trim().length() != 0
 				&& !exitCode.equalsIgnoreCase(input)) {
 			System.out.println(input);
-			switch (input) {
+			switch (input.toLowerCase()) {
 			case "list all students":
 				StudentDAO dao = new StudentDAO(entityManager);
 				List<Student> studentlist = dao.findAll();
@@ -62,15 +63,16 @@ public class Bootstrap {
 				break;
 
 			case "As a student I should be able to search for a course which matches exactly CS-218":
-                SectionDAO sectionDAO = new SectionDAO(entityManager);
-                Map<SearchCriteria,String> criteria = Maps.newHashMap();
-                criteria.put(SearchCriteria.COURSE_CODE_EQUALS,"CS-218");
-                List<Section> courseByCriteria = sectionDAO.findCourseByCriteria(criteria);
+				SectionDAO sectionDAO = new SectionDAO(entityManager);
+				Map<SearchCriteria, String> criteria = Maps.newHashMap();
+				criteria.put(SearchCriteria.COURSE_CODE_EQUALS, "CS-218");
+				List<Section> courseByCriteria = sectionDAO
+						.findCourseByCriteria(criteria);
 
-                for (Section course : courseByCriteria) {
-                    System.out.println(course.toString());
-                }
-                break;
+				for (Section course : courseByCriteria) {
+					System.out.println(course.toString());
+				}
+				break;
 
 			case "exit":
 				break;
