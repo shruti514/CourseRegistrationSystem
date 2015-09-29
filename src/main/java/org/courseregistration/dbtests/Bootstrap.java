@@ -30,6 +30,7 @@ public class Bootstrap {
 	private ProfessorDAO professorDAO;
 	private StudentDAO studentDAO;
 
+
 	private String input = "";
 	private String command;
 	private String parameter;
@@ -48,7 +49,7 @@ public class Bootstrap {
 		HibernateUtils.initEntityManager();
 
 		// This is just for now till we don't have data
-		// DataGenerator.generateData();
+		 DataGenerator.generateData();
 
 		Bootstrap program = new Bootstrap();
 		program.printWelcomeMessage();
@@ -143,11 +144,47 @@ public class Bootstrap {
 			searchCoursesByCriteria("No Course found by ID CS-218");
 			break;
 
-		case "search for course by courseid":
-			criteria.clear();
-			criteria.put(SearchCriteria.COURSE_CODE_EQUALS, this.parameter);
-			searchCoursesByCriteria("No courses found of this type");
-			break;
+        case "as a student i should be able to add a course cs-218 conducted by professor larkin":
+            Student student = loadStudentJohn();
+
+            criteria.clear();
+            criteria.put(SearchCriteria.COURSE_CODE_EQUALS, "CS-218");
+            criteria.put(SearchCriteria.PROFESSOR_LAST_NAME_EQUALS,"Larkin");
+            List<Section> coursesByID = sectionDAO.findCourseByCriteria(criteria);
+
+            student.addSection(coursesByID.get(0));
+
+            Student updatedStudent = studentDAO.update(student);
+
+            for(Section section : updatedStudent.getSections()){
+                System.out.println(section.toString());
+            }
+            break;
+
+        case "as a student i should be able to drop a course cs-218 conducted by professor larkin":
+            Student studentJohn = loadStudentJohn();
+
+            criteria.clear();
+            criteria.put(SearchCriteria.COURSE_CODE_EQUALS, "CS-218");
+            criteria.put(SearchCriteria.PROFESSOR_LAST_NAME_EQUALS,"Larkin");
+            List<Section> coursesByProfMike = sectionDAO.findCourseByCriteria(criteria);
+
+            studentJohn.dropSection(coursesByProfMike.get(0));
+
+            Student updatedJohn = studentDAO.update(studentJohn);
+
+            for(Section section : updatedJohn.getSections()){
+                System.out.println(section.toString());
+            }
+
+            break;
+
+
+        case "search for course by courseid":
+            criteria.clear();
+            criteria.put(SearchCriteria.COURSE_CODE_EQUALS, this.parameter);
+            searchCoursesByCriteria("No courses found of this type");
+        break;
 
 		case "search for courses by professor":
 			criteria.clear();
@@ -196,14 +233,20 @@ public class Bootstrap {
 				printProperMessage("ERROR",
 						"There is no Student with Last Name: " + this.parameter);
 			break;
-		case "":
-			break;
+
 
 		default:
 			printError();
 			break;
 		}
 	}
+
+    private Student loadStudentJohn(){
+        return entityManager.createQuery("select s from Student s where s.firstName=:firstName",Student.class)
+            .setParameter("firstName","john")
+            .getSingleResult();
+
+    }
 
 	private void searchCoursesByCriteria(String errorMsg) {
 		List<Section> coursesByID = sectionDAO.findCourseByCriteria(criteria);
