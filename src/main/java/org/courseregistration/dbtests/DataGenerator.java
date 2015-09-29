@@ -616,8 +616,6 @@ public class DataGenerator {
 
         student1.addSection(section1);
 
-        //  entityManager.persist(student1);
-
         entityManager.getTransaction().commit();
 
        }
