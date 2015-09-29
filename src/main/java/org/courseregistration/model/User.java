@@ -229,7 +229,8 @@ class User implements Serializable {
 		builder.append("\n\tEmail ID :\t" + emailId);
 		builder.append("\n\tContact Number :\t" + phoneNumber);
 		builder.append("\n\tDate of birth :\t" + dateOfBirth);
-		builder.append("\n\tAddress :\t" + address);
+		builder.append(address.toString());
+		// builder.append("\n\tAddress :\t" + address);
 		return builder.toString();
 
 	}

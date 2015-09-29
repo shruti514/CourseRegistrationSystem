@@ -69,7 +69,9 @@ public class Student extends User {
 	public String toString() {
 		// TODO Auto-generated method stub
 
+		String userDetails = super.toString();
 		StringBuilder builder = new StringBuilder();
+		builder.append(userDetails);
 		builder.append("\n\tAdmission Type :\t" + admissionType);
 		builder.append("\n\tPrevious Degree :\t" + previousDegree);
 

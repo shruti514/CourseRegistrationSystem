@@ -92,7 +92,9 @@ public class Professor extends User {
 	public String toString() {
 		// TODO Auto-generated method stub
 
+		String userDetails = super.toString();
 		StringBuilder builder = new StringBuilder();
+		builder.append(userDetails);
 		builder.append("\n\tFaculty type:\t" + facultyType);
 		builder.append("\n\tYears of Experience:\t" + yearsOfExperience);
 		builder.append("\n\tOffice hours: from \t" + officeHoursFromTime
