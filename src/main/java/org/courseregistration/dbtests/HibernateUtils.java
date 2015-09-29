@@ -1,5 +1,8 @@
 package org.courseregistration.dbtests;
 
+import org.hibernate.Session;
+
+import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 

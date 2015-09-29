@@ -1,6 +1,7 @@
 package org.courseregistration.dao;
 
 import com.google.common.collect.Maps;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import org.courseregistration.model.Course;
 import org.courseregistration.model.Professor;
 import org.courseregistration.model.Section;
@@ -119,13 +120,42 @@ public class SectionDAOTest extends BaseTest {
 
         sectionDAO.delete(section.getId());
 
-
         Section sectionFromDB = entityManager.find(Section.class,section.getId());
 
-        entityManager.createNativeQuery("select * from enrolled_student s where s.student_id="+student.getId()).executeUpdate();
+        List enrolled_student = entityManager.createNativeQuery("select * from enrolled_student s where s.student_id=" + student.getId()).getResultList();
+        Object[] arr = (Object[]) enrolled_student.get(0);
+
+        Student studentFromDB = entityManager.find(Student.class, student.getId());
 
         assertNull(sectionFromDB);
+        assertEquals(1,enrolled_student.size());
+        assertEquals(2,arr.length);
+        assertNotNull(studentFromDB);
+        assertEquals(student,studentFromDB);
 
+    }
+
+    @Test(expected = Exception.class)
+    public void testDelete(){
+        Professor professor = TestUtils.createProfessor(13298L,"Prof.Tom");
+        Course course = TestUtils.createCourse("CMPE-789","Databases");
+        Student student = TestUtils.createStudent(4342L,"student");
+
+        Section section = TestUtils.createSection(professor,course);
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(section);
+        student.addSection(section);
+        entityManager.persist(student);
+        entityManager.flush();
+        entityManager.clear();
+        entityManager.getTransaction().commit();
+
+        sectionDAO.delete(section.getId());
+
+        Section sectionFromDB = entityManager.find(Section.class, section.getId());
+
+        assertNull(sectionFromDB);
     }
 
 }
