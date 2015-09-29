@@ -96,10 +96,10 @@ public class Professor extends User {
 		StringBuilder builder = new StringBuilder();
 		builder.append("\n\tProfessor:__________________________________");
 		builder.append(userDetails);
-		builder.append("\n\tFaculty type:\t" + facultyType);
-		builder.append("\n\tYears of Experience:\t" + yearsOfExperience);
-		builder.append("\n\tOffice hours: from \t" + officeHoursFromTime
-				+ " to " + officeHoursToTime);
+		builder.append("\n\t[ Faculty type: " + facultyType);
+		builder.append(",Years of Experience: " + yearsOfExperience);
+		builder.append(",Office hours: from " + officeHoursFromTime + " to "
+				+ officeHoursToTime + "] ");
 
 		return builder.toString();
 	}
