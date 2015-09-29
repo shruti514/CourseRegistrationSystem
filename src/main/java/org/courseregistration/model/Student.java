@@ -70,8 +70,8 @@ public class Student extends User {
 		// TODO Auto-generated method stub
 
 		StringBuilder builder = new StringBuilder();
-		builder.append("\n\tAdmission Type:\t" + admissionType);
-		builder.append("\n\tPrevious Degree:\t" + previousDegree);
+		builder.append("\n\tAdmission Type :\t" + admissionType);
+		builder.append("\n\tPrevious Degree :\t" + previousDegree);
 
 		return builder.toString();
 	}

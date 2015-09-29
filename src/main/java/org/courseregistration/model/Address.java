@@ -9,8 +9,8 @@ import java.io.Serializable;
 public class Address implements Serializable {
 
     @Id
-    @SequenceGenerator(name="sequence", sequenceName="sequence", allocationSize=1, initialValue=100000)
-    @GeneratedValue(generator = "sequence", strategy=GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1, initialValue = 100000)
+    @GeneratedValue(generator = "sequence", strategy = GenerationType.SEQUENCE)
     @Column(name = "address_id")
     private Long id;
 
@@ -20,7 +20,7 @@ public class Address implements Serializable {
     @Column(name = "apt_no", nullable = false)
     private Integer aptNo;
 
-    @Column(name="zip_code", nullable = false)
+    @Column(name = "zip_code", nullable = false)
     private Integer zipcode;
 
     @Column(name = "city", nullable = false)
@@ -103,5 +103,19 @@ public class Address implements Serializable {
         result = 31 * result + city.hashCode();
         result = 31 * result + state.hashCode();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("\n\tStreet :\t" + streetName);
+        builder.append("\n\tApartment no :\t" + aptNo);
+        builder.append("\n\tCity :\t" + city);
+        builder.append("\n\tZip code :\t" + zipcode);
+        builder.append("\n\tState :\t" + state);
+        return builder.toString();
+
     }
 }

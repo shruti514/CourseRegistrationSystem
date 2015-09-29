@@ -117,7 +117,7 @@ public class Course implements Serializable {
 
     }
 
-    @Override
+      @Override
     public int hashCode() {
         int result = id.hashCode();
         result = 31 * result + code.hashCode();
@@ -127,5 +127,18 @@ public class Course implements Serializable {
         result = 31 * result + department.hashCode();
         result = 31 * result + program.hashCode();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("\n\tCourse code :\t" + code);
+        builder.append("\n\tCourse Name :\t" +name);
+        builder.append("\n\tCourse Description :\t" +description);
+        builder.append("\n\tNumber of credits :\t" +numOfCredits);
+        builder.append("\n\tPrerequisites :\t" +prerequisiteCourse);
+        builder.append("\n\tDepartment :\t" +department);
+        builder.append("\n\tProgram :\t" +program);
+        return super.toString();
     }
 }

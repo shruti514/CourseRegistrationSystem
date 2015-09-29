@@ -78,4 +78,17 @@ public class Professor extends User {
         result = 31 * result + officeHoursToTime.hashCode();
         return result;
     }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("\n\tFaculty type:\t" + facultyType);
+        builder.append("\n\tYears of Experience:\t" + yearsOfExperience);
+        builder.append("\n\tOffice hours: from \t" + officeHoursFromTime +" to "+officeHoursToTime);
+
+        return builder.toString();
+    }
+
 }

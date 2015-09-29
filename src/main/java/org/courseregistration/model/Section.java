@@ -212,4 +212,23 @@ public class Section implements Serializable {
         result = 31 * result + modeOfInstruction.hashCode();
         return result;
     }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("\n\tProfessor name :\t" + professor);
+        builder.append("\n\tSemester :\t" +semester);
+        builder.append("\n\tClass timings From :\t" + classStartTime +" To " +classEndTime);
+        builder.append("\n\tDay of the week :\t" +dayOfWeek);
+        builder.append("\n\tStart date of class :\t" + startDate);
+        builder.append("\n\tEnd date of class :\t" +endDate);
+        builder.append("\n\tRoom number :\t" +roomNumber);
+        builder.append("\n\tTotal capacity :\t" + totalCapacity);
+        builder.append("\n\tWait list capacity :\t" +waitListCapacity);
+        builder.append("\n\tMode of Instruction :\t" +modeOfInstruction);
+
+        return builder.toString();
+    }
 }

@@ -191,4 +191,17 @@ class User implements Serializable {
         result = 31 * result + roles.hashCode();
         return result;
     }
+        @Override
+        public String toString() {
+            // TODO Auto-generated method stub
+
+            StringBuilder builder = new StringBuilder();
+            builder.append("\n\tName :\t" +firstName+" "+middleName+" "+lastName);
+            builder.append("\n\tEmail ID :\t" +emailId);
+            builder.append("\n\tContact Number :\t" +phoneNumber);
+            builder.append("\n\tDate of birth :\t" +dateOfBirth);
+            builder.append("\n\tAddress :\t" +address);
+            return builder.toString();
+
+        }
 }
