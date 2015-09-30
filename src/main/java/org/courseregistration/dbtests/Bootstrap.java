@@ -71,7 +71,7 @@ public class Bootstrap {
 			if (this.getCommandAndSingleParameter())
 				this.executeCommand();
 			else {
-				printError();
+				printIvalidCommandError();
 			}
 
 			if (exitCode.equalsIgnoreCase(this.input)) {
@@ -309,6 +309,24 @@ public class Bootstrap {
 				searchCoursesByCriteria("No courses found in this Department");
 				break;
 
+			case "delete student by first name":
+				Student deletedStudent = studentDAO.findByName(this.parameter);
+				if (deletedStudent != null) {
+					System.out
+							.println("\n\t--------------------Deleting Student---------------------");
+					System.out.println(deletedStudent.toString());
+
+					studentDAO.delete(deletedStudent);
+					System.out
+							.println("\n\t-----------------------------------------------------------");
+					printProperMessage("Success", "The Student got deleted!");
+					deletedStudent.getId();
+				} else {
+					printProperMessage("ERROR", "The student with name '"
+							+ this.parameter + "' does not exist.");
+				}
+				break;
+
 			case "help":
 				System.out.println();
 				printHelp();
@@ -319,7 +337,7 @@ public class Bootstrap {
 				break;
 
 			default:
-				printError();
+				printIvalidCommandError();
 				break;
 			}
 	}
@@ -339,11 +357,17 @@ public class Bootstrap {
 	}
 
 	private void printProperMessage(String tag, String message) {
-		System.out.println(tag + ": " + message);
+		System.out
+				.println("\n\t-----------------------------------------------------------");
+
+		System.out.println("\t" + tag + ": " + message);
+		System.out
+				.println("\t-----------------------------------------------------------");
+
 	}
 
-	private void printError() {
-		System.out.println("ERROR: Invalid Command [" + this.input + "]");
+	private void printIvalidCommandError() {
+		System.out.println("\tERROR: Invalid Command [" + this.input + "]");
 	}
 
 	private void printCommandEntry() {
@@ -379,5 +403,6 @@ public class Bootstrap {
 		System.out.println("Search for course by course code=CS-218");
 		System.out.println("search for courses by name=Quantitative Analysis");
 		System.out.println("Search for courses by department=Computer Science");
+		System.out.println("Delete student by First Name=Alice");
 	}
 }

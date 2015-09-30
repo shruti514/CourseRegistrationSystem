@@ -29,11 +29,15 @@ public class StudentDAO extends GenericDAO<Student> {
 	}
 
 	public Student findByName(String name) {
-		return entityManager
-				.createQuery(
-						"select s from Student s where s.firstName=:firstName",
-						Student.class).setParameter("firstName", name)
-				.getSingleResult();
+		try {
+			return entityManager
+					.createQuery(
+							"select s from Student s where s.firstName=:firstName",
+							Student.class).setParameter("firstName", name)
+					.getSingleResult();
+		} catch (Exception e) {
+			return null;
 
+		}
 	}
 }

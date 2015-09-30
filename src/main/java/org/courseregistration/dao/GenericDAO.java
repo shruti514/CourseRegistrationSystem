@@ -137,7 +137,7 @@ abstract class GenericDAO<T extends Serializable> {
 	 * @param ids
 	 *            ids of the TableReference objects to be deleted
 	 */
-	public void delete(Collection<Long> ids) {
+	public int delete(Collection<Long> ids) {
 		checkNotNull(ids, "ids should not be null");
 		checkArgument(!ids.isEmpty(), "ids should not be empty");
 		entityManager.getTransaction().begin();
@@ -150,6 +150,8 @@ abstract class GenericDAO<T extends Serializable> {
 		logger.debug(
 				"Deleted {} Entity objects of type {} for given ids of size {}",
 				clazz.getName(), count, ids.size());
+
+		return count;
 
 	}
 
