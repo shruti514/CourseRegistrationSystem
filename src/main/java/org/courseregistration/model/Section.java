@@ -257,6 +257,7 @@ public class Section implements Serializable {
 		builder.append("\n\tMode of Instruction :\t" + modeOfInstruction);
 
 		builder.append(professor.toString());
+		builder.append("\n");
 
 		return builder.toString();
 	}
