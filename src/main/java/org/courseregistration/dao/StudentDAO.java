@@ -27,4 +27,13 @@ public class StudentDAO extends GenericDAO<Student> {
 		logger.debug("returning all({}) Students", students.size());
 		return students;
 	}
+
+	public Student findByName(String name) {
+		return entityManager
+				.createQuery(
+						"select s from Student s where s.firstName=:firstName",
+						Student.class).setParameter("firstName", name)
+				.getSingleResult();
+
+	}
 }

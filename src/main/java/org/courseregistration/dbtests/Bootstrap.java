@@ -46,13 +46,12 @@ public class Bootstrap {
 	public static void main(String[] args) {
 		// If error comment below line
 		HibernateUtils.initEntityManager();
-        // This is just for now till we don't have data
-        // DataGenerator.generateData();
+		// This is just for now till we don't have data
+		// DataGenerator.generateData();
 
-        Bootstrap program = new Bootstrap();
-        program.printWelcomeMessage();
-        program.printCommandEntry();
-
+		Bootstrap program = new Bootstrap();
+		program.printWelcomeMessage();
+		program.printCommandEntry();
 
 		program.getInputQueryFromUser();
 
@@ -143,7 +142,7 @@ public class Bootstrap {
 				break;
 
 			case "as a student i should be able to add a course cs-218 conducted by professor larkin":
-				Student student = loadStudentJohn();
+				Student student = studentDAO.findByName("john");
 
 				criteria.clear();
 				criteria.put(SearchCriteria.COURSE_CODE_EQUALS, "CS-218");
@@ -164,19 +163,23 @@ public class Bootstrap {
 
 					Student updatedStudent = studentDAO.update(student);
 
-                    String courseString = updatedStudent.getSections().size() >1?"courses":"course";
+					String courseString = updatedStudent.getSections().size() > 1 ? "courses"
+							: "course";
 
-                    System.out.println("        ----You are enrolled for "+updatedStudent.getSections().size()+" "+courseString+"----");
+					System.out.println("        ----You are enrolled for "
+							+ updatedStudent.getSections().size() + " "
+							+ courseString + "----");
 
 					for (Section section : updatedStudent.getSections()) {
 						System.out.println(section.toString());
-                        System.out.println("        ------------------------------------------");
-                    }
+						System.out
+								.println("        ------------------------------------------");
+					}
 				}
 				break;
 
 			case "as a student i should be able to drop a course cs-218 conducted by professor larkin":
-				Student studentJohn = loadStudentJohn();
+				Student studentJohn = studentDAO.findByName("john");
 
 				criteria.clear();
 				criteria.put(SearchCriteria.COURSE_CODE_EQUALS, "CS-218");
@@ -198,19 +201,23 @@ public class Bootstrap {
 
 					Student updatedJohn = studentDAO.update(studentJohn);
 
-                    String courseString = updatedJohn.getSections().size() >1?"courses":"course";
-                    System.out.println("        ----You are enrolled for "+updatedJohn.getSections().size()+" "+courseString+"----");
+					String courseString = updatedJohn.getSections().size() > 1 ? "courses"
+							: "course";
+					System.out.println("        ----You are enrolled for "
+							+ updatedJohn.getSections().size() + " "
+							+ courseString + "----");
 
 					for (Section section : updatedJohn.getSections()) {
 						System.out.println(section.toString());
-                        System.out.println("        ------------------------------------------");
-                    }
+						System.out
+								.println("        ------------------------------------------");
+					}
 				}
 				break;
 
 			case "list the students from course cs-218 of professor larkin":
 				// TODO Shraddha
-				Section section = fetchSection("CS-218", "Larkin");
+				Section section = sectionDAO.fetchSection("CS-218", "Larkin");
 				List<Student> studentsList = section.getStudents();
 
 				if (studentsList.size() > 0) {
@@ -225,7 +232,7 @@ public class Bootstrap {
 
 			case "list of sections of john":
 
-				Student studentSections = loadStudentJohn();
+				Student studentSections = studentDAO.findByName("john");
 				List<Section> sectionsList = studentSections.getSections();
 
 				if (sectionsList.size() > 0)
@@ -238,14 +245,15 @@ public class Bootstrap {
 				break;
 
 			case "show number of open seats in course cs-218 of professor larkin":
-				Section courseSection = fetchSection("CS-218", "Larkin");
+				Section courseSection = sectionDAO.fetchSection("CS-218",
+						"Larkin");
 				int total_seats = courseSection.getTotalCapacity();
 				int enrolled_students = courseSection.getStudents().size();
-                System.out.println();
-                printProperMessage("Success", "This course has "
-                    + (total_seats - enrolled_students) + " open seats");
-                System.out.println();
-                System.out.println("Section: " + courseSection.toString());
+				System.out.println();
+				printProperMessage("Success", "This course has "
+						+ (total_seats - enrolled_students) + " open seats");
+				System.out.println();
+				System.out.println("Section: " + courseSection.toString());
 				System.out.println();
 
 				break;
@@ -303,23 +311,6 @@ public class Bootstrap {
 			}
 	}
 
-	private Student loadStudentJohn() {
-		return entityManager
-				.createQuery(
-						"select s from Student s where s.firstName=:firstName",
-						Student.class).setParameter("firstName", "john")
-				.getSingleResult();
-
-	}
-
-	private Section fetchSection(String courseId, String professor) {
-		return entityManager
-				.createQuery(
-						"select s from Section s where s.course.code=:courseId and s.professor.lastName=:lastname",
-						Section.class).setParameter("courseId", courseId)
-				.setParameter("lastname", professor).getSingleResult();
-	}
-
 	private void searchCoursesByCriteria(String errorMsg) {
 		int counter = 1;
 		List<Section> coursesByID = sectionDAO.findCourseByCriteria(criteria);
@@ -347,7 +338,7 @@ public class Bootstrap {
 	}
 
 	private void printWelcomeMessage() {
-        System.out.println("***********************************************");
+		System.out.println("***********************************************");
 		System.out.println("Welcome to Student Course Registartion System!");
 		System.out.println("***********************************************");
 	}
@@ -366,7 +357,8 @@ public class Bootstrap {
 		System.out
 				.println("List the students from course CS-218 of professor Larkin");
 		System.out.println("List of sections of John");
-		System.out.println("Show number of open seats in course CS-218 of professor Larkin");
+		System.out
+				.println("Show number of open seats in course CS-218 of professor Larkin");
 
 		System.out.println("Search for courses by Session=Fall-2015");
 		System.out.println("Search for courses by day of a week=Friday");
