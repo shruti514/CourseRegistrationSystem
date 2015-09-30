@@ -13,10 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A class to perform CRUD operations on the entities involved in the system To
- * be able to perform operations mentioned in the class Entities should
- * implement serializable.
- * A class to perform CRUD operations on the entities involved in the system
+ * Responsibility of the class is perform CRUD operations on the entities involved in the system
  * To be able to perform operations mentioned in the class, Entities should implement Serializable interface .
  */
 abstract class GenericDAO<T extends Serializable> {
@@ -52,14 +49,12 @@ abstract class GenericDAO<T extends Serializable> {
     /**
      * Find all entities
      * Returns a list of entities of any given type.
-     *
      * @return the list of found entity instances
      */
     public abstract List<T> findAll();
 
     /**
      * Update Entity objects with the given values
-     *
      * @param updatedObject an entity object to be updated/merged in db
      * @return returns an updated object
      */
@@ -83,7 +78,6 @@ abstract class GenericDAO<T extends Serializable> {
 
     /**
      * Save an Entity objects with the given values
-     *
      * @param newObject an entity object to be stored in db
      */
     public void save(T newObject) {
@@ -102,7 +96,6 @@ abstract class GenericDAO<T extends Serializable> {
 
     /**
      * Bulk save operation on Entity objects with the given values
-     *
      * @param entities entity objects object to be stored in db
      */
     public void save(Collection<T> entities) {
@@ -128,10 +121,9 @@ abstract class GenericDAO<T extends Serializable> {
 
     /**
      * Delete  Entity objects with the given ids
-     *
      * @param ids primary keys of the entity objects to be deleted
      */
-    public void delete(Collection<Long> ids) {
+    public int delete(Collection<Long> ids) {
         checkNotNull(ids, "ids should not be null");
         checkArgument(!ids.isEmpty(), "ids should not be empty");
         entityManager.getTransaction().begin();
@@ -139,27 +131,9 @@ abstract class GenericDAO<T extends Serializable> {
             .setParameter("ids", ids).executeUpdate();
         entityManager.getTransaction().commit();
         logger.debug("Deleted {} Entity objects of type {} for given ids of size {}", clazz.getName(), count, ids.size());
-	/**
-	 * Delete Entity objects with the given ids
-	 *
-	 * @param ids
-	 *            ids of the TableReference objects to be deleted
-	 */
-	public int delete(Collection<Long> ids) {
-		checkNotNull(ids, "ids should not be null");
-		checkArgument(!ids.isEmpty(), "ids should not be empty");
-		entityManager.getTransaction().begin();
-		int count = entityManager
-				.createQuery(
-						"delete from " + clazz.getName()
-								+ " where id in (:ids)")
-				.setParameter("ids", ids).executeUpdate();
-		entityManager.getTransaction().commit();
-		logger.debug(
-				"Deleted {} Entity objects of type {} for given ids of size {}",
-				clazz.getName(), count, ids.size());
 
-		return count;
+        return count;
+    }
 
     /**
      * Delete given entity object

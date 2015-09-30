@@ -10,7 +10,13 @@ import org.hibernate.jpa.criteria.predicate.LikePredicate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.collect.Lists;
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.*;
+import java.util.List;
+import java.util.Map;
+
+import static org.hibernate.jpa.criteria.predicate.ComparisonPredicate.ComparisonOperator.EQUAL;
+
 /**
  * An implementation of {@link org.courseregistration.dao.GenericDAO}
  * The responsibility of this class is to perform database operations on entity Section
