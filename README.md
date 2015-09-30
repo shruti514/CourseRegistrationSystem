@@ -17,7 +17,7 @@
   -DPASS=root
 
 - To set the Isolation Level for our projectfor MySQL, fire the query:
-   SET @@GLOBAL.tx_isolation = 'READ-COMMITTED';
+   SET @@GLOBAL.tx_isolation = 'REPEATABLE-READ';
 
 - To check the Isolation Level on your MySQL DB, fire the query:
    SELECT @@GLOBAL.tx_isolation, @@tx_isolation;
