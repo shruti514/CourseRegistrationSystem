@@ -1,14 +1,5 @@
 package fixures;
 
-import org.courseregistration.model.Course;
-import org.courseregistration.model.Professor;
-import org.courseregistration.model.Section;
-import org.courseregistration.model.Student;
-
-import javax.persistence.EntityManager;
-import java.util.Calendar;
-
-
 public class TestDataGenerator {
 
    /* public static void generateData() {

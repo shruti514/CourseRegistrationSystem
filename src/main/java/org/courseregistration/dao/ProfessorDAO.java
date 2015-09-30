@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+
 /**
  * An implementation of {@link org.courseregistration.dao.GenericDAO}
  * The responsibility of this class is to perform database operations on the Professor
@@ -23,6 +24,7 @@ public class ProfessorDAO extends GenericDAO<Professor> {
 
     /**
      * Find list of Professors
+     *
      * @return list of Professors fetched from the database ordered by first name of the professor
      */
     @Override

@@ -1,47 +1,41 @@
 package org.courseregistration.dbtests;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-
-import javax.persistence.EntityManager;
-
-import org.courseregistration.dao.CourseDAO;
-import org.courseregistration.dao.ProfessorDAO;
-import org.courseregistration.dao.SearchCriteria;
-import org.courseregistration.dao.SectionDAO;
-import org.courseregistration.dao.StudentDAO;
+import com.google.common.collect.Maps;
+import org.courseregistration.dao.*;
 import org.courseregistration.model.Course;
 import org.courseregistration.model.Professor;
 import org.courseregistration.model.Section;
 import org.courseregistration.model.Student;
 
-import com.google.common.collect.Maps;
+import javax.persistence.EntityManager;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 public class Bootstrap {
 
-	private static String exitCode = "quit";
-	protected static EntityManager emf;
+    private static String exitCode = "quit";
+    protected static EntityManager emf;
 
-	private EntityManager entityManager;
-	private Map<SearchCriteria, String> criteria;
-	private SectionDAO sectionDAO;
-	private CourseDAO courseDAO;
-	private ProfessorDAO professorDAO;
-	private StudentDAO studentDAO;
+    private EntityManager entityManager;
+    private Map<SearchCriteria, String> criteria;
+    private SectionDAO sectionDAO;
+    private CourseDAO courseDAO;
+    private ProfessorDAO professorDAO;
+    private StudentDAO studentDAO;
 
-	private String input = "";
-	private String command;
-	private String parameter;
+    private String input = "";
+    private String command;
+    private String parameter;
 
-	public Bootstrap() {
-		entityManager = HibernateUtils.getEntityManager();
-		criteria = Maps.newHashMap();
-		sectionDAO = new SectionDAO(entityManager);
-		courseDAO = new CourseDAO(entityManager);
-		professorDAO = new ProfessorDAO(entityManager);
-		studentDAO = new StudentDAO(entityManager);
-	}
+    public Bootstrap() {
+        entityManager = HibernateUtils.getEntityManager();
+        criteria = Maps.newHashMap();
+        sectionDAO = new SectionDAO(entityManager);
+        courseDAO = new CourseDAO(entityManager);
+        professorDAO = new ProfessorDAO(entityManager);
+        studentDAO = new StudentDAO(entityManager);
+    }
 
 	public static void main(String[] args) {
 		// This method starts database connection using parameters from
@@ -63,10 +57,10 @@ public class Bootstrap {
 		HibernateUtils.closeEntityManager();
 	}
 
-	private void getInputQueryFromUser() {
-		Scanner scanner = new Scanner(System.in);
-		while ((this.input = scanner.nextLine()) != null
-				&& !exitCode.equalsIgnoreCase(this.input)) {
+    private void getInputQueryFromUser() {
+        Scanner scanner = new Scanner(System.in);
+        while ((this.input = scanner.nextLine()) != null
+            && !exitCode.equalsIgnoreCase(this.input)) {
 
 			if (this.getCommandAndSingleParameter())
 				this.executeCommand();
@@ -79,65 +73,65 @@ public class Bootstrap {
 				break;
 			}
 
-			this.printCommandEntry();
-		}
-	}
+            this.printCommandEntry();
+        }
+    }
 
-	private boolean getCommandAndSingleParameter() {
-		try {
-			String temp = this.input.toLowerCase().trim();
-			if (temp.contains("=")) {
-				String args[] = temp.split("=");
-				if (args.length == 2) {
-					this.parameter = args[1];
-				}
-				this.command = args[0];
-			} else {
-				this.command = temp;
-			}
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
+    private boolean getCommandAndSingleParameter() {
+        try {
+            String temp = this.input.toLowerCase().trim();
+            if (temp.contains("=")) {
+                String args[] = temp.split("=");
+                if (args.length == 2) {
+                    this.parameter = args[1];
+                }
+                this.command = args[0];
+            } else {
+                this.command = temp;
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 	private void executeCommand() {
 		entityManager.clear();
 		if (!this.command.trim().isEmpty())
 			// System.out.println(this.command);
 
-			switch (this.command.trim().toLowerCase()) {
-			case "list all students":
-				StudentDAO dao = new StudentDAO(entityManager);
-				List<Student> studentlist = dao.findAll();
+            switch (this.command.trim().toLowerCase()) {
+                case "list all students":
+                    StudentDAO dao = new StudentDAO(entityManager);
+                    List<Student> studentlist = dao.findAll();
 
-				System.out
-						.println("\n\tList of Students: \n\t************************************************");
-				for (Student student : studentlist) {
-					System.out.println(student.toString());
-				}
-				break;
+                    System.out
+                        .println("\n\tList of Students: \n\t************************************************");
+                    for (Student student : studentlist) {
+                        System.out.println(student.toString());
+                    }
+                    break;
 
-			case "list all courses":
-				List<Course> courselist = courseDAO.findAll();
-				System.out
-						.println("\n\tList of Courses: \n\t************************************************");
-				for (Course course : courselist) {
-					System.out.println(course.toString());
-				}
+                case "list all courses":
+                    List<Course> courselist = courseDAO.findAll();
+                    System.out
+                        .println("\n\tList of Courses: \n\t************************************************");
+                    for (Course course : courselist) {
+                        System.out.println(course.toString());
+                    }
 
-				break;
+                    break;
 
-			case "list all professors":
-				List<Professor> professorList = professorDAO.findAll();
-				System.out
-						.println("\n\tList of Professors: \n\t************************************************");
-				for (Professor professor : professorList) {
-					System.out.println(professor.toString());
-				}
+                case "list all professors":
+                    List<Professor> professorList = professorDAO.findAll();
+                    System.out
+                        .println("\n\tList of Professors: \n\t************************************************");
+                    for (Professor professor : professorList) {
+                        System.out.println(professor.toString());
+                    }
 
-				break;
+                    break;
 
 			case "i should be able to search for a course which matches exactly cs-218":
 				criteria.clear();
@@ -148,24 +142,24 @@ public class Bootstrap {
 			case "student john should be able to add a course cs-218 conducted by professor larkin":
 				Student student = studentDAO.findByName("john");
 
-				criteria.clear();
-				criteria.put(SearchCriteria.COURSE_CODE_EQUALS, "CS-218");
-				criteria.put(SearchCriteria.PROFESSOR_LAST_NAME_EQUALS,
-						"Larkin");
-				List<Section> coursesByID = sectionDAO
-						.findCourseByCriteria(criteria);
+                    criteria.clear();
+                    criteria.put(SearchCriteria.COURSE_CODE_EQUALS, "CS-218");
+                    criteria.put(SearchCriteria.PROFESSOR_LAST_NAME_EQUALS,
+                        "Larkin");
+                    List<Section> coursesByID = sectionDAO
+                        .findCourseByCriteria(criteria);
 
-				if (student.getSections().contains(coursesByID.get(0)))
-					printProperMessage(
-							"Error",
-							"John, You have already registered to the course CS-218 taken by Professor Larkin!");
-				else {
-					student.addSection(coursesByID.get(0));
-					printProperMessage("Success",
-							"You are Successfully registered to the course CS-218 by Prof. Larkin");
-					System.out.println();
+                    if (student.getSections().contains(coursesByID.get(0)))
+                        printProperMessage(
+                            "Error",
+                            "John, You have already registered to the course CS-218 taken by Professor Larkin!");
+                    else {
+                        student.addSection(coursesByID.get(0));
+                        printProperMessage("Success",
+                            "You are Successfully registered to the course CS-218 by Prof. Larkin");
+                        System.out.println();
 
-					Student updatedStudent = studentDAO.update(student);
+                        Student updatedStudent = studentDAO.update(student);
 
 					String courseString = updatedStudent.getSections().size() > 1 ? "courses"
 							: "course";
@@ -185,25 +179,25 @@ public class Bootstrap {
 			case "student john should be able to drop a course cs-218 conducted by professor larkin":
 				Student studentJohn = studentDAO.findByName("john");
 
-				criteria.clear();
-				criteria.put(SearchCriteria.COURSE_CODE_EQUALS, "CS-218");
-				criteria.put(SearchCriteria.PROFESSOR_LAST_NAME_EQUALS,
-						"Larkin");
-				List<Section> coursesByProfMike = sectionDAO
-						.findCourseByCriteria(criteria);
+                    criteria.clear();
+                    criteria.put(SearchCriteria.COURSE_CODE_EQUALS, "CS-218");
+                    criteria.put(SearchCriteria.PROFESSOR_LAST_NAME_EQUALS,
+                        "Larkin");
+                    List<Section> coursesByProfMike = sectionDAO
+                        .findCourseByCriteria(criteria);
 
-				if (!studentJohn.getSections().contains(
-						coursesByProfMike.get(0)))
-					printProperMessage("Error",
-							"John, You have not registered to the course CS-218 taken by Professor Larkin!");
-				else {
+                    if (!studentJohn.getSections().contains(
+                        coursesByProfMike.get(0)))
+                        printProperMessage("Error",
+                            "John, You have not registered to the course CS-218 taken by Professor Larkin!");
+                    else {
 
-					studentJohn.dropSection(coursesByProfMike.get(0));
-					printProperMessage("Success",
-							"You are successfully dropped out from course: CS-218");
-					System.out.println();
+                        studentJohn.dropSection(coursesByProfMike.get(0));
+                        printProperMessage("Success",
+                            "You are successfully dropped out from course: CS-218");
+                        System.out.println();
 
-					Student updatedJohn = studentDAO.update(studentJohn);
+                        Student updatedJohn = studentDAO.update(studentJohn);
 
 					String courseString = updatedJohn.getSections().size() > 1 ? "courses"
 							: "course";
@@ -224,17 +218,17 @@ public class Bootstrap {
 				Section section = sectionDAO.fetchSection("CS-218", "Larkin");
 				List<Student> studentsList = section.getStudents();
 
-				if (studentsList.size() > 0) {
-					for (Student currStudent : studentsList) {
-						System.out.println(currStudent.toString());
-					}
-				} else {
-					printProperMessage("ERROR", section.getCourse().getCode()
-							+ " has no students registerred. ");
-				}
-				break;
+                    if (studentsList.size() > 0) {
+                        for (Student currStudent : studentsList) {
+                            System.out.println(currStudent.toString());
+                        }
+                    } else {
+                        printProperMessage("ERROR", section.getCourse().getCode()
+                            + " has no students registerred. ");
+                    }
+                    break;
 
-			case "list of sections of john":
+                case "list of sections of john":
 
 				Student studentSections = studentDAO.findByName("john");
 				List<Section> sectionsList = studentSections.getSections();
@@ -269,45 +263,45 @@ public class Bootstrap {
 				System.out.println("Section: " + courseSection.toString());
 				System.out.println();
 
-				break;
+                    break;
 
-			case "search for course by course code":
-				criteria.clear();
-				criteria.put(SearchCriteria.COURSE_CODE_EQUALS, this.parameter);
-				searchCoursesByCriteria("No courses found of this course ID");
-				break;
+                case "search for course by course code":
+                    criteria.clear();
+                    criteria.put(SearchCriteria.COURSE_CODE_EQUALS, this.parameter);
+                    searchCoursesByCriteria("No courses found of this course ID");
+                    break;
 
-			case "search for courses by professor":
-				criteria.clear();
-				criteria.put(SearchCriteria.PROFESSOR_LAST_NAME_EQUALS,
-						this.parameter);
-				searchCoursesByCriteria("No courses found of this professor");
-				break;
+                case "search for courses by professor":
+                    criteria.clear();
+                    criteria.put(SearchCriteria.PROFESSOR_LAST_NAME_EQUALS,
+                        this.parameter);
+                    searchCoursesByCriteria("No courses found of this professor");
+                    break;
 
-			case "search for courses by session":
-				criteria.clear();
-				criteria.put(SearchCriteria.SEMESTER_EQUALS, this.parameter);
-				searchCoursesByCriteria("No courses found in this semester");
-				break;
+                case "search for courses by session":
+                    criteria.clear();
+                    criteria.put(SearchCriteria.SEMESTER_EQUALS, this.parameter);
+                    searchCoursesByCriteria("No courses found in this semester");
+                    break;
 
-			case "search for courses by name":
-				criteria.clear();
-				criteria.put(SearchCriteria.COURSE_NAME_CONTAINS,
-						this.parameter);
-				searchCoursesByCriteria("No courses found of this Name");
-				break;
+                case "search for courses by name":
+                    criteria.clear();
+                    criteria.put(SearchCriteria.COURSE_NAME_CONTAINS,
+                        this.parameter);
+                    searchCoursesByCriteria("No courses found of this Name");
+                    break;
 
-			case "search for courses by day of a week":
-				criteria.clear();
-				criteria.put(SearchCriteria.DAY_OF_WEEK_EQUALS, this.parameter);
-				searchCoursesByCriteria("No courses found on this day of week");
-				break;
+                case "search for courses by day of a week":
+                    criteria.clear();
+                    criteria.put(SearchCriteria.DAY_OF_WEEK_EQUALS, this.parameter);
+                    searchCoursesByCriteria("No courses found on this day of week");
+                    break;
 
-			case "search for courses by department":
-				criteria.clear();
-				criteria.put(SearchCriteria.DEPARTMENT_EQUALS, this.parameter);
-				searchCoursesByCriteria("No courses found in this Department");
-				break;
+                case "search for courses by department":
+                    criteria.clear();
+                    criteria.put(SearchCriteria.DEPARTMENT_EQUALS, this.parameter);
+                    searchCoursesByCriteria("No courses found in this Department");
+                    break;
 
 			case "delete student by first name":
 				Student deletedStudent = studentDAO.findByName(this.parameter);
@@ -333,8 +327,8 @@ public class Bootstrap {
 				System.out.println();
 				break;
 
-			case "":
-				break;
+                case "":
+                    break;
 
 			default:
 				printIvalidCommandError();
@@ -370,9 +364,9 @@ public class Bootstrap {
 		System.out.println("\tERROR: Invalid Command [" + this.input + "]");
 	}
 
-	private void printCommandEntry() {
-		System.out.print("[type 'quit' to exit]# ");
-	}
+    private void printCommandEntry() {
+        System.out.print("[type 'quit' to exit]# ");
+    }
 
 	private void printWelcomeMessage() {
 		System.out.println("***********************************************");
@@ -380,7 +374,7 @@ public class Bootstrap {
 		System.out.println("***********************************************");
 	}
 
-	private void printHelp() {
+    private void printHelp() {
 
 		System.out.println("List all Students");
 		System.out.println("List all Courses");

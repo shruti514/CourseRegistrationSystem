@@ -1,7 +1,6 @@
 package org.courseregistration.dao;
 
 
-import fixures.TestDataGenerator;
 import org.courseregistration.dbtests.HibernateUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

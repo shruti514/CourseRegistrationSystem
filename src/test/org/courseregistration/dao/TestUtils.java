@@ -1,6 +1,5 @@
 package org.courseregistration.dao;
 
-import com.google.common.math.LongMath;
 import org.courseregistration.model.*;
 
 import java.util.Calendar;
@@ -34,7 +33,7 @@ public class TestUtils {
         return section;
     }
 
-    public static Address  createAddress(){
+    public static Address createAddress() {
         Address address = new Address();
         address.setState("CA");
         address.setAptNo(23);
@@ -107,9 +106,9 @@ public class TestUtils {
     }
 
     public static Section createSection(long collegeId, String professorName, String courseCode) {
-        Professor professor = createProfessor(collegeId,professorName);
-        Course course = createCourse(courseCode,"Course Name");
+        Professor professor = createProfessor(collegeId, professorName);
+        Course course = createCourse(courseCode, "Course Name");
 
-        return createSection(professor,course);
+        return createSection(professor, course);
     }
 }

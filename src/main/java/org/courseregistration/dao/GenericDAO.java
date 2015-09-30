@@ -32,6 +32,7 @@ abstract class GenericDAO<T extends Serializable> {
 
     /**
      * Finds an entity by primary key
+     *
      * @param id primary key of an entity to be searched
      * @return returns an entity instance or null if the entity with given primary key does not exists
      */
@@ -51,6 +52,7 @@ abstract class GenericDAO<T extends Serializable> {
     /**
      * Find all entities
      * Returns a list of entities of any given type.
+     *
      * @return the list of found entity instances
      */
     public abstract List<T> findAll();

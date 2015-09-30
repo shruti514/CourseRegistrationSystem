@@ -12,7 +12,7 @@ import org.courseregistration.model.Student;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 /**
- *A class use
+ * A class use
  */
 public class StudentDAO extends GenericDAO<Student> {
 	private final EntityManager entityManager;
@@ -25,7 +25,8 @@ public class StudentDAO extends GenericDAO<Student> {
 	}
 
     /**
-     *Find students from database
+     * Find students from database
+     *
      * @return a list of students fetched from database
      */
 	@Override
@@ -37,17 +38,16 @@ public class StudentDAO extends GenericDAO<Student> {
 		logger.debug("returning all({}) Students", students.size());
 		return students;
 	}
+    public Student findByName(String name) {
+        try {
+            return entityManager
+                .createQuery(
+                    "select s from Student s where s.firstName=:firstName",
+                    Student.class).setParameter("firstName", name)
+                .getSingleResult();
+        } catch (Exception e) {
+            return null;
 
-	public Student findByName(String name) {
-		try {
-			return entityManager
-					.createQuery(
-							"select s from Student s where s.firstName=:firstName",
-							Student.class).setParameter("firstName", name)
-					.getSingleResult();
-		} catch (Exception e) {
-			return null;
-
-		}
-	}
+        }
+    }
 }
