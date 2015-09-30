@@ -22,7 +22,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.Lists;
-
+/**
+ * An implementation of {@link org.courseregistration.dao.GenericDAO}
+ * The responsibility of this class is to perform database operations on entity Section
+ */
 public class SectionDAO extends GenericDAO<Section> {
 
 	private final EntityManager entityManager;
@@ -34,6 +37,14 @@ public class SectionDAO extends GenericDAO<Section> {
 		this.entityManager = entityManager;
 	}
 
+    /**
+     * Find course by given criteria
+     *
+     * @param criteria a map of filter criterias which should be applied on the Section vs
+     *                 filter values
+     *
+     * @return list of section found matching the given criteria
+     */
 	public List<Section> findCourseByCriteria(
 			Map<SearchCriteria, String> criteria) {
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
@@ -106,6 +117,10 @@ public class SectionDAO extends GenericDAO<Section> {
 		return null;
 	}
 
+    /**
+     * Find list of Sections
+     * @return list of Section fetched from the database ordered by the course code
+     */
 	@Override
 	public List<Section> findAll() {
 		logger.debug("about to load all Sections");

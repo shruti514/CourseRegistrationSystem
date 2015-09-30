@@ -3,11 +3,17 @@ package org.courseregistration.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaQuery;
 
 import org.courseregistration.model.Student;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+/**
+ *A class use
+ */
 public class StudentDAO extends GenericDAO<Student> {
 	private final EntityManager entityManager;
 	private static final Logger logger = LoggerFactory
@@ -18,6 +24,10 @@ public class StudentDAO extends GenericDAO<Student> {
 		this.entityManager = entityManager;
 	}
 
+    /**
+     *Find students from database
+     * @return a list of students fetched from database
+     */
 	@Override
 	public List<Student> findAll() {
 		logger.debug("about to load all Students");
