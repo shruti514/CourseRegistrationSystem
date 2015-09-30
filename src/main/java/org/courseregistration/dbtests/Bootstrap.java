@@ -44,18 +44,22 @@ public class Bootstrap {
 	}
 
 	public static void main(String[] args) {
-		// If error comment below line
+		// This method starts database connection using parameters from
+		// persistence.xml
 		HibernateUtils.initEntityManager();
-		// This is just for now till we don't have data
+
+		// To populate data in database
 		// DataGenerator.generateData();
 
 		Bootstrap program = new Bootstrap();
+		// Prints the Welcome message and applications command prompt
 		program.printWelcomeMessage();
 		program.printCommandEntry();
-
+		// Get the command from user with or without parameters
 		program.getInputQueryFromUser();
 
-		// If error comment below line
+		// This method stops database connection using parameters from
+		// persistence.xml
 		HibernateUtils.closeEntityManager();
 	}
 
@@ -70,7 +74,7 @@ public class Bootstrap {
 				printError();
 			}
 
-			if (exitCode.equals(this.input)) {
+			if (exitCode.equalsIgnoreCase(this.input)) {
 				System.out.println("Signing off.");
 				break;
 			}
@@ -99,7 +103,7 @@ public class Bootstrap {
 	}
 
 	private void executeCommand() {
-
+		entityManager.clear();
 		if (!this.command.trim().isEmpty())
 			// System.out.println(this.command);
 
@@ -135,13 +139,13 @@ public class Bootstrap {
 
 				break;
 
-			case "as a student i should be able to search for a course which matches exactly cs-218":
+			case "i should be able to search for a course which matches exactly cs-218":
 				criteria.clear();
 				criteria.put(SearchCriteria.COURSE_CODE_EQUALS, "CS-218");
 				searchCoursesByCriteria("No Course found by ID CS-218");
 				break;
 
-			case "as a student i should be able to add a course cs-218 conducted by professor larkin":
+			case "student john should be able to add a course cs-218 conducted by professor larkin":
 				Student student = studentDAO.findByName("john");
 
 				criteria.clear();
@@ -166,19 +170,19 @@ public class Bootstrap {
 					String courseString = updatedStudent.getSections().size() > 1 ? "courses"
 							: "course";
 
-					System.out.println("        ----You are enrolled for "
+					System.out.println("\t----You are enrolled for "
 							+ updatedStudent.getSections().size() + " "
 							+ courseString + "----");
 
 					for (Section section : updatedStudent.getSections()) {
 						System.out.println(section.toString());
 						System.out
-								.println("        ------------------------------------------");
+								.println("\t------------------------------------------");
 					}
 				}
 				break;
 
-			case "as a student i should be able to drop a course cs-218 conducted by professor larkin":
+			case "student john should be able to drop a course cs-218 conducted by professor larkin":
 				Student studentJohn = studentDAO.findByName("john");
 
 				criteria.clear();
@@ -203,14 +207,14 @@ public class Bootstrap {
 
 					String courseString = updatedJohn.getSections().size() > 1 ? "courses"
 							: "course";
-					System.out.println("        ----You are enrolled for "
+					System.out.println("\t----You are enrolled for "
 							+ updatedJohn.getSections().size() + " "
 							+ courseString + "----");
 
 					for (Section section : updatedJohn.getSections()) {
 						System.out.println(section.toString());
 						System.out
-								.println("        ------------------------------------------");
+								.println("\t------------------------------------------");
 					}
 				}
 				break;
@@ -235,11 +239,20 @@ public class Bootstrap {
 				Student studentSections = studentDAO.findByName("john");
 				List<Section> sectionsList = studentSections.getSections();
 
-				if (sectionsList.size() > 0)
+				if (sectionsList.size() > 0) {
+					String courseString = sectionsList.size() > 1 ? "courses"
+							: "course";
+					System.out
+							.println("\t\t----You are enrolled for "
+									+ sectionsList.size() + " " + courseString
+									+ "----");
+
 					for (Section course : sectionsList) {
 						System.out.println(course.toString());
+						System.out
+								.println("\t------------------------------------------");
 					}
-				else
+				} else
 					printProperMessage("ERROR", studentSections.getFirstName()
 							+ " is not registered to any course. ");
 				break;
@@ -349,11 +362,11 @@ public class Bootstrap {
 		System.out.println("List all Courses");
 		System.out.println("List all Professors");
 		System.out
-				.println("As a student I should be able to search for a course which matches exactly CS-218");
+				.println("I should be able to search for a course which matches exactly CS-218");
 		System.out
-				.println("As a student I should be able to ADD a course CS-218 conducted by professor Larkin");
+				.println("Student John should be able to ADD a course CS-218 conducted by professor Larkin");
 		System.out
-				.println("As a student I should be able to DROP a course CS-218 conducted by professor Larkin");
+				.println("Student John should be able to DROP a course CS-218 conducted by professor Larkin");
 		System.out
 				.println("List the students from course CS-218 of professor Larkin");
 		System.out.println("List of sections of John");
