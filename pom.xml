@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.courseregistration</groupId>
-    <artifactId>project_group_6</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>CMPE-272-GROUP-6</artifactId>
+    <version>1.0</version>
 
     <properties>
       <java.version>1.8</java.version>
