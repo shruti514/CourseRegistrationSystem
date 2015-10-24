@@ -25,6 +25,14 @@
 
 - To build, deploy and run application on Tomcat
 -- Download Apache Tomcat 7 and install it on your machine
+-- Change the username and password for the role "manager-gui" and "manager-script" as mentioned here- http://www.mkyong.com/maven/how-to-deploy-maven-based-war-file-to-tomcat/
+-- So username and password should be same at following location
+        1. Maven's settings.xml
+        2. Tomcat's tomcat-users.xml
+-- To verify if the password has been set -
+-- Try and Open http://localhost:8080/manager/
+   It will ask for credentials
+   Enter Credentials which you have set in above steps and see if you can access manager-gui
 -- Pull latest changes from our git repository
 -- To deploy application for the first time execute
     mvn tomcat7:deploy
