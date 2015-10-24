@@ -1,28 +1,18 @@
 package org.courseregistration.dao;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaQuery;
-
 import org.courseregistration.model.Student;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-/**
- * A class use
- */
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+
+@Repository
 public class StudentDAO extends GenericDAO<Student> {
-	private final EntityManager entityManager;
+
 	private static final Logger logger = LoggerFactory
 			.getLogger(StudentDAO.class);
-
-	public StudentDAO(EntityManager entityManager) {
-		super(Student.class, entityManager);
-		this.entityManager = entityManager;
-	}
 
     /**
      * Find students from database

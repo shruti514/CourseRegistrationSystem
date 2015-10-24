@@ -1,18 +1,26 @@
 package org.courseregistration.dbtests;
 
-import com.google.common.collect.Maps;
-import org.courseregistration.dao.*;
-import org.courseregistration.model.Course;
-import org.courseregistration.model.Professor;
-import org.courseregistration.model.Section;
-import org.courseregistration.model.Student;
-
-import javax.persistence.EntityManager;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-
 public class Bootstrap {
+
+   /* private void getInputQueryFromUser() {
+        Scanner scanner = new Scanner(System.in);
+        while ((this.input = scanner.nextLine()) != null
+            && !exitCode.equalsIgnoreCase(this.input)) {
+
+			if (this.getCommandAndSingleParameter())
+				this.executeCommand();
+			else {
+				printIvalidCommandError();
+			}
+
+			if (exitCode.equalsIgnoreCase(this.input)) {
+				System.out.println("Signing off.");
+				break;
+			}
+
+            this.printCommandEntry();
+        }
+    }
 
     private static String exitCode = "quit";
     protected static EntityManager emf;
@@ -37,44 +45,24 @@ public class Bootstrap {
         studentDAO = new StudentDAO(entityManager);
     }
 
-	public static void main(String[] args) {
-		// This method starts database connection using parameters from
-		// persistence.xml
-		HibernateUtils.initEntityManager();
+    public static void main(String[] args) {
+        // This method starts database connection using parameters from
+        // persistence.xml
+        HibernateUtils.initEntityManager();
 
-		// To populate data in database
-		// DataGenerator.generateData();
+        // To populate data in database
+        // DataGenerator.generateData();
 
-		Bootstrap program = new Bootstrap();
-		// Prints the Welcome message and applications command prompt
-		program.printWelcomeMessage();
-		program.printCommandEntry();
-		// Get the command from user with or without parameters
-		program.getInputQueryFromUser();
+        Bootstrap program = new Bootstrap();
+        // Prints the Welcome message and applications command prompt
+        program.printWelcomeMessage();
+        program.printCommandEntry();
+        // Get the command from user with or without parameters
+        program.getInputQueryFromUser();
 
-		// This method stops database connection using parameters from
-		// persistence.xml
-		HibernateUtils.closeEntityManager();
-	}
-
-    private void getInputQueryFromUser() {
-        Scanner scanner = new Scanner(System.in);
-        while ((this.input = scanner.nextLine()) != null
-            && !exitCode.equalsIgnoreCase(this.input)) {
-
-			if (this.getCommandAndSingleParameter())
-				this.executeCommand();
-			else {
-				printIvalidCommandError();
-			}
-
-			if (exitCode.equalsIgnoreCase(this.input)) {
-				System.out.println("Signing off.");
-				break;
-			}
-
-            this.printCommandEntry();
-        }
+        // This method stops database connection using parameters from
+        // persistence.xml
+        HibernateUtils.closeEntityManager();
     }
 
     private boolean getCommandAndSingleParameter() {
@@ -398,5 +386,5 @@ public class Bootstrap {
 		System.out.println("search for courses by name=Quantitative Analysis");
 		System.out.println("Search for courses by department=Computer Science");
 		System.out.println("Delete student by First Name=Alice");
-	}
+	}*/
 }

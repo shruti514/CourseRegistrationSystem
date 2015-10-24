@@ -1,30 +1,35 @@
 package org.courseregistration.dao;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Responsibility of the class is perform CRUD operations on the entities involved in the system
  * To be able to perform operations mentioned in the class, Entities should implement Serializable interface .
  */
-abstract class GenericDAO<T extends Serializable> {
+ abstract class GenericDAO<T extends Serializable> {
 	private final Class<T> clazz;
-	private final EntityManager entityManager;
+    @PersistenceContext
+	protected   EntityManager entityManager;
 	private static final Logger logger = LoggerFactory
 			.getLogger(GenericDAO.class);
 
-	protected GenericDAO(Class<T> clazz, EntityManager entityManager) {
-		this.clazz = clazz;
-		this.entityManager = entityManager;
+	protected GenericDAO() {
+        Type t = getClass().getGenericSuperclass();
+        ParameterizedType pt = (ParameterizedType) t;
+        clazz = (Class) pt.getActualTypeArguments()[0];
+
 	}
 
     /**

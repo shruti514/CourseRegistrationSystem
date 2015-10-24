@@ -1,12 +1,7 @@
 package org.courseregistration.dbtests;
 
 import com.google.common.collect.Sets;
-import org.courseregistration.model.Course;
-import org.courseregistration.model.Professor;
-import org.courseregistration.model.Section;
-import org.courseregistration.model.Student;
-import org.courseregistration.model.Role;
-import org.courseregistration.model.Address;
+import org.courseregistration.model.*;
 
 import javax.persistence.EntityManager;
 import java.util.Calendar;

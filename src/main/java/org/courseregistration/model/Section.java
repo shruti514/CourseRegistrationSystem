@@ -1,5 +1,7 @@
 package org.courseregistration.model;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -15,11 +17,11 @@ public class Section implements Serializable {
     @Column(name = "section_id")
     private Long id;
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "professor_id", foreignKey = @ForeignKey(name = "FK_section_professor"))
     private Professor professor;
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "course_id", foreignKey = @ForeignKey(name = "FK_section_course"))
     private Course course;
 
@@ -57,6 +59,7 @@ public class Section implements Serializable {
     @Column(name = "mode_of_instruction", nullable = false)
     private String modeOfInstruction;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "sections")
     private List<Student> students;
 

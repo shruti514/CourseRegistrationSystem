@@ -9,8 +9,8 @@ import org.hibernate.jpa.criteria.predicate.ComparisonPredicate;
 import org.hibernate.jpa.criteria.predicate.LikePredicate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
 import javax.persistence.criteria.*;
 import java.util.List;
 import java.util.Map;
@@ -21,15 +21,10 @@ import static org.hibernate.jpa.criteria.predicate.ComparisonPredicate.Compariso
  * An implementation of {@link org.courseregistration.dao.GenericDAO}
  * The responsibility of this class is to perform database operations on entity Section
  */
+@Repository
 public class SectionDAO extends GenericDAO<Section> {
 
-    private final EntityManager entityManager;
     private static final Logger logger = LoggerFactory.getLogger(SectionDAO.class);
-
-    public SectionDAO(EntityManager entityManager) {
-        super(Section.class, entityManager);
-        this.entityManager = entityManager;
-    }
 
     /**
      * Find course by given criteria

@@ -4,21 +4,17 @@ package org.courseregistration.dao;
 import org.courseregistration.model.Professor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
 /**
  * An implementation of {@link org.courseregistration.dao.GenericDAO}
  * The responsibility of this class is to perform database operations on the Professor
  */
+@Repository
 public class ProfessorDAO extends GenericDAO<Professor> {
-    private final EntityManager entityManager;
 
-    public ProfessorDAO(EntityManager entityManager) {
-        super(Professor.class, entityManager);
-        this.entityManager = entityManager;
-    }
 
     private static final Logger logger = LoggerFactory.getLogger(ProfessorDAO.class);
 
