@@ -33,6 +33,7 @@ public class Course implements Serializable {
     @Column(name = "program", nullable = false)
     private String program;
 
+
     public Long getId() {
         return id;
     }
@@ -96,6 +97,8 @@ public class Course implements Serializable {
     public void setProgram(String program) {
         this.program = program;
     }
+
+
 
     @Override
     public boolean equals(Object o) {

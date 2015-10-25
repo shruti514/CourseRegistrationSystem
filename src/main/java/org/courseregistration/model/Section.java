@@ -59,6 +59,10 @@ public class Section implements Serializable {
     @Column(name = "mode_of_instruction", nullable = false)
     private String modeOfInstruction;
 
+    @Column(name="price",nullable=false)
+    private Integer price;
+
+
     @JsonIgnore
     @ManyToMany(mappedBy = "sections")
     private List<Student> students;
@@ -171,6 +175,10 @@ public class Section implements Serializable {
         return students;
     }
 
+    public Integer getPrice() { return price;}
+
+    public void setPrice(Integer price) {this.price = price;}
+
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -223,6 +231,7 @@ public class Section implements Serializable {
         result = 31 * result + totalCapacity.hashCode();
         result = 31 * result + waitListCapacity.hashCode();
         result = 31 * result + modeOfInstruction.hashCode();
+        result = 31* result + price.hashCode();
         return result;
     }
 
@@ -243,6 +252,8 @@ public class Section implements Serializable {
         builder.append(", Wait list-" + waitListCapacity + "]");
 
 		builder.append("\n\tMode of Instruction :\t" + modeOfInstruction);
+
+        builder.append("\n\tSection price in USD: \t" + price);
 
 		builder.append(professor.toString());
 		builder.append("\n");

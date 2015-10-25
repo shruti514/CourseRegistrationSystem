@@ -487,6 +487,7 @@ public class DataGenerator {
         section1.setWaitListCapacity(20);
         section1.setCourse(course1);
         section1.setProfessor(professor1);
+        section1.setPrice(200);
 
         Section section2 = new Section();
 
@@ -509,6 +510,7 @@ public class DataGenerator {
         section2.setWaitListCapacity(10);
         section2.setProfessor(professor2);
         section2.setCourse(course2);
+        section2.setPrice(250);
 
         Section section3 = new Section();
 
@@ -531,6 +533,7 @@ public class DataGenerator {
         section3.setWaitListCapacity(20);
         section3.setCourse(course2);
         section3.setProfessor(professor3);
+        section3.setPrice(185);
 
         Section section4 = new Section();
 
@@ -553,6 +556,7 @@ public class DataGenerator {
         section4.setWaitListCapacity(15);
         section4.setCourse(course4);
         section4.setProfessor(professor4);
+        section4.setPrice(215);
 
         Section section5 = new Section();
 
@@ -575,6 +579,7 @@ public class DataGenerator {
         section5.setWaitListCapacity(10);
         section5.setCourse(course4);
         section5.setProfessor(professor5);
+        section5.setPrice(230);
 
 
         entityManager.getTransaction().begin();
