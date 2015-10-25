@@ -1,13 +1,9 @@
 package org.courseregistration.service;
 
-import java.util.List;
-
 import org.courseregistration.dao.CourseDAO;
 import org.courseregistration.model.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import jersey.repackaged.com.google.common.collect.Lists;
 
 /**
  * Created by cpunekar on 25-Oct-15.
@@ -16,9 +12,31 @@ import jersey.repackaged.com.google.common.collect.Lists;
 @Service
 public class CourseService {
     @Autowired
-    private CourseDAO courseDao;
+    private CourseDAO courseDAO;
 
+    public Course findById(Long id) {
+       Course toReturn = courseDAO.findById(id);
+        return toReturn;
+    }
+}
+package org.courseregistration.service;
 
+import org.courseregistration.dao.CourseDAO;
+import org.courseregistration.model.Course;
+import org.courseregistration.model.Student;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+import static com.google.common.collect.Lists.newArrayList;
+
+@Service
+public class CourseService 
+{
+	@Autowired
+	private CourseDAO courseDao;
+	
 	/**
      * Find list of Courses
      *
@@ -28,7 +46,7 @@ public class CourseService {
 	public List<Course> findAllCourses()
 			{
 				List<Course> courses = courseDao.findAll();
-				List<Course> toReturn = Lists.newArrayList();
+				List<Course> toReturn = newArrayList();
 				for(Course course: courses)
 				{
 					toReturn.add(course);
@@ -57,4 +75,12 @@ public class CourseService {
     {
         courseDao.delete(id);
     }
+	
+	
+	
+	
 }
+	
+        
+
+
