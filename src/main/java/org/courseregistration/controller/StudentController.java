@@ -12,6 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -43,8 +44,9 @@ public class StudentController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Student> findStudents() {
-      return studentService.findAllStudents();
+    public Response findStudents() {
+        List<Student> allStudents = studentService.findAllStudents();
+        return Response.ok().entity(allStudents).build();
     }
 
 
