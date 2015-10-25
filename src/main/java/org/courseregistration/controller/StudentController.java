@@ -43,7 +43,7 @@ public class StudentController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response addStudent(Student s) {
          studentService.addStudent(s);
-        return Response.ok().entity(s).build();
+        return Response.ok(200).entity(s).build();
     }
 
 
