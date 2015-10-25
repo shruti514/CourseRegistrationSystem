@@ -2,6 +2,7 @@ package org.courseregistration.dao;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -85,13 +86,14 @@ import static com.google.common.base.Preconditions.checkNotNull;
      * Save an Entity objects with the given values
      * @param newObject an entity object to be stored in db
      */
+    @Transactional
     public void save(T newObject) {
         logger.debug("Saving new object of type: {}", clazz.getName());
 
         try {
-            entityManager.getTransaction().begin();
-            entityManager.persist(newObject);
-            entityManager.getTransaction().commit();
+            //entityManager.getTransaction().begin();
+            entityManager.merge(newObject);
+            //entityManager.getTransaction().commit();
         } catch (Exception exception) {
             logger.error("Error saving object of type: {}", clazz.getName(), exception);
             throw exception;
