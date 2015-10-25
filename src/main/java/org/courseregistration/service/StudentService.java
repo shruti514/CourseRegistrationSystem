@@ -27,4 +27,9 @@ public class StudentService {
         Student toReturn = studentDAO.findById(id);
         return toReturn;
     }
+
+    public void addStudent(Student s) {
+        studentDAO.save(s);
+    }
+
 }
