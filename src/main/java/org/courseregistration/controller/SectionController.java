@@ -29,29 +29,33 @@ public class SectionController {
 	private SectionService sectionService;
 
 	/**
-	 * Get details of a specific student
+	 * Get details of a specific Section
 	 *
 	 * @param id
 	 *            student identifier of the required student
 	 *
-	 * @response.representation.200.doc Details of student
+	 * @response.representation.200.doc Details of Section
 	 * @response.representation.200.mediaType application/json
 	 *
-	 * @response.representation.404.doc Requested student with id not found
+	 * @response.representation.404.doc Requested Section with id not found
 	 *
-	 * @return details of a student
+	 * @return details of a Section
 	 */
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Section findSectionById(@PathParam("id") Long id) {
-		return sectionService.findById(id);
+	public Response findSectionById(@PathParam("id") Long id) {
+		Section s = sectionService.findById(id);
+		if (s != null)
+			return Response.ok(Response.Status.OK).entity(s).build();
+		return Response.ok(Response.Status.NOT_FOUND).build();
 	}
 
 	/**
 	 * Find Section By Section's Course Name
+	 * 
 	 * @param name
-	 * @return
+	 * @return Response.Status.OK with Details of Section
 	 */
 	@GET
 	@Path("/coursename/{name}")
@@ -61,9 +65,14 @@ public class SectionController {
 		return Response.ok(200).entity(allStudents).build();
 	}
 
+	/**
+	 * Find all Section
+	 * 
+	 * @return Response.Status.OK with List of Sections
+	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findStudents() {
+	public Response findSections() {
 		List<Section> allStudents = sectionService.findAllSections();
 		return Response.ok(200).entity(allStudents).build();
 	}
