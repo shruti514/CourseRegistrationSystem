@@ -58,7 +58,7 @@ public class ProfessorController {
     @PUT
     @Path("{id}/update/{password}")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response updateStudentPass(@PathParam("id") Long id, @PathParam("password") String password) {
+    public Response updateProfessorPass(@PathParam("id") Long id, @PathParam("password") String password) {
         professorService.updateProfessorPass(id, password);
         return Response.ok("Password Successfully changed").build();
     }
