@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@Path("sections")
+@Path("section")
 public class SectionController {
 
 	@Autowired
@@ -99,8 +99,8 @@ public class SectionController {
 	@PUT
 	@Path("{section_id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateSection(@PathParam("section") long id) {
-		boolean isUpdated = sectionService.updateSection(id);
+	public Response updateSection(@PathParam("section") long id, Section current) {
+		boolean isUpdated = sectionService.updateSection(id, current);
 		if (isUpdated)
 			return Response.ok(Response.Status.OK)
 					.entity("Section Price updated").build();

@@ -68,10 +68,22 @@ public class SectionService {
 		}
 	}
 
-	public boolean updateSection(long id) {
+	public boolean updateSection(long id, Section current) {
 		Section toReturn = sectionDAO.findById(id);
 		if (toReturn != null) {
-			// toReturn.set
+			toReturn.setPrice(current.getPrice());
+			toReturn.setModeOfInstruction(current.getModeOfInstruction());
+			toReturn.setRoomNumber(current.getRoomNumber());
+			toReturn.setSemester(current.getSemester());
+			toReturn.setTotalCapacity(current.getTotalCapacity());
+			toReturn.setWaitListCapacity(current.getWaitListCapacity());
+			toReturn.setDayOfWeek(current.getDayOfWeek());
+			toReturn.setStartDate(current.getStartDate());
+			toReturn.setEndDate(current.getEndDate());
+			toReturn.setClassStartTime(current.getClassStartTime());
+			toReturn.setClassEndTime(current.getClassEndTime());
+			sectionDAO.update(toReturn);
+			return true;
 		}
 		return false;
 	}
