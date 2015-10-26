@@ -61,7 +61,7 @@ public class StudentController {
     }
 
     @PUT
-    @Path("{id}/contactnumber/update/{phone_number}")
+    @Path("{id}/update/{phone_number}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateStudentPhone(@PathParam("id") Long id, @PathParam("phone_number") String phone_number) {
       studentService.updateStudentPhone(id, phone_number);
@@ -69,7 +69,7 @@ public class StudentController {
     }
 
     @PUT
-    @Path("{id}/password/update/{password}")
+    @Path("{id}/update/{password}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateStudentPass(@PathParam("id") Long id, @PathParam("password") String password) {
         studentService.updateStudentPass(id, password);

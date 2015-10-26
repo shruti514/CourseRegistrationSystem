@@ -191,15 +191,16 @@ abstract class GenericDAO<T extends Serializable> {
 	 * @param id
 	 *            entity to delete
 	 */
+	@Transactional
 	public void delete(Long id) {
 		T toDelete = entityManager.find(clazz, id);
 		if (toDelete != null) {
 			logger.debug("Deleting a object of type: {} with id: {}",
 					clazz.getName(), id);
 			try {
-				entityManager.getTransaction().begin();
+				// entityManager.getTransaction().begin();
 				entityManager.remove(toDelete);
-				entityManager.getTransaction().commit();
+				// entityManager.getTransaction().commit();
 			} catch (Exception exception) {
 				logger.error("Error deleting object of type: {} with id: {}",
 						clazz.getName(), id, exception);
