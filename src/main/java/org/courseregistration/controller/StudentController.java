@@ -61,7 +61,7 @@ public class StudentController {
     }
 
     @PUT
-    @Path("{id}/update/{phone_number}")
+    @Path("{id}/contactnumber/update/{phone_number}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateStudentPhone(@PathParam("id") Long id, @PathParam("phone_number") String phone_number) {
       studentService.updateStudentPhone(id, phone_number);
@@ -69,7 +69,7 @@ public class StudentController {
     }
 
     @PUT
-    @Path("{id}/update/{password}")
+    @Path("{id}/password/update/{password}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateStudentPass(@PathParam("id") Long id, @PathParam("password") String password) {
         studentService.updateStudentPass(id, password);
@@ -78,7 +78,7 @@ public class StudentController {
 
     @POST
     @Path("{student_id}/sections/{section_id}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     public Response enrollSection(@PathParam("student_id") Long student_id,@PathParam("section_id") Long section_id) {
          studentService.enrollSection(student_id, section_id);
         return Response.ok(200).entity("Student Enrolled").build();
@@ -86,7 +86,7 @@ public class StudentController {
 
     @DELETE
     @Path("{student_id}/sections/{section_id}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     public Response dropSection(@PathParam("student_id/sections/section_id")Long student_id, Long section_id) {
          studentService.dropSection(student_id, section_id);
         return Response.ok(200).entity("Dropped Section").build();
