@@ -23,8 +23,6 @@ public class StudentController {
     /**
      * Get details of a specific student
      *
-     * @param id student identifier of the required student
-     *
      * @response.representation.200.doc Details of student
      * @response.representation.200.mediaType application/json
      *
@@ -32,20 +30,21 @@ public class StudentController {
      *
      * @return details of a student
      */
-    @GET
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Student findStudentById(@PathParam("id") Long id) {
-       return studentService.findById(id);
-    }
 
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response addStudent(Student s) {
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addSection(Student s) {
          studentService.addStudent(s);
         return Response.ok(200).entity(s).build();
     }
 
+    @DELETE
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteStudent(@PathParam("id") Long student_id) {
+        studentService.deleteStudent(student_id);
+        return Response.ok(201).entity(student_id).build();
+    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -54,8 +53,27 @@ public class StudentController {
         return Response.ok().entity(allStudents).build();
     }
 
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Student findStudentById(@PathParam("id") Long id) {
+        return studentService.findById(id);
+    }
 
+    @POST
+    @Path("{student_id}/sections/{section_id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response enrollSection(@PathParam("student_id") Long student_id,@PathParam("section_id") Long section_id) {
+         studentService.enrollSection(student_id, section_id);
+        return Response.ok(200).entity("Student Enrolled").build();
+    }
 
-
+    @DELETE
+    @Path("{student_id}/sections/{section_id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response dropSection(@PathParam("student_id/sections/section_id")Long student_id, Long section_id) {
+         studentService.dropSection(student_id, section_id);
+        return Response.ok(200).entity("Dropped Section").build();
+    }
 
 }

@@ -64,14 +64,15 @@ import static com.google.common.base.Preconditions.checkNotNull;
      * @param updatedObject an entity object to be updated/merged in db
      * @return returns an updated object
      */
+    @Transactional
     public T update(T updatedObject) {
         logger.debug("Updating object of type: {}", clazz.getName());
 
         T mergedInstance;
         try {
-            entityManager.getTransaction().begin();
+            //entityManager.getTransaction().begin();
             mergedInstance = entityManager.merge(updatedObject);
-            entityManager.getTransaction().commit();
+           // entityManager.getTransaction().commit();
         } catch (Exception exception) {
             logger.error("Error updating object of type: {}", clazz.getName(), exception);
             throw exception;
@@ -92,7 +93,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
         try {
             //entityManager.getTransaction().begin();
-            entityManager.merge(newObject);
+
+
+            entityManager.persist(newObject);
+
             //entityManager.getTransaction().commit();
         } catch (Exception exception) {
             logger.error("Error saving object of type: {}", clazz.getName(), exception);
@@ -166,14 +170,15 @@ import static com.google.common.base.Preconditions.checkNotNull;
      *
      * @param id entity to delete
      */
+    @Transactional
     public void delete(Long id) {
         T toDelete = entityManager.find(clazz, id);
         if (toDelete != null) {
             logger.debug("Deleting a object of type: {} with id: {}", clazz.getName(), id);
             try {
-                entityManager.getTransaction().begin();
+               // entityManager.getTransaction().begin();
                 entityManager.remove(toDelete);
-                entityManager.getTransaction().commit();
+                //entityManager.getTransaction().commit();
             } catch (Exception exception) {
                 logger.error("Error deleting object of type: {} with id: {}", clazz.getName(), id, exception);
                 throw exception;

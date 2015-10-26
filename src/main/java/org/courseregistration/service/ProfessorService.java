@@ -31,7 +31,7 @@ public class ProfessorService {
         return toReturn;
     }
 
-    public void addProfessoor(Professor p){
+    public void addProfessor(Professor p){
        professorDAO.save(p);
     }
 

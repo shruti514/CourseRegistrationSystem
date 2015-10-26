@@ -1,7 +1,14 @@
 package org.courseregistration.controller;
 
+import javax.ws.rs.Path;
+
+<<<<<<< 2ac6349964dcbf35c04637b779b6dff988f6a694
 import org.courseregistration.model.Professor;
 import org.courseregistration.service.ProfessorService;
+=======
+import org.courseregistration.service.ProfessorService;
+import org.jvnet.hk2.annotations.Service;
+>>>>>>> Merge remote-tracking branch 'origin/master'
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +21,8 @@ import java.util.List;
 @Path("professors")
 public class ProfessorController {
     @Autowired
-    private ProfessorService professorsrevice;
+    private ProfessorService professorservice;
+
 
     /**
      * Get details of a specific professor
@@ -32,20 +40,20 @@ public class ProfessorController {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Professor findProfessorById(@PathParam("id") Long id) {
-        return professorsrevice.findById(id) ;
+        return professorservice.findById(id) ;
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findProfessors(){
-        List<Professor> allProfessors = professorsrevice.findAllProfessors();
+        List<Professor> allProfessors = professorservice.findAllProfessors();
         return Response.ok().entity(allProfessors).build();
     }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response addProfessor(Professor p){
-         professorsrevice.addProfessoor(p);
+         professorservice.addProfessor(p);
         return Response.ok().entity(p).build() ;
     }
 
