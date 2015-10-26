@@ -89,10 +89,23 @@ public class SectionController {
 			@PathParam("price") int price) {
 		boolean isUpdated = sectionService.updateSectionPrice(id, price);
 		if (isUpdated)
-			return Response.ok(200).entity("Section Price updated").build();
+			return Response.ok(Response.Status.OK)
+					.entity("Section Price updated").build();
 		else
-			return Response.ok(400).entity("Section Price is not updated")
-					.build();
+			return Response.ok(Response.Status.NOT_FOUND)
+					.entity("Section Price is not updated").build();
 	}
 
+	@PUT
+	@Path("{section_id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response updateSection(@PathParam("section") long id) {
+		boolean isUpdated = sectionService.updateSection(id);
+		if (isUpdated)
+			return Response.ok(Response.Status.OK)
+					.entity("Section Price updated").build();
+		else
+			return Response.ok(Response.Status.NOT_FOUND)
+					.entity("Section Price is not updated").build();
+	}
 }

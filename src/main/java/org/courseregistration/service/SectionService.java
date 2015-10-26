@@ -68,4 +68,12 @@ public class SectionService {
 		}
 	}
 
+	public boolean updateSection(long id) {
+		Section toReturn = sectionDAO.findById(id);
+		if (toReturn != null) {
+			// toReturn.set
+		}
+		return false;
+	}
+
 }
