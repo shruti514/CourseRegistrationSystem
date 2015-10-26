@@ -1,10 +1,9 @@
 package org.courseregistration.controller;
 
 import org.courseregistration.model.Professor;
-import org.courseregistration.model.Student;
 import org.courseregistration.service.ProfessorService;
-import org.jvnet.hk2.annotations.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -12,8 +11,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Service
-@Path("professor")
-
+@Path("professors")
 public class ProfessorController {
     @Autowired
     private ProfessorService professorsrevice;
