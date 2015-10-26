@@ -15,7 +15,7 @@ public class ProfessorService {
 
     private ProfessorDAO professorDAO;
 
-    public List<Professor> findAllProfessor(){
+    public List<Professor> findAllProfessors(){
 
         List<Professor>  professors = professorDAO.findAll();
         List<Professor> toReturn = newArrayList();
@@ -31,5 +31,12 @@ public class ProfessorService {
         return toReturn;
     }
 
+    public void addProfessoor(Professor p){
+       professorDAO.save(p);
+    }
+
+    public void deleteProfessor(Long id){
+        professorDAO.delete(id);
+    }
 
 }
