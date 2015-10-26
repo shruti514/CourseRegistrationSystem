@@ -3,6 +3,7 @@ package org.courseregistration.controller;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -44,7 +45,7 @@ public class SectionController {
 	}
 
 	@GET
-	@Path("/name:{name}")
+	@Path("/coursename/{name}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findStudentById(@PathParam("name") String name) {
 		List<Section> allStudents = sectionService.findByName(name);
@@ -59,14 +60,25 @@ public class SectionController {
 	}
 
 	@POST
-	@Path("/post")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response createTrackInJSON(Section section) {
+	public Response addSection(Section section) {
 
-		String result = "Section saved : " + section;
-		sectionService.save(section);
-		return Response.status(201).entity(result).build();
+		boolean isSaved = sectionService.addSection(section);
+		if (isSaved) {
+			String result = "Section saved : " + section;
+			return Response.status(201).entity(result).build();
+		} else {
+			String result = "Section is not saved" + section;
+			return Response.status(401).entity(result).build();
+		}
+	}
 
+	@DELETE
+	@Path("{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deleteSection(@PathParam("id") Long section_id) {
+		sectionService.deleteSection(section_id);
+		return Response.ok(201).entity(section_id).build();
 	}
 
 	// @PUT
@@ -77,20 +89,4 @@ public class SectionController {
 	// sectionService.update(section);
 	// return Response.status(200).entity(output).build();
 	// }
-	//
-	// @DELETE
-	// @Path("/{param}")
-	// public Response deleteMsg(@PathParam("param") Section section) {
-	// String output = "DELETE:Jersey say : " + section;
-	// sectionService.delete(section);
-	// return Response.status(200).entity(output).build();
-	// }
-	//
-	// @HEAD
-	// @Path("/{param}")
-	// public Response headMsg(@PathParam("param") String msg) {
-	// String output = "HEAD:Jersey say : " + msg;
-	// return Response.status(200).entity(output).build();
-	// }
-
 }
