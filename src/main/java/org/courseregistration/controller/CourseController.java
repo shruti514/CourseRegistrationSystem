@@ -24,16 +24,13 @@ public class CourseController {
 
 	/**
 	 * Get details of a specific course
-	 *
 	 * @param id
-	 *            course identifier of the required course
-	 *
-	 *
+	 * course identifier of the required course
 	 * @response.representation.200.doc Details of course
 	 * @response.representation.200.mediaType application/json
 	 *
 	 * @response.representation.404.doc Requested course with id not found
-	 *
+
 	 * @return details of a course
 	 */
 	@GET

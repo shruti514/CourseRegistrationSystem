@@ -26,17 +26,33 @@ public class ProfessorService {
      return toReturn;
     }
 
-    public Professor findById(Long id) {
+    public Professor findProfessorById(Long id) {
         Professor toReturn = professorDAO.findById(id);
         return toReturn;
     }
 
-    public void addProfessoor(Professor p){
+    public void addProfessor(Professor p){
        professorDAO.save(p);
     }
 
-    public void deleteProfessor(Long id){
+    public void deleteProfessorById(Long id){
         professorDAO.delete(id);
+    }
+
+    public void updateProfessorPass(Long id,String password){
+        Professor professor = professorDAO.findById(id) ;
+        professor.setHashedPassword(password);
+    }
+
+    public void updateProfessorPhone(Long id,String phone_number){
+        Professor professor = professorDAO.findById(id);
+        professor.setPhoneNumber(phone_number);
+    }
+
+    public void updateProfessorFaculty(Long id,String faculty) {
+        Professor professor = professorDAO.findById(id);
+        professor.setFacultyType(faculty);
+
     }
 
 }

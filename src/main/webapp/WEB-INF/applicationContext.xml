@@ -38,7 +38,7 @@
       <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
       <property name="url" value="jdbc:mysql://localhost:3306/student_registration_database"/>
       <property name="username" value="root"/>
-      <property name="password" value="admin"/>
+      <property name="password" value="password"/>
     </bean>
 
 </beans>

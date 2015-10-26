@@ -14,11 +14,11 @@ public class Professor extends User {
     @Column(name = "years_of_experience", nullable = false)
     private Integer yearsOfExperience;
 
-    @Column(name = "office_hours_from_time", nullable = false)
+    @Column(name = "office_hours_from_time", nullable = true)
     @Temporal(value = TemporalType.TIME)
     private Date officeHoursFromTime;
 
-    @Column(name = "office_hours_to_time", nullable = false)
+    @Column(name = "office_hours_to_time", nullable = true)
     @Temporal(value = TemporalType.TIME)
     private Date officeHoursToTime;
 
