@@ -16,7 +16,7 @@ import java.util.List;
 @Path("professors")
 public class ProfessorController {
     @Autowired
-    private ProfessorService professorsrevice;
+    private ProfessorService professorService;
 
     /**
      * Get details of a specific professor
@@ -31,27 +31,27 @@ public class ProfessorController {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Professor findProfessorById(@PathParam("id") Long id) {
-        return professorsrevice.findProfessorById(id);
+        return professorService.findProfessorById(id);
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAllProfessors() {
-        List<Professor> allProfessors = professorsrevice.findAllProfessors();
+        List<Professor> allProfessors = professorService.findAllProfessors();
         return Response.ok().entity(allProfessors).build();
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addProfessor(Professor p) {
-        professorsrevice.addProfessor(p);
-        return Response.ok(200).entity(p).build();
+        professorService.addProfessor(p);
+        return Response.ok(201).entity(p).build();
     }
 
     @DELETE
     @Path("{id}")
     public Response deleteProfessorById(@PathParam("id") Long id) {
-        professorsrevice.deleteProfessorById(id);
+        professorService.deleteProfessorById(id);
         return Response.ok().entity(id).build();
     }
 
@@ -59,7 +59,7 @@ public class ProfessorController {
     @Path("{id}/update/{password}")
     @Produces(MediaType.TEXT_PLAIN)
     public Response updateStudentPass(@PathParam("id") Long id, @PathParam("password") String password) {
-        professorsrevice.updateProfessorPass(id, password);
+        professorService.updateProfessorPass(id, password);
         return Response.ok("Password Successfully changed").build();
     }
 
@@ -67,7 +67,7 @@ public class ProfessorController {
     @Path("{id}/update/{phone_number}")
     @Produces(MediaType.TEXT_PLAIN)
     public Response updateProfessorPhone(@PathParam("id") Long id,@PathParam("phone_number") String phone_number){
-        professorsrevice.updateProfessorPhone(id, phone_number);
+        professorService.updateProfessorPhone(id, phone_number);
         return Response.ok("Phone number updated successfully").build();
     }
 
@@ -75,7 +75,7 @@ public class ProfessorController {
     @Path("{id}/update/{faculty}")
     @Produces(MediaType.TEXT_PLAIN)
     public Response updateProfessorFaculty(@PathParam("id")Long id,@PathParam("faculty") String faculty) {
-        professorsrevice.updateProfessorFaculty(id,faculty);
+        professorService.updateProfessorFaculty(id,faculty);
         return Response.ok("Faculty type changed successfully").build();
     }
 }
