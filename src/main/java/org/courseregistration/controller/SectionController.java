@@ -44,14 +44,19 @@ public class SectionController {
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Section findStudentById(@PathParam("id") Long id) {
+	public Section findSectionById(@PathParam("id") Long id) {
 		return sectionService.findById(id);
 	}
 
+	/**
+	 * Find Section By Section's Course Name
+	 * @param name
+	 * @return
+	 */
 	@GET
 	@Path("/coursename/{name}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findStudentById(@PathParam("name") String name) {
+	public Response findSectionByName(@PathParam("name") String name) {
 		List<Section> allStudents = sectionService.findByName(name);
 		return Response.ok(200).entity(allStudents).build();
 	}
