@@ -108,4 +108,15 @@ public class SectionController {
 			return Response.ok(Response.Status.NOT_FOUND)
 					.entity("Section Price is not updated").build();
 	}
+
+	@GET
+	@Path("/coursename:{name}/price:{price}/proflastname:{lastname}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findStudentById(@PathParam("name") String name,
+			@PathParam("price") int price,
+			@PathParam("lastname") String lastname) {
+		List<Section> allStudents = sectionService.findByCriteria(name,price,lastname);
+		return Response.ok(200).entity(allStudents).build();
+	}
+
 }

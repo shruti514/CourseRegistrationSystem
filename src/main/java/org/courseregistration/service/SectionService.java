@@ -38,6 +38,15 @@ public class SectionService {
 		return toReturn;
 	}
 
+	public List<Section> findByCriteria(String name, int price, String lastname) {
+		Map<SearchCriteria, String> criteria = new HashMap<SearchCriteria, String>();
+		criteria.put(SearchCriteria.COURSE_NAME_CONTAINS, name);
+		criteria.put(SearchCriteria.PROFESSOR_LAST_NAME_CONTAINS, lastname);
+		criteria.put(SearchCriteria.SECTION_PRICE_EQUALS, "" + price);
+		List<Section> toReturn = sectionDAO.findCourseByCriteria(criteria);
+		return toReturn;
+	}
+
 	public boolean addSection(Section section) {
 		try {
 			sectionDAO.save(section);
