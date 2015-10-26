@@ -2,13 +2,10 @@ package org.courseregistration.controller;
 
 import javax.ws.rs.Path;
 
-<<<<<<< 2ac6349964dcbf35c04637b779b6dff988f6a694
+
 import org.courseregistration.model.Professor;
 import org.courseregistration.service.ProfessorService;
-=======
 import org.courseregistration.service.ProfessorService;
-import org.jvnet.hk2.annotations.Service;
->>>>>>> Merge remote-tracking branch 'origin/master'
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

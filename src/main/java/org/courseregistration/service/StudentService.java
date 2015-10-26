@@ -51,17 +51,18 @@ public class StudentService {
         Student student = studentDAO.findById(student_id);
         student.dropSection(section);
     }
-<<<<<<< HEAD
-=======
+
 
     public void updateStudentPhone(Long student_id, String phone_number) {
         Student student = studentDAO.findById(student_id);
         student.setPhoneNumber(phone_number);
+        studentDAO.update(student);
     }
 
     public void updateStudentPass(Long id, String password) {
         Student student = studentDAO.findById(id);
         student.setHashedPassword(password);
+        studentDAO.update(student);
     }
->>>>>>> 746d97d7f05c383890d3c74514ae8dd255743e2e
+
 }
