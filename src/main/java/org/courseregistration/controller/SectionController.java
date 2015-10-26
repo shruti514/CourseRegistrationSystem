@@ -6,6 +6,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -69,7 +70,7 @@ public class SectionController {
 			return Response.status(201).entity(result).build();
 		} else {
 			String result = "Section is not saved" + section;
-			return Response.status(401).entity(result).build();
+			return Response.status(400).entity(result).build();
 		}
 	}
 
@@ -81,12 +82,17 @@ public class SectionController {
 		return Response.ok(201).entity(section_id).build();
 	}
 
-	// @PUT
-	// @Path("/{param}")
-	// public Response putMsg(@PathParam("param") Section section) {
-	// String output = "PUT: Jersey say : " + section;
-	//
-	// sectionService.update(section);
-	// return Response.status(200).entity(output).build();
-	// }
+	@PUT
+	@Path("{section_id}/price/update/{price}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response updateSectionPrice(@PathParam("section_id") Long id,
+			@PathParam("price") int price) {
+		boolean isUpdated = sectionService.updateSectionPrice(id, price);
+		if (isUpdated)
+			return Response.ok(200).entity("Section Price updated").build();
+		else
+			return Response.ok(400).entity("Section Price is not updated")
+					.build();
+	}
+
 }

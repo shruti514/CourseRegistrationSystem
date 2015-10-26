@@ -57,4 +57,15 @@ public class SectionService {
 		toReturn = section;
 	}
 
+	public boolean updateSectionPrice(Long id, int price) {
+		Section toReturn = sectionDAO.findById(id);
+		if (toReturn != null) {
+			toReturn.setPrice(price);
+			sectionDAO.update(toReturn);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }
