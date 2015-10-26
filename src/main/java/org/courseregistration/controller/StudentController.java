@@ -59,6 +59,7 @@ public class StudentController {
     public Student findStudentById(@PathParam("id") Long id) {
         return studentService.findById(id);
     }
+<<<<<<< HEAD
 
     @POST
     @Path("{student_id}/sections/{section_id}")
@@ -68,6 +69,33 @@ public class StudentController {
         return Response.ok(200).entity("Student Enrolled").build();
     }
 
+=======
+
+    @PUT
+    @Path("{id}/contactnumber/update/{phone_number}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateStudentPhone(@PathParam("id") Long id, @PathParam("phone_number") String phone_number) {
+      studentService.updateStudentPhone(id, phone_number);
+        return Response.ok(200).entity("Phone Number Updated").build();
+    } 
+
+    @PUT
+    @Path("{id}/password/update/{password}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateStudentPass(@PathParam("id") Long id, @PathParam("password") String password) {
+        studentService.updateStudentPass(id, password);
+        return Response.ok(200).entity("Password successfully changed").build();
+    }
+
+    @POST
+    @Path("{student_id}/sections/{section_id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response enrollSection(@PathParam("student_id") Long student_id,@PathParam("section_id") Long section_id) {
+         studentService.enrollSection(student_id, section_id);
+        return Response.ok(200).entity("Student Enrolled").build();
+    }
+
+>>>>>>> 746d97d7f05c383890d3c74514ae8dd255743e2e
     @DELETE
     @Path("{student_id}/sections/{section_id}")
     @Produces(MediaType.APPLICATION_JSON)

@@ -38,18 +38,23 @@ public class SectionService {
 		return toReturn;
 	}
 
-	public void save(Section section) {
-		sectionDAO.save(section);
+	public boolean addSection(Section section) {
+		try {
+			sectionDAO.save(section);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
-	public void delete(Section section) {
-		sectionDAO.delete(section);
+	public void deleteSection(long section_id) {
+		sectionDAO.delete(section_id);
 	}
 
 	public void update(Section section) {
 		Section toReturn = sectionDAO.findById(section.getId());
 		toReturn = section;
-
 	}
 
 }
