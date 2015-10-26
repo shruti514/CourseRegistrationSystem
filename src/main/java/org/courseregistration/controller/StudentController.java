@@ -60,6 +60,22 @@ public class StudentController {
         return studentService.findById(id);
     }
 
+    @PUT
+    @Path("{id}/update/{phone_number}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateStudentPhone(@PathParam("id") Long id, @PathParam("phone_number") String phone_number) {
+      studentService.updateStudentPhone(id, phone_number);
+        return Response.ok(200).entity("Phone Number Updated").build();
+    }
+
+    @PUT
+    @Path("{id}/update/{password}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateStudentPass(@PathParam("id") Long id, @PathParam("password") String password) {
+        studentService.updateStudentPass(id, password);
+        return Response.ok(200).entity("Password successfully changed").build();
+    }
+
     @POST
     @Path("{student_id}/sections/{section_id}")
     @Produces(MediaType.APPLICATION_JSON)
