@@ -1,6 +1,8 @@
 package org.courseregistration.service;
 
+import org.courseregistration.dao.SectionDAO;
 import org.courseregistration.dao.StudentDAO;
+import org.courseregistration.model.Section;
 import org.courseregistration.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,8 @@ import static com.google.common.collect.Lists.newArrayList;
 public class StudentService {
     @Autowired
     private StudentDAO studentDAO;
+    @Autowired
+    private SectionDAO sectionDAO;
 
     public List<Student> findAllStudents(){
         List<Student> students = studentDAO.findAll();
@@ -32,4 +36,19 @@ public class StudentService {
         studentDAO.save(s);
     }
 
+    public void deleteStudent(Long student_id) {
+        studentDAO.delete(student_id);
+    }
+
+    public void enrollSection(Long student_id, Long section_id) {
+        Section section = sectionDAO.findById(section_id);
+        Student student = studentDAO.findById(student_id);
+        student.addSection(section);
+    }
+
+    public void dropSection(Long student_id, Long section_id) {
+        Section section = sectionDAO.findById(section_id);
+        Student student = studentDAO.findById(student_id);
+        student.dropSection(section);
+    }
 }

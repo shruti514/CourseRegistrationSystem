@@ -1,5 +1,6 @@
 package org.courseregistration.controller;
 
+import org.courseregistration.service.ProfessorService;
 import org.jvnet.hk2.annotations.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -10,7 +11,7 @@ import javax.ws.rs.Path;
 
 public class ProfessorController {
     @Autowired
-    private ProfessorService professoersrevice;
+    private ProfessorService professorservice;
 
     /**
      * Get details of a specific professor
