@@ -1,6 +1,8 @@
 package org.courseregistration.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -13,6 +15,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.courseregistration.dao.SearchCriteria;
 import org.courseregistration.model.Section;
 import org.courseregistration.service.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,11 +115,30 @@ public class SectionController {
 	@GET
 	@Path("/coursename:{name}/price:{price}/proflastname:{lastname}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findStudentById(@PathParam("name") String name,
+	public Response findStudent(@PathParam("name") String name,
 			@PathParam("price") int price,
 			@PathParam("lastname") String lastname) {
-		List<Section> allStudents = sectionService.findByCriteria(name,price,lastname);
+
+		Map<SearchCriteria, String> criteria = new HashMap<SearchCriteria, String>();
+		criteria.put(SearchCriteria.COURSE_NAME_CONTAINS, name);
+		criteria.put(SearchCriteria.PROFESSOR_LAST_NAME_CONTAINS, lastname);
+		criteria.put(SearchCriteria.SECTION_PRICE_EQUALS, "" + price);
+
+		List<Section> allStudents = sectionService.findByCriteria(criteria);
 		return Response.ok(200).entity(allStudents).build();
 	}
 
+	@GET
+	@Path("/coursename:{name}/proflastname:{lastname}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findStudent(@PathParam("name") String name,
+			@PathParam("lastname") String lastname) {
+
+		Map<SearchCriteria, String> criteria = new HashMap<SearchCriteria, String>();
+		criteria.put(SearchCriteria.COURSE_NAME_CONTAINS, name);
+		criteria.put(SearchCriteria.PROFESSOR_LAST_NAME_CONTAINS, lastname);
+
+		List<Section> allStudents = sectionService.findByCriteria(criteria);
+		return Response.ok(200).entity(allStudents).build();
+	}
 }
