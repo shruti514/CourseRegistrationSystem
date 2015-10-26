@@ -14,7 +14,10 @@ import javax.ws.rs.core.Response;
 
 import org.courseregistration.model.Course;
 import org.courseregistration.service.CourseService;
+import org.springframework.stereotype.Service;
 
+@Service
+@Path("courses")
 public class CourseController {
 
 	private CourseService courseService;
