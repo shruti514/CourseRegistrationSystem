@@ -33,10 +33,21 @@ public class StudentController {
      * @return details of a student
      */
 
+    // add single student
     @POST
+    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addSection(Student s) {
+    public Response addStudent(Student s) {
          studentService.addStudent(s);
+        return Response.ok(200).entity(s).build();
+    }
+
+    // add multiple students
+    @POST
+    @Path("{list}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addStudents(@PathParam("list")List<Student> s) {
+        studentService.addStudents(s);
         return Response.ok(200).entity(s).build();
     }
 
@@ -52,13 +63,20 @@ public class StudentController {
 
     //delete list of students
     @DELETE
-    @Path("{ids}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteAllStudents(@PathParam("ids") Collection<Long> ids) {
-        studentService.deleteAllStudents(ids);
-        return Response.ok(201).entity(ids).build();
+    @Path("/list/{ids}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response deleteAllStudents(@PathParam("ids") String ids) {
+        String [] splitIds = ids.split(",");
+        List<Long> toDelete = newArrayList();
+
+        for(String str:splitIds){
+            toDelete.add(new Long(str));
+        }
+        studentService.deleteAllStudents(toDelete);
+        return Response.ok(200).entity("Deleted Students" + ids).build();
     }
 
+    //get all students
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findStudents() {
@@ -66,6 +84,7 @@ public class StudentController {
         return Response.ok().entity(allStudents).build();
     }
 
+    //get student by id
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -90,6 +109,7 @@ public class StudentController {
     }
 */
 
+    //update student details
     @PUT
     @Path("update/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -98,10 +118,11 @@ public class StudentController {
         return Response.ok(200).entity("Student Details Updated").build();
     }
 
-
+    //enroll to a section
     @POST
     @Path("{id}/sections/{section_id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response enrollSection(@PathParam("student_id") Long student_id,@PathParam("section_id") Long section_id) {
          studentService.enrollSection(student_id, section_id);
         return Response.ok(200).entity("Enrolled to the Section").build();

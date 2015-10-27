@@ -21,15 +21,27 @@ public class CourseDAO extends GenericDAO<Course>{
      *
      * @return list of Courses fetched from the database ordered by course code
      */
-    //@Override
+    @Override
     public List<Course> findAll() {
         logger.debug("about to load all Courses");
-        String query = "from Course order by code asc";
+        String query = "from Course order by name asc";
         List<Course> courses = this.entityManager.createQuery(query, Course.class)
             .getResultList();
         logger.debug("returning all({}) Courses", courses.size());
         return courses;
     }
+
+    public List<Course> findAll(int pageNumber,int pageSize) {
+        logger.debug("about to load all Courses");
+        String query = "from Course order by name asc";
+        List<Course> courses = this.entityManager.createQuery(query, Course.class)
+            .setFirstResult((pageNumber - 1) * pageSize)
+            .setMaxResults(pageSize)
+            .getResultList();
+        logger.debug("returning all({}) Courses", courses.size());
+        return courses;
+    }
+
 
 
 }

@@ -22,6 +22,12 @@
         <artifactId>guava</artifactId>
         <version>19.0-rc2</version>
       </dependency>
+      <dependency>
+        <groupId>org.atteo</groupId>
+        <artifactId>evo-inflector</artifactId>
+        <version>1.2.1</version>
+      </dependency>
+
 
       <!-- Jersey -->
       <dependency>
@@ -97,6 +103,20 @@
         <artifactId>spring-orm</artifactId>
         <version>${org.springframework.version}</version>
       </dependency>
+
+      <dependency>
+        <groupId>org.springframework.plugin</groupId>
+        <artifactId>spring-plugin-core</artifactId>
+        <version>1.2.0.RELEASE</version>
+      </dependency>
+
+
+      <dependency>
+        <groupId>org.springframework.hateoas</groupId>
+        <artifactId>spring-hateoas</artifactId>
+        <version>0.19.0.RELEASE</version>
+      </dependency>
+
 
       <dependency>
         <groupId>org.springframework</groupId>

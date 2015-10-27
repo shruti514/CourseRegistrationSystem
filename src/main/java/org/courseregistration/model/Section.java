@@ -27,8 +27,8 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 public class Section implements Serializable {
 
 	@Id
-	@SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1, initialValue = 100000)
-	@GeneratedValue(generator = "sequence", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1, initialValue = 100000)
+    @GeneratedValue(generator = "sequence", strategy = GenerationType.SEQUENCE)
 	@Column(name = "section_id")
 	private Long id;
 
