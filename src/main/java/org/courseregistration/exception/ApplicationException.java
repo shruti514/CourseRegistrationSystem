@@ -1,10 +1,13 @@
 package org.courseregistration.exception;
 
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
+@JsonIgnoreProperties({"stackTrace"})
 public class ApplicationException extends Exception {
     @XmlElement
     int status;

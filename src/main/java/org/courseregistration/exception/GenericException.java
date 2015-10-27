@@ -1,13 +1,15 @@
 package org.courseregistration.exception;
 
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.springframework.beans.BeanUtils;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class GenericException  extends Exception{
+@JsonIgnoreProperties({"stackTrace"})
+public class GenericException{
 
     /**
      * the HTTP status code applicable to this problem
@@ -36,6 +38,8 @@ public class GenericException  extends Exception{
 
     @XmlElement
     String link;
+
+
 
     public String getLink() {
         return link;

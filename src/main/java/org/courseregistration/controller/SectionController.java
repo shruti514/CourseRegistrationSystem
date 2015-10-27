@@ -54,7 +54,7 @@ public class SectionController {
 
 	/**
 	 * Find Section By Section's Course Name
-	 * 
+	 *
 	 * @param name
 	 * @return Response.Status.OK with Details of Section
 	 */
@@ -68,7 +68,7 @@ public class SectionController {
 
 	/**
 	 * Find all Section
-	 * 
+	 *
 	 * @return Response.Status.OK with List of Sections
 	 */
 	@GET
@@ -101,7 +101,7 @@ public class SectionController {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param id
 	 * @param price
 	 * @return OK Response with message, or NOT_FOUND response with message
@@ -122,7 +122,7 @@ public class SectionController {
 
 	/**
 	 * Updates the Section
-	 * 
+	 *
 	 * @param id
 	 * @param current
 	 * @return OK Response with message, or NOT_FOUND response with message
@@ -142,7 +142,7 @@ public class SectionController {
 
 	/**
 	 * Get section List by course name and professor name and price for course
-	 * 
+	 *
 	 * @param name
 	 * @param price
 	 * @param lastname
@@ -151,9 +151,9 @@ public class SectionController {
 	@GET
 	@Path("/coursename:{name}/price:{price}/proflastname:{lastname}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findStudent(@PathParam("name") String name,
+	public Response findSection(@PathParam("name") String name,
 			@PathParam("price") int price,
-			@PathParam("lastname") String lastname) {
+                @PathParam("lastname") String lastname) {
 
 		Map<SearchCriteria, String> criteria = new HashMap<SearchCriteria, String>();
 		criteria.put(SearchCriteria.COURSE_NAME_CONTAINS, name);
@@ -166,7 +166,7 @@ public class SectionController {
 
 	/**
 	 * Get section List by course name and professor name
-	 * 
+	 *
 	 * @param name
 	 * @param lastname
 	 * @return Ok response with Section List
@@ -174,7 +174,7 @@ public class SectionController {
 	@GET
 	@Path("/coursename:{name}/proflastname:{lastname}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findStudent(@PathParam("name") String name,
+	public Response findSection(@PathParam("name") String name,
 			@PathParam("lastname") String lastname) {
 
 		Map<SearchCriteria, String> criteria = new HashMap<SearchCriteria, String>();

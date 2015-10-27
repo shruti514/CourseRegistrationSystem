@@ -1,5 +1,9 @@
 package org.courseregistration.exception;
 
+import com.google.common.collect.Lists;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -8,21 +12,24 @@ import javax.ws.rs.ext.Provider;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Provider
 public class GenericExceptionMapper implements ExceptionMapper<Throwable> {
+    private static final Logger logger = LoggerFactory.getLogger(GenericExceptionMapper.class);
 
     public Response toResponse(Throwable ex) {
-        Map<String,Throwable> exMap = new HashMap<>();
-        exMap.put("errors",ex);
+        logger.error(ex.getMessage(),ex);
 
         GenericException exception = new GenericException();
         setHttpStatus(ex, exception);
         exception.setCode(1009);
         exception.setTittle(ex.getMessage());
-        exception.setDetail(ex.getMessage());
-        exception.setLink("");
+        exception.setDetail(ex.toString());
+
+        exception.setLink("");Map<String,List<GenericException>> exMap = new HashMap<>();
+        exMap.put("errors", Lists.newArrayList(exception));
 
         return Response.status(exception.getStatus())
             .entity(exMap)

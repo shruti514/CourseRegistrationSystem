@@ -37,8 +37,8 @@ public class StudentService {
         studentDAO.save(s);
     }
 
-    public void addStudents(List<Student> s) {
-        studentDAO.save(s);
+    public void addStudents(List<Student> students) {
+        studentDAO.save(students);
     }
 
     public void deleteStudent(Long student_id) {

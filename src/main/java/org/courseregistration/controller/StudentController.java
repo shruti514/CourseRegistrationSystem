@@ -44,11 +44,12 @@ public class StudentController {
 
     // add multiple students
     @POST
-    @Path("{list}")
+    @Path("/list")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addStudents(@PathParam("list")List<Student> s) {
-        studentService.addStudents(s);
-        return Response.ok(200).entity(s).build();
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addStudents(List<Student> students) {
+        studentService.addStudents(students);
+        return Response.ok(200).entity(students).build();
     }
 
     //delete single student
