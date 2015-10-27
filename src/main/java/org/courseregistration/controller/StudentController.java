@@ -52,10 +52,16 @@ public class StudentController {
 
     //delete list of students
     @DELETE
-    @Path("{ids}")
+    @Path("/list/{ids}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteAllStudents(@PathParam("ids") Collection<Long> ids) {
-        studentService.deleteAllStudents(ids);
+    public Response deleteAllStudents(@PathParam("ids") String ids) {
+        String [] splitIds = ids.split(",");
+        List<Long> toDelete = newArrayList();
+
+        for(String str:splitIds){
+            toDelete.add(new Long(str));
+        }
+        studentService.deleteAllStudents(toDelete);
         return Response.ok(201).entity(ids).build();
     }
 

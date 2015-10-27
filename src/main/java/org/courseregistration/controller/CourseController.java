@@ -1,26 +1,28 @@
 package org.courseregistration.controller;
 
-import java.util.List;
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
 import org.courseregistration.model.Course;
 import org.courseregistration.service.CourseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.*;
+import org.springframework.hateoas.config.EnableEntityLinks;
+import org.springframework.hateoas.core.ControllerEntityLinks;
+import org.springframework.hateoas.jaxrs.JaxRsLinkBuilder;
 import org.springframework.stereotype.Service;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Service
 @Path("courses")
+@ExposesResourceFor(Course.class)
 public class CourseController {
-
+    @Autowired
 	private CourseService courseService;
+    @Autowired
+    private EntityLinks entityLinks;
+
 
 	/**
 	 * Get details of a specific course
@@ -36,15 +38,31 @@ public class CourseController {
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Course findCourseById(@PathParam("id") Long id) {
-		return courseService.findById(id);
+	public Response findCourseById(@PathParam("id") Long id) {
+        Course course = courseService.findById(id);
+
+        Resource<Course>  resource = new Resource<>(course);
+        Link selfRel = entityLinks.linkToSingleResource(Course.class, course.getId()).withSelfRel();
+
+        resource.add(selfRel);
+
+        return Response.ok(resource).build();
 	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findCourses() {
 		List<Course> allCourses = courseService.findAllCourses();
-		return Response.ok().entity(allCourses).build();
+
+        Resources<Course> resources = new Resources<>(
+            allCourses,
+            JaxRsLinkBuilder
+                .linkTo(CourseController.class)
+                .withSelfRel()
+        );
+
+        return Response.ok(resources).build();
+
 	}
 
 	@DELETE
