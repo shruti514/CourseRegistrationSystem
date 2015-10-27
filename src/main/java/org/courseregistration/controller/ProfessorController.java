@@ -72,11 +72,11 @@ public class ProfessorController {
      * Addiding multiple professors' entry in the system
      */
     @POST
-    @Path("{list}")
+    @Path("/list")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addProfessor(@PathParam("list") List<Professor> p) {
-         professorService.addProfessors(p);
-        return Response.ok(200) .entity(p).build();
+    public Response addProfessor(List<Professor> professors) {
+         professorService.addProfessors(professors);
+        return Response.ok(200) .entity(professors).build();
     }
 
     /**

@@ -36,12 +36,12 @@ public class ProfessorService {
         return toReturn;
     }
 
-    public void addProfessor(Professor p){
-        professorDAO.save(p);
+    public void addProfessor(Professor professor){
+        professorDAO.save(professor);
     }
 
-    public void addProfessors(List<Professor> p)  {
-        professorDAO.save(p);
+    public void addProfessors(List<Professor> professors)  {
+        professorDAO.save(professors);
     }
 
     public void deleteProfessorById(Long id){
