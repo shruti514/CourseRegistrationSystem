@@ -99,6 +99,12 @@ public class SectionController {
 		return Response.ok(201).entity(section_id).build();
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @param price
+	 * @return OK Response with message, or NOT_FOUND response with message
+	 */
 	@PUT
 	@Path("{section_id}/price/update/{price}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -113,6 +119,13 @@ public class SectionController {
 					.entity("Section Price is not updated").build();
 	}
 
+	/**
+	 * Updates the Section
+	 * 
+	 * @param id
+	 * @param current
+	 * @return OK Response with message, or NOT_FOUND response with message
+	 */
 	@PUT
 	@Path("{section_id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -126,6 +139,14 @@ public class SectionController {
 					.entity("Section Price is not updated").build();
 	}
 
+	/**
+	 * Get section List by course name and professor name and price for course
+	 * 
+	 * @param name
+	 * @param price
+	 * @param lastname
+	 * @return Ok response with Section List
+	 */
 	@GET
 	@Path("/coursename:{name}/price:{price}/proflastname:{lastname}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -139,9 +160,16 @@ public class SectionController {
 		criteria.put(SearchCriteria.SECTION_PRICE_EQUALS, "" + price);
 
 		List<Section> allStudents = sectionService.findByCriteria(criteria);
-		return Response.ok(200).entity(allStudents).build();
+		return Response.ok(Response.Status.OK).entity(allStudents).build();
 	}
 
+	/**
+	 * Get section List by course name and professor name
+	 * 
+	 * @param name
+	 * @param lastname
+	 * @return Ok response with Section List
+	 */
 	@GET
 	@Path("/coursename:{name}/proflastname:{lastname}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -153,6 +181,6 @@ public class SectionController {
 		criteria.put(SearchCriteria.PROFESSOR_LAST_NAME_CONTAINS, lastname);
 
 		List<Section> allStudents = sectionService.findByCriteria(criteria);
-		return Response.ok(200).entity(allStudents).build();
+		return Response.ok(Response.Status.OK).entity(allStudents).build();
 	}
 }
