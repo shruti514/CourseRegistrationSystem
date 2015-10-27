@@ -62,8 +62,8 @@ public class SectionController {
 	@Path("/coursename:{name}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findSectionByName(@PathParam("name") String name) {
-		List<Section> allStudents = sectionService.findByName(name);
-		return Response.ok(200).entity(allStudents).build();
+		List<Section> allSections = sectionService.findByName(name);
+		return Response.ok(200).entity(allSections).build();
 	}
 
 	/**
@@ -74,8 +74,8 @@ public class SectionController {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findSections() {
-		List<Section> allStudents = sectionService.findAllSections();
-		return Response.ok(200).entity(allStudents).build();
+		List<Section> allSections = sectionService.findAllSections();
+		return Response.ok(200).entity(allSections).build();
 	}
 
 	@POST
@@ -153,15 +153,15 @@ public class SectionController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findSection(@PathParam("name") String name,
 			@PathParam("price") int price,
-                @PathParam("lastname") String lastname) {
+			@PathParam("lastname") String lastname) {
 
 		Map<SearchCriteria, String> criteria = new HashMap<SearchCriteria, String>();
 		criteria.put(SearchCriteria.COURSE_NAME_CONTAINS, name);
 		criteria.put(SearchCriteria.PROFESSOR_LAST_NAME_CONTAINS, lastname);
 		criteria.put(SearchCriteria.SECTION_PRICE_EQUALS, "" + price);
 
-		List<Section> allStudents = sectionService.findByCriteria(criteria);
-		return Response.ok(Response.Status.OK).entity(allStudents).build();
+		List<Section> allSections = sectionService.findByCriteria(criteria);
+		return Response.ok(Response.Status.OK).entity(allSections).build();
 	}
 
 	/**
@@ -181,24 +181,47 @@ public class SectionController {
 		criteria.put(SearchCriteria.COURSE_NAME_CONTAINS, name);
 		criteria.put(SearchCriteria.PROFESSOR_LAST_NAME_CONTAINS, lastname);
 
-		List<Section> allStudents = sectionService.findByCriteria(criteria);
-		return Response.ok(Response.Status.OK).entity(allStudents).build();
+		List<Section> allSections = sectionService.findByCriteria(criteria);
+		return Response.ok(Response.Status.OK).entity(allSections).build();
 	}
 
+	/**
+	 * Using query parameters, search sections using parameters
+	 * 
+	 * @param coursename
+	 * @param lastname
+	 * @param price
+	 * @param coursecode
+	 * @return Response.ok(Response.Status.OK) with allSections
+	 */
 	@GET
-	@Path("/search?")
+	@Path("/search")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findStudentsQueryParams(
-			@QueryParam("lastname") String lastname) {
+	public Response findSectionsQueryParams(
+			@QueryParam("coursename") String coursename,
+			@QueryParam("lastname") String lastname,
+			@QueryParam("price") int price,
+			@QueryParam("coursecode") String coursecode) {
 		Map<SearchCriteria, String> criteria = new HashMap<SearchCriteria, String>();
+		String priceStr = "" + price;
+
 		if (lastname != null && !lastname.isEmpty()) {
 			criteria.put(SearchCriteria.PROFESSOR_LAST_NAME_CONTAINS, lastname);
-		} else {
-			return Response.ok(Response.Status.NOT_FOUND)
-					.entity("Last name is not provided in the query.").build();
 		}
-
-		List<Section> allStudents = sectionService.findByCriteria(criteria);
-		return Response.ok(Response.Status.OK).entity(allStudents).build();
+		if (coursename != null && !coursename.isEmpty()) {
+			criteria.put(SearchCriteria.COURSE_NAME_CONTAINS, coursename);
+		}
+		if (coursecode != null && !coursecode.isEmpty()) {
+			criteria.put(SearchCriteria.COURSE_CODE_EQUALS, coursecode);
+		}
+		if (!priceStr.trim().isEmpty() && !priceStr.equalsIgnoreCase("null")) {
+			criteria.put(SearchCriteria.SECTION_PRICE_EQUALS, "" + price);
+		}
+		if (criteria.size() == 0) {
+			return Response.noContent().build(); // Response.Status.NOT_FOUND).build();
+		} else {
+			List<Section> allSections = sectionService.findByCriteria(criteria);
+			return Response.ok(Response.Status.OK).entity(allSections).build();
+		}
 	}
 }
