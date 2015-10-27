@@ -228,7 +228,7 @@ public class SectionController {
 			criteria.put(SearchCriteria.SECTION_PRICE_EQUALS, "" + price);
 		}
 		if (criteria.size() == 0) {
-			return Response.noContent().build(); // Response.Status.NOT_FOUND).build();
+			return Response.status(Response.Status.NOT_FOUND).build();
 		} else {
 			List<Section> allSections = sectionService.findByCriteria(criteria);
 			return Response.ok(Response.Status.OK).entity(allSections).build();
