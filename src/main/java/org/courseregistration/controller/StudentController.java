@@ -33,10 +33,21 @@ public class StudentController {
      * @return details of a student
      */
 
+    // add single student
     @POST
+    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addSection(Student s) {
+    public Response addStudent(Student s) {
          studentService.addStudent(s);
+        return Response.ok(200).entity(s).build();
+    }
+
+    // add multiple students
+    @POST
+    @Path("{list}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addStudents(@PathParam("list")List<Student> s) {
+        studentService.addStudents(s);
         return Response.ok(200).entity(s).build();
     }
 
@@ -53,7 +64,7 @@ public class StudentController {
     //delete list of students
     @DELETE
     @Path("/list/{ids}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     public Response deleteAllStudents(@PathParam("ids") String ids) {
         String [] splitIds = ids.split(",");
         List<Long> toDelete = newArrayList();
@@ -62,7 +73,7 @@ public class StudentController {
             toDelete.add(new Long(str));
         }
         studentService.deleteAllStudents(toDelete);
-        return Response.ok(201).entity(ids).build();
+        return Response.ok(200).entity("Deleted Students" + ids).build();
     }
 
     @GET
@@ -104,10 +115,10 @@ public class StudentController {
         return Response.ok(200).entity("Student Details Updated").build();
     }
 
-
     @POST
     @Path("{id}/sections/{section_id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response enrollSection(@PathParam("student_id") Long student_id,@PathParam("section_id") Long section_id) {
          studentService.enrollSection(student_id, section_id);
         return Response.ok(200).entity("Enrolled to the Section").build();

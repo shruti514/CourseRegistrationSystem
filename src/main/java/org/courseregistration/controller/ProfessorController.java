@@ -55,6 +55,7 @@ public class ProfessorController {
 	}
 
 	@POST
+    @Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addProfessor(Professor p) {
 		professorService.addProfessor(p);

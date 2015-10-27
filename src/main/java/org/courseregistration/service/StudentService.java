@@ -37,6 +37,10 @@ public class StudentService {
         studentDAO.save(s);
     }
 
+    public void addStudents(List<Student> s) {
+        studentDAO.save(s);
+    }
+
     public void deleteStudent(Long student_id) {
         studentDAO.delete(student_id);
     }
@@ -104,6 +108,10 @@ public class StudentService {
         if(s.getLastName() != null) {
             currentStud.setLastName(s.getLastName());
         }
+        if(s.getAddress() != null) {
+            currentStud.setAddress(s.getAddress());
+        }
+
         studentDAO.update(currentStud);
     }
 
