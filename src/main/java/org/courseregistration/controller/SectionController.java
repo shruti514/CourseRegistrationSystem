@@ -12,6 +12,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -58,7 +59,7 @@ public class SectionController {
 	 * @return Response.Status.OK with Details of Section
 	 */
 	@GET
-	@Path("/coursename/{name}")
+	@Path("/coursename:{name}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findSectionByName(@PathParam("name") String name) {
 		List<Section> allStudents = sectionService.findByName(name);
@@ -179,6 +180,23 @@ public class SectionController {
 		Map<SearchCriteria, String> criteria = new HashMap<SearchCriteria, String>();
 		criteria.put(SearchCriteria.COURSE_NAME_CONTAINS, name);
 		criteria.put(SearchCriteria.PROFESSOR_LAST_NAME_CONTAINS, lastname);
+
+		List<Section> allStudents = sectionService.findByCriteria(criteria);
+		return Response.ok(Response.Status.OK).entity(allStudents).build();
+	}
+
+	@GET
+	@Path("/search?")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findStudentsQueryParams(
+			@QueryParam("lastname") String lastname) {
+		Map<SearchCriteria, String> criteria = new HashMap<SearchCriteria, String>();
+		if (lastname != null && !lastname.isEmpty()) {
+			criteria.put(SearchCriteria.PROFESSOR_LAST_NAME_CONTAINS, lastname);
+		} else {
+			return Response.ok(Response.Status.NOT_FOUND)
+					.entity("Last name is not provided in the query.").build();
+		}
 
 		List<Section> allStudents = sectionService.findByCriteria(criteria);
 		return Response.ok(Response.Status.OK).entity(allStudents).build();
