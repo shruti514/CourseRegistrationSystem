@@ -2,12 +2,16 @@ package org.courseregistration.controller;
 
 import com.google.common.collect.Lists;
 import org.courseregistration.dao.StudentDAO;
+import org.courseregistration.exception.ApplicationException;
 import org.courseregistration.model.Section;
 import org.courseregistration.model.Student;
 import org.courseregistration.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
