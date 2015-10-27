@@ -2,6 +2,7 @@ package org.courseregistration.controller;
 
 import com.google.common.collect.Lists;
 import org.courseregistration.dao.StudentDAO;
+import org.courseregistration.model.Section;
 import org.courseregistration.model.Student;
 import org.courseregistration.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Collection;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -38,12 +40,23 @@ public class StudentController {
         return Response.ok(200).entity(s).build();
     }
 
+    //delete single student
     @DELETE
-    @Path("{student_id}")
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteStudent(@PathParam("student_id") Long student_id) {
+    public Response deleteStudent(@PathParam("id") Long student_id) {
         studentService.deleteStudent(student_id);
         return Response.ok(201).entity(student_id).build();
+    }
+
+
+    //delete list of students
+    @DELETE
+    @Path("{ids}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteAllStudents(@PathParam("ids") Collection<Long> ids) {
+        studentService.deleteAllStudents(ids);
+        return Response.ok(201).entity(ids).build();
     }
 
     @GET
@@ -54,9 +67,9 @@ public class StudentController {
     }
 
     @GET
-    @Path("{student_id}")
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Student findStudentById(@PathParam("student_id") Long id) {
+    public Student findStudentById(@PathParam("id") Long id) {
         return studentService.findById(id);
     }
 
@@ -78,21 +91,23 @@ public class StudentController {
 */
 
     @PUT
-    @Path("{student_id}/update/")
+    @Path("update/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateStudent(Long id, Student s) {
+    public Response updateStudent(@PathParam("id")Long id, Student s) {
         studentService.updateStudent(id, s);
-        return Response.ok(200).entity("Details Updated").build();
+        return Response.ok(200).entity("Student Details Updated").build();
     }
 
+
     @POST
-    @Path("{student_id}/sections/{section_id}")
+    @Path("{id}/sections/{section_id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response enrollSection(@PathParam("student_id") Long student_id,@PathParam("section_id") Long section_id) {
          studentService.enrollSection(student_id, section_id);
-        return Response.ok(200).entity("Student Enrolled").build();
+        return Response.ok(200).entity("Enrolled to the Section").build();
     }
 
+    //delete a single section
     @DELETE
     @Path("{student_id}/sections/{section_id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -100,5 +115,14 @@ public class StudentController {
          studentService.dropSection(student_id, section_id);
         return Response.ok(200).entity("Dropped Section").build();
     }
+
+/*    //delete list of sections
+    @DELETE
+    @Path("{id}/sections/")
+   public Response dropAllSections() {
+        List<Section> allSections = studentService.dropAllSections();
+        return Response.ok().entity(dropAllSections).build();
+    }*/
+
 
 }
