@@ -88,7 +88,7 @@ public class GenericException{
     public void setSource(String source) {
         this.source = source;
     }
-    public GenericException(ApplicationException ex){
+    public static GenericException from(ApplicationException ex){
         GenericException newException = new GenericException();
         newException.setStatus(ex.getStatus());
         newException.setTittle(ex.getTittle());
@@ -96,6 +96,7 @@ public class GenericException{
         newException.setCode(ex.getCode());
         newException.setLink(ex.getLink());
         newException.setSource(ex.getSource());
+        return newException;
     }
     public GenericException(){
     }
