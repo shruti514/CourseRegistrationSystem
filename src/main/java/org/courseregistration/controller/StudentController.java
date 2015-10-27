@@ -76,6 +76,7 @@ public class StudentController {
         return Response.ok(200).entity("Deleted Students" + ids).build();
     }
 
+    //get all students
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findStudents() {
@@ -83,6 +84,7 @@ public class StudentController {
         return Response.ok().entity(allStudents).build();
     }
 
+    //get student by id
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -107,6 +109,7 @@ public class StudentController {
     }
 */
 
+    //update student details
     @PUT
     @Path("update/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -115,6 +118,7 @@ public class StudentController {
         return Response.ok(200).entity("Student Details Updated").build();
     }
 
+    //enroll to a section
     @POST
     @Path("{id}/sections/{section_id}")
     @Produces(MediaType.APPLICATION_JSON)
