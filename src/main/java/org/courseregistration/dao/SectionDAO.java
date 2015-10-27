@@ -94,6 +94,12 @@ public class SectionDAO extends GenericDAO<Section> {
                 return new ComparisonPredicate((CriteriaBuilderImpl)cb, EQUAL,courseJoin.get("code"),queryParam);
             case COURSE_CODE_CONTAINS:
                 return new LikePredicate((CriteriaBuilderImpl)cb,courseJoin.get("code"),"%"+queryParam+"%");
+            case SECTION_PRICE_EQUALS:
+            	int price = 0;
+            	try {
+            		price = Integer.parseInt(queryParam);
+            	}catch(Exception e) {}
+                return new ComparisonPredicate((CriteriaBuilderImpl)cb, EQUAL,section.get("price"),price);
         }
         return null;
     }
