@@ -191,6 +191,8 @@ public class SectionController {
 	 * @param coursename
 	 * @param lastname
 	 * @param price
+	 * @param dayofweek
+	 * @param semester
 	 * @param coursecode
 	 * @return Response.ok(Response.Status.OK) with allSections
 	 */
@@ -201,10 +203,18 @@ public class SectionController {
 			@QueryParam("coursename") String coursename,
 			@QueryParam("lastname") String lastname,
 			@QueryParam("price") int price,
+			@QueryParam("dayofweek") String dayofweek,
+			@QueryParam("semester") String semester,
 			@QueryParam("coursecode") String coursecode) {
 		Map<SearchCriteria, String> criteria = new HashMap<SearchCriteria, String>();
 		String priceStr = "" + price;
 
+		if (semester != null && !semester.isEmpty()) {
+			criteria.put(SearchCriteria.SEMESTER_EQUALS, semester);
+		}
+		if (dayofweek != null && !dayofweek.isEmpty()) {
+			criteria.put(SearchCriteria.DAY_OF_WEEK_EQUALS, dayofweek);
+		}
 		if (lastname != null && !lastname.isEmpty()) {
 			criteria.put(SearchCriteria.PROFESSOR_LAST_NAME_CONTAINS, lastname);
 		}
