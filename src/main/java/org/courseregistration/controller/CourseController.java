@@ -9,16 +9,21 @@ import org.courseregistration.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.*;
 import org.springframework.hateoas.jaxrs.JaxRsLinkBuilder;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-@Service
+@Component
 @Path("courses")
 @Produces(MediaType.APPLICATION_JSON)
+@RolesAllowed({"admin","professor"})
 @ExposesResourceFor(Course.class)
 public class CourseController {
     @Autowired

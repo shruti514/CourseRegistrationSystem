@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -20,10 +22,13 @@ import org.courseregistration.dao.SearchCriteria;
 import org.courseregistration.model.Section;
 import org.courseregistration.service.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
-@Service
-@Path("section")
+@Component
+@Path("sections")
+@PermitAll
 public class SectionController {
 
 	@Autowired
@@ -80,6 +85,7 @@ public class SectionController {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"professor","admin"})
 	public Response addSection(Section section) {
 
 		boolean isSaved = sectionService.addSection(section);
@@ -95,6 +101,7 @@ public class SectionController {
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"professor","admin"})
 	public Response deleteSection(@PathParam("id") Long section_id) {
 		sectionService.deleteSection(section_id);
 		return Response.ok(201).entity(section_id).build();
@@ -109,6 +116,7 @@ public class SectionController {
 	@PUT
 	@Path("{section_id}/price/update/{price}")
 	@Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"professor","admin"})
 	public Response updateSectionPrice(@PathParam("section_id") Long id,
 			@PathParam("price") int price) {
 		boolean isUpdated = sectionService.updateSectionPrice(id, price);
@@ -130,6 +138,7 @@ public class SectionController {
 	@PUT
 	@Path("{section_id}")
 	@Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"professor","admin"})
 	public Response updateSection(@PathParam("section") long id, Section current) {
 		boolean isUpdated = sectionService.updateSection(id, current);
 		if (isUpdated)
@@ -187,7 +196,7 @@ public class SectionController {
 
 	/**
 	 * Using query parameters, search sections using parameters
-	 * 
+	 *
 	 * @param coursename
 	 * @param lastname
 	 * @param price

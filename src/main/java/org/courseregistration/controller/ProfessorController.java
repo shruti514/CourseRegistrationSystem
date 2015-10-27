@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.Consumes;
@@ -20,11 +22,14 @@ import javax.ws.rs.core.Response;
 import org.courseregistration.model.Professor;
 import org.courseregistration.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import static com.google.common.collect.Lists.newArrayList;
 
-@Service
+@Component
 @Path("professors")
+@PermitAll
 public class ProfessorController {
 	@Autowired
 	private ProfessorService professorService;
@@ -61,9 +66,11 @@ public class ProfessorController {
     /**
     Adding a new professor's entry in the system
      */
+
 	@POST
     @Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"professor","admin"})
 	public Response addProfessor(Professor p) {
 		professorService.addProfessor(p);
 		return Response.ok(201).entity(p).build();
@@ -75,6 +82,7 @@ public class ProfessorController {
     @POST
     @Path("/list")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"admin"})
     public Response addProfessor(List<Professor> professors) {
          professorService.addProfessors(professors);
         return Response.ok(200) .entity(professors).build();
@@ -87,6 +95,7 @@ public class ProfessorController {
     @DELETE
 	@Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"professor","admin"})
 	public Response deleteProfessorById(@PathParam("id") Long professor_id) {
 		professorService.deleteProfessorById(professor_id);
 		return Response.ok(200).entity(professor_id).build();
@@ -99,6 +108,7 @@ public class ProfessorController {
     @DELETE
     @Path("list/{ids}")
     @Produces(MediaType.TEXT_PLAIN)
+    @RolesAllowed({"admin"})
     public Response deleteAllProfessors(@PathParam("ids") String ids){
         String [] splitIds = ids.split(",");
         List<Long> toDelete = newArrayList();
@@ -119,6 +129,7 @@ public class ProfessorController {
 	@PUT
 	@Path("update/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"professor","admin"})
 	public Response updateProfessor(@PathParam("id") Long id,Professor p) {
 		professorService.updateProfessor(id, p);
 		return Response.ok(200).entity("Professor details updated").build();

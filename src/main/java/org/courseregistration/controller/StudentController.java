@@ -2,7 +2,6 @@ package org.courseregistration.controller;
 
 import com.google.common.collect.Lists;
 import org.courseregistration.dao.StudentDAO;
-import org.courseregistration.exception.ApplicationException;
 import org.courseregistration.model.Section;
 import org.courseregistration.model.Student;
 import org.courseregistration.service.StudentService;
@@ -17,8 +16,9 @@ import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 
-@Service
+@Component
 @Path("students")
+@PermitAll
 public class StudentController {
     @Autowired
     private StudentService studentService;
@@ -48,6 +48,7 @@ public class StudentController {
     @Path("/list")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"professor","admin"})
     public Response addStudents(List<Student> students) throws ApplicationException {
         studentService.addStudents(students);
         return Response.ok(200).entity(students).build();
@@ -57,6 +58,7 @@ public class StudentController {
     @DELETE
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"professor","admin"})
     public Response deleteStudent(@PathParam("id") Long student_id) throws ApplicationException {
         studentService.deleteStudent(student_id);
         return Response.ok(201).entity(student_id).build();
@@ -67,6 +69,7 @@ public class StudentController {
     @DELETE
     @Path("/list/{ids}")
     @Produces(MediaType.TEXT_PLAIN)
+    @RolesAllowed({"professor","admin"})
     public Response deleteAllStudents(@PathParam("ids") String ids) throws ApplicationException {
         String [] splitIds = ids.split(",");
         List<Long> toDelete = newArrayList();
@@ -122,14 +125,6 @@ public class StudentController {
          studentService.dropSection(id, section_id);
         return Response.ok(200).entity("Dropped Section").build();
     }
-
-/*    //delete list of sections
-    @DELETE
-    @Path("{id}/sections/")
-   public Response dropAllSections() {
-        List<Section> allSections = studentService.dropAllSections();
-        return Response.ok().entity(dropAllSections).build();
-    }*/
 
 
 }
