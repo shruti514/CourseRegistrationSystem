@@ -22,6 +22,12 @@
         <artifactId>guava</artifactId>
         <version>19.0-rc2</version>
       </dependency>
+      <dependency>
+        <groupId>org.atteo</groupId>
+        <artifactId>evo-inflector</artifactId>
+        <version>1.2.1</version>
+      </dependency>
+
 
       <!-- Jersey -->
       <dependency>
