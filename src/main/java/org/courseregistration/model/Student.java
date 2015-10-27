@@ -57,6 +57,14 @@ public class Student extends User {
         }
     }
 
+/*    public void addSections(List<Section> sections) {
+        this.sections = sections;
+    }
+
+    public void dropSections(List<Section> sections) {
+        this.sections = sections;
+    }*/
+
     @Override
     public String toString() {
         // TODO Auto-generated method stub
