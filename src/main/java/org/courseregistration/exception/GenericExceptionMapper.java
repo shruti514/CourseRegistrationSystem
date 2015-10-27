@@ -20,13 +20,20 @@ public class GenericExceptionMapper implements ExceptionMapper<Throwable> {
     public Response toResponse(Throwable ex) {
         logger.error(ex.getMessage(),ex);
 
-        GenericException exception = new GenericException();
-        setHttpStatus(ex, exception);
-        exception.setCode(1009);
-        exception.setTittle(ex.getMessage());
-        exception.setDetail(ex.toString());
+        GenericException exception;
 
-        exception.setLink("");Map<String,List<GenericException>> exMap = new HashMap<>();
+        if(ex instanceof ApplicationException){
+            exception = GenericException.from((ApplicationException)ex);
+        }else{
+            exception = new GenericException();
+            setHttpStatus(ex, exception);
+            exception.setCode(1009);
+            exception.setTittle(ex.getMessage());
+            exception.setDetail(ex.toString());
+            exception.setLink("");
+        }
+
+        Map<String,List<GenericException>> exMap = new HashMap<>();
         exMap.put("errors", Lists.newArrayList(exception));
 
         return Response.status(exception.getStatus())
