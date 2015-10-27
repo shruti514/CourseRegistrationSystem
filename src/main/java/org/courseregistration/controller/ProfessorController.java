@@ -74,7 +74,7 @@ public class ProfessorController {
     @POST
     @Path("{list}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addProfessor(@PathParam("list") List<Professor p) {
+    public Response addProfessor(@PathParam("list") List<Professor> p) {
          professorService.addProfessors(p);
         return Response.ok(200) .entity(p).build();
     }
