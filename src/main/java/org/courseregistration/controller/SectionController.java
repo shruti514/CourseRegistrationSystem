@@ -109,6 +109,12 @@ public class SectionController {
 		return Response.ok(wrapped).build();
 	}
 
+	/**
+	 * Creates a Section
+	 * 
+	 * @param section
+	 * @return
+	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@RolesAllowed({ "professor", "admin" })
@@ -125,6 +131,12 @@ public class SectionController {
 		}
 	}
 
+	/**
+	 * Deletes a section by ID
+	 * 
+	 * @param section_id
+	 * @return
+	 */
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
