@@ -38,9 +38,9 @@
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
       <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-      <property name="url" value="jdbc:mysql://localhost:3306/student_course_registration"/>
+      <property name="url" value="jdbc:mysql://localhost:3307/student_course_registration"/>
       <property name="username" value="root"/>
-      <property name="password" value="password"/>
+      <property name="password" value="root"/>
     </bean>
 
   <security:http create-session="stateless" entry-point-ref="authenticationEntryPoint" authentication-manager-ref="authenticationManager">
