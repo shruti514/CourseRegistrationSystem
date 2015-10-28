@@ -18,21 +18,30 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.courseregistration.controller.writters.SectionAssembler;
 import org.courseregistration.dao.SearchCriteria;
+import org.courseregistration.hateoas.SectionResource;
 import org.courseregistration.model.Section;
 import org.courseregistration.service.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityLinks;
+import org.springframework.hateoas.ExposesResourceFor;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.Resources;
+import org.springframework.hateoas.jaxrs.JaxRsLinkBuilder;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 
 @Component
 @Path("sections")
 @PermitAll
+@ExposesResourceFor(Section.class)
 public class SectionController {
 
 	@Autowired
 	private SectionService sectionService;
+	@Autowired
+	private EntityLinks entityLinks;
 
 	/**
 	 * Get details of a specific Section
@@ -51,9 +60,15 @@ public class SectionController {
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findSectionById(@PathParam("id") Long id) {
-		Section s = sectionService.findById(id);
-		if (s != null)
-			return Response.ok(Response.Status.OK).entity(s).build();
+		Section section = sectionService.findById(id);
+		if (section != null) {
+			Resource<Section> resource = new Resource<>(section);
+			Link selfRel = entityLinks.linkToSingleResource(Section.class,
+					section.getId()).withSelfRel();
+			resource.add(selfRel);
+
+			return Response.ok(resource).build();
+		}
 		return Response.ok(Response.Status.NOT_FOUND).build();
 	}
 
@@ -77,21 +92,33 @@ public class SectionController {
 	 * @return Response.Status.OK with List of Sections
 	 */
 	@GET
+	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findSections() {
 		List<Section> allSections = sectionService.findAllSections();
-		return Response.ok(200).entity(allSections).build();
+		// return Response.ok(200).entity(allSections).build();
+
+		SectionAssembler sectionAssembler = new SectionAssembler();
+		List<SectionResource> resources = sectionAssembler
+				.toResources(allSections);
+
+		Resources<SectionResource> wrapped = new Resources<>(resources);
+		wrapped.add(JaxRsLinkBuilder.linkTo(SectionController.class)
+				.withSelfRel());
+
+		return Response.ok(wrapped).build();
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({"professor","admin"})
+	@RolesAllowed({ "professor", "admin" })
 	public Response addSection(Section section) {
 
 		boolean isSaved = sectionService.addSection(section);
 		if (isSaved) {
 			String result = "Section saved : " + section;
-			return Response.status(201).entity(result).build();
+			return Response.status(Response.Status.CREATED).entity(result)
+					.build();
 		} else {
 			String result = "Section is not saved" + section;
 			return Response.status(400).entity(result).build();
@@ -101,14 +128,15 @@ public class SectionController {
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({"professor","admin"})
+	@RolesAllowed({ "professor", "admin" })
 	public Response deleteSection(@PathParam("id") Long section_id) {
 		sectionService.deleteSection(section_id);
 		return Response.ok(201).entity(section_id).build();
 	}
 
 	/**
-	 *
+	 * Updates the price of course from section
+	 * 
 	 * @param id
 	 * @param price
 	 * @return OK Response with message, or NOT_FOUND response with message
@@ -116,7 +144,7 @@ public class SectionController {
 	@PUT
 	@Path("{section_id}/price/update/{price}")
 	@Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({"professor","admin"})
+	@RolesAllowed({ "professor", "admin" })
 	public Response updateSectionPrice(@PathParam("section_id") Long id,
 			@PathParam("price") int price) {
 		boolean isUpdated = sectionService.updateSectionPrice(id, price);
@@ -138,7 +166,7 @@ public class SectionController {
 	@PUT
 	@Path("{section_id}")
 	@Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({"professor","admin"})
+	@RolesAllowed({ "professor", "admin" })
 	public Response updateSection(@PathParam("section") long id, Section current) {
 		boolean isUpdated = sectionService.updateSection(id, current);
 		if (isUpdated)
@@ -170,7 +198,18 @@ public class SectionController {
 		criteria.put(SearchCriteria.SECTION_PRICE_EQUALS, "" + price);
 
 		List<Section> allSections = sectionService.findByCriteria(criteria);
-		return Response.ok(Response.Status.OK).entity(allSections).build();
+
+		SectionAssembler sectionAssembler = new SectionAssembler();
+		List<SectionResource> resources = sectionAssembler
+				.toResources(allSections);
+
+		Resources<SectionResource> wrapped = new Resources<>(resources);
+		wrapped.add(JaxRsLinkBuilder.linkTo(SectionController.class)
+				.withSelfRel());
+
+		return Response.ok(wrapped).build();
+
+		// return Response.ok(Response.Status.OK).entity(allSections).build();
 	}
 
 	/**
@@ -191,7 +230,17 @@ public class SectionController {
 		criteria.put(SearchCriteria.PROFESSOR_LAST_NAME_CONTAINS, lastname);
 
 		List<Section> allSections = sectionService.findByCriteria(criteria);
-		return Response.ok(Response.Status.OK).entity(allSections).build();
+		SectionAssembler sectionAssembler = new SectionAssembler();
+		List<SectionResource> resources = sectionAssembler
+				.toResources(allSections);
+
+		Resources<SectionResource> wrapped = new Resources<>(resources);
+		wrapped.add(JaxRsLinkBuilder.linkTo(SectionController.class)
+				.withSelfRel());
+
+		return Response.ok(wrapped).build();
+
+		// return Response.ok(Response.Status.OK).entity(allSections).build();
 	}
 
 	/**
@@ -240,7 +289,16 @@ public class SectionController {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		} else {
 			List<Section> allSections = sectionService.findByCriteria(criteria);
-			return Response.ok(Response.Status.OK).entity(allSections).build();
+
+			SectionAssembler sectionAssembler = new SectionAssembler();
+			List<SectionResource> resources = sectionAssembler
+					.toResources(allSections);
+
+			Resources<SectionResource> wrapped = new Resources<>(resources);
+			wrapped.add(JaxRsLinkBuilder.linkTo(SectionController.class)
+					.withSelfRel());
+
+			return Response.ok(wrapped).build();
 		}
 	}
 }
