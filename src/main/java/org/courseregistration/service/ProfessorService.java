@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import static com.google.common.base.Preconditions.checkNotNull;
+import org.courseregistration.exception.ApplicationException;
+
+import javax.ws.rs.core.Response;
 
 import static com.google.common.collect.Lists.newArrayList;
 
@@ -26,24 +30,37 @@ public class ProfessorService {
      return toReturn;
     }
 
-    public Professor findProfessorById(Long id) {
+    public Professor findProfessorById(Long id) throws ApplicationException{
+       checkNotNull(id,"id should not be null");
         Professor toReturn = professorDAO.findById(id);
+
+        if(toReturn == null){
+            throw ApplicationException.createNew()
+                .withCode(404)
+                .withTitle("Resource not found")
+                .withStatus(Response.Status.NOT_FOUND.getStatusCode())
+                .withDetail("The course with id " + id + " is not available").build();
+        }
         return toReturn;
     }
 
     public void addProfessor(Professor professor){
+
         professorDAO.save(professor);
     }
 
     public void addProfessors(List<Professor> professors)  {
+
         professorDAO.save(professors);
     }
 
     public void deleteProfessorById(Long id){
+
         professorDAO.delete(id);
     }
 
     public void deleteAllProfessors(Collection<Long> ids){
+
         professorDAO.delete(ids);
     }
 

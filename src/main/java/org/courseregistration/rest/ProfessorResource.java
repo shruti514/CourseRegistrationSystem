@@ -4,24 +4,21 @@ import java.util.List;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.google.common.collect.Lists;
+import org.courseregistration.exception.ApplicationException;
+import org.courseregistration.rest.writters.CourseAssembler;
 import org.courseregistration.rest.writters.ProfessorAssembler;
 import org.courseregistration.hateoas.ProfessorResourseWrapper;
 import org.courseregistration.model.Professor;
 import org.courseregistration.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityLinks;
-import org.springframework.hateoas.Resources;
+import org.springframework.hateoas.ExposesResourceFor;
+import org.springframework.hateoas.*;
 import org.springframework.hateoas.jaxrs.JaxRsLinkBuilder;
 import org.springframework.stereotype.Component;
 
@@ -30,6 +27,7 @@ import static com.google.common.collect.Lists.newArrayList;
 @Component
 @Path("professors")
 @PermitAll
+@ExposesResourceFor(Professor.class)
 public class ProfessorResource {
 	@Autowired
 	private ProfessorService professorService;
@@ -46,11 +44,15 @@ public class ProfessorResource {
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findProfessorById(@PathParam("id") Long id) {
-		Professor p = professorService.findProfessorById(id);
-        if (p != null)
-            return Response.ok(Response.Status.OK).entity(p).build();
-        return Response.ok(Response.Status.NOT_FOUND).build();
+	public Response findProfessorById(@PathParam("id") Long id) throws ApplicationException{
+
+        Professor professor = professorService.findProfessorById(id);
+
+        Resource<Professor> resource  = new Resource<>(professor)   ;
+        Link selfRel =entityLinks.linkToSingleResource(Professor.class, professor.getId()).withSelfRel();
+        resource.add(selfRel);
+
+        return Response.ok(resource).build();
     }
 
     /**
@@ -58,6 +60,7 @@ public class ProfessorResource {
      * @return details of professor
      */
 	@GET
+    @Path("/list")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findAllProfessors() {
 		List<Professor> allProfessors = professorService.findAllProfessors();
@@ -97,7 +100,7 @@ public class ProfessorResource {
     @RolesAllowed({"admin"})
     public Response addProfessor(List<Professor> professors) {
          professorService.addProfessors(professors);
-        return Response.ok(200) .entity(professors).build();
+        return Response.ok(201) .entity(professors).build();
     }
 
     /**
@@ -146,6 +149,45 @@ public class ProfessorResource {
 		professorService.updateProfessor(id, p);
 		return Response.ok(200).entity("Professor details updated").build();
 	}
+
+    @GET
+    @Path("/paginate")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findProfessorPaged(
+        @QueryParam("page") @DefaultValue("0") int page,
+        @QueryParam("size") @DefaultValue("2") int size){
+
+        List<Professor> allProfessors = professorService.findAllProfessors();
+        ProfessorAssembler professorAssembler = new ProfessorAssembler();
+        List<ProfessorResourseWrapper> resources = professorAssembler.toResources(allProfessors);
+
+        List<ProfessorResourseWrapper> toShow = Lists.newArrayList();
+        for(int i= page*size ,j=0;j<size && i<resources.size();i++,j++)   {
+            toShow.add(resources.get(i)) ;
+        }
+
+        int totalNumberOfPages =resources.size()/size;
+        totalNumberOfPages= resources.size()%size != 0?totalNumberOfPages+1:totalNumberOfPages;
+
+        List<Link> links = Lists.newArrayList();
+        Link selfRel = JaxRsLinkBuilder.linkTo(ProfessorResource.class).withSelfRel();
+        String selfRelHref = selfRel.getHref();
+        links.add(new Link(new UriTemplate(selfRelHref+"?Page="+(page+1)+"&size="+size),Link.REL_NEXT));
+        if (page>0) {
+            links.add(new Link(new UriTemplate(selfRelHref+"?page="+(page-1)+"&size="+size),Link.REL_PREVIOUS));
+        }
+
+        PagedResources<ProfessorResourseWrapper> professorResources = new PagedResources<>(
+              toShow,
+            new PagedResources.PageMetadata(
+                size,
+                page,
+                resources.size(),
+                (long)totalNumberOfPages),links
+        );
+        professorResources.add();
+        return Response.ok(professorResources).build();
+    }
 
 
 }
