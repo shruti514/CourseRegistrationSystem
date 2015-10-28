@@ -8,10 +8,13 @@ import org.courseregistration.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.ws.rs.core.Response;
 import java.util.Collection;
 import java.util.List;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.collect.Lists.newArrayList;
+
 
 @Service
 public class StudentService {
@@ -30,9 +33,19 @@ public class StudentService {
     }
 
     public Student findById(Long id) throws ApplicationException {
+        checkNotNull(id, "Student not Found");
         Student toReturn = studentDAO.findById(id);
+
+        if(toReturn==null) {
+            throw ApplicationException.createNew()
+                .withCode(404)
+                .withTitle("Resource not found")
+                .withStatus(Response.Status.NOT_FOUND.getStatusCode())
+                .withDetail("Student with id " + id + " is not available").build();
+        }
         return toReturn;
     }
+
 
     public void addStudent(Student s) throws ApplicationException {
         studentDAO.save(s);
@@ -64,7 +77,7 @@ public class StudentService {
     }
 
 
-    public void updateStudent(Long id, Student s) throws ApplicationException {
+    public Student updateStudent(Long id, Student s) throws ApplicationException {
         Student currentStud = null;
         currentStud = studentDAO.findById(id);
 
@@ -103,6 +116,7 @@ public class StudentService {
         }
 
         studentDAO.update(currentStud);
+        return currentStud;
     }
 
 

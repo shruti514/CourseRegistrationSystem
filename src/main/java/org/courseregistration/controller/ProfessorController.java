@@ -51,7 +51,7 @@ public class ProfessorController {
      * @return details of a professor
 	 */
 	@GET
-	@Path("{id}")
+	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findProfessorById(@PathParam("id") Long id) {
 		Professor p = professorService.findProfessorById(id);
@@ -82,10 +82,11 @@ public class ProfessorController {
 	}
 
     /**
-    Adding a new professor's entry in the system
+    Adding single professor
      */
 
 	@POST
+    @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({"professor","admin"})
@@ -95,7 +96,7 @@ public class ProfessorController {
 	}
 
     /**
-     * Addiding multiple professors' entry in the system
+     * Adding multiple professors
      */
     @POST
     @Path("/list")
@@ -111,7 +112,7 @@ public class ProfessorController {
      * @param professor_id
      */
     @DELETE
-	@Path("{id}")
+	@Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed({"professor","admin"})
 	public Response deleteProfessorById(@PathParam("id") Long professor_id) {
@@ -124,7 +125,7 @@ public class ProfessorController {
      * @param ids
      */
     @DELETE
-    @Path("list/{ids}")
+    @Path("/list/{ids}")
     @Produces(MediaType.TEXT_PLAIN)
     @RolesAllowed({"admin"})
     public Response deleteAllProfessors(@PathParam("ids") String ids){
@@ -145,7 +146,7 @@ public class ProfessorController {
      * @param p
      */
 	@PUT
-	@Path("update/{id}")
+	@Path("/update/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({"professor","admin"})
 	public Response updateProfessor(@PathParam("id") Long id,Professor p) {

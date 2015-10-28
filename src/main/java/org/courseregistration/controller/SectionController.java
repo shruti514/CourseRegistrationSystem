@@ -57,7 +57,7 @@ public class SectionController {
 	 * @return details of a Section
 	 */
 	@GET
-	@Path("{id}")
+	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findSectionById(@PathParam("id") Long id) {
 		Section section = sectionService.findById(id);
@@ -92,7 +92,7 @@ public class SectionController {
 	 * @return Response.Status.OK with List of Sections
 	 */
 	@GET
-	@Path("/")
+	@Path("/list")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findSections() {
 		List<Section> allSections = sectionService.findAllSections();
@@ -111,11 +111,12 @@ public class SectionController {
 
 	/**
 	 * Creates a Section
-	 * 
+	 *
 	 * @param section
 	 * @return
 	 */
 	@POST
+    @Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@RolesAllowed({ "professor", "admin" })
 	public Response addSection(Section section) {
@@ -133,12 +134,12 @@ public class SectionController {
 
 	/**
 	 * Deletes a section by ID
-	 * 
+	 *
 	 * @param section_id
 	 * @return
 	 */
 	@DELETE
-	@Path("{id}")
+	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@RolesAllowed({ "professor", "admin" })
 	public Response deleteSection(@PathParam("id") Long section_id) {
@@ -148,13 +149,13 @@ public class SectionController {
 
 	/**
 	 * Updates the price of course from section
-	 * 
+	 *
 	 * @param id
 	 * @param price
 	 * @return OK Response with message, or NOT_FOUND response with message
 	 */
 	@PUT
-	@Path("{section_id}/price/update/{price}")
+	@Path("/{section_id}/price/update/{price}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@RolesAllowed({ "professor", "admin" })
 	public Response updateSectionPrice(@PathParam("section_id") Long id,
@@ -176,7 +177,7 @@ public class SectionController {
 	 * @return OK Response with message, or NOT_FOUND response with message
 	 */
 	@PUT
-	@Path("{section_id}")
+	@Path("/update/{section_id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@RolesAllowed({ "professor", "admin" })
 	public Response updateSection(@PathParam("section") long id, Section current) {

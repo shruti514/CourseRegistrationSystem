@@ -44,8 +44,8 @@ public class CourseController {
 	 * @return details of a course
 	 */
 	@GET
-	@Path("{id}")
-	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response findCourseById(@PathParam("id") Long id) throws ApplicationException {
 
         Course course = courseService.findById(id);
@@ -58,8 +58,8 @@ public class CourseController {
 	}
 
 	@GET
-    @Path("/")
-    @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+    @Path("/list")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response findCourses() {
 		List<Course> allCourses = courseService.findAllCourses();
 
@@ -78,7 +78,7 @@ public class CourseController {
 
     @GET
     @Path("/paginate")
-    @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+    @Produces(MediaType.APPLICATION_JSON)
     public Response findCoursesPaged(
         @QueryParam("page") @DefaultValue("0") int page,
         @QueryParam("size") @DefaultValue("2") int size) {
@@ -121,15 +121,15 @@ public class CourseController {
     }
 
 	@DELETE
-	@Path("{id}")
+	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
         public void deleteCourseById(@PathParam("id") Long id) {
 		courseService.deleteById(id);
 	}
 
 	@POST
-	@Path("/post")
-    @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createCourse(Course course) {
 
 		String result = "Course saved : " + course;

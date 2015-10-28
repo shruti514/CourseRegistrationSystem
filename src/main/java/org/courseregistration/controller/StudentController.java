@@ -60,14 +60,13 @@ public class StudentController {
 
     //delete single student
     @DELETE
-    @Path("{id}")
+    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed({"professor","admin"})
     public Response deleteStudent(@PathParam("id") Long student_id) throws ApplicationException {
         studentService.deleteStudent(student_id);
         return Response.ok(201).entity(student_id).build();
     }
-
 
     //delete list of students
     @DELETE
@@ -87,6 +86,7 @@ public class StudentController {
 
     //get all students
     @GET
+    @Path("/list")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findStudents() throws ApplicationException {
         List<Student> allStudents = studentService.findAllStudents();
@@ -95,25 +95,27 @@ public class StudentController {
 
     //get student by id
     @GET
-    @Path("{id}")
+    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Student findStudentById(@PathParam("id") Long id) throws ApplicationException {
-        return studentService.findById(id);
-    }
+    public Response findStudentById(@PathParam("id") Long id) throws ApplicationException {
+        Student s = studentService.findById(id);
 
+        return Response.ok().entity(s).build();
+    }
 
     //update student details
     @PUT
-    @Path("update/{id}")
+    @Path("/update/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateStudent(@PathParam("id")Long id, Student s) throws ApplicationException {
-        studentService.updateStudent(id, s);
-        return Response.ok(200).entity("Student Details Updated").build();
+
+        Student stud = studentService.updateStudent(id, s);
+        return Response.ok().entity(stud).build();
     }
 
     //enroll to a section
     @POST
-    @Path("{id}/sections/{section_id}")
+    @Path("/{id}/sections/{section_id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response enrollSection(@PathParam("id") Long id,@PathParam("section_id") Long section_id) throws ApplicationException {
@@ -123,7 +125,7 @@ public class StudentController {
 
     //delete a single section
     @DELETE
-    @Path("{id}/sections/{section_id}")
+    @Path("/{id}/sections/{section_id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response dropSection(@PathParam("id") Long id, @PathParam("section_id")Long section_id) throws ApplicationException {
          studentService.dropSection(id, section_id);
