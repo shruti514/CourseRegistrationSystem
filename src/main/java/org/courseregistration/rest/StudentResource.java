@@ -62,7 +62,7 @@ public class StudentResource {
     @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({"professor","admin"})
+    @RolesAllowed({"PROFESSOR","ADMIN"})
     public Response addStudents(List<Student> students) throws ApplicationException {
         studentService.addStudents(students);
         return Response.ok(200).entity(students).build();
@@ -72,7 +72,7 @@ public class StudentResource {
     @DELETE
     @Path("{id}")
     @Produces(MediaType.TEXT_PLAIN)
-    @RolesAllowed({"professor","admin"})
+    @RolesAllowed({"PROFESSOR","ADMIN"})
     public Response deleteStudent(@PathParam("id") Long studentId) throws ApplicationException {
         studentService.deleteStudent(studentId);
         return Response.ok().entity("Successfully deleted student with id :"+ studentId).build();
@@ -82,7 +82,7 @@ public class StudentResource {
     @DELETE
     @Path("list/{ids}")
     @Produces(MediaType.TEXT_PLAIN)
-    @RolesAllowed({"professor","admin"})
+    @RolesAllowed({"PROFESSOR","ADMIN"})
     public Response deleteAllStudents(@PathParam("ids") String ids) throws ApplicationException {
         String [] splitIds = ids.split(",");
         List<Long> toDelete = newArrayList();
@@ -156,7 +156,6 @@ public class StudentResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findStudentById(@Context UriInfo uriInfo,@PathParam("id") Long id,@Context Request request) throws ApplicationException {
         Student student = studentService.findById(id);
-
         StudentAssembler studentAssembler = new StudentAssembler();
         StudentResourceWrapper resources = studentAssembler.toResource(student);
 

@@ -120,7 +120,7 @@ public class SectionResource {
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({ "professor", "admin" })
+	@RolesAllowed({"PROFESSOR","ADMIN"})
 	public Response addSection(Section section) throws ApplicationException {
 
 		boolean isSaved = sectionService.addSection(section);
@@ -143,7 +143,7 @@ public class SectionResource {
 	@DELETE
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	@RolesAllowed({ "professor", "admin" })
+    @RolesAllowed({"PROFESSOR","ADMIN"})
 	public Response deleteSection(@PathParam("id") Long section_id)
 			throws ApplicationException {
 		sectionService.deleteSection(section_id);
@@ -160,7 +160,7 @@ public class SectionResource {
 	@PUT
 	@Path("/{section_id}/price/update/{price}")
 	@Produces(MediaType.APPLICATION_JSON)
-	@RolesAllowed({ "professor", "admin" })
+    @RolesAllowed({"PROFESSOR","ADMIN"})
 	public Response updateSectionPrice(@PathParam("section_id") Long id,
 			@PathParam("price") int price) {
 		boolean isUpdated = sectionService.updateSectionPrice(id, price);
@@ -182,7 +182,7 @@ public class SectionResource {
 	@PUT
 	@Path("/update/{section_id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	@RolesAllowed({ "professor", "admin" })
+    @RolesAllowed({"PROFESSOR","ADMIN"})
 	public Response updateSection(@PathParam("section") long id, Section current)
 			throws ApplicationException {
 		boolean isUpdated = sectionService.updateSection(id, current);

@@ -129,8 +129,8 @@ public class ProfessorResource {
 	@POST
     @Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({"professor","admin"})
-	public Response addProfessor(@Context UriInfo uriInfo, Professor professor)throws ApplicationException {
+    @RolesAllowed({"PROFESSOR","ADMIN"})
+	public Response addProfessor(@Context UriInfo uriInfo, Professor professor) {
 		professorService.addProfessor(professor);
         return Response.created(uriInfo.getAbsolutePathBuilder()
             .path(professor.getId().toString()).build())
@@ -144,8 +144,8 @@ public class ProfessorResource {
     @POST
     @Path("/list")
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({"admin"})
-    public Response addProfessor(List<Professor> professors)throws ApplicationException {
+    @RolesAllowed("ADMIN")
+    public Response addProfessor(List<Professor> professors) {
         professorService.addProfessors(professors);
         return Response.ok().entity(professors).build();
     }
@@ -157,8 +157,8 @@ public class ProfessorResource {
     @DELETE
 	@Path("{id}")
     @Produces(MediaType.TEXT_PLAIN)
-    @RolesAllowed({"professor","admin"})
-	public Response deleteProfessorById(@PathParam("id") Long professorId)throws ApplicationException{
+    @RolesAllowed({"PROFESSOR","ADMIN"})
+	public Response deleteProfessorById(@PathParam("id") Long professorId) {
 		professorService.deleteProfessorById(professorId);
 		return Response.ok(200).entity("Successfully deleted Professor with id:" + professorId).build();
 	}
@@ -170,8 +170,8 @@ public class ProfessorResource {
     @DELETE
     @Path("list/{ids}")
     @Produces(MediaType.TEXT_PLAIN)
-    @RolesAllowed({"admin"})
-    public Response deleteAllProfessors(@PathParam("ids") String ids)throws ApplicationException{
+    @RolesAllowed("ADMIN")
+    public Response deleteAllProfessors(@PathParam("ids") String ids){
         String [] splitIds = ids.split(",");
         List<Long> toDelete = newArrayList();
 
@@ -192,8 +192,8 @@ public class ProfessorResource {
 	@PUT
 	@Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({"professor","admin"})
-	public Response updateProfessor(@PathParam("id") Long id,Professor professor) throws ApplicationException{
+    @RolesAllowed({"PROFESSOR","ADMIN"})
+	public Response updateProfessor(@PathParam("id") Long id,Professor professor) {
 		professorService.updateProfessor(id, professor);
 		return Response.noContent().entity("Professor details updated").build();
 	}

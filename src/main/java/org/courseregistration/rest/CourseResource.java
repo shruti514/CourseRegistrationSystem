@@ -22,7 +22,7 @@ import static org.courseregistration.rest.ResponseHelper.getCacheControl;
 @Component
 @Path("/courses")
 @Produces(MediaType.APPLICATION_JSON)
-@RolesAllowed({"admin","professor"})
+@RolesAllowed({"ADMIN","PROFESSOR"})
 @ExposesResourceFor(Course.class)
 public class CourseResource {
     @Autowired

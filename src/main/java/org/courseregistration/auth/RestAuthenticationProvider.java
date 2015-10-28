@@ -1,6 +1,8 @@
 package org.courseregistration.auth;
 
+import com.google.common.collect.Lists;
 import org.courseregistration.dao.UserDAO;
+import org.courseregistration.model.Role;
 import org.courseregistration.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -16,6 +18,9 @@ import org.springframework.stereotype.Service;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
+import static com.google.common.collect.Lists.newArrayList;
 
 @Service
 public class RestAuthenticationProvider implements AuthenticationProvider {
@@ -33,20 +38,26 @@ public class RestAuthenticationProvider implements AuthenticationProvider {
 
             if(user !=null){
                 if(decodeUsingBase64(user.getHashedPassword()).equals(credentials)){
-                    getAuthenticatedUser(key, credentials);
+                    Set<Role> roles = user.getRoles();
+                    List<String> userRoles = newArrayList();
+                    for(Role role:roles){
+                        userRoles.add(role.getName());
+                    }
+                    return getAuthenticatedUser(key, credentials,userRoles);
                 }else{
                     throw new BadCredentialsException("Enter a username and password");
                 }
-            }else{
-               throw new UsernameNotFoundException("User with given Id not found");
             }
+               throw new UsernameNotFoundException("User with given Id not found");
 
-            return getAuthenticatedUser(key, credentials);
         }
 
-        private Authentication getAuthenticatedUser(String key, String credentials) {
+        private Authentication getAuthenticatedUser(String key, String credentials,List<String> roles) {
             List<GrantedAuthority> authorities = new ArrayList<>();
             authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+            for(String role : roles){
+                authorities.add(new SimpleGrantedAuthority(role));
+            }
 
             return new RestToken(key, credentials, authorities);
         }
