@@ -15,9 +15,7 @@ public class StudentAssembler extends ResourceAssembler<Student, StudentResource
     public StudentResource toResource(Student entity) {
 
         StudentResource resource = createResourceWithId(entity.getId(),entity);
-
-        resource.add();
-
+        resource.setStudent(entity);
         return resource;
     }
 }

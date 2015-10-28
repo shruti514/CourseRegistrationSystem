@@ -19,9 +19,16 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.courseregistration.controller.writters.CourseAssembler;
+import org.courseregistration.controller.writters.ProfessorAssembler;
+import org.courseregistration.hateoas.CourseResource;
+import org.courseregistration.hateoas.ProfessorResourse;
 import org.courseregistration.model.Professor;
 import org.courseregistration.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityLinks;
+import org.springframework.hateoas.Resources;
+import org.springframework.hateoas.jaxrs.JaxRsLinkBuilder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -33,6 +40,8 @@ import static com.google.common.collect.Lists.newArrayList;
 public class ProfessorController {
 	@Autowired
 	private ProfessorService professorService;
+    @Autowired
+    private EntityLinks entityLinks;
 
 	/**
 	 * Get details of a specific professor
@@ -60,7 +69,17 @@ public class ProfessorController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findAllProfessors() {
 		List<Professor> allProfessors = professorService.findAllProfessors();
-		return Response.ok().entity(allProfessors).build();
+
+        ProfessorAssembler professorAssembler = new ProfessorAssembler();
+        List<ProfessorResourse> resources = professorAssembler.toResources(allProfessors);
+
+        Resources<ProfessorResourse> wrapped = new Resources<>(resources);
+        wrapped.add(JaxRsLinkBuilder.linkTo(ProfessorController.class)
+                .withSelfRel()
+        );
+
+
+        return Response.ok(wrapped).build();
 	}
 
     /**
@@ -135,21 +154,6 @@ public class ProfessorController {
 		return Response.ok(200).entity("Professor details updated").build();
 	}
 
-/*	@PUT
-	@Path("{id}/phone/update/{phone_number}")
-	public Response updateProfessorPhone(@PathParam("id") Long id,
-			@PathParam("phone_number") String phone_number) {
-		professorService.updateProfessorPhone(id, phone_number);
-		return Response.ok(200).build();
-	}
 
-	@PUT
-	@Path("{id}/faculty/update/{faculty_type}")
-	@Produces(MediaType.TEXT_PLAIN)
-	public Response updateProfessorFacultyType(@PathParam("id") Long id,
-			@PathParam("faculty_type") String facultyType) {
-		professorService.updateProfessorFacultyType(id, facultyType);
-		return Response.ok(200).build();
-	}    */
 }
 
