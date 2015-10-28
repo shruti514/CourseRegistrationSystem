@@ -130,7 +130,7 @@ public class ProfessorResource {
     @Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({"PROFESSOR","ADMIN"})
-	public Response addProfessor(@Context UriInfo uriInfo, Professor professor) {
+	public Response addProfessor(@Context UriInfo uriInfo, Professor professor) throws ApplicationException {
 		professorService.addProfessor(professor);
         return Response.created(uriInfo.getAbsolutePathBuilder()
             .path(professor.getId().toString()).build())
@@ -145,7 +145,7 @@ public class ProfessorResource {
     @Path("/list")
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed("ADMIN")
-    public Response addProfessor(List<Professor> professors) {
+    public Response addProfessor(List<Professor> professors) throws ApplicationException {
         professorService.addProfessors(professors);
         return Response.ok().entity(professors).build();
     }
@@ -158,7 +158,7 @@ public class ProfessorResource {
 	@Path("{id}")
     @Produces(MediaType.TEXT_PLAIN)
     @RolesAllowed({"PROFESSOR","ADMIN"})
-	public Response deleteProfessorById(@PathParam("id") Long professorId) {
+	public Response deleteProfessorById(@PathParam("id") Long professorId) throws ApplicationException {
 		professorService.deleteProfessorById(professorId);
 		return Response.ok(200).entity("Successfully deleted Professor with id:" + professorId).build();
 	}
@@ -171,7 +171,7 @@ public class ProfessorResource {
     @Path("list/{ids}")
     @Produces(MediaType.TEXT_PLAIN)
     @RolesAllowed("ADMIN")
-    public Response deleteAllProfessors(@PathParam("ids") String ids){
+    public Response deleteAllProfessors(@PathParam("ids") String ids) throws ApplicationException {
         String [] splitIds = ids.split(",");
         List<Long> toDelete = newArrayList();
 
@@ -193,7 +193,7 @@ public class ProfessorResource {
 	@Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({"PROFESSOR","ADMIN"})
-	public Response updateProfessor(@PathParam("id") Long id,Professor professor) {
+	public Response updateProfessor(@PathParam("id") Long id,Professor professor) throws ApplicationException {
 		professorService.updateProfessor(id, professor);
 		return Response.noContent().entity("Professor details updated").build();
 	}
