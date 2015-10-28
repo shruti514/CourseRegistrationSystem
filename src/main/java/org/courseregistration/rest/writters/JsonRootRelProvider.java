@@ -1,10 +1,6 @@
-package org.courseregistration.controller.writters;
-import org.codehaus.jackson.map.annotate.JsonRootName;
-import org.springframework.hateoas.RelProvider;
-import org.springframework.hateoas.core.DefaultRelProvider;
-import org.atteo.evo.inflector.English;
+package org.courseregistration.rest.writters;
 
- public class JsonRootRelProvider  /*implements RelProvider*/ {
+public class JsonRootRelProvider  /*implements RelProvider*/ {
 
         /*DefaultRelProvider defaultRelProvider = new DefaultRelProvider();
 

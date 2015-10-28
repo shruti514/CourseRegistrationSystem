@@ -1,4 +1,4 @@
-package org.courseregistration.controller;
+package org.courseregistration.rest;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,9 +18,9 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.courseregistration.controller.writters.SectionAssembler;
+import org.courseregistration.rest.writters.SectionAssembler;
 import org.courseregistration.dao.SearchCriteria;
-import org.courseregistration.hateoas.SectionResource;
+import org.courseregistration.hateoas.SectionResourceWrapper;
 import org.courseregistration.model.Section;
 import org.courseregistration.service.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ import org.springframework.stereotype.Component;
 @Path("sections")
 @PermitAll
 @ExposesResourceFor(Section.class)
-public class SectionController {
+public class SectionResource {
 
 	@Autowired
 	private SectionService sectionService;
@@ -99,11 +99,11 @@ public class SectionController {
 		// return Response.ok(200).entity(allSections).build();
 
 		SectionAssembler sectionAssembler = new SectionAssembler();
-		List<SectionResource> resources = sectionAssembler
+		List<SectionResourceWrapper> resources = sectionAssembler
 				.toResources(allSections);
 
-		Resources<SectionResource> wrapped = new Resources<>(resources);
-		wrapped.add(JaxRsLinkBuilder.linkTo(SectionController.class)
+		Resources<SectionResourceWrapper> wrapped = new Resources<>(resources);
+		wrapped.add(JaxRsLinkBuilder.linkTo(SectionResource.class)
 				.withSelfRel());
 
 		return Response.ok(wrapped).build();
@@ -213,11 +213,11 @@ public class SectionController {
 		List<Section> allSections = sectionService.findByCriteria(criteria);
 
 		SectionAssembler sectionAssembler = new SectionAssembler();
-		List<SectionResource> resources = sectionAssembler
+		List<SectionResourceWrapper> resources = sectionAssembler
 				.toResources(allSections);
 
-		Resources<SectionResource> wrapped = new Resources<>(resources);
-		wrapped.add(JaxRsLinkBuilder.linkTo(SectionController.class)
+		Resources<SectionResourceWrapper> wrapped = new Resources<>(resources);
+		wrapped.add(JaxRsLinkBuilder.linkTo(SectionResource.class)
 				.withSelfRel());
 
 		return Response.ok(wrapped).build();
@@ -244,11 +244,11 @@ public class SectionController {
 
 		List<Section> allSections = sectionService.findByCriteria(criteria);
 		SectionAssembler sectionAssembler = new SectionAssembler();
-		List<SectionResource> resources = sectionAssembler
+		List<SectionResourceWrapper> resources = sectionAssembler
 				.toResources(allSections);
 
-		Resources<SectionResource> wrapped = new Resources<>(resources);
-		wrapped.add(JaxRsLinkBuilder.linkTo(SectionController.class)
+		Resources<SectionResourceWrapper> wrapped = new Resources<>(resources);
+		wrapped.add(JaxRsLinkBuilder.linkTo(SectionResource.class)
 				.withSelfRel());
 
 		return Response.ok(wrapped).build();
@@ -304,11 +304,11 @@ public class SectionController {
 			List<Section> allSections = sectionService.findByCriteria(criteria);
 
 			SectionAssembler sectionAssembler = new SectionAssembler();
-			List<SectionResource> resources = sectionAssembler
+			List<SectionResourceWrapper> resources = sectionAssembler
 					.toResources(allSections);
 
-			Resources<SectionResource> wrapped = new Resources<>(resources);
-			wrapped.add(JaxRsLinkBuilder.linkTo(SectionController.class)
+			Resources<SectionResourceWrapper> wrapped = new Resources<>(resources);
+			wrapped.add(JaxRsLinkBuilder.linkTo(SectionResource.class)
 					.withSelfRel());
 
 			return Response.ok(wrapped).build();

@@ -4,7 +4,7 @@ package org.courseregistration.hateoas;
 import org.courseregistration.model.Student;
 import org.springframework.hateoas.ResourceSupport;
 
-public class StudentResource extends ResourceSupport {
+public class StudentResourceWrapper extends ResourceSupport {
     private Student student;
 
 

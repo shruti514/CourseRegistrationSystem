@@ -46,7 +46,7 @@ public class TestUtils {
 
     public static Student createStudent(long collegeId, String name) {
         Student student1 = new Student();
-        student1.setCollegeId(collegeId);
+        student1.setUsername(collegeId);
         student1.setFirstName(name);
         student1.setMiddleName("R.");
         student1.setLastName("Edward");
@@ -68,7 +68,7 @@ public class TestUtils {
 
         professor.setFirstName(name);
         professor.setMiddleName("W.");
-        professor.setCollegeId(collegeId);
+        professor.setUsername(collegeId);
         professor.setLastName("Campbell");
         professor.setAddress(createAddress());
         professor.setFacultyType("Permanant");

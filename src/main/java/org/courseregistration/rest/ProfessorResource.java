@@ -1,13 +1,9 @@
-package org.courseregistration.controller;
+package org.courseregistration.rest;
 
 import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
-import javax.print.attribute.standard.Media;
-import javax.ws.rs.*;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -19,10 +15,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.courseregistration.controller.writters.CourseAssembler;
-import org.courseregistration.controller.writters.ProfessorAssembler;
-import org.courseregistration.hateoas.CourseResource;
-import org.courseregistration.hateoas.ProfessorResourse;
+import org.courseregistration.rest.writters.ProfessorAssembler;
+import org.courseregistration.hateoas.ProfessorResourseWrapper;
 import org.courseregistration.model.Professor;
 import org.courseregistration.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,14 +24,13 @@ import org.springframework.hateoas.EntityLinks;
 import org.springframework.hateoas.Resources;
 import org.springframework.hateoas.jaxrs.JaxRsLinkBuilder;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
+
 import static com.google.common.collect.Lists.newArrayList;
 
 @Component
 @Path("professors")
 @PermitAll
-public class ProfessorController {
+public class ProfessorResource {
 	@Autowired
 	private ProfessorService professorService;
     @Autowired
@@ -70,10 +63,10 @@ public class ProfessorController {
 		List<Professor> allProfessors = professorService.findAllProfessors();
 
         ProfessorAssembler professorAssembler = new ProfessorAssembler();
-        List<ProfessorResourse> resources = professorAssembler.toResources(allProfessors);
+        List<ProfessorResourseWrapper> resources = professorAssembler.toResources(allProfessors);
 
-        Resources<ProfessorResourse> wrapped = new Resources<>(resources);
-        wrapped.add(JaxRsLinkBuilder.linkTo(ProfessorController.class)
+        Resources<ProfessorResourseWrapper> wrapped = new Resources<>(resources);
+        wrapped.add(JaxRsLinkBuilder.linkTo(ProfessorResource.class)
                 .withSelfRel()
         );
 

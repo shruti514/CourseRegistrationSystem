@@ -1,4 +1,4 @@
-package org.courseregistration.controller.writters;
+package org.courseregistration.rest.writters;
 
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.jaxrs.JaxRsLinkBuilder;

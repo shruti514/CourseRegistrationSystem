@@ -6,7 +6,7 @@ public class TestDataGenerator {
         EntityManager entityManager = org.courseregistration.dbtests.HibernateUtils.getEntityManager();
 
         Student student1 = new Student();
-        student1.setCollegeId((long) 123456789);
+        student1.setUsername((long) 123456789);
         student1.setFirstName("John");
         student1.setMiddleName("R.");
         student1.setLastName("Edward");
@@ -30,7 +30,7 @@ public class TestDataGenerator {
         Student student2 = new Student();
         student2.setFirstName("Alice");
         student2.setMiddleName("W.");
-        student2.setCollegeId((long) 123456788);
+        student2.setUsername((long) 123456788);
         student2.setLastName("Campbell");
         student2.setAddress1("65 Rio Robles E");
         student2.setAddress2("");
@@ -74,7 +74,7 @@ public class TestDataGenerator {
 
         professor1.setFirstName("Alice");
         professor1.setMiddleName("W.");
-        professor1.setCollegeId((long) 123456779);
+        professor1.setUsername((long) 123456779);
         professor1.setLastName("Campbell");
         professor1.setAddress1("65 Rio Robles E");
         professor1.setAddress2("");

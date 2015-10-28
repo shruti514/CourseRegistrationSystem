@@ -18,8 +18,8 @@ public class User implements Serializable {
     @Column(name = "user_id")
     protected Long id;
 
-    @Column(name = "college_id", nullable = false, unique = true)
-    private Long collegeId;
+    @Column(name = "username", nullable = false, unique = true)
+    private String username;
 
     @JsonIgnore
     @Column(name = "password")
@@ -77,12 +77,13 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public Long getCollegeId() {
-        return collegeId;
+
+    public String getUsername() {
+        return username;
     }
 
-    public void setCollegeId(Long collegeId) {
-        this.collegeId = collegeId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getFirstName() {
@@ -152,7 +153,7 @@ public class User implements Serializable {
 
         if (!id.equals(user.id))
             return false;
-        if (!collegeId.equals(user.collegeId))
+        if (!username.equals(user.username))
             return false;
         if (hashedPassword != null ? !hashedPassword
             .equals(user.hashedPassword) : user.hashedPassword != null)
@@ -177,7 +178,7 @@ public class User implements Serializable {
     @Override
     public int hashCode() {
         int result = id.hashCode();
-        result = 31 * result + collegeId.hashCode();
+        result = 31 * result + username.hashCode();
         result = 31 * result
             + (hashedPassword != null ? hashedPassword.hashCode() : 0);
         result = 31 * result + firstName.hashCode();

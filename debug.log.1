@@ -491,7 +491,7 @@
 12:35:51,445  INFO Dialect:154 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
 12:35:51,469  INFO LobCreatorBuilderImpl:98 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
 12:35:52,226  WARN XmlWebApplicationContext:544 - Exception encountered during context initialization - cancelling refresh attempt
-org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sectionController' defined in file [/Users/Shraddha/git/CMPE-272-CourseRegistrationSystem/target/classes/org/courseregistration/controller/SectionController.class]: Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.courseregistration.controller.SectionController]: Constructor threw exception; nested exception is java.lang.Error: Unresolved compilation problems: 
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sectionController' defined in file [/Users/Shraddha/git/CMPE-272-CourseRegistrationSystem/target/classes/org/courseregistration/controller/SectionController.class]: Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.courseregistration.rest.SectionController]: Constructor threw exception; nested exception is java.lang.Error: Unresolved compilation problems:
 	Syntax error on token ",", ( expected
 	Syntax error, insert ")" to complete Modifier
 
@@ -526,7 +526,7 @@ org.springframework.beans.factory.BeanCreationException: Error creating bean wit
 	at org.eclipse.jetty.util.PathWatcher.notifyOnPathWatchEvents(PathWatcher.java:1156)
 	at org.eclipse.jetty.util.PathWatcher.run(PathWatcher.java:1360)
 	at java.lang.Thread.run(Thread.java:745)
-Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.courseregistration.controller.SectionController]: Constructor threw exception; nested exception is java.lang.Error: Unresolved compilation problems: 
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.courseregistration.rest.SectionController]: Constructor threw exception; nested exception is java.lang.Error: Unresolved compilation problems:
 	Syntax error on token ",", ( expected
 	Syntax error, insert ")" to complete Modifier
 
@@ -534,11 +534,11 @@ Caused by: org.springframework.beans.BeanInstantiationException: Failed to insta
 	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:89)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1098)
 	... 30 more
-Caused by: java.lang.Error: Unresolved compilation problems: 
+Caused by: java.lang.Error: Unresolved compilation problems:
 	Syntax error on token ",", ( expected
 	Syntax error, insert ")" to complete Modifier
 
-	at org.courseregistration.controller.SectionController.<init>(SectionController.java:190)
+	at org.courseregistration.rest.SectionController.<init>(SectionController.java:190)
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
 	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
@@ -547,7 +547,7 @@ Caused by: java.lang.Error: Unresolved compilation problems:
 	... 32 more
 12:35:52,230  INFO LocalContainerEntityManagerFactoryBean:462 - Closing JPA EntityManagerFactory for persistence unit 'student_registration_system'
 12:35:52,231 ERROR ContextLoader:353 - Context initialization failed
-org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sectionController' defined in file [/Users/Shraddha/git/CMPE-272-CourseRegistrationSystem/target/classes/org/courseregistration/controller/SectionController.class]: Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.courseregistration.controller.SectionController]: Constructor threw exception; nested exception is java.lang.Error: Unresolved compilation problems: 
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sectionController' defined in file [/Users/Shraddha/git/CMPE-272-CourseRegistrationSystem/target/classes/org/courseregistration/controller/SectionController.class]: Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.courseregistration.rest.SectionController]: Constructor threw exception; nested exception is java.lang.Error: Unresolved compilation problems:
 	Syntax error on token ",", ( expected
 	Syntax error, insert ")" to complete Modifier
 
@@ -582,7 +582,7 @@ org.springframework.beans.factory.BeanCreationException: Error creating bean wit
 	at org.eclipse.jetty.util.PathWatcher.notifyOnPathWatchEvents(PathWatcher.java:1156)
 	at org.eclipse.jetty.util.PathWatcher.run(PathWatcher.java:1360)
 	at java.lang.Thread.run(Thread.java:745)
-Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.courseregistration.controller.SectionController]: Constructor threw exception; nested exception is java.lang.Error: Unresolved compilation problems: 
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.courseregistration.rest.SectionController]: Constructor threw exception; nested exception is java.lang.Error: Unresolved compilation problems:
 	Syntax error on token ",", ( expected
 	Syntax error, insert ")" to complete Modifier
 
@@ -590,11 +590,11 @@ Caused by: org.springframework.beans.BeanInstantiationException: Failed to insta
 	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:89)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1098)
 	... 30 more
-Caused by: java.lang.Error: Unresolved compilation problems: 
+Caused by: java.lang.Error: Unresolved compilation problems:
 	Syntax error on token ",", ( expected
 	Syntax error, insert ")" to complete Modifier
 
-	at org.courseregistration.controller.SectionController.<init>(SectionController.java:190)
+	at org.courseregistration.rest.SectionController.<init>(SectionController.java:190)
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
 	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
@@ -3508,7 +3508,7 @@ javax.persistence.PersistenceException: org.hibernate.PersistentObjectException:
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:653)
 	at org.courseregistration.dao.SectionDAO$$EnhancerBySpringCGLIB$$580b59fe.save(<generated>)
 	at org.courseregistration.service.SectionService.addSection(SectionService.java:48)
-	at org.courseregistration.controller.SectionController.addSection(SectionController.java:85)
+	at org.courseregistration.rest.SectionController.addSection(SectionController.java:85)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -3643,7 +3643,7 @@ javax.persistence.PersistenceException: org.hibernate.PersistentObjectException:
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:653)
 	at org.courseregistration.dao.SectionDAO$$EnhancerBySpringCGLIB$$580b59fe.save(<generated>)
 	at org.courseregistration.service.SectionService.addSection(SectionService.java:48)
-	at org.courseregistration.controller.SectionController.addSection(SectionController.java:85)
+	at org.courseregistration.rest.SectionController.addSection(SectionController.java:85)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -3696,12 +3696,12 @@ Caused by: org.hibernate.PersistentObjectException: detached entity passed to pe
 	at org.hibernate.internal.SessionImpl.persist(SessionImpl.java:752)
 	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.persist(AbstractEntityManagerImpl.java:1146)
 	... 63 more
-13:40:13,194 ERROR GenericExceptionMapper:21 - 
+13:40:13,194 ERROR GenericExceptionMapper:21 -
 java.lang.NullPointerException
 	at org.courseregistration.model.Section.toString(Section.java:262)
 	at java.lang.String.valueOf(String.java:2994)
 	at java.lang.StringBuilder.append(StringBuilder.java:131)
-	at org.courseregistration.controller.SectionController.addSection(SectionController.java:90)
+	at org.courseregistration.rest.SectionController.addSection(SectionController.java:90)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -4407,7 +4407,7 @@ javax.persistence.PersistenceException: org.hibernate.PersistentObjectException:
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:653)
 	at org.courseregistration.dao.SectionDAO$$EnhancerBySpringCGLIB$$580b59fe.save(<generated>)
 	at org.courseregistration.service.SectionService.addSection(SectionService.java:48)
-	at org.courseregistration.controller.SectionController.addSection(SectionController.java:85)
+	at org.courseregistration.rest.SectionController.addSection(SectionController.java:85)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -4460,12 +4460,12 @@ Caused by: org.hibernate.PersistentObjectException: detached entity passed to pe
 	at org.hibernate.internal.SessionImpl.persist(SessionImpl.java:752)
 	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.persist(AbstractEntityManagerImpl.java:1146)
 	... 63 more
-13:45:58,533 ERROR GenericExceptionMapper:21 - 
+13:45:58,533 ERROR GenericExceptionMapper:21 -
 java.lang.NullPointerException
 	at org.courseregistration.model.Section.toString(Section.java:262)
 	at java.lang.String.valueOf(String.java:2994)
 	at java.lang.StringBuilder.append(StringBuilder.java:131)
-	at org.courseregistration.controller.SectionController.addSection(SectionController.java:90)
+	at org.courseregistration.rest.SectionController.addSection(SectionController.java:90)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -4534,7 +4534,7 @@ javax.persistence.PersistenceException: org.hibernate.PersistentObjectException:
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:653)
 	at org.courseregistration.dao.SectionDAO$$EnhancerBySpringCGLIB$$580b59fe.save(<generated>)
 	at org.courseregistration.service.SectionService.addSection(SectionService.java:48)
-	at org.courseregistration.controller.SectionController.addSection(SectionController.java:85)
+	at org.courseregistration.rest.SectionController.addSection(SectionController.java:85)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -4587,12 +4587,12 @@ Caused by: org.hibernate.PersistentObjectException: detached entity passed to pe
 	at org.hibernate.internal.SessionImpl.persist(SessionImpl.java:752)
 	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.persist(AbstractEntityManagerImpl.java:1146)
 	... 63 more
-13:46:36,680 ERROR GenericExceptionMapper:21 - 
+13:46:36,680 ERROR GenericExceptionMapper:21 -
 java.lang.NullPointerException
 	at org.courseregistration.model.Section.toString(Section.java:262)
 	at java.lang.String.valueOf(String.java:2994)
 	at java.lang.StringBuilder.append(StringBuilder.java:131)
-	at org.courseregistration.controller.SectionController.addSection(SectionController.java:90)
+	at org.courseregistration.rest.SectionController.addSection(SectionController.java:90)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -4661,7 +4661,7 @@ javax.persistence.PersistenceException: org.hibernate.PersistentObjectException:
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:653)
 	at org.courseregistration.dao.SectionDAO$$EnhancerBySpringCGLIB$$580b59fe.save(<generated>)
 	at org.courseregistration.service.SectionService.addSection(SectionService.java:48)
-	at org.courseregistration.controller.SectionController.addSection(SectionController.java:85)
+	at org.courseregistration.rest.SectionController.addSection(SectionController.java:85)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -4714,12 +4714,12 @@ Caused by: org.hibernate.PersistentObjectException: detached entity passed to pe
 	at org.hibernate.internal.SessionImpl.persist(SessionImpl.java:752)
 	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.persist(AbstractEntityManagerImpl.java:1146)
 	... 63 more
-13:46:42,275 ERROR GenericExceptionMapper:21 - 
+13:46:42,275 ERROR GenericExceptionMapper:21 -
 java.lang.NullPointerException
 	at org.courseregistration.model.Section.toString(Section.java:262)
 	at java.lang.String.valueOf(String.java:2994)
 	at java.lang.StringBuilder.append(StringBuilder.java:131)
-	at org.courseregistration.controller.SectionController.addSection(SectionController.java:90)
+	at org.courseregistration.rest.SectionController.addSection(SectionController.java:90)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -4902,7 +4902,7 @@ javax.persistence.PersistenceException: org.hibernate.PersistentObjectException:
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:653)
 	at org.courseregistration.dao.SectionDAO$$EnhancerBySpringCGLIB$$580b59fe.save(<generated>)
 	at org.courseregistration.service.SectionService.addSection(SectionService.java:48)
-	at org.courseregistration.controller.SectionController.addSection(SectionController.java:85)
+	at org.courseregistration.rest.SectionController.addSection(SectionController.java:85)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -5197,7 +5197,7 @@ javax.persistence.PersistenceException: org.hibernate.PersistentObjectException:
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:653)
 	at org.courseregistration.dao.SectionDAO$$EnhancerBySpringCGLIB$$580b59fe.save(<generated>)
 	at org.courseregistration.service.SectionService.addSection(SectionService.java:48)
-	at org.courseregistration.controller.SectionController.addSection(SectionController.java:85)
+	at org.courseregistration.rest.SectionController.addSection(SectionController.java:85)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -5392,7 +5392,7 @@ javax.persistence.PersistenceException: org.hibernate.PersistentObjectException:
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:653)
 	at org.courseregistration.dao.SectionDAO$$EnhancerBySpringCGLIB$$580b59fe.save(<generated>)
 	at org.courseregistration.service.SectionService.addSection(SectionService.java:48)
-	at org.courseregistration.controller.SectionController.addSection(SectionController.java:85)
+	at org.courseregistration.rest.SectionController.addSection(SectionController.java:85)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -5918,7 +5918,7 @@ javax.ws.rs.WebApplicationException: HTTP 405 Method Not Allowed
 18:25:44,708  INFO ContextLoader:347 - Root WebApplicationContext: initialization completed in 2353 ms
 18:28:43,803 DEBUG QueryTranslatorFactoryInitiator:45 - QueryTranslatorFactory : org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory@53c34cd4
 18:28:43,804  INFO QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
-18:28:43,827 DEBUG QueryTranslatorImpl:278 - parse() - HQL: select u from org.courseregistration.model.User as u where u.collegeId=:collegeId
+18:28:43,827 DEBUG QueryTranslatorImpl:278 - parse() - HQL: select u from org.courseregistration.model.User as u where u.username=:username
 18:28:43,834 DEBUG QueryTranslatorImpl:296 - --- HQL AST ---
  \-[QUERY] Node: 'query'
     +-[SELECT_FROM] Node: 'SELECT_FROM'
@@ -5938,19 +5938,19 @@ javax.ws.rs.WebApplicationException: HTTP 405 Method Not Allowed
        \-[EQ] Node: '='
           +-[DOT] Node: '.'
           |  +-[IDENT] Node: 'u'
-          |  \-[IDENT] Node: 'collegeId'
+          |  \-[IDENT] Node: 'username'
           \-[COLON] Node: ':'
-             \-[IDENT] Node: 'collegeId'
+             \-[IDENT] Node: 'username'
 
 18:28:43,834 DEBUG ErrorCounter:95 - throwQueryException() : no errors
 18:28:43,850 DEBUG HqlSqlBaseWalker:121 - select << begin [level=1, statement=select]
 18:28:43,864 DEBUG FromElement:145 - FromClause{level=1} : org.courseregistration.model.User (u) -> user0_
 18:28:43,865 DEBUG FromReferenceNode:60 - Resolved : u -> user0_.user_id
 18:28:43,867 DEBUG FromReferenceNode:60 - Resolved : u -> user0_.user_id
-18:28:43,868 DEBUG DotNode:654 - getDataType() : collegeId -> org.hibernate.type.LongType@4d4337f9
-18:28:43,869 DEBUG FromReferenceNode:60 - Resolved : u.collegeId -> user0_.college_id
+18:28:43,868 DEBUG DotNode:654 - getDataType() : username -> org.hibernate.type.LongType@4d4337f9
+18:28:43,869 DEBUG FromReferenceNode:60 - Resolved : u.username -> user0_.college_id
 18:28:43,870 DEBUG HqlSqlBaseWalker:125 - select : finishing up [level=1, statement=select]
-18:28:43,870 DEBUG HqlSqlWalker:654 - processQuery() :  ( SELECT ( {select clause} user0_.user_id ) ( FromClause{level=1} users user0_ ) ( where ( = ( user0_.college_id user0_.user_id collegeId ) ? ) ) )
+18:28:43,870 DEBUG HqlSqlWalker:654 - processQuery() :  ( SELECT ( {select clause} user0_.user_id ) ( FromClause{level=1} users user0_ ) ( where ( = ( user0_.college_id user0_.user_id username ) ? ) ) )
 18:28:43,876 DEBUG JoinProcessor:169 - Using FROM fragment [users user0_ left outer join student_details user0_1_ on user0_.user_id=user0_1_.user_id left outer join professor_details user0_2_ on user0_.user_id=user0_2_.user_id]
 18:28:43,876 DEBUG HqlSqlBaseWalker:129 - select >> end [level=1, statement=select]
 18:28:43,876 DEBUG QueryTranslatorImpl:265 - --- SQL AST ---
@@ -5962,13 +5962,13 @@ javax.ws.rs.WebApplicationException: HTTP 405 Method Not Allowed
     |  \-[FROM_FRAGMENT] FromElement: 'users user0_ left outer join student_details user0_1_ on user0_.user_id=user0_1_.user_id left outer join professor_details user0_2_ on user0_.user_id=user0_2_.user_id' FromElement{explicit,not a collection join,not a fetch join,fetch non-lazy properties,classAlias=u,role=null,tableName=users,tableAlias=user0_,origin=null,columns={,className=org.courseregistration.model.User}}
     \-[WHERE] SqlNode: 'where'
        \-[EQ] BinaryLogicOperatorNode: '='
-          +-[DOT] DotNode: 'user0_.college_id' {propertyName=collegeId,dereferenceType=PRIMITIVE,getPropertyPath=collegeId,path=u.collegeId,tableAlias=user0_,className=org.courseregistration.model.User,classAlias=u}
+          +-[DOT] DotNode: 'user0_.college_id' {propertyName=username,dereferenceType=PRIMITIVE,getPropertyPath=username,path=u.username,tableAlias=user0_,className=org.courseregistration.model.User,classAlias=u}
           |  +-[ALIAS_REF] IdentNode: 'user0_.user_id' {alias=u, className=org.courseregistration.model.User, tableAlias=user0_}
-          |  \-[IDENT] IdentNode: 'collegeId' {originalText=collegeId}
-          \-[NAMED_PARAM] ParameterNode: '?' {name=collegeId, expectedType=org.hibernate.type.LongType@4d4337f9}
+          |  \-[IDENT] IdentNode: 'username' {originalText=username}
+          \-[NAMED_PARAM] ParameterNode: '?' {name=username, expectedType=org.hibernate.type.LongType@4d4337f9}
 
 18:28:43,877 DEBUG ErrorCounter:95 - throwQueryException() : no errors
-18:28:43,882 DEBUG QueryTranslatorImpl:247 - HQL: select u from org.courseregistration.model.User as u where u.collegeId=:collegeId
+18:28:43,882 DEBUG QueryTranslatorImpl:247 - HQL: select u from org.courseregistration.model.User as u where u.username=:username
 18:28:43,882 DEBUG QueryTranslatorImpl:248 - SQL: select user0_.user_id as user_id1_8_, user0_.address_id as address10_8_, user0_.college_id as college_2_8_, user0_.date_of_birth as date_of_3_8_, user0_.email_id as email_id4_8_, user0_.first_name as first_na5_8_, user0_.password as password6_8_, user0_.last_name as last_nam7_8_, user0_.middle_name as middle_n8_8_, user0_.phone_number as phone_nu9_8_, user0_1_.admissionType as admissio1_6_, user0_1_.previous_degree as previous2_6_, user0_2_.faculty_type as faculty_1_3_, user0_2_.office_hours_from_time as office_h2_3_, user0_2_.office_hours_to_time as office_h3_3_, user0_2_.years_of_experience as years_of4_3_, case when user0_1_.user_id is not null then 1 when user0_2_.user_id is not null then 2 when user0_.user_id is not null then 0 end as clazz_ from users user0_ left outer join student_details user0_1_ on user0_.user_id=user0_1_.user_id left outer join professor_details user0_2_ on user0_.user_id=user0_2_.user_id where user0_.college_id=?
 18:28:43,882 DEBUG ErrorCounter:95 - throwQueryException() : no errors
 18:28:43,902 DEBUG SQL:92 - select user0_.user_id as user_id1_8_, user0_.address_id as address10_8_, user0_.college_id as college_2_8_, user0_.date_of_birth as date_of_3_8_, user0_.email_id as email_id4_8_, user0_.first_name as first_na5_8_, user0_.password as password6_8_, user0_.last_name as last_nam7_8_, user0_.middle_name as middle_n8_8_, user0_.phone_number as phone_nu9_8_, user0_1_.admissionType as admissio1_6_, user0_1_.previous_degree as previous2_6_, user0_2_.faculty_type as faculty_1_3_, user0_2_.office_hours_from_time as office_h2_3_, user0_2_.office_hours_to_time as office_h3_3_, user0_2_.years_of_experience as years_of4_3_, case when user0_1_.user_id is not null then 1 when user0_2_.user_id is not null then 2 when user0_.user_id is not null then 0 end as clazz_ from users user0_ left outer join student_details user0_1_ on user0_.user_id=user0_1_.user_id left outer join professor_details user0_2_ on user0_.user_id=user0_2_.user_id where user0_.college_id=?
@@ -6268,7 +6268,7 @@ javax.ws.rs.WebApplicationException: HTTP 405 Method Not Allowed
 18:34:40,521  INFO ContextLoader:347 - Root WebApplicationContext: initialization completed in 1988 ms
 18:36:32,463 DEBUG QueryTranslatorFactoryInitiator:45 - QueryTranslatorFactory : org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory@4746aeb
 18:36:32,464  INFO QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
-18:36:32,483 DEBUG QueryTranslatorImpl:278 - parse() - HQL: select u from org.courseregistration.model.User as u where u.collegeId=:collegeId
+18:36:32,483 DEBUG QueryTranslatorImpl:278 - parse() - HQL: select u from org.courseregistration.model.User as u where u.username=:username
 18:36:32,489 DEBUG QueryTranslatorImpl:296 - --- HQL AST ---
  \-[QUERY] Node: 'query'
     +-[SELECT_FROM] Node: 'SELECT_FROM'
@@ -6288,19 +6288,19 @@ javax.ws.rs.WebApplicationException: HTTP 405 Method Not Allowed
        \-[EQ] Node: '='
           +-[DOT] Node: '.'
           |  +-[IDENT] Node: 'u'
-          |  \-[IDENT] Node: 'collegeId'
+          |  \-[IDENT] Node: 'username'
           \-[COLON] Node: ':'
-             \-[IDENT] Node: 'collegeId'
+             \-[IDENT] Node: 'username'
 
 18:36:32,489 DEBUG ErrorCounter:95 - throwQueryException() : no errors
 18:36:32,502 DEBUG HqlSqlBaseWalker:121 - select << begin [level=1, statement=select]
 18:36:32,512 DEBUG FromElement:145 - FromClause{level=1} : org.courseregistration.model.User (u) -> user0_
 18:36:32,513 DEBUG FromReferenceNode:60 - Resolved : u -> user0_.user_id
 18:36:32,515 DEBUG FromReferenceNode:60 - Resolved : u -> user0_.user_id
-18:36:32,516 DEBUG DotNode:654 - getDataType() : collegeId -> org.hibernate.type.LongType@67deccf6
-18:36:32,516 DEBUG FromReferenceNode:60 - Resolved : u.collegeId -> user0_.college_id
+18:36:32,516 DEBUG DotNode:654 - getDataType() : username -> org.hibernate.type.LongType@67deccf6
+18:36:32,516 DEBUG FromReferenceNode:60 - Resolved : u.username -> user0_.college_id
 18:36:32,517 DEBUG HqlSqlBaseWalker:125 - select : finishing up [level=1, statement=select]
-18:36:32,517 DEBUG HqlSqlWalker:654 - processQuery() :  ( SELECT ( {select clause} user0_.user_id ) ( FromClause{level=1} users user0_ ) ( where ( = ( user0_.college_id user0_.user_id collegeId ) ? ) ) )
+18:36:32,517 DEBUG HqlSqlWalker:654 - processQuery() :  ( SELECT ( {select clause} user0_.user_id ) ( FromClause{level=1} users user0_ ) ( where ( = ( user0_.college_id user0_.user_id username ) ? ) ) )
 18:36:32,521 DEBUG JoinProcessor:169 - Using FROM fragment [users user0_ left outer join student_details user0_1_ on user0_.user_id=user0_1_.user_id left outer join professor_details user0_2_ on user0_.user_id=user0_2_.user_id]
 18:36:32,522 DEBUG HqlSqlBaseWalker:129 - select >> end [level=1, statement=select]
 18:36:32,522 DEBUG QueryTranslatorImpl:265 - --- SQL AST ---
@@ -6312,13 +6312,13 @@ javax.ws.rs.WebApplicationException: HTTP 405 Method Not Allowed
     |  \-[FROM_FRAGMENT] FromElement: 'users user0_ left outer join student_details user0_1_ on user0_.user_id=user0_1_.user_id left outer join professor_details user0_2_ on user0_.user_id=user0_2_.user_id' FromElement{explicit,not a collection join,not a fetch join,fetch non-lazy properties,classAlias=u,role=null,tableName=users,tableAlias=user0_,origin=null,columns={,className=org.courseregistration.model.User}}
     \-[WHERE] SqlNode: 'where'
        \-[EQ] BinaryLogicOperatorNode: '='
-          +-[DOT] DotNode: 'user0_.college_id' {propertyName=collegeId,dereferenceType=PRIMITIVE,getPropertyPath=collegeId,path=u.collegeId,tableAlias=user0_,className=org.courseregistration.model.User,classAlias=u}
+          +-[DOT] DotNode: 'user0_.college_id' {propertyName=username,dereferenceType=PRIMITIVE,getPropertyPath=username,path=u.username,tableAlias=user0_,className=org.courseregistration.model.User,classAlias=u}
           |  +-[ALIAS_REF] IdentNode: 'user0_.user_id' {alias=u, className=org.courseregistration.model.User, tableAlias=user0_}
-          |  \-[IDENT] IdentNode: 'collegeId' {originalText=collegeId}
-          \-[NAMED_PARAM] ParameterNode: '?' {name=collegeId, expectedType=org.hibernate.type.LongType@67deccf6}
+          |  \-[IDENT] IdentNode: 'username' {originalText=username}
+          \-[NAMED_PARAM] ParameterNode: '?' {name=username, expectedType=org.hibernate.type.LongType@67deccf6}
 
 18:36:32,522 DEBUG ErrorCounter:95 - throwQueryException() : no errors
-18:36:32,528 DEBUG QueryTranslatorImpl:247 - HQL: select u from org.courseregistration.model.User as u where u.collegeId=:collegeId
+18:36:32,528 DEBUG QueryTranslatorImpl:247 - HQL: select u from org.courseregistration.model.User as u where u.username=:username
 18:36:32,528 DEBUG QueryTranslatorImpl:248 - SQL: select user0_.user_id as user_id1_8_, user0_.address_id as address10_8_, user0_.college_id as college_2_8_, user0_.date_of_birth as date_of_3_8_, user0_.email_id as email_id4_8_, user0_.first_name as first_na5_8_, user0_.password as password6_8_, user0_.last_name as last_nam7_8_, user0_.middle_name as middle_n8_8_, user0_.phone_number as phone_nu9_8_, user0_1_.admissionType as admissio1_6_, user0_1_.previous_degree as previous2_6_, user0_2_.faculty_type as faculty_1_3_, user0_2_.office_hours_from_time as office_h2_3_, user0_2_.office_hours_to_time as office_h3_3_, user0_2_.years_of_experience as years_of4_3_, case when user0_1_.user_id is not null then 1 when user0_2_.user_id is not null then 2 when user0_.user_id is not null then 0 end as clazz_ from users user0_ left outer join student_details user0_1_ on user0_.user_id=user0_1_.user_id left outer join professor_details user0_2_ on user0_.user_id=user0_2_.user_id where user0_.college_id=?
 18:36:32,528 DEBUG ErrorCounter:95 - throwQueryException() : no errors
 18:36:32,547 DEBUG SQL:92 - select user0_.user_id as user_id1_8_, user0_.address_id as address10_8_, user0_.college_id as college_2_8_, user0_.date_of_birth as date_of_3_8_, user0_.email_id as email_id4_8_, user0_.first_name as first_na5_8_, user0_.password as password6_8_, user0_.last_name as last_nam7_8_, user0_.middle_name as middle_n8_8_, user0_.phone_number as phone_nu9_8_, user0_1_.admissionType as admissio1_6_, user0_1_.previous_degree as previous2_6_, user0_2_.faculty_type as faculty_1_3_, user0_2_.office_hours_from_time as office_h2_3_, user0_2_.office_hours_to_time as office_h3_3_, user0_2_.years_of_experience as years_of4_3_, case when user0_1_.user_id is not null then 1 when user0_2_.user_id is not null then 2 when user0_.user_id is not null then 0 end as clazz_ from users user0_ left outer join student_details user0_1_ on user0_.user_id=user0_1_.user_id left outer join professor_details user0_2_ on user0_.user_id=user0_2_.user_id where user0_.college_id=?
@@ -6512,7 +6512,7 @@ com.sun.jersey.api.NotFoundException: HTTP 404 Not Found for uri: http://localho
 18:36:47,165  INFO ContextLoader:347 - Root WebApplicationContext: initialization completed in 2329 ms
 18:37:23,270 DEBUG QueryTranslatorFactoryInitiator:45 - QueryTranslatorFactory : org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory@788175ad
 18:37:23,270  INFO QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
-18:37:23,292 DEBUG QueryTranslatorImpl:278 - parse() - HQL: select u from org.courseregistration.model.User as u where u.collegeId=:collegeId
+18:37:23,292 DEBUG QueryTranslatorImpl:278 - parse() - HQL: select u from org.courseregistration.model.User as u where u.username=:username
 18:37:23,300 DEBUG QueryTranslatorImpl:296 - --- HQL AST ---
  \-[QUERY] Node: 'query'
     +-[SELECT_FROM] Node: 'SELECT_FROM'
@@ -6532,19 +6532,19 @@ com.sun.jersey.api.NotFoundException: HTTP 404 Not Found for uri: http://localho
        \-[EQ] Node: '='
           +-[DOT] Node: '.'
           |  +-[IDENT] Node: 'u'
-          |  \-[IDENT] Node: 'collegeId'
+          |  \-[IDENT] Node: 'username'
           \-[COLON] Node: ':'
-             \-[IDENT] Node: 'collegeId'
+             \-[IDENT] Node: 'username'
 
 18:37:23,300 DEBUG ErrorCounter:95 - throwQueryException() : no errors
 18:37:23,318 DEBUG HqlSqlBaseWalker:121 - select << begin [level=1, statement=select]
 18:37:23,331 DEBUG FromElement:145 - FromClause{level=1} : org.courseregistration.model.User (u) -> user0_
 18:37:23,332 DEBUG FromReferenceNode:60 - Resolved : u -> user0_.user_id
 18:37:23,334 DEBUG FromReferenceNode:60 - Resolved : u -> user0_.user_id
-18:37:23,336 DEBUG DotNode:654 - getDataType() : collegeId -> org.hibernate.type.LongType@3ece79fe
-18:37:23,336 DEBUG FromReferenceNode:60 - Resolved : u.collegeId -> user0_.college_id
+18:37:23,336 DEBUG DotNode:654 - getDataType() : username -> org.hibernate.type.LongType@3ece79fe
+18:37:23,336 DEBUG FromReferenceNode:60 - Resolved : u.username -> user0_.college_id
 18:37:23,337 DEBUG HqlSqlBaseWalker:125 - select : finishing up [level=1, statement=select]
-18:37:23,338 DEBUG HqlSqlWalker:654 - processQuery() :  ( SELECT ( {select clause} user0_.user_id ) ( FromClause{level=1} users user0_ ) ( where ( = ( user0_.college_id user0_.user_id collegeId ) ? ) ) )
+18:37:23,338 DEBUG HqlSqlWalker:654 - processQuery() :  ( SELECT ( {select clause} user0_.user_id ) ( FromClause{level=1} users user0_ ) ( where ( = ( user0_.college_id user0_.user_id username ) ? ) ) )
 18:37:23,343 DEBUG JoinProcessor:169 - Using FROM fragment [users user0_ left outer join student_details user0_1_ on user0_.user_id=user0_1_.user_id left outer join professor_details user0_2_ on user0_.user_id=user0_2_.user_id]
 18:37:23,343 DEBUG HqlSqlBaseWalker:129 - select >> end [level=1, statement=select]
 18:37:23,344 DEBUG QueryTranslatorImpl:265 - --- SQL AST ---
@@ -6556,13 +6556,13 @@ com.sun.jersey.api.NotFoundException: HTTP 404 Not Found for uri: http://localho
     |  \-[FROM_FRAGMENT] FromElement: 'users user0_ left outer join student_details user0_1_ on user0_.user_id=user0_1_.user_id left outer join professor_details user0_2_ on user0_.user_id=user0_2_.user_id' FromElement{explicit,not a collection join,not a fetch join,fetch non-lazy properties,classAlias=u,role=null,tableName=users,tableAlias=user0_,origin=null,columns={,className=org.courseregistration.model.User}}
     \-[WHERE] SqlNode: 'where'
        \-[EQ] BinaryLogicOperatorNode: '='
-          +-[DOT] DotNode: 'user0_.college_id' {propertyName=collegeId,dereferenceType=PRIMITIVE,getPropertyPath=collegeId,path=u.collegeId,tableAlias=user0_,className=org.courseregistration.model.User,classAlias=u}
+          +-[DOT] DotNode: 'user0_.college_id' {propertyName=username,dereferenceType=PRIMITIVE,getPropertyPath=username,path=u.username,tableAlias=user0_,className=org.courseregistration.model.User,classAlias=u}
           |  +-[ALIAS_REF] IdentNode: 'user0_.user_id' {alias=u, className=org.courseregistration.model.User, tableAlias=user0_}
-          |  \-[IDENT] IdentNode: 'collegeId' {originalText=collegeId}
-          \-[NAMED_PARAM] ParameterNode: '?' {name=collegeId, expectedType=org.hibernate.type.LongType@3ece79fe}
+          |  \-[IDENT] IdentNode: 'username' {originalText=username}
+          \-[NAMED_PARAM] ParameterNode: '?' {name=username, expectedType=org.hibernate.type.LongType@3ece79fe}
 
 18:37:23,344 DEBUG ErrorCounter:95 - throwQueryException() : no errors
-18:37:23,350 DEBUG QueryTranslatorImpl:247 - HQL: select u from org.courseregistration.model.User as u where u.collegeId=:collegeId
+18:37:23,350 DEBUG QueryTranslatorImpl:247 - HQL: select u from org.courseregistration.model.User as u where u.username=:username
 18:37:23,350 DEBUG QueryTranslatorImpl:248 - SQL: select user0_.user_id as user_id1_8_, user0_.address_id as address10_8_, user0_.college_id as college_2_8_, user0_.date_of_birth as date_of_3_8_, user0_.email_id as email_id4_8_, user0_.first_name as first_na5_8_, user0_.password as password6_8_, user0_.last_name as last_nam7_8_, user0_.middle_name as middle_n8_8_, user0_.phone_number as phone_nu9_8_, user0_1_.admissionType as admissio1_6_, user0_1_.previous_degree as previous2_6_, user0_2_.faculty_type as faculty_1_3_, user0_2_.office_hours_from_time as office_h2_3_, user0_2_.office_hours_to_time as office_h3_3_, user0_2_.years_of_experience as years_of4_3_, case when user0_1_.user_id is not null then 1 when user0_2_.user_id is not null then 2 when user0_.user_id is not null then 0 end as clazz_ from users user0_ left outer join student_details user0_1_ on user0_.user_id=user0_1_.user_id left outer join professor_details user0_2_ on user0_.user_id=user0_2_.user_id where user0_.college_id=?
 18:37:23,351 DEBUG ErrorCounter:95 - throwQueryException() : no errors
 18:37:23,370 DEBUG SQL:92 - select user0_.user_id as user_id1_8_, user0_.address_id as address10_8_, user0_.college_id as college_2_8_, user0_.date_of_birth as date_of_3_8_, user0_.email_id as email_id4_8_, user0_.first_name as first_na5_8_, user0_.password as password6_8_, user0_.last_name as last_nam7_8_, user0_.middle_name as middle_n8_8_, user0_.phone_number as phone_nu9_8_, user0_1_.admissionType as admissio1_6_, user0_1_.previous_degree as previous2_6_, user0_2_.faculty_type as faculty_1_3_, user0_2_.office_hours_from_time as office_h2_3_, user0_2_.office_hours_to_time as office_h3_3_, user0_2_.years_of_experience as years_of4_3_, case when user0_1_.user_id is not null then 1 when user0_2_.user_id is not null then 2 when user0_.user_id is not null then 0 end as clazz_ from users user0_ left outer join student_details user0_1_ on user0_.user_id=user0_1_.user_id left outer join professor_details user0_2_ on user0_.user_id=user0_2_.user_id where user0_.college_id=?
@@ -6649,7 +6649,7 @@ java.lang.IllegalArgumentException: URI must not be null
 	at org.springframework.web.util.UriComponentsBuilder.fromUriString(UriComponentsBuilder.java:186)
 	at org.springframework.hateoas.jaxrs.JaxRsLinkBuilder.linkTo(JaxRsLinkBuilder.java:70)
 	at org.springframework.hateoas.jaxrs.JaxRsLinkBuilder.linkTo(JaxRsLinkBuilder.java:54)
-	at org.courseregistration.controller.SectionController.findSections(SectionController.java:92)
+	at org.courseregistration.rest.SectionController.findSections(SectionController.java:92)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -6740,7 +6740,7 @@ java.lang.IllegalArgumentException: URI must not be null
 	at org.springframework.web.util.UriComponentsBuilder.fromUriString(UriComponentsBuilder.java:186)
 	at org.springframework.hateoas.jaxrs.JaxRsLinkBuilder.linkTo(JaxRsLinkBuilder.java:70)
 	at org.springframework.hateoas.jaxrs.JaxRsLinkBuilder.linkTo(JaxRsLinkBuilder.java:54)
-	at org.courseregistration.controller.SectionController.findSections(SectionController.java:92)
+	at org.courseregistration.rest.SectionController.findSections(SectionController.java:92)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -6938,7 +6938,7 @@ java.lang.IllegalArgumentException: URI must not be null
 18:37:59,107  INFO ContextLoader:347 - Root WebApplicationContext: initialization completed in 2275 ms
 18:38:04,992 DEBUG QueryTranslatorFactoryInitiator:45 - QueryTranslatorFactory : org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory@6b31b8c2
 18:38:04,993  INFO QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
-18:38:05,014 DEBUG QueryTranslatorImpl:278 - parse() - HQL: select u from org.courseregistration.model.User as u where u.collegeId=:collegeId
+18:38:05,014 DEBUG QueryTranslatorImpl:278 - parse() - HQL: select u from org.courseregistration.model.User as u where u.username=:username
 18:38:05,021 DEBUG QueryTranslatorImpl:296 - --- HQL AST ---
  \-[QUERY] Node: 'query'
     +-[SELECT_FROM] Node: 'SELECT_FROM'
@@ -6958,19 +6958,19 @@ java.lang.IllegalArgumentException: URI must not be null
        \-[EQ] Node: '='
           +-[DOT] Node: '.'
           |  +-[IDENT] Node: 'u'
-          |  \-[IDENT] Node: 'collegeId'
+          |  \-[IDENT] Node: 'username'
           \-[COLON] Node: ':'
-             \-[IDENT] Node: 'collegeId'
+             \-[IDENT] Node: 'username'
 
 18:38:05,021 DEBUG ErrorCounter:95 - throwQueryException() : no errors
 18:38:05,040 DEBUG HqlSqlBaseWalker:121 - select << begin [level=1, statement=select]
 18:38:05,053 DEBUG FromElement:145 - FromClause{level=1} : org.courseregistration.model.User (u) -> user0_
 18:38:05,054 DEBUG FromReferenceNode:60 - Resolved : u -> user0_.user_id
 18:38:05,056 DEBUG FromReferenceNode:60 - Resolved : u -> user0_.user_id
-18:38:05,057 DEBUG DotNode:654 - getDataType() : collegeId -> org.hibernate.type.LongType@3ece79fe
-18:38:05,058 DEBUG FromReferenceNode:60 - Resolved : u.collegeId -> user0_.college_id
+18:38:05,057 DEBUG DotNode:654 - getDataType() : username -> org.hibernate.type.LongType@3ece79fe
+18:38:05,058 DEBUG FromReferenceNode:60 - Resolved : u.username -> user0_.college_id
 18:38:05,059 DEBUG HqlSqlBaseWalker:125 - select : finishing up [level=1, statement=select]
-18:38:05,060 DEBUG HqlSqlWalker:654 - processQuery() :  ( SELECT ( {select clause} user0_.user_id ) ( FromClause{level=1} users user0_ ) ( where ( = ( user0_.college_id user0_.user_id collegeId ) ? ) ) )
+18:38:05,060 DEBUG HqlSqlWalker:654 - processQuery() :  ( SELECT ( {select clause} user0_.user_id ) ( FromClause{level=1} users user0_ ) ( where ( = ( user0_.college_id user0_.user_id username ) ? ) ) )
 18:38:05,065 DEBUG JoinProcessor:169 - Using FROM fragment [users user0_ left outer join student_details user0_1_ on user0_.user_id=user0_1_.user_id left outer join professor_details user0_2_ on user0_.user_id=user0_2_.user_id]
 18:38:05,065 DEBUG HqlSqlBaseWalker:129 - select >> end [level=1, statement=select]
 18:38:05,066 DEBUG QueryTranslatorImpl:265 - --- SQL AST ---
@@ -6982,13 +6982,13 @@ java.lang.IllegalArgumentException: URI must not be null
     |  \-[FROM_FRAGMENT] FromElement: 'users user0_ left outer join student_details user0_1_ on user0_.user_id=user0_1_.user_id left outer join professor_details user0_2_ on user0_.user_id=user0_2_.user_id' FromElement{explicit,not a collection join,not a fetch join,fetch non-lazy properties,classAlias=u,role=null,tableName=users,tableAlias=user0_,origin=null,columns={,className=org.courseregistration.model.User}}
     \-[WHERE] SqlNode: 'where'
        \-[EQ] BinaryLogicOperatorNode: '='
-          +-[DOT] DotNode: 'user0_.college_id' {propertyName=collegeId,dereferenceType=PRIMITIVE,getPropertyPath=collegeId,path=u.collegeId,tableAlias=user0_,className=org.courseregistration.model.User,classAlias=u}
+          +-[DOT] DotNode: 'user0_.college_id' {propertyName=username,dereferenceType=PRIMITIVE,getPropertyPath=username,path=u.username,tableAlias=user0_,className=org.courseregistration.model.User,classAlias=u}
           |  +-[ALIAS_REF] IdentNode: 'user0_.user_id' {alias=u, className=org.courseregistration.model.User, tableAlias=user0_}
-          |  \-[IDENT] IdentNode: 'collegeId' {originalText=collegeId}
-          \-[NAMED_PARAM] ParameterNode: '?' {name=collegeId, expectedType=org.hibernate.type.LongType@3ece79fe}
+          |  \-[IDENT] IdentNode: 'username' {originalText=username}
+          \-[NAMED_PARAM] ParameterNode: '?' {name=username, expectedType=org.hibernate.type.LongType@3ece79fe}
 
 18:38:05,066 DEBUG ErrorCounter:95 - throwQueryException() : no errors
-18:38:05,072 DEBUG QueryTranslatorImpl:247 - HQL: select u from org.courseregistration.model.User as u where u.collegeId=:collegeId
+18:38:05,072 DEBUG QueryTranslatorImpl:247 - HQL: select u from org.courseregistration.model.User as u where u.username=:username
 18:38:05,072 DEBUG QueryTranslatorImpl:248 - SQL: select user0_.user_id as user_id1_8_, user0_.address_id as address10_8_, user0_.college_id as college_2_8_, user0_.date_of_birth as date_of_3_8_, user0_.email_id as email_id4_8_, user0_.first_name as first_na5_8_, user0_.password as password6_8_, user0_.last_name as last_nam7_8_, user0_.middle_name as middle_n8_8_, user0_.phone_number as phone_nu9_8_, user0_1_.admissionType as admissio1_6_, user0_1_.previous_degree as previous2_6_, user0_2_.faculty_type as faculty_1_3_, user0_2_.office_hours_from_time as office_h2_3_, user0_2_.office_hours_to_time as office_h3_3_, user0_2_.years_of_experience as years_of4_3_, case when user0_1_.user_id is not null then 1 when user0_2_.user_id is not null then 2 when user0_.user_id is not null then 0 end as clazz_ from users user0_ left outer join student_details user0_1_ on user0_.user_id=user0_1_.user_id left outer join professor_details user0_2_ on user0_.user_id=user0_2_.user_id where user0_.college_id=?
 18:38:05,072 DEBUG ErrorCounter:95 - throwQueryException() : no errors
 18:38:05,093 DEBUG SQL:92 - select user0_.user_id as user_id1_8_, user0_.address_id as address10_8_, user0_.college_id as college_2_8_, user0_.date_of_birth as date_of_3_8_, user0_.email_id as email_id4_8_, user0_.first_name as first_na5_8_, user0_.password as password6_8_, user0_.last_name as last_nam7_8_, user0_.middle_name as middle_n8_8_, user0_.phone_number as phone_nu9_8_, user0_1_.admissionType as admissio1_6_, user0_1_.previous_degree as previous2_6_, user0_2_.faculty_type as faculty_1_3_, user0_2_.office_hours_from_time as office_h2_3_, user0_2_.office_hours_to_time as office_h3_3_, user0_2_.years_of_experience as years_of4_3_, case when user0_1_.user_id is not null then 1 when user0_2_.user_id is not null then 2 when user0_.user_id is not null then 0 end as clazz_ from users user0_ left outer join student_details user0_1_ on user0_.user_id=user0_1_.user_id left outer join professor_details user0_2_ on user0_.user_id=user0_2_.user_id where user0_.college_id=?
@@ -7075,7 +7075,7 @@ java.lang.IllegalArgumentException: URI must not be null
 	at org.springframework.web.util.UriComponentsBuilder.fromUriString(UriComponentsBuilder.java:186)
 	at org.springframework.hateoas.jaxrs.JaxRsLinkBuilder.linkTo(JaxRsLinkBuilder.java:70)
 	at org.springframework.hateoas.jaxrs.JaxRsLinkBuilder.linkTo(JaxRsLinkBuilder.java:54)
-	at org.courseregistration.controller.SectionController.findSections(SectionController.java:93)
+	at org.courseregistration.rest.SectionController.findSections(SectionController.java:93)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -7396,7 +7396,7 @@ java.lang.IllegalArgumentException: URI must not be null
 18:39:05,729  INFO ContextLoader:347 - Root WebApplicationContext: initialization completed in 2307 ms
 18:39:10,738 DEBUG QueryTranslatorFactoryInitiator:45 - QueryTranslatorFactory : org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory@7bc8d9ca
 18:39:10,738  INFO QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
-18:39:10,760 DEBUG QueryTranslatorImpl:278 - parse() - HQL: select u from org.courseregistration.model.User as u where u.collegeId=:collegeId
+18:39:10,760 DEBUG QueryTranslatorImpl:278 - parse() - HQL: select u from org.courseregistration.model.User as u where u.username=:username
 18:39:10,767 DEBUG QueryTranslatorImpl:296 - --- HQL AST ---
  \-[QUERY] Node: 'query'
     +-[SELECT_FROM] Node: 'SELECT_FROM'
@@ -7416,19 +7416,19 @@ java.lang.IllegalArgumentException: URI must not be null
        \-[EQ] Node: '='
           +-[DOT] Node: '.'
           |  +-[IDENT] Node: 'u'
-          |  \-[IDENT] Node: 'collegeId'
+          |  \-[IDENT] Node: 'username'
           \-[COLON] Node: ':'
-             \-[IDENT] Node: 'collegeId'
+             \-[IDENT] Node: 'username'
 
 18:39:10,768 DEBUG ErrorCounter:95 - throwQueryException() : no errors
 18:39:10,786 DEBUG HqlSqlBaseWalker:121 - select << begin [level=1, statement=select]
 18:39:10,799 DEBUG FromElement:145 - FromClause{level=1} : org.courseregistration.model.User (u) -> user0_
 18:39:10,800 DEBUG FromReferenceNode:60 - Resolved : u -> user0_.user_id
 18:39:10,803 DEBUG FromReferenceNode:60 - Resolved : u -> user0_.user_id
-18:39:10,804 DEBUG DotNode:654 - getDataType() : collegeId -> org.hibernate.type.LongType@3ece79fe
-18:39:10,804 DEBUG FromReferenceNode:60 - Resolved : u.collegeId -> user0_.college_id
+18:39:10,804 DEBUG DotNode:654 - getDataType() : username -> org.hibernate.type.LongType@3ece79fe
+18:39:10,804 DEBUG FromReferenceNode:60 - Resolved : u.username -> user0_.college_id
 18:39:10,806 DEBUG HqlSqlBaseWalker:125 - select : finishing up [level=1, statement=select]
-18:39:10,806 DEBUG HqlSqlWalker:654 - processQuery() :  ( SELECT ( {select clause} user0_.user_id ) ( FromClause{level=1} users user0_ ) ( where ( = ( user0_.college_id user0_.user_id collegeId ) ? ) ) )
+18:39:10,806 DEBUG HqlSqlWalker:654 - processQuery() :  ( SELECT ( {select clause} user0_.user_id ) ( FromClause{level=1} users user0_ ) ( where ( = ( user0_.college_id user0_.user_id username ) ? ) ) )
 18:39:10,811 DEBUG JoinProcessor:169 - Using FROM fragment [users user0_ left outer join student_details user0_1_ on user0_.user_id=user0_1_.user_id left outer join professor_details user0_2_ on user0_.user_id=user0_2_.user_id]
 18:39:10,812 DEBUG HqlSqlBaseWalker:129 - select >> end [level=1, statement=select]
 18:39:10,813 DEBUG QueryTranslatorImpl:265 - --- SQL AST ---
@@ -7440,13 +7440,13 @@ java.lang.IllegalArgumentException: URI must not be null
     |  \-[FROM_FRAGMENT] FromElement: 'users user0_ left outer join student_details user0_1_ on user0_.user_id=user0_1_.user_id left outer join professor_details user0_2_ on user0_.user_id=user0_2_.user_id' FromElement{explicit,not a collection join,not a fetch join,fetch non-lazy properties,classAlias=u,role=null,tableName=users,tableAlias=user0_,origin=null,columns={,className=org.courseregistration.model.User}}
     \-[WHERE] SqlNode: 'where'
        \-[EQ] BinaryLogicOperatorNode: '='
-          +-[DOT] DotNode: 'user0_.college_id' {propertyName=collegeId,dereferenceType=PRIMITIVE,getPropertyPath=collegeId,path=u.collegeId,tableAlias=user0_,className=org.courseregistration.model.User,classAlias=u}
+          +-[DOT] DotNode: 'user0_.college_id' {propertyName=username,dereferenceType=PRIMITIVE,getPropertyPath=username,path=u.username,tableAlias=user0_,className=org.courseregistration.model.User,classAlias=u}
           |  +-[ALIAS_REF] IdentNode: 'user0_.user_id' {alias=u, className=org.courseregistration.model.User, tableAlias=user0_}
-          |  \-[IDENT] IdentNode: 'collegeId' {originalText=collegeId}
-          \-[NAMED_PARAM] ParameterNode: '?' {name=collegeId, expectedType=org.hibernate.type.LongType@3ece79fe}
+          |  \-[IDENT] IdentNode: 'username' {originalText=username}
+          \-[NAMED_PARAM] ParameterNode: '?' {name=username, expectedType=org.hibernate.type.LongType@3ece79fe}
 
 18:39:10,813 DEBUG ErrorCounter:95 - throwQueryException() : no errors
-18:39:10,819 DEBUG QueryTranslatorImpl:247 - HQL: select u from org.courseregistration.model.User as u where u.collegeId=:collegeId
+18:39:10,819 DEBUG QueryTranslatorImpl:247 - HQL: select u from org.courseregistration.model.User as u where u.username=:username
 18:39:10,819 DEBUG QueryTranslatorImpl:248 - SQL: select user0_.user_id as user_id1_8_, user0_.address_id as address10_8_, user0_.college_id as college_2_8_, user0_.date_of_birth as date_of_3_8_, user0_.email_id as email_id4_8_, user0_.first_name as first_na5_8_, user0_.password as password6_8_, user0_.last_name as last_nam7_8_, user0_.middle_name as middle_n8_8_, user0_.phone_number as phone_nu9_8_, user0_1_.admissionType as admissio1_6_, user0_1_.previous_degree as previous2_6_, user0_2_.faculty_type as faculty_1_3_, user0_2_.office_hours_from_time as office_h2_3_, user0_2_.office_hours_to_time as office_h3_3_, user0_2_.years_of_experience as years_of4_3_, case when user0_1_.user_id is not null then 1 when user0_2_.user_id is not null then 2 when user0_.user_id is not null then 0 end as clazz_ from users user0_ left outer join student_details user0_1_ on user0_.user_id=user0_1_.user_id left outer join professor_details user0_2_ on user0_.user_id=user0_2_.user_id where user0_.college_id=?
 18:39:10,819 DEBUG ErrorCounter:95 - throwQueryException() : no errors
 18:39:10,838 DEBUG SQL:92 - select user0_.user_id as user_id1_8_, user0_.address_id as address10_8_, user0_.college_id as college_2_8_, user0_.date_of_birth as date_of_3_8_, user0_.email_id as email_id4_8_, user0_.first_name as first_na5_8_, user0_.password as password6_8_, user0_.last_name as last_nam7_8_, user0_.middle_name as middle_n8_8_, user0_.phone_number as phone_nu9_8_, user0_1_.admissionType as admissio1_6_, user0_1_.previous_degree as previous2_6_, user0_2_.faculty_type as faculty_1_3_, user0_2_.office_hours_from_time as office_h2_3_, user0_2_.office_hours_to_time as office_h3_3_, user0_2_.years_of_experience as years_of4_3_, case when user0_1_.user_id is not null then 1 when user0_2_.user_id is not null then 2 when user0_.user_id is not null then 0 end as clazz_ from users user0_ left outer join student_details user0_1_ on user0_.user_id=user0_1_.user_id left outer join professor_details user0_2_ on user0_.user_id=user0_2_.user_id where user0_.college_id=?
@@ -7652,7 +7652,7 @@ java.lang.IllegalArgumentException: URI must not be null
 18:41:47,848  INFO ContextLoader:347 - Root WebApplicationContext: initialization completed in 2301 ms
 18:42:13,442 DEBUG QueryTranslatorFactoryInitiator:45 - QueryTranslatorFactory : org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory@75036ca0
 18:42:13,443  INFO QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
-18:42:13,464 DEBUG QueryTranslatorImpl:278 - parse() - HQL: select u from org.courseregistration.model.User as u where u.collegeId=:collegeId
+18:42:13,464 DEBUG QueryTranslatorImpl:278 - parse() - HQL: select u from org.courseregistration.model.User as u where u.username=:username
 18:42:13,472 DEBUG QueryTranslatorImpl:296 - --- HQL AST ---
  \-[QUERY] Node: 'query'
     +-[SELECT_FROM] Node: 'SELECT_FROM'
@@ -7672,19 +7672,19 @@ java.lang.IllegalArgumentException: URI must not be null
        \-[EQ] Node: '='
           +-[DOT] Node: '.'
           |  +-[IDENT] Node: 'u'
-          |  \-[IDENT] Node: 'collegeId'
+          |  \-[IDENT] Node: 'username'
           \-[COLON] Node: ':'
-             \-[IDENT] Node: 'collegeId'
+             \-[IDENT] Node: 'username'
 
 18:42:13,473 DEBUG ErrorCounter:95 - throwQueryException() : no errors
 18:42:13,491 DEBUG HqlSqlBaseWalker:121 - select << begin [level=1, statement=select]
 18:42:13,505 DEBUG FromElement:145 - FromClause{level=1} : org.courseregistration.model.User (u) -> user0_
 18:42:13,506 DEBUG FromReferenceNode:60 - Resolved : u -> user0_.user_id
 18:42:13,508 DEBUG FromReferenceNode:60 - Resolved : u -> user0_.user_id
-18:42:13,509 DEBUG DotNode:654 - getDataType() : collegeId -> org.hibernate.type.LongType@3ece79fe
-18:42:13,509 DEBUG FromReferenceNode:60 - Resolved : u.collegeId -> user0_.college_id
+18:42:13,509 DEBUG DotNode:654 - getDataType() : username -> org.hibernate.type.LongType@3ece79fe
+18:42:13,509 DEBUG FromReferenceNode:60 - Resolved : u.username -> user0_.college_id
 18:42:13,511 DEBUG HqlSqlBaseWalker:125 - select : finishing up [level=1, statement=select]
-18:42:13,511 DEBUG HqlSqlWalker:654 - processQuery() :  ( SELECT ( {select clause} user0_.user_id ) ( FromClause{level=1} users user0_ ) ( where ( = ( user0_.college_id user0_.user_id collegeId ) ? ) ) )
+18:42:13,511 DEBUG HqlSqlWalker:654 - processQuery() :  ( SELECT ( {select clause} user0_.user_id ) ( FromClause{level=1} users user0_ ) ( where ( = ( user0_.college_id user0_.user_id username ) ? ) ) )
 18:42:13,517 DEBUG JoinProcessor:169 - Using FROM fragment [users user0_ left outer join student_details user0_1_ on user0_.user_id=user0_1_.user_id left outer join professor_details user0_2_ on user0_.user_id=user0_2_.user_id]
 18:42:13,517 DEBUG HqlSqlBaseWalker:129 - select >> end [level=1, statement=select]
 18:42:13,517 DEBUG QueryTranslatorImpl:265 - --- SQL AST ---
@@ -7696,13 +7696,13 @@ java.lang.IllegalArgumentException: URI must not be null
     |  \-[FROM_FRAGMENT] FromElement: 'users user0_ left outer join student_details user0_1_ on user0_.user_id=user0_1_.user_id left outer join professor_details user0_2_ on user0_.user_id=user0_2_.user_id' FromElement{explicit,not a collection join,not a fetch join,fetch non-lazy properties,classAlias=u,role=null,tableName=users,tableAlias=user0_,origin=null,columns={,className=org.courseregistration.model.User}}
     \-[WHERE] SqlNode: 'where'
        \-[EQ] BinaryLogicOperatorNode: '='
-          +-[DOT] DotNode: 'user0_.college_id' {propertyName=collegeId,dereferenceType=PRIMITIVE,getPropertyPath=collegeId,path=u.collegeId,tableAlias=user0_,className=org.courseregistration.model.User,classAlias=u}
+          +-[DOT] DotNode: 'user0_.college_id' {propertyName=username,dereferenceType=PRIMITIVE,getPropertyPath=username,path=u.username,tableAlias=user0_,className=org.courseregistration.model.User,classAlias=u}
           |  +-[ALIAS_REF] IdentNode: 'user0_.user_id' {alias=u, className=org.courseregistration.model.User, tableAlias=user0_}
-          |  \-[IDENT] IdentNode: 'collegeId' {originalText=collegeId}
-          \-[NAMED_PARAM] ParameterNode: '?' {name=collegeId, expectedType=org.hibernate.type.LongType@3ece79fe}
+          |  \-[IDENT] IdentNode: 'username' {originalText=username}
+          \-[NAMED_PARAM] ParameterNode: '?' {name=username, expectedType=org.hibernate.type.LongType@3ece79fe}
 
 18:42:13,518 DEBUG ErrorCounter:95 - throwQueryException() : no errors
-18:42:13,523 DEBUG QueryTranslatorImpl:247 - HQL: select u from org.courseregistration.model.User as u where u.collegeId=:collegeId
+18:42:13,523 DEBUG QueryTranslatorImpl:247 - HQL: select u from org.courseregistration.model.User as u where u.username=:username
 18:42:13,523 DEBUG QueryTranslatorImpl:248 - SQL: select user0_.user_id as user_id1_8_, user0_.address_id as address10_8_, user0_.college_id as college_2_8_, user0_.date_of_birth as date_of_3_8_, user0_.email_id as email_id4_8_, user0_.first_name as first_na5_8_, user0_.password as password6_8_, user0_.last_name as last_nam7_8_, user0_.middle_name as middle_n8_8_, user0_.phone_number as phone_nu9_8_, user0_1_.admissionType as admissio1_6_, user0_1_.previous_degree as previous2_6_, user0_2_.faculty_type as faculty_1_3_, user0_2_.office_hours_from_time as office_h2_3_, user0_2_.office_hours_to_time as office_h3_3_, user0_2_.years_of_experience as years_of4_3_, case when user0_1_.user_id is not null then 1 when user0_2_.user_id is not null then 2 when user0_.user_id is not null then 0 end as clazz_ from users user0_ left outer join student_details user0_1_ on user0_.user_id=user0_1_.user_id left outer join professor_details user0_2_ on user0_.user_id=user0_2_.user_id where user0_.college_id=?
 18:42:13,524 DEBUG ErrorCounter:95 - throwQueryException() : no errors
 18:42:13,544 DEBUG SQL:92 - select user0_.user_id as user_id1_8_, user0_.address_id as address10_8_, user0_.college_id as college_2_8_, user0_.date_of_birth as date_of_3_8_, user0_.email_id as email_id4_8_, user0_.first_name as first_na5_8_, user0_.password as password6_8_, user0_.last_name as last_nam7_8_, user0_.middle_name as middle_n8_8_, user0_.phone_number as phone_nu9_8_, user0_1_.admissionType as admissio1_6_, user0_1_.previous_degree as previous2_6_, user0_2_.faculty_type as faculty_1_3_, user0_2_.office_hours_from_time as office_h2_3_, user0_2_.office_hours_to_time as office_h3_3_, user0_2_.years_of_experience as years_of4_3_, case when user0_1_.user_id is not null then 1 when user0_2_.user_id is not null then 2 when user0_.user_id is not null then 0 end as clazz_ from users user0_ left outer join student_details user0_1_ on user0_.user_id=user0_1_.user_id left outer join professor_details user0_2_ on user0_.user_id=user0_2_.user_id where user0_.college_id=?

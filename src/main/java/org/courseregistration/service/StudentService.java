@@ -93,8 +93,8 @@ public class StudentService {
         if(s.getPreviousDegree() != null) {
             currentStud.setPreviousDegree(s.getPreviousDegree());
         }
-        if(s.getCollegeId() != null) {
-            currentStud.setCollegeId(s.getCollegeId());
+        if(s.getUsername() != null) {
+            currentStud.setUsername(s.getUsername());
         }
         if(s.getEmailId()!= null) {
             currentStud.setEmailId(s.getEmailId());

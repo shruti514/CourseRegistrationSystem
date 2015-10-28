@@ -3,7 +3,7 @@ package org.courseregistration.hateoas;
 import org.courseregistration.model.Section;
 import org.springframework.hateoas.ResourceSupport;
 
-public class SectionResource extends ResourceSupport {
+public class SectionResourceWrapper extends ResourceSupport {
     private Section section;
 
     public Section getSection() {

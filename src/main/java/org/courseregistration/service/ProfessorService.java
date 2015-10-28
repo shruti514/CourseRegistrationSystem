@@ -93,8 +93,8 @@ public class ProfessorService {
         if(p.getAddress() != null){
             currentProfessor.setAddress(p.getAddress());
         }
-        if(p.getCollegeId() !=null){
-            currentProfessor.setCollegeId(p.getCollegeId());
+        if(p.getUsername() !=null){
+            currentProfessor.setUsername(p.getUsername());
         }
         if (p.getFirstName() !=null){
             currentProfessor.setFirstName(p.getFirstName());

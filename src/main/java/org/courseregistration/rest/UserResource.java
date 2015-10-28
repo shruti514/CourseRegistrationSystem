@@ -1,15 +1,13 @@
-package org.courseregistration.controller;
+package org.courseregistration.rest;
 
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
 @Component
 @Path("/user")
-public class UserController {
+public class UserResource {
 
 
     public Response registerUser(){

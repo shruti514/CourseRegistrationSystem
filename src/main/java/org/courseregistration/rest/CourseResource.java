@@ -1,19 +1,16 @@
-package org.courseregistration.controller;
+package org.courseregistration.rest;
 
 import com.google.common.collect.Lists;
-import org.courseregistration.controller.writters.CourseAssembler;
+import org.courseregistration.rest.writters.CourseAssembler;
 import org.courseregistration.exception.ApplicationException;
-import org.courseregistration.hateoas.CourseResource;
+import org.courseregistration.hateoas.CourseResourceWrapper;
 import org.courseregistration.model.Course;
 import org.courseregistration.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.*;
 import org.springframework.hateoas.jaxrs.JaxRsLinkBuilder;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 
-import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -25,7 +22,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @RolesAllowed({"admin","professor"})
 @ExposesResourceFor(Course.class)
-public class CourseController {
+public class CourseResource {
     @Autowired
 	private CourseService courseService;
     @Autowired
@@ -64,10 +61,10 @@ public class CourseController {
 		List<Course> allCourses = courseService.findAllCourses();
 
         CourseAssembler courseAssembler = new CourseAssembler();
-        List<CourseResource> resources = courseAssembler.toResources(allCourses);
+        List<CourseResourceWrapper> resources = courseAssembler.toResources(allCourses);
 
-        Resources<CourseResource> wrapped = new Resources<>(resources);
-        wrapped.add(JaxRsLinkBuilder.linkTo(CourseController.class)
+        Resources<CourseResourceWrapper> wrapped = new Resources<>(resources);
+        wrapped.add(JaxRsLinkBuilder.linkTo(CourseResource.class)
                 .withSelfRel()
         );
 
@@ -85,9 +82,9 @@ public class CourseController {
 
         List<Course> allCourses = courseService.findAllCourses();
         CourseAssembler courseAssembler = new CourseAssembler();
-        List<CourseResource> resources = courseAssembler.toResources(allCourses);
+        List<CourseResourceWrapper> resources = courseAssembler.toResources(allCourses);
 
-        List<CourseResource> toShow = Lists.newArrayList();
+        List<CourseResourceWrapper> toShow = Lists.newArrayList();
         for(int i= page*size, j=0;j<size && i<resources.size(); i++,j++){
             toShow.add(resources.get(i));
         }
@@ -97,7 +94,7 @@ public class CourseController {
         totalNumberOfPages = resources.size()%size != 0?totalNumberOfPages+1:totalNumberOfPages;
 
         List<Link> links = Lists.newArrayList();
-        Link selfRel = JaxRsLinkBuilder.linkTo(CourseController.class).withSelfRel();
+        Link selfRel = JaxRsLinkBuilder.linkTo(CourseResource.class).withSelfRel();
         String selfRelHref = selfRel.getHref();
         links.add(new Link(new UriTemplate(selfRelHref+"?page="+(page+1)+"&size="+size),Link.REL_NEXT));
         if(page>0){
@@ -107,7 +104,7 @@ public class CourseController {
         links.add(new Link(new UriTemplate(selfRelHref+"?page=0&size="+size),Link.REL_FIRST));
         links.add(new Link(new UriTemplate(selfRelHref+"?page="+totalNumberOfPages+"&size="+size),Link.REL_LAST));
 
-        PagedResources<CourseResource> courseResources = new PagedResources<>(
+        PagedResources<CourseResourceWrapper> courseResources = new PagedResources<>(
             toShow,
             new PagedResources.PageMetadata(
                 size,

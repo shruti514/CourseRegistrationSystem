@@ -1,4 +1,4 @@
-package org.courseregistration.controller;
+package org.courseregistration.rest;
 
 import java.util.List;
 
