@@ -16,12 +16,12 @@ public class UserDAO extends GenericDAO<User> {
         throw new UnsupportedOperationException();
     }
 
-    public User findByCollegeId(Long collegeId) {
+    public User findByCollegeId(String username) {
 
         User toReturn = null;
         try {
-            toReturn = entityManager.createQuery("select u from User as u where u.collegeId=:collegeId",User.class)
-            .setParameter("collegeId",collegeId)
+            toReturn = entityManager.createQuery("select u from User as u where u.username=:username",User.class)
+            .setParameter("username",username)
             .getSingleResult();
         } catch (Exception exception) {
             logger.error("Error occurred finding an entity of type:User", exception);

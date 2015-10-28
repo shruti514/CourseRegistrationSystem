@@ -27,7 +27,7 @@ public class RestAuthenticationProvider implements AuthenticationProvider {
             String key = decodeUsingBase64(restToken.getKey());
             String credentials = decodeUsingBase64(restToken.getCredentials());
 
-            User user = userDAO.findByCollegeId(new Long(key));
+            User user = userDAO.findByCollegeId(key);
 
             if(user !=null){
                 if(decodeUsingBase64(user.getHashedPassword()).equals(credentials)){
