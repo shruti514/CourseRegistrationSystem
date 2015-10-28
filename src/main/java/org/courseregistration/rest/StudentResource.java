@@ -95,7 +95,7 @@ public class StudentResource {
     }
 
     //get all students
-    @GET
+    //@GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findStudents() throws ApplicationException {
         List<Student> allStudents = studentService.findAllStudents();
