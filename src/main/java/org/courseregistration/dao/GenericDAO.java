@@ -90,7 +90,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
         logger.debug("Saving new object of type: {}", clazz.getName());
 
         try {
-            entityManager.merge(newObject);
+            entityManager.persist(newObject);
         } catch (Exception exception) {
             logger.error("Error saving object of type: {}", clazz.getName(), exception);
             throw exception;

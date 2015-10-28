@@ -7,10 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
-import static com.google.common.base.Preconditions.checkNotNull;
-import org.courseregistration.exception.ApplicationException;
-
-import javax.ws.rs.core.Response;
 
 import static com.google.common.collect.Lists.newArrayList;
 
@@ -30,8 +26,8 @@ public class ProfessorService {
      return toReturn;
     }
 
-    public Professor findProfessorById(Long id) throws ApplicationException{
-       checkNotNull(id,"id should not be null");
+    public Professor findProfessorById(Long id) throws ApplicationException {
+        checkNotNull(id,"Id should not be null");
         Professor toReturn = professorDAO.findById(id);
 
         if(toReturn == null){
@@ -39,49 +35,27 @@ public class ProfessorService {
                 .withCode(404)
                 .withTitle("Resource not found")
                 .withStatus(Response.Status.NOT_FOUND.getStatusCode())
-                .withDetail("The course with id " + id + " is not available").build();
+                .withDetail("Professor with id " + id + " is not available").build();
         }
+
         return toReturn;
     }
 
     public void addProfessor(Professor professor){
-
         professorDAO.save(professor);
     }
 
     public void addProfessors(List<Professor> professors)  {
-
         professorDAO.save(professors);
     }
 
     public void deleteProfessorById(Long id){
-
         professorDAO.delete(id);
     }
 
     public void deleteAllProfessors(Collection<Long> ids){
-
         professorDAO.delete(ids);
     }
-
-    /*
-    public void updateProfessorPassword(Long id,String password){
-        Professor professor = professorDAO.findById(id) ;
-        professor.setHashedPassword(password);
-        professorDAO.save(professor);
-    }
-
-    public void updateProfessorPhone(Long id,String phone_number){
-        Professor professor = professorDAO.findById(id);
-        professor.setPhoneNumber(phone_number);
-        professorDAO.save(professor);
-    }
-
-    public void updateProfessorFacultyType(Long id,String facultyType) {
-        Professor professor = professorDAO.findById(id);
-        professor.setFacultyType(facultyType);
-        professorDAO.save(professor);
-    }  */
 
     public void updateProfessor(Long id ,Professor p){
         Professor currentProfessor = professorDAO.findById(id);

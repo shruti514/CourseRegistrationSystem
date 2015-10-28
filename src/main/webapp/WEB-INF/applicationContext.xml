@@ -38,14 +38,15 @@
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
       <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-      <property name="url" value="jdbc:mysql://localhost:3306/student_course_registration"/>
+      <property name="url" value="jdbc:mysql://localhost:3306/hibernate_test"/>
       <property name="username" value="root"/>
-      <property name="password" value="password"/>
+      <property name="password" value="root"/>
     </bean>
 
   <security:http create-session="stateless" entry-point-ref="authenticationEntryPoint" authentication-manager-ref="authenticationManager">
     <security:custom-filter ref="customRestFilter" position="BASIC_AUTH_FILTER" />
     <security:intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
+    <security:csrf disabled="true"/>
   </security:http>
 
   <bean id="authenticationEntryPoint" class="org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint">
@@ -59,7 +60,5 @@
   <security:authentication-manager alias="authenticationManager">
     <security:authentication-provider ref="restAuthenticationProvider" />
   </security:authentication-manager>
-
-  <bean id="restAuthenticationProvider" class="org.courseregistration.auth.RestAuthenticationProvider" />
 
 </beans>

@@ -1,16 +1,28 @@
 package org.courseregistration.rest;
 
+import com.google.common.collect.Lists;
 import org.courseregistration.exception.ApplicationException;
+import org.courseregistration.hateoas.ProfessorResourceWrapper;
+import org.courseregistration.hateoas.StudentResourceWrapper;
+import org.courseregistration.model.Professor;
 import org.courseregistration.model.Student;
+import org.courseregistration.rest.writters.ProfessorAssembler;
+import org.courseregistration.rest.writters.StudentAssembler;
 import org.courseregistration.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.PagedResources;
+import org.springframework.hateoas.Resources;
+import org.springframework.hateoas.jaxrs.JaxRsLinkBuilder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -35,16 +47,19 @@ public class StudentResource {
 
     // add single student
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addStudent(Student s) throws ApplicationException {
-         studentService.addStudent(s);
-        return Response.ok(200).entity(s).build();
+    public Response addStudent(@Context UriInfo uriInfo,Student student) throws ApplicationException {
+        studentService.addStudent(student);
+        return Response.created(uriInfo.getAbsolutePathBuilder()
+            .path(student.getId().toString()).build())
+            .entity("Student successfully created")
+            .build();
     }
 
     // add multiple students
     @POST
-    @Path("/list")
+    @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({"professor","admin"})
@@ -55,17 +70,17 @@ public class StudentResource {
 
     //delete single student
     @DELETE
-    @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{id}")
+    @Produces(MediaType.TEXT_PLAIN)
     @RolesAllowed({"professor","admin"})
-    public Response deleteStudent(@PathParam("id") Long student_id) throws ApplicationException {
-        studentService.deleteStudent(student_id);
-        return Response.ok(201).entity(student_id).build();
+    public Response deleteStudent(@PathParam("id") Long studentId) throws ApplicationException {
+        studentService.deleteStudent(studentId);
+        return Response.ok().entity("Successfully deleted student with id :"+ studentId).build();
     }
 
     //delete list of students
     @DELETE
-    @Path("/list/{ids}")
+    @Path("list/{ids}")
     @Produces(MediaType.TEXT_PLAIN)
     @RolesAllowed({"professor","admin"})
     public Response deleteAllStudents(@PathParam("ids") String ids) throws ApplicationException {
@@ -76,31 +91,79 @@ public class StudentResource {
             toDelete.add(new Long(str));
         }
         studentService.deleteAllStudents(toDelete);
-        return Response.ok(200).entity("Deleted Students" + ids).build();
+        return Response.ok().entity("Deleted Students" + ids).build();
     }
 
     //get all students
     @GET
-    @Path("/list")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findStudents() throws ApplicationException {
         List<Student> allStudents = studentService.findAllStudents();
-        return Response.ok().entity(allStudents).build();
+
+        StudentAssembler studentAssembler = new StudentAssembler();
+        List<StudentResourceWrapper> resources = studentAssembler.toResources(allStudents);
+
+        Resources<StudentResourceWrapper> wrapped = new Resources<>(resources);
+        wrapped.add(JaxRsLinkBuilder.linkTo(StudentResource.class)
+                .withSelfRel()
+        );
+        return Response.ok(wrapped).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findStudentsPaged(@QueryParam("page") @DefaultValue("0") int page,
+                                      @QueryParam("size") @DefaultValue("2") int size,@Context UriInfo uriInfo) throws ApplicationException {
+
+        List<Student> allStudents = studentService.findAllStudents();
+        StudentAssembler studentAssembler = new StudentAssembler();
+        List<StudentResourceWrapper> resources = studentAssembler.toResources(allStudents);
+
+        List<StudentResourceWrapper> toShow = Lists.newArrayList();
+        for(int i= page*size, j=0;j<size && i<resources.size(); i++,j++){
+            toShow.add(resources.get(i));
+        }
+
+        int totalNumberOfPages = resources.size() / size;
+        totalNumberOfPages = resources.size()%size != 0?totalNumberOfPages+1:totalNumberOfPages;
+
+        List<Link> links = Lists.newArrayList();
+
+        links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",page+1).queryParam("size",size).build().toString(),Link.REL_NEXT));
+        links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",0).queryParam("size",size).build().toString(),Link.REL_FIRST));
+        links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",totalNumberOfPages).queryParam("size",size).build().toString(),Link.REL_LAST));
+        if(page>0){
+            links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",page-1).queryParam("size",size).build().toString(),Link.REL_PREVIOUS));
+        }
+
+        PagedResources<StudentResourceWrapper> studentResourceWrappers = new PagedResources<>(
+            toShow,
+            new PagedResources.PageMetadata(
+                size,
+                page,
+                resources.size(),
+                (long) totalNumberOfPages),links
+        );
+
+        return Response.ok(studentResourceWrappers).build();
     }
 
     //get student by id
     @GET
-    @Path("/{id}")
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findStudentById(@PathParam("id") Long id) throws ApplicationException {
         Student s = studentService.findById(id);
 
-        return Response.ok().entity(s).build();
+        StudentAssembler studentAssembler = new StudentAssembler();
+        StudentResourceWrapper resources = studentAssembler.toResource(s);
+
+        return Response.ok().entity(resources).build();
     }
 
     //update student details
     @PUT
-    @Path("/update/{id}")
+    @Path("update/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateStudent(@PathParam("id")Long id, Student s) throws ApplicationException {
 
@@ -110,7 +173,7 @@ public class StudentResource {
 
     //enroll to a section
     @POST
-    @Path("/{id}/sections/{section_id}")
+    @Path("{id}/sections/{section_id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response enrollSection(@PathParam("id") Long id,@PathParam("section_id") Long section_id) throws ApplicationException {
@@ -120,7 +183,7 @@ public class StudentResource {
 
     //delete a single section
     @DELETE
-    @Path("/{id}/sections/{section_id}")
+    @Path("{id}/sections/{section_id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response dropSection(@PathParam("id") Long id, @PathParam("section_id")Long section_id) throws ApplicationException {
          studentService.dropSection(id, section_id);
