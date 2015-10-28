@@ -1,13 +1,16 @@
 package org.courseregistration.service;
 
+import org.courseregistration.exception.ApplicationException;
 import org.courseregistration.model.Professor;
 import org.courseregistration.dao.ProfessorDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.ws.rs.core.Response;
 import java.util.Collection;
 import java.util.List;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.collect.Lists.newArrayList;
 
 @Service
