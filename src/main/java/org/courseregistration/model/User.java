@@ -21,6 +21,7 @@ public class User implements Serializable {
     @Column(name = "college_id", nullable = false, unique = true)
     private Long collegeId;
 
+    @JsonIgnore
     @Column(name = "password")
     private String hashedPassword;
 
