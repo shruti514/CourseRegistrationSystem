@@ -5,19 +5,18 @@ import java.util.List;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 import com.google.common.collect.Lists;
 import org.courseregistration.exception.ApplicationException;
-import org.courseregistration.rest.writters.CourseAssembler;
+import org.courseregistration.hateoas.ProfessorResourceWrapper;
 import org.courseregistration.rest.writters.ProfessorAssembler;
-import org.courseregistration.hateoas.ProfessorResourseWrapper;
 import org.courseregistration.model.Professor;
 import org.courseregistration.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.EntityLinks;
-import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.hateoas.*;
 import org.springframework.hateoas.jaxrs.JaxRsLinkBuilder;
 import org.springframework.stereotype.Component;
@@ -27,7 +26,6 @@ import static com.google.common.collect.Lists.newArrayList;
 @Component
 @Path("professors")
 @PermitAll
-@ExposesResourceFor(Professor.class)
 public class ProfessorResource {
 	@Autowired
 	private ProfessorService professorService;
@@ -42,39 +40,73 @@ public class ProfessorResource {
      * @return details of a professor
 	 */
 	@GET
-	@Path("/{id}")
+	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findProfessorById(@PathParam("id") Long id) throws ApplicationException{
+	public Response findProfessorById(@PathParam("id") Long id) throws ApplicationException {
+		Professor professor = professorService.findProfessorById(id);
 
-        Professor professor = professorService.findProfessorById(id);
-
-        Resource<Professor> resource  = new Resource<>(professor)   ;
-        Link selfRel =entityLinks.linkToSingleResource(Professor.class, professor.getId()).withSelfRel();
+        Resource<Professor> resource = new Resource<>(professor);
+        Link selfRel = entityLinks.linkToSingleResource(Professor.class, professor.getId()).withSelfRel();
         resource.add(selfRel);
 
-        return Response.ok(resource).build();
+        return Response.ok().entity(professor).build();
     }
 
     /**
      * Get details of all professors in the system
      * @return details of professor
      */
-	@GET
-    @Path("/list")
+	//@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findAllProfessors() {
 		List<Professor> allProfessors = professorService.findAllProfessors();
 
         ProfessorAssembler professorAssembler = new ProfessorAssembler();
-        List<ProfessorResourseWrapper> resources = professorAssembler.toResources(allProfessors);
+            List<ProfessorResourceWrapper> resources = professorAssembler.toResources(allProfessors);
 
-        Resources<ProfessorResourseWrapper> wrapped = new Resources<>(resources);
+        Resources<ProfessorResourceWrapper> wrapped = new Resources<>(resources);
         wrapped.add(JaxRsLinkBuilder.linkTo(ProfessorResource.class)
                 .withSelfRel()
         );
-
-
         return Response.ok(wrapped).build();
+	}
+
+    @GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findAllProfessors(@QueryParam("page") @DefaultValue("0") int page,
+                                      @QueryParam("size") @DefaultValue("2") int size,@Context UriInfo uriInfo) {
+
+    List<Professor> allProfessors = professorService.findAllProfessors();
+    ProfessorAssembler professorAssembler = new ProfessorAssembler();
+    List<ProfessorResourceWrapper> resources = professorAssembler.toResources(allProfessors);
+
+    List<ProfessorResourceWrapper> toShow = Lists.newArrayList();
+    for(int i= page*size, j=0;j<size && i<resources.size(); i++,j++){
+        toShow.add(resources.get(i));
+    }
+
+    int totalNumberOfPages = resources.size() / size;
+    totalNumberOfPages = resources.size()%size != 0?totalNumberOfPages+1:totalNumberOfPages;
+
+    List<Link> links = Lists.newArrayList();
+
+    links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",page+1).queryParam("size",size).build().toString(),Link.REL_NEXT));
+    links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",0).queryParam("size",size).build().toString(),Link.REL_FIRST));
+    links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",totalNumberOfPages).queryParam("size",size).build().toString(),Link.REL_LAST));
+    if(page>0){
+        links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",page-1).queryParam("size",size).build().toString(),Link.REL_PREVIOUS));
+    }
+
+    PagedResources<ProfessorResourceWrapper> professorResourceWrappers = new PagedResources<>(
+        toShow,
+        new PagedResources.PageMetadata(
+            size,
+            page,
+            resources.size(),
+            (long) totalNumberOfPages),links
+    );
+
+    return Response.ok(professorResourceWrappers).build();
 	}
 
     /**
@@ -82,13 +114,15 @@ public class ProfessorResource {
      */
 
 	@POST
-    @Path("/")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({"professor","admin"})
-	public Response addProfessor(Professor p) {
-		professorService.addProfessor(p);
-		return Response.ok(201).entity(p).build();
+	public Response addProfessor(@Context UriInfo uriInfo, Professor professor) {
+		professorService.addProfessor(professor);
+        return Response.created(uriInfo.getAbsolutePathBuilder()
+            .path(professor.getId().toString()).build())
+            .entity("Professor successfully created")
+            .build();
 	}
 
     /**
@@ -99,21 +133,21 @@ public class ProfessorResource {
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed({"admin"})
     public Response addProfessor(List<Professor> professors) {
-         professorService.addProfessors(professors);
-        return Response.ok(201) .entity(professors).build();
+        professorService.addProfessors(professors);
+        return Response.ok().entity(professors).build();
     }
 
     /**
      * Deleting single professor entry
-     * @param professor_id
+     * @param professorId
      */
     @DELETE
-	@Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
+	@Path("{id}")
+    @Produces(MediaType.TEXT_PLAIN)
     @RolesAllowed({"professor","admin"})
-	public Response deleteProfessorById(@PathParam("id") Long professor_id) {
-		professorService.deleteProfessorById(professor_id);
-		return Response.ok(200).entity(professor_id).build();
+	public Response deleteProfessorById(@PathParam("id") Long professorId) {
+		professorService.deleteProfessorById(professorId);
+		return Response.ok(200).entity("Successfully deleted Professor with id:" + professorId).build();
 	}
 
     /**
@@ -121,7 +155,7 @@ public class ProfessorResource {
      * @param ids
      */
     @DELETE
-    @Path("/list/{ids}")
+    @Path("list/{ids}")
     @Produces(MediaType.TEXT_PLAIN)
     @RolesAllowed({"admin"})
     public Response deleteAllProfessors(@PathParam("ids") String ids){
@@ -132,62 +166,24 @@ public class ProfessorResource {
             toDelete.add(new Long(str)) ;
         }
         professorService.deleteAllProfessors(toDelete);
-        return Response.ok(200).entity("Deleted professors" + ids).build();
+        return Response.ok().entity("Deleted professors with ids : " + ids).build();
 
     }
 
     /**
      * Update professors details
-     * @param id
-     * @param p
+     * @param id identifier for professor
+     * @param professor deserialize professor object
+     *
      */
 	@PUT
-	@Path("/update/{id}")
+	@Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({"professor","admin"})
-	public Response updateProfessor(@PathParam("id") Long id,Professor p) {
-		professorService.updateProfessor(id, p);
-		return Response.ok(200).entity("Professor details updated").build();
+	public Response updateProfessor(@PathParam("id") Long id,Professor professor) {
+		professorService.updateProfessor(id, professor);
+		return Response.noContent().entity("Professor details updated").build();
 	}
-
-    @GET
-    @Path("/paginate")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response findProfessorPaged(
-        @QueryParam("page") @DefaultValue("0") int page,
-        @QueryParam("size") @DefaultValue("2") int size){
-
-        List<Professor> allProfessors = professorService.findAllProfessors();
-        ProfessorAssembler professorAssembler = new ProfessorAssembler();
-        List<ProfessorResourseWrapper> resources = professorAssembler.toResources(allProfessors);
-
-        List<ProfessorResourseWrapper> toShow = Lists.newArrayList();
-        for(int i= page*size ,j=0;j<size && i<resources.size();i++,j++)   {
-            toShow.add(resources.get(i)) ;
-        }
-
-        int totalNumberOfPages =resources.size()/size;
-        totalNumberOfPages= resources.size()%size != 0?totalNumberOfPages+1:totalNumberOfPages;
-
-        List<Link> links = Lists.newArrayList();
-        Link selfRel = JaxRsLinkBuilder.linkTo(ProfessorResource.class).withSelfRel();
-        String selfRelHref = selfRel.getHref();
-        links.add(new Link(new UriTemplate(selfRelHref+"?Page="+(page+1)+"&size="+size),Link.REL_NEXT));
-        if (page>0) {
-            links.add(new Link(new UriTemplate(selfRelHref+"?page="+(page-1)+"&size="+size),Link.REL_PREVIOUS));
-        }
-
-        PagedResources<ProfessorResourseWrapper> professorResources = new PagedResources<>(
-              toShow,
-            new PagedResources.PageMetadata(
-                size,
-                page,
-                resources.size(),
-                (long)totalNumberOfPages),links
-        );
-        professorResources.add();
-        return Response.ok(professorResources).build();
-    }
 
 
 }

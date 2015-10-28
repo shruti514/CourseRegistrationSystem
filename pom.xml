@@ -264,7 +264,7 @@
           <configuration>
             <url>http://localhost:8080/manager/text</url>
             <server>TomcatServer</server>
-            <path>/courseregistration</path>
+            <path>/api.courseregistration</path>
           </configuration>
         </plugin>
         <plugin>
@@ -274,7 +274,7 @@
           <configuration>
             <scanIntervalSeconds>10</scanIntervalSeconds>
             <webApp>
-              <contextPath>/courseregistration</contextPath>
+              <contextPath>/api.courseregistration</contextPath>
             </webApp>
             <httpConnector>
               <port>8888</port>

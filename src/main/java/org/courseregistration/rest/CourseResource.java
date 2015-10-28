@@ -13,12 +13,14 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import java.util.List;
 
 @Component
-@Path("courses")
+@Path("/courses")
 @Produces(MediaType.APPLICATION_JSON)
 @RolesAllowed({"admin","professor"})
 @ExposesResourceFor(Course.class)
@@ -41,7 +43,7 @@ public class CourseResource {
 	 * @return details of a course
 	 */
 	@GET
-	@Path("/{id}")
+	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findCourseById(@PathParam("id") Long id) throws ApplicationException {
 
@@ -54,31 +56,12 @@ public class CourseResource {
         return Response.ok(resource).build();
 	}
 
-	@GET
-    @Path("/list")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response findCourses() {
-		List<Course> allCourses = courseService.findAllCourses();
-
-        CourseAssembler courseAssembler = new CourseAssembler();
-        List<CourseResourceWrapper> resources = courseAssembler.toResources(allCourses);
-
-        Resources<CourseResourceWrapper> wrapped = new Resources<>(resources);
-        wrapped.add(JaxRsLinkBuilder.linkTo(CourseResource.class)
-                .withSelfRel()
-        );
-
-
-        return Response.ok(wrapped).build();
-
-	}
 
     @GET
-    @Path("/paginate")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findCoursesPaged(
         @QueryParam("page") @DefaultValue("0") int page,
-        @QueryParam("size") @DefaultValue("2") int size) {
+        @QueryParam("size") @DefaultValue("2") int size,@Context UriInfo uriInfo) {
 
         List<Course> allCourses = courseService.findAllCourses();
         CourseAssembler courseAssembler = new CourseAssembler();
@@ -89,20 +72,17 @@ public class CourseResource {
             toShow.add(resources.get(i));
         }
 
-
         int totalNumberOfPages = resources.size() / size;
         totalNumberOfPages = resources.size()%size != 0?totalNumberOfPages+1:totalNumberOfPages;
 
         List<Link> links = Lists.newArrayList();
-        Link selfRel = JaxRsLinkBuilder.linkTo(CourseResource.class).withSelfRel();
-        String selfRelHref = selfRel.getHref();
-        links.add(new Link(new UriTemplate(selfRelHref+"?page="+(page+1)+"&size="+size),Link.REL_NEXT));
-        if(page>0){
-            links.add(new Link(new UriTemplate(selfRelHref+"?page="+(page-1)+"&size="+size),Link.REL_PREVIOUS));
-        }
 
-        links.add(new Link(new UriTemplate(selfRelHref+"?page=0&size="+size),Link.REL_FIRST));
-        links.add(new Link(new UriTemplate(selfRelHref+"?page="+totalNumberOfPages+"&size="+size),Link.REL_LAST));
+        links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",page+1).queryParam("size",size).build().toString(),Link.REL_NEXT));
+        links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",0).queryParam("size",size).build().toString(),Link.REL_FIRST));
+        links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",totalNumberOfPages).queryParam("size",size).build().toString(),Link.REL_LAST));
+        if(page>0){
+            links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",page-1).queryParam("size",size).build().toString(),Link.REL_PREVIOUS));
+        }
 
         PagedResources<CourseResourceWrapper> courseResources = new PagedResources<>(
             toShow,
@@ -113,24 +93,28 @@ public class CourseResource {
                 (long) totalNumberOfPages),links
         );
 
-        courseResources.add();
         return Response.ok(courseResources).build();
     }
 
 	@DELETE
-	@Path("/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-        public void deleteCourseById(@PathParam("id") Long id) {
+	@Path("{id}")
+	@Produces(MediaType.TEXT_PLAIN)
+    public Response deleteCourseById(@PathParam("id") Long id) {
 		courseService.deleteById(id);
+        return Response.noContent()
+            .entity("Course successfully deleted from the system.").build();
 	}
 
 	@POST
-	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response createCourse(Course course) {
+    @Produces(MediaType.TEXT_PLAIN)
+	public Response createCourse(@Context UriInfo uriInfo,Course course) {
 
-		String result = "Course saved : " + course;
 		courseService.save(course);
-		return Response.status(201).entity(result).build();
+
+		return Response.created(uriInfo.getAbsolutePathBuilder()
+            .path(course.getId().toString()).build())
+            .entity("Course successfully created")
+            .build();
 	}
 }

@@ -3,7 +3,7 @@ package org.courseregistration.hateoas;
 import org.courseregistration.model.Professor;
 import org.springframework.hateoas.ResourceSupport;
 
-public class ProfessorResourseWrapper extends ResourceSupport {
+public class ProfessorResourceWrapper extends ResourceSupport {
 
     private Professor professor;
 
