@@ -1,13 +1,17 @@
 package org.courseregistration.service;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.collect.Lists.newArrayList;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.ws.rs.core.Response;
+
 import org.courseregistration.dao.SearchCriteria;
 import org.courseregistration.dao.SectionDAO;
+import org.courseregistration.exception.ApplicationException;
 import org.courseregistration.model.Section;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,8 +30,22 @@ public class SectionService {
 		return toReturn;
 	}
 
-	public Section findById(Long id) {
+	public Section findById(Long id) throws ApplicationException {
+		checkNotNull(id, "id should not ne null");
+
 		Section toReturn = sectionDAO.findById(id);
+
+		if (toReturn == null) {
+			throw ApplicationException
+					.createNew()
+					.withCode(404)
+					.withTitle("Resource not found")
+					.withStatus(Response.Status.NOT_FOUND.getStatusCode())
+					.withDetail(
+							"The Section with id " + id + " is not available")
+					.build();
+		}
+
 		return toReturn;
 	}
 
@@ -43,18 +61,34 @@ public class SectionService {
 		return toReturn;
 	}
 
-	public boolean addSection(Section section) {
+	public boolean addSection(Section section) throws ApplicationException {
 		try {
 			sectionDAO.save(section);
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
+			throw ApplicationException
+					.createNew()
+					.withCode(Response.Status.PARTIAL_CONTENT.getStatusCode())
+					.withTitle("Section creation failed.")
+					.withStatus(Response.Status.PARTIAL_CONTENT.getStatusCode())
+					.withDetail(
+							"Can not create section object. Please check section object.")
+					.build();
 		}
 	}
 
-	public void deleteSection(long section_id) {
-		sectionDAO.delete(section_id);
+	public void deleteSection(long section_id) throws ApplicationException {
+		try {
+			checkNotNull(section_id, "ID should not be null");
+			sectionDAO.delete(section_id);
+		} catch (Exception e) {
+			throw ApplicationException.createNew()
+					.withCode(Response.Status.NOT_FOUND.getStatusCode())
+					.withTitle("No Section entry found in database")
+					.withStatus(Response.Status.BAD_REQUEST.getStatusCode())
+					.withDetail("Can not delete. Please check section object.")
+					.build();
+		}
 	}
 
 	public void update(Section section) {
@@ -73,7 +107,9 @@ public class SectionService {
 		}
 	}
 
-	public boolean updateSection(long id, Section current) {
+	public boolean updateSection(long id, Section current)
+			throws ApplicationException {
+		checkNotNull(id, "Id Should not be null");
 		Section toReturn = sectionDAO.findById(id);
 		if (toReturn != null) {
 			toReturn.setPrice(current.getPrice());
@@ -89,8 +125,14 @@ public class SectionService {
 			toReturn.setClassEndTime(current.getClassEndTime());
 			sectionDAO.update(toReturn);
 			return true;
+		} else {
+			throw ApplicationException.createNew()
+					.withCode(Response.Status.NOT_FOUND.getStatusCode())
+					.withTitle("No Section entry found in database")
+					.withStatus(Response.Status.BAD_REQUEST.getStatusCode())
+					.withDetail("Can not update. Please check section object.")
+					.build();
 		}
-		return false;
 	}
 
 }

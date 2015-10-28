@@ -18,10 +18,11 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.courseregistration.rest.writters.SectionAssembler;
 import org.courseregistration.dao.SearchCriteria;
+import org.courseregistration.exception.ApplicationException;
 import org.courseregistration.hateoas.SectionResourceWrapper;
 import org.courseregistration.model.Section;
+import org.courseregistration.rest.writters.SectionAssembler;
 import org.courseregistration.service.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityLinks;
@@ -51,7 +52,6 @@ public class SectionResource {
 	 *
 	 * @response.representation.200.doc Details of Section
 	 * @response.representation.200.mediaType application/json
-	 *
 	 * @response.representation.404.doc Requested Section with id not found
 	 *
 	 * @return details of a Section
@@ -59,7 +59,8 @@ public class SectionResource {
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findSectionById(@PathParam("id") Long id) {
+	public Response findSectionById(@PathParam("id") Long id)
+			throws ApplicationException {
 		Section section = sectionService.findById(id);
 		if (section != null) {
 			Resource<Section> resource = new Resource<>(section);
@@ -96,7 +97,6 @@ public class SectionResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findSections() {
 		List<Section> allSections = sectionService.findAllSections();
-		// return Response.ok(200).entity(allSections).build();
 
 		SectionAssembler sectionAssembler = new SectionAssembler();
 		List<SectionResourceWrapper> resources = sectionAssembler
@@ -114,12 +114,13 @@ public class SectionResource {
 	 *
 	 * @param section
 	 * @return
+	 * @throws ApplicationException
 	 */
 	@POST
-    @Path("/")
+	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@RolesAllowed({ "professor", "admin" })
-	public Response addSection(Section section) {
+	public Response addSection(Section section) throws ApplicationException {
 
 		boolean isSaved = sectionService.addSection(section);
 		if (isSaved) {
@@ -142,7 +143,8 @@ public class SectionResource {
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@RolesAllowed({ "professor", "admin" })
-	public Response deleteSection(@PathParam("id") Long section_id) {
+	public Response deleteSection(@PathParam("id") Long section_id)
+			throws ApplicationException {
 		sectionService.deleteSection(section_id);
 		return Response.ok(201).entity(section_id).build();
 	}
@@ -180,7 +182,8 @@ public class SectionResource {
 	@Path("/update/{section_id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@RolesAllowed({ "professor", "admin" })
-	public Response updateSection(@PathParam("section") long id, Section current) {
+	public Response updateSection(@PathParam("section") long id, Section current)
+			throws ApplicationException {
 		boolean isUpdated = sectionService.updateSection(id, current);
 		if (isUpdated)
 			return Response.ok(Response.Status.OK)
@@ -221,8 +224,6 @@ public class SectionResource {
 				.withSelfRel());
 
 		return Response.ok(wrapped).build();
-
-		// return Response.ok(Response.Status.OK).entity(allSections).build();
 	}
 
 	/**
@@ -252,8 +253,6 @@ public class SectionResource {
 				.withSelfRel());
 
 		return Response.ok(wrapped).build();
-
-		// return Response.ok(Response.Status.OK).entity(allSections).build();
 	}
 
 	/**
@@ -276,7 +275,8 @@ public class SectionResource {
 			@QueryParam("price") int price,
 			@QueryParam("dayofweek") String dayofweek,
 			@QueryParam("semester") String semester,
-			@QueryParam("coursecode") String coursecode) {
+			@QueryParam("coursecode") String coursecode)
+			throws ApplicationException {
 		Map<SearchCriteria, String> criteria = new HashMap<SearchCriteria, String>();
 		String priceStr = "" + price;
 
@@ -299,7 +299,16 @@ public class SectionResource {
 			criteria.put(SearchCriteria.SECTION_PRICE_EQUALS, "" + price);
 		}
 		if (criteria.size() == 0) {
-			return Response.status(Response.Status.NOT_FOUND).build();
+
+			throw ApplicationException
+					.createNew()
+					.withCode(Response.Status.BAD_REQUEST.getStatusCode())
+					.withTitle("No Search parameters are defined")
+					.withStatus(Response.Status.BAD_REQUEST.getStatusCode())
+					.withDetail(
+							"The Query Parameters are not provided. Please provide at least one param from following.\n coursename\n lastname\n price\n dayofweek\n semester\n coursecode")
+					.build();
+
 		} else {
 			List<Section> allSections = sectionService.findByCriteria(criteria);
 
@@ -307,7 +316,8 @@ public class SectionResource {
 			List<SectionResourceWrapper> resources = sectionAssembler
 					.toResources(allSections);
 
-			Resources<SectionResourceWrapper> wrapped = new Resources<>(resources);
+			Resources<SectionResourceWrapper> wrapped = new Resources<>(
+					resources);
 			wrapped.add(JaxRsLinkBuilder.linkTo(SectionResource.class)
 					.withSelfRel());
 
