@@ -273,12 +273,16 @@ public class SectionResource {
 			@QueryParam("coursename") String coursename,
 			@QueryParam("lastname") String lastname,
 			@QueryParam("price") int price,
+			@QueryParam("gteprice") int gteprice,
+			@QueryParam("lteprice") int lteprice,
 			@QueryParam("dayofweek") String dayofweek,
 			@QueryParam("semester") String semester,
 			@QueryParam("coursecode") String coursecode)
 			throws ApplicationException {
 		Map<SearchCriteria, String> criteria = new HashMap<SearchCriteria, String>();
 		String priceStr = "" + price;
+		String gtepriceStr = "" + gteprice;
+		String ltepriceStr = "" + lteprice;
 
 		if (semester != null && !semester.isEmpty()) {
 			criteria.put(SearchCriteria.SEMESTER_EQUALS, semester);
@@ -298,18 +302,18 @@ public class SectionResource {
 		if (!priceStr.trim().isEmpty() && !priceStr.equalsIgnoreCase("null")) {
 			criteria.put(SearchCriteria.SECTION_PRICE_EQUALS, "" + price);
 		}
-		if (criteria.size() == 0) {
+		if (!gtepriceStr.trim().isEmpty()
+				&& !gtepriceStr.equalsIgnoreCase("null")) {
+			criteria.put(SearchCriteria.SECTION_PRICE_GREATER_EQUALS, ""
+					+ gtepriceStr);
+		}
+		if (!ltepriceStr.trim().isEmpty()
+				&& !ltepriceStr.equalsIgnoreCase("null")) {
+			criteria.put(SearchCriteria.SECTION_PRICE_LESS_EQUALS, ""
+					+ ltepriceStr);
+		}
+		if (criteria.size() > 0) {
 
-			throw ApplicationException
-					.createNew()
-					.withCode(Response.Status.BAD_REQUEST.getStatusCode())
-					.withTitle("No Search parameters are defined")
-					.withStatus(Response.Status.BAD_REQUEST.getStatusCode())
-					.withDetail(
-							"The Query Parameters are not provided. Please provide at least one param from following.\n coursename\n lastname\n price\n dayofweek\n semester\n coursecode")
-					.build();
-
-		} else {
 			List<Section> allSections = sectionService.findByCriteria(criteria);
 
 			SectionAssembler sectionAssembler = new SectionAssembler();
@@ -323,5 +327,15 @@ public class SectionResource {
 
 			return Response.ok(wrapped).build();
 		}
+
+		throw ApplicationException
+				.createNew()
+				.withCode(Response.Status.BAD_REQUEST.getStatusCode())
+				.withTitle("No Search parameters are defined")
+				.withStatus(Response.Status.BAD_REQUEST.getStatusCode())
+				.withDetail(
+						"The Query Parameters are not provided. Please provide at least one param from following.\n coursename\n lastname\n price\n dayofweek\n semester\n coursecode")
+				.build();
+
 	}
 }
