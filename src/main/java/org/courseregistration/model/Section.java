@@ -78,7 +78,7 @@ public class Section implements Serializable {
 	private Integer price;
 
 	@JsonIgnore
-	@ManyToMany(mappedBy = "sections")
+	@ManyToMany(mappedBy = "sections",fetch = FetchType.EAGER)
 	private List<Student> students;
 
 	public Long getId() {
