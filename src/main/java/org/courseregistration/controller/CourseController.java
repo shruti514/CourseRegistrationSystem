@@ -45,7 +45,7 @@ public class CourseController {
 	 */
 	@GET
 	@Path("{id}")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public Response findCourseById(@PathParam("id") Long id) throws ApplicationException {
 
         Course course = courseService.findById(id);
@@ -59,7 +59,7 @@ public class CourseController {
 
 	@GET
     @Path("/")
-	@Produces(MediaType.APPLICATION_JSON)
+    @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public Response findCourses() {
 		List<Course> allCourses = courseService.findAllCourses();
 
@@ -78,7 +78,7 @@ public class CourseController {
 
     @GET
     @Path("/paginate")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
     public Response findCoursesPaged(
         @QueryParam("page") @DefaultValue("0") int page,
         @QueryParam("size") @DefaultValue("2") int size) {
@@ -129,7 +129,7 @@ public class CourseController {
 
 	@POST
 	@Path("/post")
-	@Consumes(MediaType.APPLICATION_JSON)
+    @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public Response createCourse(Course course) {
 
 		String result = "Course saved : " + course;
