@@ -65,7 +65,6 @@ public class ProfessorController {
      * @return details of professor
      */
 	@GET
-    @Path("/list")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findAllProfessors() {
 		List<Professor> allProfessors = professorService.findAllProfessors();
