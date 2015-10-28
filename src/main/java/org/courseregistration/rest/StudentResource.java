@@ -14,18 +14,18 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resources;
 import org.springframework.hateoas.jaxrs.JaxRsLinkBuilder;
+import org.springframework.http.server.ServletServerHttpRequest;
+import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.core.*;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static org.courseregistration.rest.ResponseHelper.getCacheControl;
 
 @Component
 @Path("students")
@@ -111,9 +111,11 @@ public class StudentResource {
     }
 
     @GET
+    @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findStudentsPaged(@QueryParam("page") @DefaultValue("0") int page,
-                                      @QueryParam("size") @DefaultValue("2") int size,@Context UriInfo uriInfo) throws ApplicationException {
+                                      @QueryParam("size") @DefaultValue("2") int size,
+                                      @Context UriInfo uriInfo,@Context Request request) throws ApplicationException {
 
         List<Student> allStudents = studentService.findAllStudents();
         StudentAssembler studentAssembler = new StudentAssembler();
@@ -145,20 +147,33 @@ public class StudentResource {
                 (long) totalNumberOfPages),links
         );
 
-        return Response.ok(studentResourceWrappers).build();
+        return Response.ok(studentResourceWrappers).cacheControl(getCacheControl()).build();
     }
 
     //get student by id
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findStudentById(@PathParam("id") Long id) throws ApplicationException {
-        Student s = studentService.findById(id);
+    public Response findStudentById(@Context UriInfo uriInfo,@PathParam("id") Long id,@Context Request request) throws ApplicationException {
+        Student student = studentService.findById(id);
 
         StudentAssembler studentAssembler = new StudentAssembler();
-        StudentResourceWrapper resources = studentAssembler.toResource(s);
+        StudentResourceWrapper resources = studentAssembler.toResource(student);
 
-        return Response.ok().entity(resources).build();
+        CacheControl cc = getCacheControl();
+
+        EntityTag tag = new EntityTag(Integer.toString(student.hashCode()));
+
+        Response.ResponseBuilder responseBuilder = request.evaluatePreconditions(tag);
+
+        if (responseBuilder != null) {
+            responseBuilder.cacheControl(cc);
+            return responseBuilder.build();
+        }
+        responseBuilder = Response.ok(resources);
+        responseBuilder.cacheControl(cc);
+        responseBuilder.tag(tag);
+        return responseBuilder.build();
     }
 
     //update student details

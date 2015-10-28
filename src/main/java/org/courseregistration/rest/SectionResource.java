@@ -33,6 +33,8 @@ import org.springframework.hateoas.Resources;
 import org.springframework.hateoas.jaxrs.JaxRsLinkBuilder;
 import org.springframework.stereotype.Component;
 
+import static org.courseregistration.rest.ResponseHelper.getCacheControl;
+
 @Component
 @Path("sections")
 @PermitAll
@@ -93,7 +95,6 @@ public class SectionResource {
 	 * @return Response.Status.OK with List of Sections
 	 */
 	@GET
-	@Path("/list")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findSections() {
 		List<Section> allSections = sectionService.findAllSections();
@@ -106,7 +107,7 @@ public class SectionResource {
 		wrapped.add(JaxRsLinkBuilder.linkTo(SectionResource.class)
 				.withSelfRel());
 
-		return Response.ok(wrapped).build();
+		return Response.ok(wrapped).cacheControl(getCacheControl()).build();
 	}
 
 	/**

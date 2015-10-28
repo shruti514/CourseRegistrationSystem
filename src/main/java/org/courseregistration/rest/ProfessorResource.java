@@ -5,10 +5,7 @@ import java.util.List;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.core.*;
 
 import com.google.common.collect.Lists;
 import org.courseregistration.exception.ApplicationException;
@@ -18,10 +15,12 @@ import org.courseregistration.model.Professor;
 import org.courseregistration.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.*;
+import org.springframework.hateoas.Link;
 import org.springframework.hateoas.jaxrs.JaxRsLinkBuilder;
 import org.springframework.stereotype.Component;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static org.courseregistration.rest.ResponseHelper.getCacheControl;
 
 @Component
 @Path("professors")
@@ -42,14 +41,28 @@ public class ProfessorResource {
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findProfessorById(@PathParam("id") Long id) throws ApplicationException {
+	public Response findProfessorById(@PathParam("id") Long id,
+                                      @Context Request request) throws ApplicationException {
 		Professor professor = professorService.findProfessorById(id);
 
         Resource<Professor> resource = new Resource<>(professor);
         Link selfRel = entityLinks.linkToSingleResource(Professor.class, professor.getId()).withSelfRel();
         resource.add(selfRel);
 
-        return Response.ok().entity(professor).build();
+        CacheControl cc = getCacheControl();
+
+        EntityTag tag = new EntityTag(Integer.toString(professor.hashCode()));
+
+        Response.ResponseBuilder responseBuilder = request.evaluatePreconditions(tag);
+
+        if (responseBuilder != null) {
+            responseBuilder.cacheControl(cc);
+            return responseBuilder.build();
+        }
+        responseBuilder = Response.ok(resource);
+        responseBuilder.cacheControl(cc);
+        responseBuilder.tag(tag);
+        return responseBuilder.build();
     }
 
     /**
@@ -68,7 +81,7 @@ public class ProfessorResource {
         wrapped.add(JaxRsLinkBuilder.linkTo(ProfessorResource.class)
                 .withSelfRel()
         );
-        return Response.ok(wrapped).build();
+        return Response.ok(wrapped).cacheControl(getCacheControl()).build();
 	}
 
     @GET
@@ -106,7 +119,7 @@ public class ProfessorResource {
             (long) totalNumberOfPages),links
     );
 
-    return Response.ok(professorResourceWrappers).build();
+    return Response.ok(professorResourceWrappers).cacheControl(getCacheControl()).build();
 	}
 
     /**

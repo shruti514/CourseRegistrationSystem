@@ -8,16 +8,16 @@ import org.courseregistration.model.Course;
 import org.courseregistration.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.*;
+import org.springframework.hateoas.Link;
 import org.springframework.hateoas.jaxrs.JaxRsLinkBuilder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.core.*;
 import java.util.List;
+
+import static org.courseregistration.rest.ResponseHelper.getCacheControl;
 
 @Component
 @Path("/courses")
@@ -45,7 +45,8 @@ public class CourseResource {
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findCourseById(@PathParam("id") Long id) throws ApplicationException {
+	public Response findCourseById(@PathParam("id") Long id,
+                                   @Context Request request) throws ApplicationException {
 
         Course course = courseService.findById(id);
 
@@ -53,7 +54,20 @@ public class CourseResource {
         Link selfRel = entityLinks.linkToSingleResource(Course.class, course.getId()).withSelfRel();
         resource.add(selfRel);
 
-        return Response.ok(resource).build();
+        CacheControl cc = getCacheControl();
+
+        EntityTag tag = new EntityTag(Integer.toString(course.hashCode()));
+
+        Response.ResponseBuilder responseBuilder = request.evaluatePreconditions(tag);
+
+        if (responseBuilder != null) {
+            responseBuilder.cacheControl(cc);
+            return responseBuilder.build();
+        }
+        responseBuilder = Response.ok(resource);
+        responseBuilder.cacheControl(cc);
+        responseBuilder.tag(tag);
+        return responseBuilder.build();
 	}
 
 
