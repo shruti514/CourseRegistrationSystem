@@ -2,6 +2,7 @@ package org.courseregistration.service;
 
 import org.courseregistration.dao.SectionDAO;
 import org.courseregistration.dao.StudentDAO;
+import org.courseregistration.exception.ApplicationException;
 import org.courseregistration.model.Section;
 import org.courseregistration.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class StudentService {
     @Autowired
     private SectionDAO sectionDAO;
 
-    public List<Student> findAllStudents(){
+    public List<Student> findAllStudents() throws ApplicationException {
         List<Student> students = studentDAO.findAll();
         List<Student> toReturn = newArrayList();
         for(Student student: students){
@@ -28,55 +29,44 @@ public class StudentService {
         return toReturn;
     }
 
-    public Student findById(Long id) {
+    public Student findById(Long id) throws ApplicationException {
         Student toReturn = studentDAO.findById(id);
         return toReturn;
     }
 
-    public void addStudent(Student s) {
+    public void addStudent(Student s) throws ApplicationException {
         studentDAO.save(s);
     }
 
-    public void addStudents(List<Student> students) {
+    public void addStudents(List<Student> students) throws ApplicationException {
         studentDAO.save(students);
     }
 
-    public void deleteStudent(Long student_id) {
+    public void deleteStudent(Long student_id) throws ApplicationException {
         studentDAO.delete(student_id);
     }
 
-    public void deleteAllStudents(Collection<Long> ids) {
+    public void deleteAllStudents(Collection<Long> ids) throws ApplicationException {
         studentDAO.delete(ids);
 
     }
 
-    public void enrollSection(Long student_id, Long section_id) {
+    public void enrollSection(Long student_id, Long section_id) throws ApplicationException {
         Section section = sectionDAO.findById(section_id);
         Student student = studentDAO.findById(student_id);
         student.addSection(section);
     }
 
-    public void dropSection(Long student_id, Long section_id) {
+    public void dropSection(Long student_id, Long section_id) throws ApplicationException {
         Section section = sectionDAO.findById(section_id);
         Student student = studentDAO.findById(student_id);
         student.dropSection(section);
     }
 
 
- /*   public void updateStudentPhone(Long student_id, String phone_number) {
-        Student student = studentDAO.findById(student_id);
-        student.setPhoneNumber(phone_number);
-        studentDAO.update(student);
-    }
-
-    public void updateStudentPass(Long id, String password) {
-        Student student = studentDAO.findById(id);
-        student.setHashedPassword(password);
-        studentDAO.update(student);
-    }*/
-
-    public void updateStudent(Long id, Student s) {
-        Student currentStud = studentDAO.findById(id);
+    public void updateStudent(Long id, Student s) throws ApplicationException {
+        Student currentStud = null;
+        currentStud = studentDAO.findById(id);
 
         if(s.getHashedPassword() != null) {
             currentStud.setHashedPassword(s.getHashedPassword());

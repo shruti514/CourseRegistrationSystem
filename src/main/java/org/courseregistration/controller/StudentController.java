@@ -2,12 +2,16 @@ package org.courseregistration.controller;
 
 import com.google.common.collect.Lists;
 import org.courseregistration.dao.StudentDAO;
+import org.courseregistration.exception.ApplicationException;
 import org.courseregistration.model.Section;
 import org.courseregistration.model.Student;
 import org.courseregistration.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -16,8 +20,9 @@ import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 
-@Service
+@Component
 @Path("students")
+@PermitAll
 public class StudentController {
     @Autowired
     private StudentService studentService;
@@ -37,7 +42,7 @@ public class StudentController {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addStudent(Student s) {
+    public Response addStudent(Student s) throws ApplicationException {
          studentService.addStudent(s);
         return Response.ok(200).entity(s).build();
     }
@@ -47,7 +52,8 @@ public class StudentController {
     @Path("/list")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addStudents(List<Student> students) {
+    @RolesAllowed({"professor","admin"})
+    public Response addStudents(List<Student> students) throws ApplicationException {
         studentService.addStudents(students);
         return Response.ok(200).entity(students).build();
     }
@@ -56,7 +62,8 @@ public class StudentController {
     @DELETE
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteStudent(@PathParam("id") Long student_id) {
+    @RolesAllowed({"professor","admin"})
+    public Response deleteStudent(@PathParam("id") Long student_id) throws ApplicationException {
         studentService.deleteStudent(student_id);
         return Response.ok(201).entity(student_id).build();
     }
@@ -66,7 +73,8 @@ public class StudentController {
     @DELETE
     @Path("/list/{ids}")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response deleteAllStudents(@PathParam("ids") String ids) {
+    @RolesAllowed({"professor","admin"})
+    public Response deleteAllStudents(@PathParam("ids") String ids) throws ApplicationException {
         String [] splitIds = ids.split(",");
         List<Long> toDelete = newArrayList();
 
@@ -80,7 +88,7 @@ public class StudentController {
     //get all students
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findStudents() {
+    public Response findStudents() throws ApplicationException {
         List<Student> allStudents = studentService.findAllStudents();
         return Response.ok().entity(allStudents).build();
     }
@@ -89,32 +97,16 @@ public class StudentController {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Student findStudentById(@PathParam("id") Long id) {
+    public Student findStudentById(@PathParam("id") Long id) throws ApplicationException {
         return studentService.findById(id);
     }
 
- /*   @PUT
-    @Path("{id}/update/{phone_number}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response updateStudentPhone(@PathParam("id") Long id, @PathParam("phone_number") String phone_number) {
-      studentService.updateStudentPhone(id, phone_number);
-        return Response.ok(200).entity("Phone Number Updated").build();
-    }
-
-    @PUT
-    @Path("{id}/update/{password}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response updateStudentPass(@PathParam("id") Long id, @PathParam("password") String password) {
-        studentService.updateStudentPass(id, password);
-        return Response.ok(200).entity("Password successfully changed").build();
-    }
-*/
 
     //update student details
     @PUT
     @Path("update/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateStudent(@PathParam("id")Long id, Student s) {
+    public Response updateStudent(@PathParam("id")Long id, Student s) throws ApplicationException {
         studentService.updateStudent(id, s);
         return Response.ok(200).entity("Student Details Updated").build();
     }
@@ -124,27 +116,19 @@ public class StudentController {
     @Path("{id}/sections/{section_id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response enrollSection(@PathParam("student_id") Long student_id,@PathParam("section_id") Long section_id) {
-         studentService.enrollSection(student_id, section_id);
+    public Response enrollSection(@PathParam("id") Long id,@PathParam("section_id") Long section_id) throws ApplicationException {
+         studentService.enrollSection(id, section_id);
         return Response.ok(200).entity("Enrolled to the Section").build();
     }
 
     //delete a single section
     @DELETE
-    @Path("{student_id}/sections/{section_id}")
+    @Path("{id}/sections/{section_id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response dropSection(@PathParam("student_id/sections/section_id")Long student_id, Long section_id) {
-         studentService.dropSection(student_id, section_id);
+    public Response dropSection(@PathParam("id") Long id, @PathParam("section_id")Long section_id) throws ApplicationException {
+         studentService.dropSection(id, section_id);
         return Response.ok(200).entity("Dropped Section").build();
     }
-
-/*    //delete list of sections
-    @DELETE
-    @Path("{id}/sections/")
-   public Response dropAllSections() {
-        List<Section> allSections = studentService.dropAllSections();
-        return Response.ok().entity(dropAllSections).build();
-    }*/
 
 
 }

@@ -11,7 +11,7 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
-class User implements Serializable {
+public class User implements Serializable {
     @Id
     @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1, initialValue = 100000)
     @GeneratedValue(generator = "sequence", strategy = GenerationType.SEQUENCE)

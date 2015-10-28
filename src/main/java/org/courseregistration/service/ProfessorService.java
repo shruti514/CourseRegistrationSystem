@@ -1,17 +1,12 @@
 package org.courseregistration.service;
 
-import org.courseregistration.dao.SearchCriteria;
 import org.courseregistration.model.Professor;
 import org.courseregistration.dao.ProfessorDAO;
-import org.courseregistration.model.Section;
-import org.courseregistration.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static com.google.common.collect.Lists.newArrayList;
 
