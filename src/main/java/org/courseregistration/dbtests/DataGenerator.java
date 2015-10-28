@@ -25,7 +25,7 @@ public class DataGenerator {
 
         Student student1 = new Student();
         student1.setRoles(Sets.newHashSet(student_role));
-        student1.setUsername((long) 123456789);
+        student1.setUsername("123456789");
         student1.setFirstName("John");
         student1.setMiddleName("R.");
         student1.setLastName("Edward");
@@ -52,7 +52,7 @@ public class DataGenerator {
         student2.setRoles(Sets.newHashSet(student_role));
         student2.setFirstName("Alice");
         student2.setMiddleName("W.");
-        student2.setUsername((long) 123456788);
+        student2.setUsername("123456788");
         student2.setLastName("Campbell");
 
         Address student2Address = new Address();
@@ -77,7 +77,7 @@ public class DataGenerator {
         student3.setFirstName("Sarah");
         student3.setMiddleName("V.");
         student3.setLastName("Rossie");
-        student3.setUsername(89078345345L);
+        student3.setUsername("89078345345");
 
         Address student3Address = new Address();
         student3Address.setStreetName("209 E Indio Ave");
@@ -102,7 +102,7 @@ public class DataGenerator {
         student4.setFirstName("Alan");
         student4.setMiddleName("V.");
         student4.setLastName("Simon");
-        student4.setUsername(9459345L);
+        student4.setUsername("9459345L");
 
         Address student4Address = new Address();
         student4Address.setStreetName("4356 Waterford Ave");
@@ -128,7 +128,7 @@ public class DataGenerator {
         student5.setFirstName("Olivia");
         student5.setMiddleName("s.");
         student5.setLastName("Alexander");
-        student5.setUsername(64574L);
+        student5.setUsername("64574L");
 
         Address student5Address = new Address();
         student5Address.setStreetName("101 San Fernando");
@@ -154,7 +154,7 @@ public class DataGenerator {
         student6.setFirstName("Edward");
         student6.setMiddleName("Cinacma");
         student6.setLastName("Simpson");
-        student6.setUsername(4534L);
+        student6.setUsername("4534L");
 
         Address student6Address = new Address();
         student6Address.setStreetName("0442 Melrose Street");
@@ -180,7 +180,7 @@ public class DataGenerator {
         student7.setFirstName("Fred");
         student7.setMiddleName("H.");
         student7.setLastName("Ross");
-        student7.setUsername(5457L);
+        student7.setUsername("5457L");
 
         Address student7Address = new Address();
         student7Address.setStreetName("86 Sauthoff Junction");
@@ -206,7 +206,7 @@ public class DataGenerator {
         professor1.setRoles(Sets.newHashSet(professor_role));
         professor1.setFirstName("Alice");
         professor1.setMiddleName("W.");
-        professor1.setUsername((long) 123456779);
+        professor1.setUsername("123456779");
         professor1.setLastName("Campbell");
 
         Address professor1Address = new Address();
@@ -239,7 +239,7 @@ public class DataGenerator {
 
         professor2.setRoles(Sets.newHashSet(professor_role));
         professor2.setFirstName("Mike");
-        professor2.setUsername(1234L);
+        professor2.setUsername("1234L");
         professor2.setMiddleName("W.");
         professor2.setLastName("Larkin");
 
@@ -275,7 +275,7 @@ public class DataGenerator {
         professor3.setFirstName("Rakesh");
         professor3.setMiddleName("C.");
         professor3.setLastName("Ranjan");
-        professor3.setUsername(453L);
+        professor3.setUsername("453L");
 
         Address professor3Address = new Address();
         professor3Address.setStreetName("70 S Market St");
@@ -309,7 +309,7 @@ public class DataGenerator {
         professor4.setFirstName("Erica");
         professor4.setMiddleName("A.");
         professor4.setLastName("Bing");
-        professor4.setUsername(676L);
+        professor4.setUsername("676L");
 
         Address professor4Address = new Address();
         professor4Address.setStreetName("901 Stevenson Blvd");
@@ -343,7 +343,7 @@ public class DataGenerator {
         professor5.setFirstName("Emily");
         professor5.setMiddleName("U.");
         professor5.setLastName("Davis");
-        professor5.setUsername(444L);
+        professor5.setUsername("444L");
 
         Address professor5Address = new Address();
         professor5Address.setStreetName("876 Lawrence St");
@@ -377,7 +377,7 @@ public class DataGenerator {
         professor6.setFirstName("Sandra");
         professor6.setMiddleName("AA");
         professor6.setLastName("Hill");
-        professor6.setUsername(666L);
+        professor6.setUsername("666L");
 
         Address professor6Address = new Address();
         professor6Address.setStreetName("48455 Pierstorff Avenue");
