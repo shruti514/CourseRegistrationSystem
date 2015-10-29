@@ -4,33 +4,14 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 @Entity
 @Table(name = "section_info")
-public class Section implements Serializable {
+public class Section extends BaseEntity {
 
-	@Id
-    @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1, initialValue = 100000)
-    @GeneratedValue(generator = "sequence", strategy = GenerationType.SEQUENCE)
-	@Column(name = "section_id")
-	private Long id;
 
 	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
 	@JoinColumn(name = "professor_id", foreignKey = @ForeignKey(name = "FK_section_professor"))
@@ -81,13 +62,6 @@ public class Section implements Serializable {
 	@ManyToMany(mappedBy = "sections",fetch = FetchType.EAGER)
 	private List<Student> students;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public Professor getProfessor() {
 		return professor;
@@ -193,7 +167,11 @@ public class Section implements Serializable {
 		return price;
 	}
 
-	public void setPrice(Integer price) {
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
+
+    public void setPrice(Integer price) {
 		this.price = price;
 	}
 
@@ -206,7 +184,7 @@ public class Section implements Serializable {
 
 		Section section = (Section) o;
 
-		if (!id.equals(section.id))
+		if (!getId().equals(section.getId()))
 			return false;
 		if (!professor.equals(section.professor))
 			return false;
@@ -236,7 +214,7 @@ public class Section implements Serializable {
 
 	@Override
 	public int hashCode() {
-		int result = id.hashCode();
+		int result = getId().hashCode();
 		result = 31 * result + professor.hashCode();
 		result = 31 * result + course.hashCode();
 		result = 31 * result + semester.hashCode();

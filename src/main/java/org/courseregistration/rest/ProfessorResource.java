@@ -1,5 +1,6 @@
 package org.courseregistration.rest;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.security.PermitAll;
@@ -8,6 +9,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
 import com.google.common.collect.Lists;
+import org.courseregistration.dao.ProfessorDAO;
 import org.courseregistration.exception.ApplicationException;
 import org.courseregistration.hateoas.ProfessorResourceWrapper;
 import org.courseregistration.rest.writters.ProfessorAssembler;
@@ -30,6 +32,8 @@ public class ProfessorResource {
 	private ProfessorService professorService;
     @Autowired
     private EntityLinks entityLinks;
+    @Autowired
+    private ProfessorDAO professorDAO;
 
 	/**
 	 * Get details of a specific professor
@@ -57,10 +61,12 @@ public class ProfessorResource {
 
         if (responseBuilder != null) {
             responseBuilder.cacheControl(cc);
+            responseBuilder.lastModified(professor.getUpdatedAt());
             return responseBuilder.build();
         }
         responseBuilder = Response.ok(resource);
         responseBuilder.cacheControl(cc);
+        responseBuilder.lastModified(professor.getUpdatedAt());
         responseBuilder.tag(tag);
         return responseBuilder.build();
     }
@@ -193,9 +199,20 @@ public class ProfessorResource {
 	@Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({"PROFESSOR","ADMIN"})
-	public Response updateProfessor(@PathParam("id") Long id,Professor professor) throws ApplicationException {
-		professorService.updateProfessor(id, professor);
-		return Response.noContent().entity("Professor details updated").build();
+	public Response updateProfessor(@PathParam("id") Long id,
+                                    Professor professor,
+                                    @Context Request request) throws ApplicationException {
+        Professor fromDB=professorDAO.findById(id);
+
+        EntityTag tag = new EntityTag(Integer.toString(fromDB.hashCode()));
+        Date timestamp = fromDB.getUpdatedAt();
+
+        Response.ResponseBuilder builder =request.evaluatePreconditions(timestamp, tag);
+        if (builder != null) {
+            return builder.build();
+        }
+        professorService.updateProfessor(id, professor);
+        return Response.noContent().entity("Professor details updated").build();
 	}
 
 

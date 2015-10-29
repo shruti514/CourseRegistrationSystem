@@ -2,15 +2,13 @@ package org.courseregistration.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 
 @Entity
 @Table(name = "course_details")
-public class Course implements Serializable {
-    @Id
-    @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1, initialValue = 100000)
-    @GeneratedValue(generator = "sequence", strategy = GenerationType.SEQUENCE)
-    @Column(name = "course_id")
-    private Long id;
+public class Course extends BaseEntity {
+
 
     @Column(name = "code", nullable = false)
     private String code;
@@ -33,14 +31,6 @@ public class Course implements Serializable {
     @Column(name = "program", nullable = false)
     private String program;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getCode() {
         return code;
@@ -109,7 +99,7 @@ public class Course implements Serializable {
 
         Course course = (Course) o;
 
-        if (!id.equals(course.id))
+        if (!getId().equals(course.getId()))
             return false;
         if (!code.equals(course.code))
             return false;
@@ -127,7 +117,7 @@ public class Course implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
+        int result = getId().hashCode();
         result = 31 * result + code.hashCode();
         result = 31 * result + name.hashCode();
         result = 31 * result + description.hashCode();

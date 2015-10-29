@@ -1,6 +1,7 @@
 package org.courseregistration.rest;
 
 import com.google.common.collect.Lists;
+import org.courseregistration.dao.StudentDAO;
 import org.courseregistration.exception.ApplicationException;
 import org.courseregistration.hateoas.ProfessorResourceWrapper;
 import org.courseregistration.hateoas.StudentResourceWrapper;
@@ -9,6 +10,8 @@ import org.courseregistration.model.Student;
 import org.courseregistration.rest.writters.ProfessorAssembler;
 import org.courseregistration.rest.writters.StudentAssembler;
 import org.courseregistration.service.StudentService;
+import org.courseregistration.webconfig.CacheControlAnnotation;
+import org.courseregistration.webconfig.CacheControlAnnotation.CacheMaxAge;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.PagedResources;
@@ -22,7 +25,9 @@ import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static org.courseregistration.rest.ResponseHelper.getCacheControl;
@@ -33,6 +38,8 @@ import static org.courseregistration.rest.ResponseHelper.getCacheControl;
 public class StudentResource {
     @Autowired
     private StudentService studentService;
+    @Autowired
+    private StudentDAO studentDAO;
 
     /**
      * Get details of a specific student
@@ -49,6 +56,7 @@ public class StudentResource {
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"PROFESSOR","ADMIN"})
     public Response addStudent(@Context UriInfo uriInfo,Student student) throws ApplicationException {
         studentService.addStudent(student);
         return Response.created(uriInfo.getAbsolutePathBuilder()
@@ -153,36 +161,49 @@ public class StudentResource {
     //get student by id
     @GET
     @Path("{id}")
+    @CacheMaxAge(time = 10, unit = TimeUnit.MINUTES, isPrivate=false,noStore=false)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findStudentById(@Context UriInfo uriInfo,@PathParam("id") Long id,@Context Request request) throws ApplicationException {
+    public Response findStudentById(@Context UriInfo uriInfo,@PathParam("id") Long id,
+                                    @Context Request request) throws ApplicationException {
         Student student = studentService.findById(id);
         StudentAssembler studentAssembler = new StudentAssembler();
         StudentResourceWrapper resources = studentAssembler.toResource(student);
 
-        CacheControl cc = getCacheControl();
 
-        EntityTag tag = new EntityTag(Integer.toString(student.hashCode()));
+        int hashCode = student.hashCode();
+
+        EntityTag tag = new EntityTag(Integer.toString(hashCode));
 
         Response.ResponseBuilder responseBuilder = request.evaluatePreconditions(tag);
 
         if (responseBuilder != null) {
-            responseBuilder.cacheControl(cc);
+            responseBuilder.lastModified(student.getUpdatedAt());
             return responseBuilder.build();
         }
         responseBuilder = Response.ok(resources);
-        responseBuilder.cacheControl(cc);
+        responseBuilder.lastModified(student.getUpdatedAt());
         responseBuilder.tag(tag);
         return responseBuilder.build();
     }
 
     //update student details
     @PUT
-    @Path("update/{id}")
+    @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateStudent(@PathParam("id")Long id, Student s) throws ApplicationException {
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response updateStudent(@PathParam("id")Long id, Student s,
+                                  @Context Request request) throws ApplicationException {
+        Student fromDB = studentDAO.findById(id);
 
-        Student stud = studentService.updateStudent(id, s);
-        return Response.ok().entity(stud).build();
+        EntityTag tag = new EntityTag(Integer.toString(fromDB.hashCode()));
+        Date timestamp = fromDB.getUpdatedAt();
+
+        Response.ResponseBuilder builder =request.evaluatePreconditions(timestamp, tag);
+        if (builder != null) {
+            return builder.build();
+        }
+        Student stud = studentService.updateStudent(id,fromDB, s);
+        return Response.noContent().entity("Successfully updated Student with id :"+stud.getId()).build();
     }
 
     //enroll to a section

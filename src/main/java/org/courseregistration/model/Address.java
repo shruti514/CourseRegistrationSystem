@@ -5,13 +5,8 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "address")
-public class Address implements Serializable {
+public class Address extends BaseEntity {
 
-	@Id
-	@SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1, initialValue = 100000)
-	@GeneratedValue(generator = "sequence", strategy = GenerationType.SEQUENCE)
-	@Column(name = "address_id")
-	private Long id;
 
 	@Column(name = "street_name", nullable = false)
 	private String streetName;
@@ -28,13 +23,6 @@ public class Address implements Serializable {
 	@Column(name = "state", nullable = false)
 	private String state;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getStreetName() {
 		return streetName;
@@ -85,7 +73,7 @@ public class Address implements Serializable {
 
 		Address address = (Address) o;
 
-		if (!id.equals(address.id))
+		if (!getId().equals(address.getId()))
 			return false;
 		if (!streetName.equals(address.streetName))
 			return false;
@@ -102,7 +90,7 @@ public class Address implements Serializable {
 
 	@Override
 	public int hashCode() {
-		int result = id.hashCode();
+		int result = getId().hashCode();
 		result = 31 * result + streetName.hashCode();
 		result = 31 * result + (aptNo != null ? aptNo.hashCode() : 0);
 		result = 31 * result + zipcode.hashCode();
