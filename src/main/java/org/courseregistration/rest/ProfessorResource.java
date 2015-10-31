@@ -92,15 +92,18 @@ public class ProfessorResource {
 
     @GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findAllProfessors(@QueryParam("page") @DefaultValue("0") int page,
+	public Response findAllProfessors(@QueryParam("page") @DefaultValue("1") int page,
                                       @QueryParam("size") @DefaultValue("2") int size,@Context UriInfo uriInfo) {
 
+        if(page<1 || size<1){
+            return Response.status(400).build();
+        }
     List<Professor> allProfessors = professorService.findAllProfessors();
     ProfessorAssembler professorAssembler = new ProfessorAssembler();
     List<ProfessorResourceWrapper> resources = professorAssembler.toResources(allProfessors);
 
     List<ProfessorResourceWrapper> toShow = Lists.newArrayList();
-    for(int i= page*size, j=0;j<size && i<resources.size(); i++,j++){
+    for(int i= (page-1)*size, j=0;j<size && i<resources.size(); i++,j++){
         toShow.add(resources.get(i));
     }
 
@@ -110,9 +113,9 @@ public class ProfessorResource {
     List<Link> links = Lists.newArrayList();
 
     links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",page+1).queryParam("size",size).build().toString(),Link.REL_NEXT));
-    links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",0).queryParam("size",size).build().toString(),Link.REL_FIRST));
+    links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",1).queryParam("size",size).build().toString(),Link.REL_FIRST));
     links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",totalNumberOfPages).queryParam("size",size).build().toString(),Link.REL_LAST));
-    if(page>0){
+    if(page>1){
         links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",page-1).queryParam("size",size).build().toString(),Link.REL_PREVIOUS));
     }
 

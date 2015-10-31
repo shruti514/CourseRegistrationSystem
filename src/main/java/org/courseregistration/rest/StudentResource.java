@@ -121,16 +121,20 @@ public class StudentResource {
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findStudentsPaged(@QueryParam("page") @DefaultValue("0") int page,
+    public Response findStudentsPaged(@QueryParam("page") @DefaultValue("1") int page,
                                       @QueryParam("size") @DefaultValue("2") int size,
                                       @Context UriInfo uriInfo,@Context Request request) throws ApplicationException {
+
+        if(page<1 || size<1){
+            return Response.status(400).build();
+        }
 
         List<Student> allStudents = studentService.findAllStudents();
         StudentAssembler studentAssembler = new StudentAssembler();
         List<StudentResourceWrapper> resources = studentAssembler.toResources(allStudents);
 
         List<StudentResourceWrapper> toShow = Lists.newArrayList();
-        for(int i= page*size, j=0;j<size && i<resources.size(); i++,j++){
+        for(int i=(page-1)*size, j=0;j<size && i<resources.size(); i++,j++){
             toShow.add(resources.get(i));
         }
 
@@ -140,9 +144,9 @@ public class StudentResource {
         List<Link> links = Lists.newArrayList();
 
         links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",page+1).queryParam("size",size).build().toString(),Link.REL_NEXT));
-        links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",0).queryParam("size",size).build().toString(),Link.REL_FIRST));
+        links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",1).queryParam("size",size).build().toString(),Link.REL_FIRST));
         links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",totalNumberOfPages).queryParam("size",size).build().toString(),Link.REL_LAST));
-        if(page>0){
+        if(page>1){
             links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",page-1).queryParam("size",size).build().toString(),Link.REL_PREVIOUS));
         }
 

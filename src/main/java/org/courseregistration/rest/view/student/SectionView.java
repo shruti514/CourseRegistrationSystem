@@ -1,7 +1,10 @@
-package org.courseregistration.rest.view.section;
+package org.courseregistration.rest.view.student;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.courseregistration.rest.view.section.CourseView;
+import org.courseregistration.rest.view.section.ProfessorView;
+import org.courseregistration.rest.view.section.StudentView;
 
 import java.util.Date;
 import java.util.List;
@@ -24,7 +27,7 @@ public class SectionView {
     @JsonProperty("professor")
     ProfessorView professor;
     @JsonProperty("student")
-    List<StudentView> student;
+    List<org.courseregistration.rest.view.section.StudentView> student;
     private int numberOfEnrolledStudents;
 
     public String getSemester() {
@@ -115,7 +118,7 @@ public class SectionView {
         this.price = price;
     }
 
-    public List<StudentView> getStudent() {
+    public List<org.courseregistration.rest.view.section.StudentView> getStudent() {
         return student;
     }
 

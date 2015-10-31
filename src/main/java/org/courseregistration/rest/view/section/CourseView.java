@@ -3,10 +3,8 @@ package org.courseregistration.rest.view.section;
 
 import org.springframework.hateoas.Link;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
-public class Course {
+public class CourseView {
     Long id;
     String name;
     private Link link;

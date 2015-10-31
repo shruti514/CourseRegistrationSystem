@@ -3,11 +3,11 @@ package org.courseregistration.rest.view.section;
 
 import org.springframework.hateoas.Link;
 
-public class Student {
+public class ProfessorView {
     Long id;
     String firstname;
     String lastname;
-    String emailId;
+    String email;
     Link link;
 
     public Long getId() {
@@ -26,22 +26,6 @@ public class Student {
         this.firstname = firstname;
     }
 
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getEmailId() {
-        return emailId;
-    }
-
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
-    }
-
     public Link getLink() {
         return link;
     }
@@ -50,5 +34,19 @@ public class Student {
         this.link = link;
     }
 
+    public String getLastname() {
+        return lastname;
+    }
 
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
