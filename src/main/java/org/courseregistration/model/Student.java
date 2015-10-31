@@ -1,10 +1,8 @@
 package org.courseregistration.model;
 
 import com.google.common.collect.Lists;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 

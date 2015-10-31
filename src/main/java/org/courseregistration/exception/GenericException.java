@@ -1,8 +1,8 @@
 package org.courseregistration.exception;
 
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.springframework.beans.BeanUtils;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

@@ -1,12 +1,12 @@
 package org.courseregistration.model;
 
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 @Entity
 @Table(name = "section_info")
