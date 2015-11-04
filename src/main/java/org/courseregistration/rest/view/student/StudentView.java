@@ -1,14 +1,25 @@
 package org.courseregistration.rest.view.student;
 
 
-import org.springframework.hateoas.Link;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.courseregistration.model.Address;
+import java.util.Date;
+import java.util.List;
 
 public class StudentView {
-    Long id;
-    String firstname;
-    String lastname;
-    String emailId;
-    Link link;
+    private Long id;
+    private String username;
+    private String firstName;
+    private String middleName;
+    private String lastName;
+    private String emailId;
+    private String phoneNumber;
+    private Date dateOfBirth;
+    private Address address;
+    private String admissionType;
+    private String previousDegree;
+    @JsonProperty("sections")
+    private List<SectionView> sectionViews;
 
     public Long getId() {
         return id;
@@ -18,20 +29,36 @@ public class StudentView {
         this.id = id;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getUsername() {
+        return username;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmailId() {
@@ -42,13 +69,51 @@ public class StudentView {
         this.emailId = emailId;
     }
 
-    public Link getLink() {
-        return link;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setLink(Link link) {
-        this.link = link;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
 
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public String getAdmissionType() {
+        return admissionType;
+    }
+
+    public void setAdmissionType(String admissionType) {
+        this.admissionType = admissionType;
+    }
+
+    public String getPreviousDegree() {
+        return previousDegree;
+    }
+
+    public void setPreviousDegree(String previousDegree) {
+        this.previousDegree = previousDegree;
+    }
+
+    public List<SectionView> getSectionViews() {
+        return sectionViews;
+    }
+
+    public void setSectionViews(List<SectionView> sectionViews) {
+        this.sectionViews = sectionViews;
+    }
 }

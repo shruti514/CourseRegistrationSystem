@@ -10,25 +10,25 @@ import java.util.Date;
 import java.util.List;
 
 public class SectionView {
-    Long id;
-    String semester;
-    Date classStartTime;
-    Date classEndTime;
-    String dayOfWeek;
-    Date startDate;
-    Date endDate;
-    String roomNumber;
-    Integer totalCapacity;
-    Integer waitListCapacity;
-    String modeOfInstruction;
-    Integer price;
+    private Long id;
+    private String semester;
+    private Date classStartTime;
+    private Date classEndTime;
+    private String dayOfWeek;
+    private Date startDate;
+    private Date endDate;
     @JsonProperty("course")
-    CourseView course;
+    private CourseView courseView;
     @JsonProperty("professor")
-    ProfessorView professor;
-    @JsonProperty("student")
-    List<org.courseregistration.rest.view.section.StudentView> student;
-    private int numberOfEnrolledStudents;
+    private ProfessorView professorView;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getSemester() {
         return semester;
@@ -78,83 +78,19 @@ public class SectionView {
         this.endDate = endDate;
     }
 
-    public String getRoomNumber() {
-        return roomNumber;
+    public CourseView getCourseView() {
+        return courseView;
     }
 
-    public void setRoomNumber(String roomNumber) {
-        this.roomNumber = roomNumber;
+    public void setCourseView(CourseView courseView) {
+        this.courseView = courseView;
     }
 
-    public Integer getTotalCapacity() {
-        return totalCapacity;
+    public ProfessorView getProfessorView() {
+        return professorView;
     }
 
-    public void setTotalCapacity(Integer totalCapacity) {
-        this.totalCapacity = totalCapacity;
-    }
-
-    public Integer getWaitListCapacity() {
-        return waitListCapacity;
-    }
-
-    public void setWaitListCapacity(Integer waitListCapacity) {
-        this.waitListCapacity = waitListCapacity;
-    }
-
-    public String getModeOfInstruction() {
-        return modeOfInstruction;
-    }
-
-    public void setModeOfInstruction(String modeOfInstruction) {
-        this.modeOfInstruction = modeOfInstruction;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
-    public List<org.courseregistration.rest.view.section.StudentView> getStudent() {
-        return student;
-    }
-
-    public void setStudent(List<StudentView> student) {
-        this.student = student;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public CourseView getCourse() {
-        return course;
-    }
-
-    public void setCourse(CourseView course) {
-        this.course = course;
-    }
-
-    public ProfessorView getProfessor() {
-        return professor;
-    }
-
-    public void setProfessor(ProfessorView professor) {
-        this.professor = professor;
-    }
-
-    public void setNumberOfEnrolledStudents(int numberOfEnrolledStudents) {
-        this.numberOfEnrolledStudents = numberOfEnrolledStudents;
-    }
-
-    public int getNumberOfEnrolledStudents() {
-        return numberOfEnrolledStudents;
+    public void setProfessorView(ProfessorView professorView) {
+        this.professorView = professorView;
     }
 }

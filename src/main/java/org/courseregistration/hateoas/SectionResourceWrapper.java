@@ -45,8 +45,8 @@ public class SectionResourceWrapper extends ResourceSupport {
             StudentAssembler studentAssembler = new StudentAssembler();
             tempStudent.setId(student.getId());
             tempStudent.setEmailId(student.getEmailId());
-            tempStudent.setFirstname(student.getFirstName());
-            tempStudent.setFirstname(student.getLastName());
+            tempStudent.setFirstName(student.getFirstName());
+            tempStudent.setFirstName(student.getLastName());
             tempStudent.setLink(studentAssembler.toResource(student).getLink(Link.REL_SELF));
             studentView.add(tempStudent);
         }

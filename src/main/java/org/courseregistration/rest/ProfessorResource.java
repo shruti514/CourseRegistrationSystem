@@ -110,14 +110,7 @@ public class ProfessorResource {
     int totalNumberOfPages = resources.size() / size;
     totalNumberOfPages = resources.size()%size != 0?totalNumberOfPages+1:totalNumberOfPages;
 
-    List<Link> links = Lists.newArrayList();
-
-    links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",page+1).queryParam("size",size).build().toString(),Link.REL_NEXT));
-    links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",1).queryParam("size",size).build().toString(),Link.REL_FIRST));
-    links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",totalNumberOfPages).queryParam("size",size).build().toString(),Link.REL_LAST));
-    if(page>1){
-        links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",page-1).queryParam("size",size).build().toString(),Link.REL_PREVIOUS));
-    }
+    List<Link> links = PaginationHelper.getPaginationLinks(page,size,uriInfo,totalNumberOfPages);
 
     PagedResources<ProfessorResourceWrapper> professorResourceWrappers = new PagedResources<>(
         toShow,
