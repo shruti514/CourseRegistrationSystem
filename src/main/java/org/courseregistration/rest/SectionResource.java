@@ -7,32 +7,23 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.courseregistration.dao.SearchCriteria;
 import org.courseregistration.exception.ApplicationException;
 import org.courseregistration.hateoas.SectionResourceWrapper;
+import org.courseregistration.hateoas.StudentResourceWrapper;
 import org.courseregistration.model.Section;
 import org.courseregistration.rest.writters.SectionAssembler;
 import org.courseregistration.service.SectionService;
 import org.courseregistration.webconfig.CacheControlAnnotation;
 import org.courseregistration.webconfig.CacheControlAnnotation.CacheMaxAge;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.EntityLinks;
-import org.springframework.hateoas.ExposesResourceFor;
+import org.springframework.hateoas.*;
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
 import org.springframework.hateoas.jaxrs.JaxRsLinkBuilder;
 import org.springframework.stereotype.Component;
 
@@ -52,13 +43,7 @@ public class SectionResource {
 	/**
 	 * Get details of a specific Section
 	 *
-	 * @param id
-	 *            student identifier of the required student
-	 *
-	 * @response.representation.200.doc Details of Section
-	 * @response.representation.200.mediaType application/json
-	 * @response.representation.404.doc Requested Section with id not found
-	 *
+	 * @param id section identifier
 	 * @return details of a Section
 	 */
 	@GET
@@ -97,8 +82,8 @@ public class SectionResource {
 	/**
 	 * Find Section By Section's Course Name
 	 *
-	 * @param name
-	 * @return Response.Status.OK with Details of Section
+	 * @param name name of the course
+	 * @return Response.Status.OK with Details of Sections which match the course name
 	 */
 	@GET
 	@Path("/coursename:{name}")
@@ -115,24 +100,46 @@ public class SectionResource {
 	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findSections() {
-		List<Section> allSections = sectionService.findAllSections();
+	public Response findSections(@QueryParam("page") @DefaultValue("1") int page,
+                                 @QueryParam("size") @DefaultValue("2") int size,
+                                 @Context UriInfo uriInfo) {
+        if(page<1 || size<1){
+            return Response.status(400).build();
+        }
+
+        List<Section> allSections = sectionService.findAllSections();
 
 		SectionAssembler sectionAssembler = new SectionAssembler();
 		List<SectionResourceWrapper> resources = sectionAssembler
 				.toResources(allSections);
 
-		Resources<SectionResourceWrapper> wrapped = new Resources<>(resources);
-		wrapped.add(JaxRsLinkBuilder.linkTo(SectionResource.class)
-				.withSelfRel());
 
-		return Response.ok(wrapped).cacheControl(getCacheControl()).build();
+        List<SectionResourceWrapper> toShow = Lists.newArrayList();
+        for(int i=(page-1)*size, j=0;j<size && i<resources.size(); i++,j++){
+            toShow.add(resources.get(i));
+        }
+
+        int totalNumberOfPages = resources.size() / size;
+        totalNumberOfPages = resources.size()%size != 0?totalNumberOfPages+1:totalNumberOfPages;
+
+        List<Link> links = PaginationHelper.getPaginationLinks(page, size, uriInfo, totalNumberOfPages);
+
+        PagedResources<SectionResourceWrapper> sectionResourceWrappers = new PagedResources<>(
+            toShow,
+            new PagedResources.PageMetadata(
+                size,
+                page,
+                resources.size(),
+                (long) totalNumberOfPages),links
+        );
+
+		return Response.ok(sectionResourceWrappers).cacheControl(getCacheControl()).build();
 	}
 
 	/**
 	 * Creates a Section
 	 *
-	 * @param section
+	 * @param section data of the new section to be created
 	 * @return
 	 * @throws ApplicationException
 	 */
@@ -140,13 +147,15 @@ public class SectionResource {
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@RolesAllowed({"PROFESSOR","ADMIN"})
-	public Response addSection(Section section) throws ApplicationException {
+	public Response addSection(Section section,@Context UriInfo uriInfo) throws ApplicationException {
 
 		boolean isSaved = sectionService.addSection(section);
 		if (isSaved) {
 			String result = "Section saved : " + section;
-			return Response.status(Response.Status.CREATED).entity(result)
-					.build();
+            String id = section.getId()!=null?section.getId().toString():"";
+			return Response.created(uriInfo.getAbsolutePathBuilder().path(id).build())
+                .entity(result)
+                .build();
 		} else {
 			String result = "Section is not saved" + section;
 			return Response.status(400).entity(result).build();
