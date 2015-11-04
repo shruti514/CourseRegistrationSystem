@@ -141,16 +141,7 @@ public class StudentResource {
         int totalNumberOfPages = resources.size() / size;
         totalNumberOfPages = resources.size()%size != 0?totalNumberOfPages+1:totalNumberOfPages;
 
-        //List<Link> links = Lists.newArrayList();
-
-        /*links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",page+1).queryParam("size",size).build().toString(),Link.REL_NEXT));
-        links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",1).queryParam("size",size).build().toString(),Link.REL_FIRST));
-        links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",totalNumberOfPages).queryParam("size",size).build().toString(),Link.REL_LAST));
-        if(page>1){
-            links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",page-1).queryParam("size",size).build().toString(),Link.REL_PREVIOUS));
-        }*/
-
-        List<Link> links = this.getPaginationLinks(page,size,uriInfo,totalNumberOfPages);
+        List<Link> links = PaginationHelper.getPaginationLinks(page, size, uriInfo, totalNumberOfPages);
 
         PagedResources<StudentResourceWrapper> studentResourceWrappers = new PagedResources<>(
             toShow,
@@ -230,22 +221,5 @@ public class StudentResource {
          studentService.dropSection(id, section_id);
         return Response.ok(200).entity("Dropped Section").build();
     }
-
-    private List<Link> getPaginationLinks(int page,int size,UriInfo uriInfo, int totalNumberOfPages) {
-
-        List<Link> links = Lists.newArrayList();
-        if(page == totalNumberOfPages){
-            links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",page).queryParam("size",size).build().toString(),Link.REL_NEXT));
-        }else{
-            links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",page+1).queryParam("size",size).build().toString(),Link.REL_NEXT));
-        }
-        links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",1).queryParam("size",size).build().toString(),Link.REL_FIRST));
-        links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",totalNumberOfPages).queryParam("size",size).build().toString(),Link.REL_LAST));
-        if(page>1){
-            links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",page-1).queryParam("size",size).build().toString(),Link.REL_PREVIOUS));
-        }
-        return links;
-    }
-
 
 }
