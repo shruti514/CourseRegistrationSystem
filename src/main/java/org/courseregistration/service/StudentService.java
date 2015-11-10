@@ -77,46 +77,44 @@ public class StudentService {
     }
 
 
-    public Student updateStudent(Long id, Student s) throws ApplicationException {
-        Student currentStud = null;
-        currentStud = studentDAO.findById(id);
+    public Student updateStudent(Long id, Student fromDB,Student s) throws ApplicationException {
 
         if(s.getHashedPassword() != null) {
-            currentStud.setHashedPassword(s.getHashedPassword());
+            fromDB.setHashedPassword(s.getHashedPassword());
         }
         if(s.getPhoneNumber() != null) {
-            currentStud.setPhoneNumber(s.getPhoneNumber());
+            fromDB.setPhoneNumber(s.getPhoneNumber());
         }
         if(s.getAdmissionType() != null) {
-            currentStud.setAdmissionType(s.getAdmissionType());
+            fromDB.setAdmissionType(s.getAdmissionType());
         }
         if(s.getPreviousDegree() != null) {
-            currentStud.setPreviousDegree(s.getPreviousDegree());
+            fromDB.setPreviousDegree(s.getPreviousDegree());
         }
         if(s.getUsername() != null) {
-            currentStud.setUsername(s.getUsername());
+            fromDB.setUsername(s.getUsername());
         }
         if(s.getEmailId()!= null) {
-            currentStud.setEmailId(s.getEmailId());
+            fromDB.setEmailId(s.getEmailId());
         }
         if(s.getDateOfBirth()!= null) {
-            currentStud.setDateOfBirth(s.getDateOfBirth());
+            fromDB.setDateOfBirth(s.getDateOfBirth());
         }
         if(s.getFirstName() != null) {
-            currentStud.setFirstName(s.getFirstName());
+            fromDB.setFirstName(s.getFirstName());
         }
         if(s.getMiddleName() != null) {
-            currentStud.setMiddleName(s.getMiddleName());
+            fromDB.setMiddleName(s.getMiddleName());
         }
         if(s.getLastName() != null) {
-            currentStud.setLastName(s.getLastName());
+            fromDB.setLastName(s.getLastName());
         }
         if(s.getAddress() != null) {
-            currentStud.setAddress(s.getAddress());
+            fromDB.setAddress(s.getAddress());
         }
 
-        studentDAO.update(currentStud);
-        return currentStud;
+        studentDAO.update(fromDB);
+        return fromDB;
     }
 
 

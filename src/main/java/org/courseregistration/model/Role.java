@@ -1,6 +1,7 @@
 package org.courseregistration.model;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -8,13 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "roles")
-public class Role {
-
-    @Id
-    @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1, initialValue = 100000)
-    @GeneratedValue(generator = "sequence", strategy = GenerationType.SEQUENCE)
-    @Column(name = "role_id")
-    private Long id;
+public class Role extends BaseEntity{
 
     @Column(nullable = false)
     private String name;
@@ -22,14 +17,6 @@ public class Role {
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles")
     private Set<User> users = new HashSet<>();
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

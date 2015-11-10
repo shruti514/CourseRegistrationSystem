@@ -74,29 +74,26 @@ public class CourseResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findCoursesPaged(
-        @QueryParam("page") @DefaultValue("0") int page,
+        @QueryParam("page") @DefaultValue("1") int page,
         @QueryParam("size") @DefaultValue("2") int size,@Context UriInfo uriInfo) {
+
+        if(page<1 || size<1){
+            return Response.status(400).build();
+        }
 
         List<Course> allCourses = courseService.findAllCourses();
         CourseAssembler courseAssembler = new CourseAssembler();
         List<CourseResourceWrapper> resources = courseAssembler.toResources(allCourses);
 
         List<CourseResourceWrapper> toShow = Lists.newArrayList();
-        for(int i= page*size, j=0;j<size && i<resources.size(); i++,j++){
+        for(int i= (page-1)*size, j=0;j<size && i<resources.size(); i++,j++){
             toShow.add(resources.get(i));
         }
 
         int totalNumberOfPages = resources.size() / size;
         totalNumberOfPages = resources.size()%size != 0?totalNumberOfPages+1:totalNumberOfPages;
 
-        List<Link> links = Lists.newArrayList();
-
-        links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",page+1).queryParam("size",size).build().toString(),Link.REL_NEXT));
-        links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",0).queryParam("size",size).build().toString(),Link.REL_FIRST));
-        links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",totalNumberOfPages).queryParam("size",size).build().toString(),Link.REL_LAST));
-        if(page>0){
-            links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",page-1).queryParam("size",size).build().toString(),Link.REL_PREVIOUS));
-        }
+        List<Link> links = PaginationHelper.getPaginationLinks(page, size, uriInfo, totalNumberOfPages);
 
         PagedResources<CourseResourceWrapper> courseResources = new PagedResources<>(
             toShow,
@@ -110,7 +107,9 @@ public class CourseResource {
         return Response.ok(courseResources).build();
     }
 
-	@DELETE
+
+
+    @DELETE
 	@Path("{id}")
 	@Produces(MediaType.TEXT_PLAIN)
     public Response deleteCourseById(@PathParam("id") Long id) {

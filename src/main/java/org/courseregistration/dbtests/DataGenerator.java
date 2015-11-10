@@ -5,9 +5,14 @@ import org.courseregistration.model.*;
 
 import javax.persistence.EntityManager;
 import java.util.Calendar;
+import java.util.Date;
 
 
 public class DataGenerator {
+
+    public static void main(String args[]){
+        generateData();
+    }
 
     public static void generateData(){
         EntityManager entityManager = org.courseregistration.dbtests.HibernateUtils.getEntityManager();
@@ -15,12 +20,15 @@ public class DataGenerator {
         //--------------------------------------------------------------------------
         Role student_role= new Role();
         student_role.setName("Student");
+        student_role.setUpdatedAt(new Date());
 
         Role professor_role=new Role();
         professor_role.setName("Professor");
+        professor_role.setUpdatedAt(new Date());
 
         Role admin_role = new Role();
         admin_role.setName("Administrator");
+        admin_role.setUpdatedAt(new Date());
         //--------------------------------------------------------------------------
 
         Student student1 = new Student();
@@ -36,9 +44,11 @@ public class DataGenerator {
         student1Address.setCity("Sunnyvale");
         student1Address.setState("CA");
         student1Address.setZipcode(94086);
+        student1Address.setUpdatedAt(new Date());
 
         student1.setAddress(student1Address);
         student1.setAdmissionType("Accepted");
+        student1.setUpdatedAt(new Date());
 
         Calendar calendar1 = Calendar.getInstance();
         calendar1.set(1988, Calendar.FEBRUARY, 5);
@@ -54,6 +64,7 @@ public class DataGenerator {
         student2.setMiddleName("W.");
         student2.setUsername("123456788");
         student2.setLastName("Campbell");
+        student2.setUpdatedAt(new Date());
 
         Address student2Address = new Address();
         student2Address.setStreetName("65 Rio Robles E");
@@ -62,6 +73,7 @@ public class DataGenerator {
         student2Address.setState("CA");
         student2Address.setZipcode(95134);
         student2.setAddress(student2Address);
+        student2Address.setUpdatedAt(new Date());
         student2.setAdmissionType("Accepted - Conditionally");
 
         Calendar calendar2 = Calendar.getInstance();
@@ -85,6 +97,7 @@ public class DataGenerator {
         student3Address.setCity("Fremont");
         student3Address.setState("CA");
         student3Address.setZipcode(94536);
+        student3Address.setUpdatedAt(new Date());
 
         student3.setAddress(student3Address);
         student3.setAdmissionType("Accepted");
@@ -96,6 +109,7 @@ public class DataGenerator {
         student3.setEmailId("sarah@gmail.com");
         student3.setPhoneNumber("+1-508-664-7260");
         student3.setPreviousDegree("Bachelor of commerce");
+        student3.setUpdatedAt(new Date());
 
         Student student4 = new Student();
         student4.setRoles(Sets.newHashSet(student_role));
@@ -103,6 +117,7 @@ public class DataGenerator {
         student4.setMiddleName("V.");
         student4.setLastName("Simon");
         student4.setUsername("9459345L");
+        student4.setUpdatedAt(new Date());
 
         Address student4Address = new Address();
         student4Address.setStreetName("4356 Waterford Ave");
@@ -110,6 +125,7 @@ public class DataGenerator {
         student4Address.setCity("San Diego");
         student4Address.setState("CA");
         student4Address.setZipcode(45632);
+        student4Address.setUpdatedAt(new Date());
 
         student4.setAddress(student4Address);
         student4.setAdmissionType("Rejected");
@@ -136,6 +152,7 @@ public class DataGenerator {
         student5Address.setCity("San Jose");
         student5Address.setState("CA");
         student5Address.setZipcode(95112);
+        student5Address.setUpdatedAt(new Date());
 
         student5.setAddress(student5Address);
         student5.setAdmissionType("Waiting");
@@ -147,6 +164,7 @@ public class DataGenerator {
         student5.setEmailId("Alexander.olivia1986@gmail.com");
         student5.setPhoneNumber("+1-567-654-9812");
         student5.setPreviousDegree("BS in Computer Science");
+        student5.setUpdatedAt(new Date());
 
         Student student6 = new Student();
 
@@ -155,6 +173,7 @@ public class DataGenerator {
         student6.setMiddleName("Cinacma");
         student6.setLastName("Simpson");
         student6.setUsername("4534L");
+        student6.setUpdatedAt(new Date());
 
         Address student6Address = new Address();
         student6Address.setStreetName("0442 Melrose Street");
@@ -162,6 +181,7 @@ public class DataGenerator {
         student6Address.setCity("Richmond");
         student6Address.setState("CA");
         student6Address.setZipcode(23225);
+        student6Address.setUpdatedAt(new Date());
 
         student6.setAddress(student6Address);
         student6.setAdmissionType("Classified-Graduate");

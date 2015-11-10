@@ -1,5 +1,6 @@
 package org.courseregistration.rest;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.security.PermitAll;
@@ -8,6 +9,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
 import com.google.common.collect.Lists;
+import org.courseregistration.dao.ProfessorDAO;
 import org.courseregistration.exception.ApplicationException;
 import org.courseregistration.hateoas.ProfessorResourceWrapper;
 import org.courseregistration.rest.writters.ProfessorAssembler;
@@ -30,6 +32,8 @@ public class ProfessorResource {
 	private ProfessorService professorService;
     @Autowired
     private EntityLinks entityLinks;
+    @Autowired
+    private ProfessorDAO professorDAO;
 
 	/**
 	 * Get details of a specific professor
@@ -57,10 +61,12 @@ public class ProfessorResource {
 
         if (responseBuilder != null) {
             responseBuilder.cacheControl(cc);
+            responseBuilder.lastModified(professor.getUpdatedAt());
             return responseBuilder.build();
         }
         responseBuilder = Response.ok(resource);
         responseBuilder.cacheControl(cc);
+        responseBuilder.lastModified(professor.getUpdatedAt());
         responseBuilder.tag(tag);
         return responseBuilder.build();
     }
@@ -86,29 +92,25 @@ public class ProfessorResource {
 
     @GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findAllProfessors(@QueryParam("page") @DefaultValue("0") int page,
+	public Response findAllProfessors(@QueryParam("page") @DefaultValue("1") int page,
                                       @QueryParam("size") @DefaultValue("2") int size,@Context UriInfo uriInfo) {
 
+        if(page<1 || size<1){
+            return Response.status(400).build();
+        }
     List<Professor> allProfessors = professorService.findAllProfessors();
     ProfessorAssembler professorAssembler = new ProfessorAssembler();
     List<ProfessorResourceWrapper> resources = professorAssembler.toResources(allProfessors);
 
     List<ProfessorResourceWrapper> toShow = Lists.newArrayList();
-    for(int i= page*size, j=0;j<size && i<resources.size(); i++,j++){
+    for(int i= (page-1)*size, j=0;j<size && i<resources.size(); i++,j++){
         toShow.add(resources.get(i));
     }
 
     int totalNumberOfPages = resources.size() / size;
     totalNumberOfPages = resources.size()%size != 0?totalNumberOfPages+1:totalNumberOfPages;
 
-    List<Link> links = Lists.newArrayList();
-
-    links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",page+1).queryParam("size",size).build().toString(),Link.REL_NEXT));
-    links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",0).queryParam("size",size).build().toString(),Link.REL_FIRST));
-    links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",totalNumberOfPages).queryParam("size",size).build().toString(),Link.REL_LAST));
-    if(page>0){
-        links.add(new Link(uriInfo.getAbsolutePathBuilder().queryParam("page",page-1).queryParam("size",size).build().toString(),Link.REL_PREVIOUS));
-    }
+    List<Link> links = PaginationHelper.getPaginationLinks(page,size,uriInfo,totalNumberOfPages);
 
     PagedResources<ProfessorResourceWrapper> professorResourceWrappers = new PagedResources<>(
         toShow,
@@ -193,9 +195,20 @@ public class ProfessorResource {
 	@Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({"PROFESSOR","ADMIN"})
-	public Response updateProfessor(@PathParam("id") Long id,Professor professor) throws ApplicationException {
-		professorService.updateProfessor(id, professor);
-		return Response.noContent().entity("Professor details updated").build();
+	public Response updateProfessor(@PathParam("id") Long id,
+                                    Professor professor,
+                                    @Context Request request) throws ApplicationException {
+        Professor fromDB=professorDAO.findById(id);
+
+        EntityTag tag = new EntityTag(Integer.toString(fromDB.hashCode()));
+        Date timestamp = fromDB.getUpdatedAt();
+
+        Response.ResponseBuilder builder =request.evaluatePreconditions(timestamp, tag);
+        if (builder != null) {
+            return builder.build();
+        }
+        professorService.updateProfessor(id, professor);
+        return Response.noContent().entity("Professor details updated").build();
 	}
 
 

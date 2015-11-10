@@ -1,5 +1,6 @@
 package org.courseregistration.dao;
 
+import org.courseregistration.model.BaseEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +11,7 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -19,7 +21,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Responsibility of the class is perform CRUD operations on the entities involved in the system
  * To be able to perform operations mentioned in the class, Entities should implement Serializable interface .
  */
- abstract class GenericDAO<T extends Serializable> {
+ abstract class GenericDAO<T extends BaseEntity> {
 	private final Class<T> clazz;
     @PersistenceContext
 	protected   EntityManager entityManager;
@@ -70,6 +72,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
         T mergedInstance;
         try {
+            updatedObject.setUpdatedAt(new Date());
             mergedInstance = entityManager.merge(updatedObject);
         } catch (Exception exception) {
             logger.error("Error updating object of type: {}", clazz.getName(), exception);
@@ -90,6 +93,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
         logger.debug("Saving new object of type: {}", clazz.getName());
 
         try {
+            newObject.setUpdatedAt(new Date());
             entityManager.persist(newObject);
         } catch (Exception exception) {
             logger.error("Error saving object of type: {}", clazz.getName(), exception);
@@ -109,6 +113,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
         try {
             int counter = 1;
             for (T entity : entities) {
+                entity.setUpdatedAt(new Date());
                 entityManager.persist(entity);
                 if ((counter % 10000) == 0) {
                     entityManager.flush();
