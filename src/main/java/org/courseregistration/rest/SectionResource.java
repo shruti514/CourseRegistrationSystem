@@ -1,5 +1,6 @@
 package org.courseregistration.rest;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,8 +64,10 @@ public class SectionResource {
             int hashCode = section.hashCode();
 
             EntityTag tag = new EntityTag(Integer.toString(hashCode));
+            Date lastUpdated = section.getUpdatedAt();
 
-            Response.ResponseBuilder responseBuilder = request.evaluatePreconditions(tag);
+
+            Response.ResponseBuilder responseBuilder = request.evaluatePreconditions(lastUpdated,tag);
 
             if (responseBuilder != null) {
                 responseBuilder.lastModified(section.getUpdatedAt());

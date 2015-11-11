@@ -170,8 +170,9 @@ public class StudentResource {
         int hashCode = student.hashCode();
 
         EntityTag tag = new EntityTag(Integer.toString(hashCode));
+        Date lastUpdatedAt = student.getUpdatedAt();
 
-        Response.ResponseBuilder responseBuilder = request.evaluatePreconditions(tag);
+        Response.ResponseBuilder responseBuilder = request.evaluatePreconditions(lastUpdatedAt,tag);
 
         if (responseBuilder != null) {
             responseBuilder.lastModified(student.getUpdatedAt());

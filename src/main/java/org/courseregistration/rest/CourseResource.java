@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+import java.util.Date;
 import java.util.List;
 
 import static org.courseregistration.rest.ResponseHelper.getCacheControl;
@@ -57,8 +58,9 @@ public class CourseResource {
         CacheControl cc = getCacheControl();
 
         EntityTag tag = new EntityTag(Integer.toString(course.hashCode()));
+        Date lastUpdated = course.getUpdatedAt();
 
-        Response.ResponseBuilder responseBuilder = request.evaluatePreconditions(tag);
+        Response.ResponseBuilder responseBuilder = request.evaluatePreconditions(lastUpdated,tag);
 
         if (responseBuilder != null) {
             responseBuilder.cacheControl(cc);

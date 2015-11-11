@@ -56,8 +56,9 @@ public class ProfessorResource {
         CacheControl cc = getCacheControl();
 
         EntityTag tag = new EntityTag(Integer.toString(professor.hashCode()));
+        Date lastUpdated = professor.getUpdatedAt();
 
-        Response.ResponseBuilder responseBuilder = request.evaluatePreconditions(tag);
+        Response.ResponseBuilder responseBuilder = request.evaluatePreconditions(lastUpdated,tag);
 
         if (responseBuilder != null) {
             responseBuilder.cacheControl(cc);
