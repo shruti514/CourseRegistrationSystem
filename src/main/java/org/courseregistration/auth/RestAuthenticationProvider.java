@@ -1,3 +1,4 @@
+/*
 package org.courseregistration.auth;
 
 import com.google.common.collect.Lists;
@@ -34,7 +35,7 @@ public class RestAuthenticationProvider implements AuthenticationProvider {
             String key = decodeUsingBase64(restToken.getKey());
             String credentials = decodeUsingBase64(restToken.getCredentials());
 
-            User user = userDAO.findByCollegeId(key);
+            User user = userDAO.findByCollegeId("userProf1234");
 
             if(user !=null){
                 if(decodeUsingBase64(user.getHashedPassword()).equals(credentials)){
@@ -63,9 +64,11 @@ public class RestAuthenticationProvider implements AuthenticationProvider {
         }
 
         @Override
-    /*
+    */
+/*
         Determines if this class can support the token provided by the filter.
-     */
+     *//*
+
         public boolean supports(Class<?> authentication) {
             return RestToken.class.equals(authentication);
         }
@@ -80,3 +83,4 @@ public class RestAuthenticationProvider implements AuthenticationProvider {
     }
 }
 
+*/

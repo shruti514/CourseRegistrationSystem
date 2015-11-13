@@ -1,3 +1,4 @@
+/*
 package org.courseregistration.auth;
 
 import org.springframework.security.authentication.AuthenticationManager;
@@ -80,3 +81,4 @@ public class CustomRestSecurityFilter extends GenericFilterBean {
     }
 
 }
+*/
