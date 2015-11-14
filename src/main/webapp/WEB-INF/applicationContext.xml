@@ -46,7 +46,10 @@
 
   <security:http create-session="stateless" entry-point-ref="digestEntryPoint" authentication-manager-ref="authenticationManager">
     <security:custom-filter ref="digestFilter" position="DIGEST_AUTH_FILTER" />
-    <security:intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
+    <security:intercept-url pattern="/**" access="permitAll" method="GET"/>
+    <security:intercept-url pattern="/**" access="isAuthenticated" method="POST"/>
+    <security:intercept-url pattern="/**" access="isAuthenticated" method="PUT"/>
+    <security:intercept-url pattern="/**" access="isAuthenticated" method="DELETE"/>
     <security:csrf disabled="true"/>
     <security:headers>
         <security:cache-control disabled="true"/>
