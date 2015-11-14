@@ -16,7 +16,7 @@ public class UserDAO extends GenericDAO<User> {
         throw new UnsupportedOperationException();
     }
 
-    public User findByCollegeId(String username) {
+    public User findByUsername(String username) {
 
         User toReturn = null;
         try {

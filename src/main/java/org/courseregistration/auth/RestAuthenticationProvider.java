@@ -1,6 +1,5 @@
 package org.courseregistration.auth;
 
-import com.google.common.collect.Lists;
 import org.courseregistration.dao.UserDAO;
 import org.courseregistration.model.Role;
 import org.courseregistration.model.User;
@@ -34,7 +33,7 @@ public class RestAuthenticationProvider implements AuthenticationProvider {
             String key = decodeUsingBase64(restToken.getKey());
             String credentials = decodeUsingBase64(restToken.getCredentials());
 
-            User user = userDAO.findByCollegeId(key);
+            User user = userDAO.findByUsername(key);
 
             if(user !=null){
                 if(decodeUsingBase64(user.getHashedPassword()).equals(credentials)){

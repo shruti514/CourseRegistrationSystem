@@ -44,8 +44,8 @@
       <property name="password" value="root"/>
     </bean>
 
-  <security:http create-session="stateless" entry-point-ref="authenticationEntryPoint" authentication-manager-ref="authenticationManager">
-    <security:custom-filter ref="customRestFilter" position="BASIC_AUTH_FILTER" />
+  <security:http create-session="stateless" entry-point-ref="digestEntryPoint" authentication-manager-ref="authenticationManager">
+    <security:custom-filter ref="digestFilter" position="DIGEST_AUTH_FILTER" />
     <security:intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
     <security:csrf disabled="true"/>
     <security:headers>
@@ -53,16 +53,27 @@
     </security:headers>
   </security:http>
 
-  <bean id="authenticationEntryPoint" class="org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint">
-    <property name="realmName" value="Not Authorized" />
+
+  <bean id="digestFilter" class=
+    "org.springframework.security.web.authentication.www.DigestAuthenticationFilter">
+    <property name="userDetailsService" ref="userService" />
+    <property name="authenticationEntryPoint" ref="digestEntryPoint" />
   </bean>
 
-  <bean id="customRestFilter" class="org.courseregistration.auth.CustomRestSecurityFilter">
-    <constructor-arg name="authenticationManager" ref="authenticationManager" />
+  <bean id="digestEntryPoint" class="org.springframework.security.web.authentication.www.DigestAuthenticationEntryPoint">
+    <property name="realmName" value="Resource Realm via Digest Authentication" />
+    <property name="key" value="secretKey" />
   </bean>
+
+
+  <!--<security:authentication-manager alias="authenticationManager">
+    <security:authentication-provider ref="restAuthenticationProvider" />
+  </security:authentication-manager>-->
+
+  <bean id="userService" class="org.courseregistration.auth.CustomUserDetailsService"/>
 
   <security:authentication-manager alias="authenticationManager">
-    <security:authentication-provider ref="restAuthenticationProvider" />
+    <security:authentication-provider user-service-ref="userService"/>
   </security:authentication-manager>
 
 </beans>
