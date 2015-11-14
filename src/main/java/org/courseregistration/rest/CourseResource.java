@@ -1,42 +1,24 @@
 package org.courseregistration.rest;
 
-import static org.courseregistration.rest.ResponseHelper.getCacheControl;
-
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.security.PermitAll;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.CacheControl;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.EntityTag;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Request;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
-
+import com.google.common.collect.Lists;
+import org.courseregistration.rest.writters.CourseAssembler;
 import org.courseregistration.exception.ApplicationException;
 import org.courseregistration.hateoas.CourseResourceWrapper;
 import org.courseregistration.model.Course;
-import org.courseregistration.rest.writters.CourseAssembler;
 import org.courseregistration.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.EntityLinks;
-import org.springframework.hateoas.ExposesResourceFor;
+import org.springframework.hateoas.*;
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.jaxrs.JaxRsLinkBuilder;
 import org.springframework.stereotype.Component;
 
-import com.google.common.collect.Lists;
+import javax.annotation.security.RolesAllowed;
+import javax.ws.rs.*;
+import javax.ws.rs.core.*;
+import java.util.Date;
+import java.util.List;
+
+import static org.courseregistration.rest.ResponseHelper.getCacheControl;
 
 @Component
 @Path("/courses")
@@ -44,109 +26,112 @@ import com.google.common.collect.Lists;
 @PermitAll
 @ExposesResourceFor(Course.class)
 public class CourseResource {
-	@Autowired
+    @Autowired
 	private CourseService courseService;
-	@Autowired
-	private EntityLinks entityLinks;
+    @Autowired
+    private EntityLinks entityLinks;
+
 
 	/**
 	 * Get details of a specific course
-	 * 
 	 * @param id
-	 *            course identifier of the required course
+	 * course identifier of the required course
 	 * @response.representation.200.doc Details of course
 	 * @response.representation.200.mediaType application/json
 	 *
 	 * @response.representation.404.doc Requested course with id not found
-	 * 
+
 	 * @return details of a course
 	 */
 	@GET
-	@Path("/{id}")
+	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findCourseById(@PathParam("id") Long id,
-			@Context Request request) throws ApplicationException {
+                                   @Context Request request) throws ApplicationException {
 
-		Course course = courseService.findById(id);
+        Course course = courseService.findById(id);
 
-		Resource<Course> resource = new Resource<>(course);
-		Link selfRel = entityLinks.linkToSingleResource(Course.class,
-				course.getId()).withSelfRel();
-		resource.add(selfRel);
+        Resource<Course>  resource = new Resource<>(course);
+        Link selfRel = entityLinks.linkToSingleResource(Course.class, course.getId()).withSelfRel();
+        resource.add(selfRel);
 
-		CacheControl cc = getCacheControl();
+        CacheControl cc = getCacheControl();
 
-		EntityTag tag = new EntityTag(Integer.toString(course.hashCode()));
-		Date lastUpdated = course.getUpdatedAt();
+        EntityTag tag = new EntityTag(Integer.toString(course.hashCode()));
+        Date lastUpdated = course.getUpdatedAt();
 
-		Response.ResponseBuilder responseBuilder = request
-				.evaluatePreconditions(lastUpdated, tag);
+        Response.ResponseBuilder responseBuilder = request.evaluatePreconditions(lastUpdated,tag);
 
-		if (responseBuilder != null) {
-			responseBuilder.cacheControl(cc);
-			return responseBuilder.build();
-		}
-		responseBuilder = Response.ok(resource);
-		responseBuilder.cacheControl(cc);
-		responseBuilder.tag(tag);
-		return responseBuilder.build();
+        if (responseBuilder != null) {
+            responseBuilder.cacheControl(cc);
+            return responseBuilder.build();
+        }
+        responseBuilder = Response.ok(resource);
+        responseBuilder.cacheControl(cc);
+        responseBuilder.tag(tag);
+        return responseBuilder.build();
 	}
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response findCoursesPaged(
-			@QueryParam("page") @DefaultValue("1") int page,
-			@QueryParam("size") @DefaultValue("2") int size,
-			@Context UriInfo uriInfo) {
 
-		if (page < 1 || size < 1) {
-			return Response.status(400).build();
-		}
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findCoursesPaged(
+        @QueryParam("page") @DefaultValue("1") int page,
+        @QueryParam("size") @DefaultValue("2") int size,@Context UriInfo uriInfo) {
 
-		List<Course> allCourses = courseService.findAllCourses();
-		CourseAssembler courseAssembler = new CourseAssembler();
-		List<CourseResourceWrapper> resources = courseAssembler
-				.toResources(allCourses);
+        if(page<1 || size<1){
+            return Response.status(400).build();
+        }
 
-		List<CourseResourceWrapper> toShow = Lists.newArrayList();
-		for (int i = (page - 1) * size, j = 0; j < size && i < resources.size(); i++, j++) {
-			toShow.add(resources.get(i));
-		}
+        List<Course> allCourses = courseService.findAllCourses();
+        CourseAssembler courseAssembler = new CourseAssembler();
+        List<CourseResourceWrapper> resources = courseAssembler.toResources(allCourses);
 
-		int totalNumberOfPages = resources.size() / size;
-		totalNumberOfPages = resources.size() % size != 0 ? totalNumberOfPages + 1
-				: totalNumberOfPages;
+        List<CourseResourceWrapper> toShow = Lists.newArrayList();
+        for(int i= (page-1)*size, j=0;j<size && i<resources.size(); i++,j++){
+            toShow.add(resources.get(i));
+        }
 
-		List<Link> links = PaginationHelper.getPaginationLinks(page, size,
-				uriInfo, totalNumberOfPages);
+        int totalNumberOfPages = resources.size() / size;
+        totalNumberOfPages = resources.size()%size != 0?totalNumberOfPages+1:totalNumberOfPages;
 
-		PagedResources<CourseResourceWrapper> courseResources = new PagedResources<>(
-				toShow, new PagedResources.PageMetadata(size, page,
-						resources.size(), (long) totalNumberOfPages), links);
+        List<Link> links = PaginationHelper.getPaginationLinks(page, size, uriInfo, totalNumberOfPages);
 
-		return Response.ok(courseResources).build();
-	}
+        PagedResources<CourseResourceWrapper> courseResources = new PagedResources<>(
+            toShow,
+            new PagedResources.PageMetadata(
+                size,
+                page,
+                resources.size(),
+                (long) totalNumberOfPages),links
+        );
 
-	@DELETE
+        return Response.ok(courseResources).build();
+    }
+
+
+
+    @DELETE
 	@Path("{id}")
+    @RolesAllowed({"ADMIN","PROFESSOR"})
 	@Produces(MediaType.TEXT_PLAIN)
-	public Response deleteCourseById(@PathParam("id") Long id) {
+    public Response deleteCourseById(@PathParam("id") Long id) {
 		courseService.deleteById(id);
-		return Response.noContent()
-				.entity("Course successfully deleted from the system.").build();
+        return Response.noContent()
+            .entity("Course successfully deleted from the system.").build();
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.TEXT_PLAIN)
-	public Response createCourse(@Context UriInfo uriInfo, Course course) {
+    @RolesAllowed({"ADMIN","PROFESSOR"})
+    @Produces(MediaType.TEXT_PLAIN)
+	public Response createCourse(@Context UriInfo uriInfo,Course course) {
 
 		courseService.save(course);
 
-		return Response
-				.created(
-						uriInfo.getAbsolutePathBuilder()
-								.path(course.getId().toString()).build())
-				.entity("Course successfully created").build();
+		return Response.created(uriInfo.getAbsolutePathBuilder()
+            .path(course.getId().toString()).build())
+            .entity("Course successfully created")
+            .build();
 	}
 }
