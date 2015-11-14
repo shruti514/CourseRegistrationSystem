@@ -5,9 +5,9 @@ import org.springframework.hateoas.Link;
 
 public class ProfessorView {
     Long id;
-    String firstname;
-    String lastname;
-    String email;
+    String firstName;
+    String lastName;
+    String emailId;
     Link link;
 
     public Long getId() {
@@ -18,12 +18,12 @@ public class ProfessorView {
         this.id = id;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstname) {
+        this.firstName = firstname;
     }
 
     public Link getLink() {
@@ -34,19 +34,19 @@ public class ProfessorView {
         this.link = link;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastname) {
+        this.lastName = lastname;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEmailId() {
+        return emailId;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmailId(String email) {
+        this.emailId = email;
     }
 }

@@ -1,96 +1,94 @@
 package org.courseregistration.rest.view.student;
 
+import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.courseregistration.rest.view.section.CourseView;
 import org.courseregistration.rest.view.section.ProfessorView;
-import org.courseregistration.rest.view.section.StudentView;
 
-import java.util.Date;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SectionView {
-    private Long id;
-    private String semester;
-    private Date classStartTime;
-    private Date classEndTime;
-    private String dayOfWeek;
-    private Date startDate;
-    private Date endDate;
-    @JsonProperty("course")
-    private CourseView courseView;
-    @JsonProperty("professor")
-    private ProfessorView professorView;
+	private Long id;
+	private String semester;
+	private Date classStartTime;
+	private Date classEndTime;
+	private String dayOfWeek;
+	private Date startDate;
+	private Date endDate;
+	@JsonProperty("course")
+	private CourseView courseView;
+	@JsonProperty("professor")
+	private ProfessorView professorView;
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getSemester() {
-        return semester;
-    }
+	public String getSemester() {
+		return semester;
+	}
 
-    public void setSemester(String semester) {
-        this.semester = semester;
-    }
+	public void setSemester(String semester) {
+		this.semester = semester;
+	}
 
-    public Date getClassStartTime() {
-        return classStartTime;
-    }
+	public Date getClassStartTime() {
+		return classStartTime;
+	}
 
-    public void setClassStartTime(Date classStartTime) {
-        this.classStartTime = classStartTime;
-    }
+	public void setClassStartTime(Date classStartTime) {
+		this.classStartTime = classStartTime;
+	}
 
-    public Date getClassEndTime() {
-        return classEndTime;
-    }
+	public Date getClassEndTime() {
+		return classEndTime;
+	}
 
-    public void setClassEndTime(Date classEndTime) {
-        this.classEndTime = classEndTime;
-    }
+	public void setClassEndTime(Date classEndTime) {
+		this.classEndTime = classEndTime;
+	}
 
-    public String getDayOfWeek() {
-        return dayOfWeek;
-    }
+	public String getDayOfWeek() {
+		return dayOfWeek;
+	}
 
-    public void setDayOfWeek(String dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
-    }
+	public void setDayOfWeek(String dayOfWeek) {
+		this.dayOfWeek = dayOfWeek;
+	}
 
-    public Date getStartDate() {
-        return startDate;
-    }
+	public Date getStartDate() {
+		return startDate;
+	}
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
 
-    public Date getEndDate() {
-        return endDate;
-    }
+	public Date getEndDate() {
+		return endDate;
+	}
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
 
-    public CourseView getCourseView() {
-        return courseView;
-    }
+	public CourseView getCourseView() {
+		return courseView;
+	}
 
-    public void setCourseView(CourseView courseView) {
-        this.courseView = courseView;
-    }
+	public void setCourseView(CourseView courseView) {
+		this.courseView = courseView;
+	}
 
-    public ProfessorView getProfessorView() {
-        return professorView;
-    }
+	public ProfessorView getProfessorView() {
+		return professorView;
+	}
 
-    public void setProfessorView(ProfessorView professorView) {
-        this.professorView = professorView;
-    }
+	public void setProfessorView(ProfessorView professorView) {
+		this.professorView = professorView;
+	}
 }

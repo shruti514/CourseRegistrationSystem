@@ -33,9 +33,9 @@ public class SectionResourceWrapper extends ResourceSupport {
         ProfessorView professor = new ProfessorView();
         ProfessorAssembler professorAssembler = new ProfessorAssembler();
         professor.setId(section.getProfessor().getId());
-        professor.setFirstname(section.getProfessor().getFirstName());
-        professor.setLastname(section.getProfessor().getLastName());
-        professor.setEmail(section.getProfessor().getEmailId());
+        professor.setFirstName(section.getProfessor().getFirstName());
+        professor.setLastName(section.getProfessor().getLastName());
+        professor.setEmailId(section.getProfessor().getEmailId());
         professor.setLink(professorAssembler.toResource(section.getProfessor()).getLink(Link.REL_SELF));
 
         List<StudentView> studentView = newArrayList();

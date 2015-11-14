@@ -47,9 +47,9 @@ public class StudentResourceWrapper extends ResourceSupport {
 
             ProfessorView professorView = new ProfessorView();
             professorView.setId(professor.getId());
-            professorView.setFirstname(professor.getFirstName());
-            professorView.setLastname(professor.getLastName());
-            professorView.setEmail(professor.getEmailId());
+            professorView.setFirstName(professor.getFirstName());
+            professorView.setLastName(professor.getLastName());
+            professorView.setEmailId(professor.getEmailId());
             professorView.setLink(professorResourceWrapper.getLink(Link.REL_SELF));
 
             SectionView sectionView = new SectionView();
