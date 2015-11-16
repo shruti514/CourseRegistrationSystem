@@ -12,6 +12,7 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.jaxrs.JaxRsLinkBuilder;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
@@ -60,7 +61,7 @@ public class CourseResource {
         EntityTag tag = new EntityTag(Integer.toString(course.hashCode()));
         Date lastUpdated = course.getUpdatedAt();
 
-        Response.ResponseBuilder responseBuilder = request.evaluatePreconditions(lastUpdated,tag);
+        Response.ResponseBuilder responseBuilder = request.evaluatePreconditions(lastUpdated, tag);
 
         if (responseBuilder != null) {
             responseBuilder.cacheControl(cc);

@@ -10,7 +10,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.codec.Base64;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -31,7 +33,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         if(user !=null){
             String userNameDB = user.getUsername();
-            String password = user.getHashedPassword();
+            String hashedPassword = user.getHashedPassword();
+            String password = decodeUsingBase64(hashedPassword);
 
             Set<Role> roles = user.getRoles();
 
@@ -50,4 +53,13 @@ public class CustomUserDetailsService implements UserDetailsService {
         authorities.addAll(roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList()));
         return  authorities;
     }
+    public String decodeUsingBase64(String toDecode) {
+        try {
+            byte[] decoded = Base64.decode(toDecode.getBytes("UTF-8"));
+            return new String(decoded);
+        } catch (UnsupportedEncodingException e) {
+            throw new UnsupportedOperationException(e);
+        }
+    }
+
 }
