@@ -1,5 +1,7 @@
 package org.courseregistration.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -11,7 +13,7 @@ public class BaseEntity implements Serializable {
     @GeneratedValue(generator = "sequence", strategy = GenerationType.SEQUENCE)
     @Column(name = "id")
     private Long id;
-
+    @JsonIgnore
     @Column(name = "updated_at")
     private Date updatedAt;
 
