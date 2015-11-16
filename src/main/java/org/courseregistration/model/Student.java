@@ -22,21 +22,21 @@ public class Student extends User {
     @Column(name = "email_id", nullable = false)
     private String emailId;
 
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "date_of_birth", nullable = false)
+    @Column(name = "date_of_birth")
     @Temporal(value = TemporalType.DATE)
     private Date dateOfBirth;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
-    @JoinColumn(name = "address_id", foreignKey = @ForeignKey(name = "FK_student_address"), nullable = false)
+    @JoinColumn(name = "address_id", foreignKey = @ForeignKey(name = "FK_student_address"))
     private Address address;
 
-    @Column(name = "admissionType", nullable = false)
+    @Column(name = "admissionType")
     private String admissionType;
 
-    @Column(name = "previous_degree", nullable = false)
+    @Column(name = "previous_degree")
     private String previousDegree;
 
 

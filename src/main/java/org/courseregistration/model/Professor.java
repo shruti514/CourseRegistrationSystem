@@ -22,25 +22,28 @@ public class Professor extends User {
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
+    @Column(name="bio", columnDefinition = "Text", length = 65535, nullable = false)
+    private String bio;
 
-    @Column(name = "date_of_birth", nullable = false)
+
+    @Column(name = "date_of_birth")
     @Temporal(value = TemporalType.DATE)
     private Date dateOfBirth;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
-    @JoinColumn(name = "address_id", foreignKey = @ForeignKey(name = "FK_professor_address"), nullable = false)
+    @JoinColumn(name = "address_id", foreignKey = @ForeignKey(name = "FK_professor_address"))
     private Address address;
-    @Column(name = "faculty_type", nullable = false)
+    @Column(name = "faculty_type")
     private String facultyType;
 
     @Column(name = "years_of_experience", nullable = false)
     private Integer yearsOfExperience;
 
-    @Column(name = "office_hours_from_time", nullable = true)
+    @Column(name = "office_hours_from_time")
     @Temporal(value = TemporalType.TIME)
     private Date officeHoursFromTime;
 
-    @Column(name = "office_hours_to_time", nullable = true)
+    @Column(name = "office_hours_to_time")
     @Temporal(value = TemporalType.TIME)
     private Date officeHoursToTime;
 
@@ -116,6 +119,13 @@ public class Professor extends User {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
 
     public Date getDateOfBirth() {
         return dateOfBirth;

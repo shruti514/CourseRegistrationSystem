@@ -228,6 +228,7 @@ public class DataGenerator {
         professor1.setMiddleName("W.");
         professor1.setUsername("123456779");
         professor1.setLastName("Campbell");
+        professor1.setBio("Professor at SJSU University with teaching experience of 10 years and Industry experience of 10 years");
 
         Address professor1Address = new Address();
         professor1Address.setStreetName("65 Rio Robles E");
@@ -262,6 +263,7 @@ public class DataGenerator {
         professor2.setUsername("1234L");
         professor2.setMiddleName("W.");
         professor2.setLastName("Larkin");
+        professor2.setBio("Professor at SJSU University with teaching experience of 5 years and Industry experience of 5 years");
 
         Address professor2Address = new Address();
         professor2Address.setStreetName("7642 Scott Blvd");
@@ -296,6 +298,7 @@ public class DataGenerator {
         professor3.setMiddleName("C.");
         professor3.setLastName("Ranjan");
         professor3.setUsername("453L");
+        professor3.setBio("Professor at SDSU University with teaching experience of 10 years and Industry experience of 10 years");
 
         Address professor3Address = new Address();
         professor3Address.setStreetName("70 S Market St");
@@ -330,6 +333,7 @@ public class DataGenerator {
         professor4.setMiddleName("A.");
         professor4.setLastName("Bing");
         professor4.setUsername("676L");
+        professor4.setBio("Professor at SFSU University with teaching experience of 6 years and Industry experience of 10 years");
 
         Address professor4Address = new Address();
         professor4Address.setStreetName("901 Stevenson Blvd");
@@ -364,6 +368,7 @@ public class DataGenerator {
         professor5.setMiddleName("U.");
         professor5.setLastName("Davis");
         professor5.setUsername("444L");
+        professor5.setBio("Professor at SFSU University with teaching experience of 6 years.");
 
         Address professor5Address = new Address();
         professor5Address.setStreetName("876 Lawrence St");
@@ -398,6 +403,7 @@ public class DataGenerator {
         professor6.setMiddleName("AA");
         professor6.setLastName("Hill");
         professor6.setUsername("666L");
+        professor6.setBio("Professor at SFSU University with teaching experience of 6 years.");
 
         Address professor6Address = new Address();
         professor6Address.setStreetName("48455 Pierstorff Avenue");
@@ -637,6 +643,8 @@ public class DataGenerator {
         student1.addSection(section1);
 
         entityManager.getTransaction().commit();
+
+        System.out.println("Dala load complete");
 
        }
 }
