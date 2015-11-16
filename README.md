@@ -44,6 +44,13 @@
 
    Should return a list of students
 
+-- modify tomcats server.xml to servers to add path of the file cmpe272.keystore
+
+//TODO -
+1.ApplicationContext.xml --> use https instead of any
+2.Client side ---> Build httpConfig for https connection
+
+
 
 
 

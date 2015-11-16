@@ -78,17 +78,4 @@ public class UserResource {
         return studentAssembler.toResource(student);
     }
 
-
-    @POST
-    @Produces(MediaType.TEXT_PLAIN)
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Path("student/register")
-    public Response addStudent(@Context UriInfo uriInfo,Student student) throws ApplicationException {
-        studentService.addStudent(student);
-        return Response.created(uriInfo.getAbsolutePathBuilder()
-            .path(student.getId().toString()).build())
-            .entity("Student successfully created")
-            .build();
-    }
-
 }
