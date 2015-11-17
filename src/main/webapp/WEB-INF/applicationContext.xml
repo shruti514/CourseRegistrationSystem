@@ -41,7 +41,7 @@
       <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
       <property name="url" value="jdbc:mysql://localhost:3306/student_course_registration"/>
       <property name="username" value="root"/>
-      <property name="password" value="root"/>
+      <property name="password" value=""/>
     </bean>
 
   <security:http create-session="stateless" entry-point-ref="digestEntryPoint" authentication-manager-ref="authenticationManager">
@@ -49,8 +49,8 @@
     <security:intercept-url pattern="/**" requires-channel="any"/>
     <security:intercept-url pattern="/**" access="permitAll" method="GET"/>
     <security:intercept-url pattern="/login" access="hasRole('ROLE_USER')"/>
-    <security:intercept-url pattern="/students/register" access="permitAll"/>
-    <security:intercept-url pattern="/professors/register" access="permitAll"/>
+    <security:intercept-url pattern="/students" access="permitAll" method="POST"/>
+    <security:intercept-url pattern="/professors" access="permitAll" method="POST"/>
     <security:intercept-url pattern="/**" access="hasRole('ROLE_USER')" method="POST"/>
     <security:intercept-url pattern="/**" access="hasRole('ROLE_USER')" method="PUT"/>
     <security:intercept-url pattern="/**" access="hasRole('ROLE_USER')" method="DELETE"/>
