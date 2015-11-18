@@ -119,23 +119,22 @@ public class SectionService {
 		}
 	}
 
-	public boolean updateSection(long id, Section current)
+	public boolean updateSection(long id, Section current, Section sectionFromDB)
 			throws ApplicationException {
 		checkNotNull(id, "Id Should not be null");
-		Section toReturn = sectionDAO.findById(id);
-		if (toReturn != null) {
-			toReturn.setPrice(current.getPrice());
-			toReturn.setModeOfInstruction(current.getModeOfInstruction());
-			toReturn.setRoomNumber(current.getRoomNumber());
-			toReturn.setSemester(current.getSemester());
-			toReturn.setTotalCapacity(current.getTotalCapacity());
-			toReturn.setWaitListCapacity(current.getWaitListCapacity());
-			toReturn.setDayOfWeek(current.getDayOfWeek());
-			toReturn.setStartDate(current.getStartDate());
-			toReturn.setEndDate(current.getEndDate());
-			toReturn.setClassStartTime(current.getClassStartTime());
-			toReturn.setClassEndTime(current.getClassEndTime());
-			sectionDAO.update(toReturn);
+		if (sectionFromDB != null) {
+			sectionFromDB.setPrice(current.getPrice());
+			sectionFromDB.setModeOfInstruction(current.getModeOfInstruction());
+			sectionFromDB.setRoomNumber(current.getRoomNumber());
+			sectionFromDB.setSemester(current.getSemester());
+			sectionFromDB.setTotalCapacity(current.getTotalCapacity());
+			sectionFromDB.setWaitListCapacity(current.getWaitListCapacity());
+			sectionFromDB.setDayOfWeek(current.getDayOfWeek());
+			sectionFromDB.setStartDate(current.getStartDate());
+			sectionFromDB.setEndDate(current.getEndDate());
+			sectionFromDB.setClassStartTime(current.getClassStartTime());
+			sectionFromDB.setClassEndTime(current.getClassEndTime());
+			sectionDAO.update(sectionFromDB);
 			return true;
 		} else {
 			throw ApplicationException.createNew()
