@@ -9,9 +9,13 @@ import java.util.Map;
 
 import javax.ws.rs.core.Response;
 
+import org.courseregistration.dao.CourseDAO;
+import org.courseregistration.dao.ProfessorDAO;
 import org.courseregistration.dao.SearchCriteria;
 import org.courseregistration.dao.SectionDAO;
 import org.courseregistration.exception.ApplicationException;
+import org.courseregistration.model.Course;
+import org.courseregistration.model.Professor;
 import org.courseregistration.model.Section;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +24,10 @@ import org.springframework.stereotype.Service;
 public class SectionService {
 	@Autowired
 	private SectionDAO sectionDAO;
+    @Autowired
+	private CourseDAO courseDAO;
+    @Autowired
+	private ProfessorDAO professorDAO;
 
 	public List<Section> findAllSections() {
 		List<Section> students = sectionDAO.findAll();
@@ -63,7 +71,11 @@ public class SectionService {
 
 	public boolean addSection(Section section) throws ApplicationException {
 		try {
-			sectionDAO.save(section);
+            Course course = courseDAO.findById(section.getCourse().getId());
+            Professor professor = professorDAO.findById(section.getProfessor().getId());
+            section.setCourse(course);
+            section.setProfessor(professor);
+            sectionDAO.update(section);
 			return true;
 		} catch (Exception e) {
 			throw ApplicationException

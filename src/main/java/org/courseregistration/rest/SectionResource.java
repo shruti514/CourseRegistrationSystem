@@ -162,13 +162,14 @@ public class SectionResource {
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
 	@RolesAllowed({ "PROFESSOR", "ADMIN" })
 	public Response addSection(Section section, @Context UriInfo uriInfo)
 			throws ApplicationException {
 
 		boolean isSaved = sectionService.addSection(section);
 		if (isSaved) {
-			String result = "Section saved : " + section;
+			String result = "Section saved : " + section.getId();
 			String id = section.getId() != null ? section.getId().toString()
 					: "";
 			return Response
