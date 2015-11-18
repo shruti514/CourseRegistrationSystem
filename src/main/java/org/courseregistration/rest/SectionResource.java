@@ -32,6 +32,7 @@ import org.courseregistration.dao.SearchCriteria;
 import org.courseregistration.exception.ApplicationException;
 import org.courseregistration.hateoas.SectionResourceWrapper;
 import org.courseregistration.model.Section;
+import org.courseregistration.model.Student;
 import org.courseregistration.rest.writters.SectionAssembler;
 import org.courseregistration.service.SectionService;
 import org.courseregistration.webconfig.CacheControlAnnotation.CacheMaxAge;
@@ -232,8 +233,18 @@ public class SectionResource {
 	@Produces(MediaType.TEXT_PLAIN)
 	@RolesAllowed({ "PROFESSOR", "ADMIN" })
 	public Response updateSection(@PathParam("sectionId") long id,
-			Section current) throws ApplicationException {
-		boolean isUpdated = sectionService.updateSection(id, current);
+			Section current,@Context Request request) throws ApplicationException {
+        Section fromDB = sectionService.findById(id);
+
+        EntityTag tag = new EntityTag(Integer.toString(fromDB.hashCode()));
+        Date timestamp = fromDB.getUpdatedAt();
+
+        Response.ResponseBuilder builder =request.evaluatePreconditions(timestamp, tag);
+        if (builder != null) {
+            return builder.build();
+        }
+
+        boolean isUpdated = sectionService.updateSection(id, current,fromDB);
 		if (isUpdated)
 			return Response.ok(Response.Status.OK)
 					.entity("Section Price updated").build();
