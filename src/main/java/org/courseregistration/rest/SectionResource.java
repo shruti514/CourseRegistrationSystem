@@ -227,6 +227,7 @@ public class SectionResource {
 	 */
 	@PUT
 	@Path("{sectionId}")
+    @Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	@RolesAllowed({ "PROFESSOR", "ADMIN" })
 	public Response updateSection(@PathParam("sectionId") long id,
