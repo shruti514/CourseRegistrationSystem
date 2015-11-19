@@ -23,8 +23,7 @@ public class SectionView {
     CourseView course;
     @JsonProperty("professor")
     ProfessorView professor;
-    @JsonProperty("student")
-    List<StudentView> student;
+    List<StudentView> students;
     private int numberOfEnrolledStudents;
 
     public String getSemester() {
@@ -115,12 +114,12 @@ public class SectionView {
         this.price = price;
     }
 
-    public List<StudentView> getStudent() {
-        return student;
+    public List<StudentView> getStudents() {
+        return students;
     }
 
-    public void setStudent(List<StudentView> student) {
-        this.student = student;
+    public void setStudents(List<StudentView> students) {
+        this.students = students;
     }
 
     public Long getId() {

@@ -170,7 +170,7 @@ public class SectionResource {
 
 		boolean isSaved = sectionService.addSection(section);
 		if (isSaved) {
-			String result = "Section saved : " + section.getId();
+			String result = "Section saved! Successfully";
 			String id = section.getId() != null ? section.getId().toString()
 					: "";
 			return Response
