@@ -74,6 +74,7 @@ public class StudentService {
         Section section = sectionDAO.findById(section_id);
         Student student = studentDAO.findById(student_id);
         student.dropSection(section);
+        studentDAO.update(student);
     }
 
 

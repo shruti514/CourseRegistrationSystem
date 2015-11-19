@@ -217,7 +217,7 @@ public class StudentResource {
     //delete a single section
     @DELETE
     @Path("{id}/sections/{section_id}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     public Response dropSection(@PathParam("id") Long id, @PathParam("section_id")Long section_id) throws ApplicationException {
          studentService.dropSection(id, section_id);
         return Response.ok(200).entity("Dropped Section").build();
