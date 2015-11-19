@@ -40,7 +40,7 @@ public class Student extends User {
     private String previousDegree;
 
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.PERSIST},fetch = FetchType.EAGER)
     @JoinTable(name = "enrolled_student", joinColumns = {@JoinColumn(name = "student_id")}, inverseJoinColumns = {@JoinColumn(name = "section_id")}, foreignKey = @ForeignKey(name = "FK_student_section"), uniqueConstraints = {@UniqueConstraint(columnNames = {
         "student_id", "section_id"})})
     private List<Section> sections = Lists.newArrayList();
@@ -70,7 +70,9 @@ public class Student extends User {
     }
 
     public void addSection(Section section) {
-        this.sections.add(section);
+        if(!this.sections.contains(section)){
+            this.sections.add(section);
+        }
     }
 
     public void dropSection(Section section) {

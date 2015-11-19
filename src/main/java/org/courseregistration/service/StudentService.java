@@ -64,17 +64,27 @@ public class StudentService {
 
     }
 
-    public void enrollSection(Long student_id, Long section_id) throws ApplicationException {
+    public String enrollSection(Long student_id, Long section_id) throws ApplicationException {
         Section section = sectionDAO.findById(section_id);
         Student student = studentDAO.findById(student_id);
-        student.addSection(section);
+        if(!student.getSections().contains(section)){
+            student.addSection(section);
+            studentDAO.update(student);
+            return "Successfully enrolled for a course.";
+        }
+        return "You are already registered for this course";
+
     }
 
-    public void dropSection(Long student_id, Long section_id) throws ApplicationException {
+    public String dropSection(Long student_id, Long section_id) throws ApplicationException {
         Section section = sectionDAO.findById(section_id);
         Student student = studentDAO.findById(student_id);
-        student.dropSection(section);
-        studentDAO.update(student);
+        if(student.getSections().contains(section)){
+            student.dropSection(section);
+            studentDAO.update(student);
+            return "Section successfully dropped.";
+        }
+        return "Section can not be dropped as you are not enrolled for it.";
     }
 
 

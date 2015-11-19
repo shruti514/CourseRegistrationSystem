@@ -240,15 +240,18 @@ public class StudentResource {
     //enroll to a section
     @POST
     @Path("{id}/sections/{section_id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     public Response enrollSection(@PathParam("id") Long id,@PathParam("section_id") Long section_id) throws ApplicationException {
-         studentService.enrollSection(id, section_id);
-        return Response.ok(200).entity("Enrolled to the Section").build();
+         String status = studentService.enrollSection(id, section_id);
+        return Response.ok(200).entity(status).build();
     }
 
     @DELETE
     @Path("{id}/sections/{section_id}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response dropSection(@PathParam("id") Long id, @PathParam("section_id")Long section_id) throws ApplicationException {
+         String status = studentService.dropSection(id, section_id);
+        return Response.ok(200).entity(status).build();
     @Produces(MediaType.APPLICATION_JSON)
     public Response dropSection(@PathParam("id") Long id, @PathParam("section_id") Long section_id,
                                 @Context Request request) throws ApplicationException {
