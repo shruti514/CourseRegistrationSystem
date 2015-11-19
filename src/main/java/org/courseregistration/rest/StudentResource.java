@@ -1,18 +1,23 @@
 package org.courseregistration.rest;
 
 import com.google.common.collect.Lists;
+import org.courseregistration.model.Section;
+import org.courseregistration.dao.SectionDAO;
 import org.courseregistration.dao.StudentDAO;
 import org.courseregistration.exception.ApplicationException;
 import org.courseregistration.hateoas.ProfessorResourceWrapper;
 import org.courseregistration.hateoas.StudentResourceWrapper;
+import org.courseregistration.hateoas.SectionResourceWrapper;
 import org.courseregistration.model.Professor;
 import org.courseregistration.model.Student;
 import org.courseregistration.rest.writters.ProfessorAssembler;
 import org.courseregistration.rest.writters.StudentAssembler;
+import org.courseregistration.rest.writters.SectionAssembler;
 import org.courseregistration.service.StudentService;
 import org.courseregistration.webconfig.CacheControlAnnotation;
 import org.courseregistration.webconfig.CacheControlAnnotation.CacheMaxAge;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityLinks;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resources;
@@ -40,6 +45,12 @@ public class StudentResource {
     private StudentService studentService;
     @Autowired
     private StudentDAO studentDAO;
+    @Autowired
+    private SectionDAO sectionDAO;
+    @Autowired
+    private StudentResource studentResource;
+    @Autowired
+    private EntityLinks entityLinks;
 
     /**
      * Get details of a specific student
@@ -117,6 +128,30 @@ public class StudentResource {
         );
         return Response.ok(wrapped).build();
     }
+
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response viewSectionsListOfAStudent(@PathParam("id") Long id, @PathParam("section_id") Long section_id,
+                                          @Context Request request) throws ApplicationException {
+        Student fromDB = studentDAO.findById(id);
+        List<Section> section = fromDB.getSections();
+        if (section != null) {
+
+            SectionAssembler sectionAssembler = new SectionAssembler();
+            List<SectionResourceWrapper> resources = sectionAssembler.toResources(section);
+
+            Resources<SectionResourceWrapper> wrapped = new Resources<>(resources);
+
+            Link selfRel = entityLinks
+                .linkToSingleResource(StudentResource.class, studentResource.dropSection(id, section_id, request))
+                .withSelfRel();
+            wrapped.add(selfRel);
+            return Response.ok(200).entity("Enrolled to these Sections").build();
+        }
+        return Response.ok(Response.Status.NOT_FOUND).build();
+    }
+
 
     @GET
     @Path("/")
@@ -214,13 +249,24 @@ public class StudentResource {
         return Response.ok(200).entity("Enrolled to the Section").build();
     }
 
-    //delete a single section
     @DELETE
     @Path("{id}/sections/{section_id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response dropSection(@PathParam("id") Long id, @PathParam("section_id")Long section_id) throws ApplicationException {
-         studentService.dropSection(id, section_id);
-        return Response.ok(200).entity("Dropped Section").build();
+    public Response dropSection(@PathParam("id") Long id, @PathParam("section_id") Long section_id,
+                                @Context Request request) throws ApplicationException {
+        Section fromDB = sectionDAO.findById(section_id);
+        Date sectionStartDate = fromDB.getStartDate();
+        Date today = new Date();
+
+        int diffInDays = (int) ((today.getTime() - sectionStartDate.getTime()) / (1000 * 60 * 60 * 24));
+
+        if (diffInDays <= 10) {
+
+            studentService.dropSection(id, section_id);
+            return Response.ok(200).entity("Dropped Section").build();
+        } else {
+            return Response.ok(405).entity("Past due date. Deletion is not possible").build();
+        }
     }
 
 }
