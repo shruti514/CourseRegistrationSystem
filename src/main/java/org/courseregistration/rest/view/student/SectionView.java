@@ -19,8 +19,12 @@ public class SectionView {
 	private CourseView courseView;
 	@JsonProperty("professor")
 	private ProfessorView professorView;
+    private Integer price;
+    private Integer totalCapacity;
+    private Integer waitListCapacity;
+    private String roomNumber;
 
-	public Long getId() {
+    public Long getId() {
 		return id;
 	}
 
@@ -91,4 +95,36 @@ public class SectionView {
 	public void setProfessorView(ProfessorView professorView) {
 		this.professorView = professorView;
 	}
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setTotalCapacity(Integer totalCapacity) {
+        this.totalCapacity = totalCapacity;
+    }
+
+    public Integer getTotalCapacity() {
+        return totalCapacity;
+    }
+
+    public void setWaitListCapacity(Integer waitListCapacity) {
+        this.waitListCapacity = waitListCapacity;
+    }
+
+    public Integer getWaitListCapacity() {
+        return waitListCapacity;
+    }
+
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+
+    public String getRoomNumber() {
+        return roomNumber;
+    }
 }

@@ -9,6 +9,7 @@ public class ProfessorView {
     String lastName;
     String emailId;
     Link link;
+    private String phoneNumber;
 
     public Long getId() {
         return id;
@@ -48,5 +49,13 @@ public class ProfessorView {
 
     public void setEmailId(String email) {
         this.emailId = email;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 }

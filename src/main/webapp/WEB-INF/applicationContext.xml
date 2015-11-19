@@ -46,7 +46,7 @@
 
   <security:http create-session="stateless" entry-point-ref="digestEntryPoint" authentication-manager-ref="authenticationManager">
     <security:custom-filter ref="digestFilter" position="DIGEST_AUTH_FILTER" />
-    <security:intercept-url pattern="/**" requires-channel="any"/>
+    <security:intercept-url pattern="/**" requires-channel="https"/>
     <security:intercept-url pattern="/**" access="permitAll" method="GET"/>
     <security:intercept-url pattern="/login" access="hasRole('ROLE_USER')"/>
     <security:intercept-url pattern="/students" access="permitAll" method="POST"/>

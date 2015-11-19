@@ -50,6 +50,7 @@ public class StudentResourceWrapper extends ResourceSupport {
             professorView.setFirstName(professor.getFirstName());
             professorView.setLastName(professor.getLastName());
             professorView.setEmailId(professor.getEmailId());
+            professorView.setPhoneNumber(professor.getPhoneNumber());
             professorView.setLink(professorResourceWrapper.getLink(Link.REL_SELF));
 
             SectionView sectionView = new SectionView();
@@ -57,9 +58,13 @@ public class StudentResourceWrapper extends ResourceSupport {
             sectionView.setClassEndTime(section.getClassEndTime());
             sectionView.setClassStartTime(section.getClassStartTime());
             sectionView.setDayOfWeek(section.getDayOfWeek());
+            sectionView.setPrice(section.getPrice());
+            sectionView.setTotalCapacity(section.getTotalCapacity());
+            sectionView.setWaitListCapacity(section.getWaitListCapacity());
             sectionView.setStartDate(section.getStartDate());
             sectionView.setEndDate(section.getEndDate());
             sectionView.setSemester(section.getSemester());
+            sectionView.setRoomNumber(section.getRoomNumber());
             sectionView.setCourseView(courseView);
             sectionView.setProfessorView(professorView);
 
