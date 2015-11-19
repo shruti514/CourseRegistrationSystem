@@ -54,7 +54,7 @@ public class SectionResourceWrapper extends ResourceSupport {
         sectionView.setId(section.getId());
         sectionView.setCourse(course);
         sectionView.setProfessor(professor);
-        sectionView.setStudent(studentView);
+        sectionView.setStudents(studentView);
         sectionView.setSemester(section.getSemester());
         sectionView.setClassStartTime(section.getClassStartTime());
         sectionView.setClassEndTime(section.getClassEndTime());
