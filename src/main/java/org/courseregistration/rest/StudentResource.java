@@ -48,8 +48,6 @@ public class StudentResource {
     @Autowired
     private SectionDAO sectionDAO;
     @Autowired
-    private StudentResource studentResource;
-    @Autowired
     private EntityLinks entityLinks;
 
     /**
@@ -144,7 +142,7 @@ public class StudentResource {
             Resources<SectionResourceWrapper> wrapped = new Resources<>(resources);
 
             Link selfRel = entityLinks
-                .linkToSingleResource(StudentResource.class, studentResource.dropSection(id, section_id, request))
+                .linkToSingleResource(StudentResource.class, dropSection(id, section_id, request))
                 .withSelfRel();
             wrapped.add(selfRel);
             return Response.ok(200).entity("Enrolled to these Sections").build();
