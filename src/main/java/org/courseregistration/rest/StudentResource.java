@@ -65,7 +65,7 @@ public class StudentResource {
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({"PROFESSOR","ADMIN"})
+    @PermitAll
     public Response addStudent(@Context UriInfo uriInfo,Student student) throws ApplicationException {
         studentService.addStudent(student);
         return Response.created(uriInfo.getAbsolutePathBuilder()
