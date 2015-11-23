@@ -127,9 +127,9 @@ public class StudentResource {
         return Response.ok(wrapped).build();
     }
 
-    @GET
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
+    //@GET
+    //@Path("{id}")
+    //@Produces(MediaType.APPLICATION_JSON)
     public Response viewSectionsListOfAStudent(@PathParam("id") Long id, @PathParam("section_id") Long section_id,
                                           @Context Request request) throws ApplicationException {
         Student fromDB = studentDAO.findById(id);
@@ -142,7 +142,7 @@ public class StudentResource {
             Resources<SectionResourceWrapper> wrapped = new Resources<>(resources);
 
             Link selfRel = entityLinks
-                .linkToSingleResource(StudentResource.class, dropSection(id, section_id, request))
+                .linkToSingleResource(StudentResource.class, dropSection(id, section_id))
                 .withSelfRel();
             wrapped.add(selfRel);
             return Response.ok(200).entity("Enrolled to these Sections").build();
@@ -242,32 +242,17 @@ public class StudentResource {
     @Path("{id}/sections/{section_id}")
     @Produces(MediaType.TEXT_PLAIN)
     public Response enrollSection(@PathParam("id") Long id,@PathParam("section_id") Long section_id) throws ApplicationException {
-         String status = studentService.enrollSection(id, section_id);
+        String status = studentService.enrollSection(id, section_id);
         return Response.ok(200).entity(status).build();
     }
 
+    //delete a single section
     @DELETE
     @Path("{id}/sections/{section_id}")
     @Produces(MediaType.TEXT_PLAIN)
     public Response dropSection(@PathParam("id") Long id, @PathParam("section_id")Long section_id) throws ApplicationException {
-         String status = studentService.dropSection(id, section_id);
+        String status = studentService.dropSection(id, section_id);
         return Response.ok(200).entity(status).build();
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response dropSection(@PathParam("id") Long id, @PathParam("section_id") Long section_id,
-                                @Context Request request) throws ApplicationException {
-        Section fromDB = sectionDAO.findById(section_id);
-        Date sectionStartDate = fromDB.getStartDate();
-        Date today = new Date();
-
-        int diffInDays = (int) ((today.getTime() - sectionStartDate.getTime()) / (1000 * 60 * 60 * 24));
-
-        if (diffInDays <= 10) {
-
-            studentService.dropSection(id, section_id);
-            return Response.ok(200).entity("Dropped Section").build();
-        } else {
-            return Response.ok(405).entity("Past due date. Deletion is not possible").build();
-        }
     }
 
 }
