@@ -93,7 +93,7 @@ public class ProfessorService {
         if (toReturn != null){
             toReturn.setYearsOfExperience(current.getYearsOfExperience());
             toReturn.setAddress(current.getAddress());
-            toReturn.setHashedPassword(current.getHashedPassword());
+            //toReturn.setHashedPassword(current.getHashedPassword());
             toReturn.setLastName(current.getLastName());
             toReturn.setOfficeHoursToTime(current.getOfficeHoursToTime());
             toReturn.setOfficeHoursFromTime(current.getOfficeHoursFromTime());
