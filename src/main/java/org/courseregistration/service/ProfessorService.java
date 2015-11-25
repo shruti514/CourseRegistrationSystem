@@ -4,6 +4,7 @@ import org.courseregistration.exception.ApplicationException;
 import org.courseregistration.model.Professor;
 import org.courseregistration.dao.ProfessorDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.codec.Base64;
 import org.springframework.stereotype.Service;
 import org.courseregistration.exception.ApplicationException;
 import org.courseregistration.dao.*;

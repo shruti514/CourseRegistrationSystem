@@ -30,6 +30,7 @@ import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -52,12 +53,12 @@ public class StudentResource {
 
 	/**
 	 * Get details of a specific student
-	 * 
+	 *
 	 * @response.representation.200.doc Details of student
 	 * @response.representation.200.mediaType application/json
-	 * 
+	 *
 	 * @response.representation.404.doc Requested student with id not found
-	 * 
+	 *
 	 * @return details of a student
 	 */
 

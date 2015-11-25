@@ -6,9 +6,11 @@ import org.courseregistration.exception.ApplicationException;
 import org.courseregistration.model.Section;
 import org.courseregistration.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.codec.Base64;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.core.Response;
+import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.List;
 
