@@ -4,6 +4,7 @@ import org.courseregistration.exception.ApplicationException;
 import org.courseregistration.model.Professor;
 import org.courseregistration.dao.ProfessorDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.codec.Base64;
 import org.springframework.stereotype.Service;
 import org.courseregistration.exception.ApplicationException;
 import org.courseregistration.dao.*;
@@ -93,7 +94,7 @@ public class ProfessorService {
         if (toReturn != null){
             toReturn.setYearsOfExperience(current.getYearsOfExperience());
             toReturn.setAddress(current.getAddress());
-            toReturn.setHashedPassword(current.getHashedPassword());
+            //toReturn.setHashedPassword(current.getHashedPassword());
             toReturn.setLastName(current.getLastName());
             toReturn.setOfficeHoursToTime(current.getOfficeHoursToTime());
             toReturn.setOfficeHoursFromTime(current.getOfficeHoursFromTime());
