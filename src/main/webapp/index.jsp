@@ -1,6 +1,7 @@
 <html>
 <head>
   <title>Course Registration</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 </head>
 
 <body bgcolor=white>
@@ -18,6 +19,7 @@
 
 <br />
 <p>This is an index page.</p>
+
 
 
 </body>
