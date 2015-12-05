@@ -37,7 +37,7 @@
 
         <!-- Top content -->
         <div class="top-content">
-          <div id="content_custom"></div>
+          <div id="errorDiv"></div>
 
             <div class="inner-bg">
                 <div class="container">
@@ -119,25 +119,33 @@
           username: username,
           password: password
         }
-        //postData = JSON.stringify(postData);
 
-// create new digest request object
-// because method is different
-// otherwise we could re-use the first one
         var postReq = new digestAuthRequest('POST', "/api.courseregistration/login",username, password);
 
         postReq.request(function(data) {
+
           if(data.isStudent==true){
+            var sesData={
+              username:username,
+              password:password,
+              userId:data.student.student.id
+            }
+            window.sessionStorage.setItem('currentUser',JSON.stringify(sesData));
             window.location.replace("/api.courseregistration/student_dashboard.html");
           }if(data.isProfessor==true){
+            var sesData={
+              username:username,
+              password:password,
+              userId:data.professor.professor.id
+            }
+            window.sessionStorage.setItem('currentUser',JSON.stringify(sesData));
             window.location.replace("/api.courseregistration/professor_dashboard.html");
           }
         },function(errorCode) {
-          alert('failure')
+          document.getElementById('errorDiv').innerHTML='<div class=\"alert alert-danger\"><strong>Oh snap!</strong> Change a few things up and try submitting again.</div>'
           console.log(JSON.stringify(errorCode))
         }, postData)
       }
-
 
     </script>
 

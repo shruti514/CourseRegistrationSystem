@@ -10,6 +10,9 @@
     <meta name="author" content="">
 
     <title>Course Registration</title>
+  <script language="JavaScript">
+    var BASE_URL='/api.courseregistration'
+  </script>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -28,6 +31,7 @@
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
     <![endif]-->
 
 </head>
@@ -51,7 +55,7 @@
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" id="username" data-toggle="dropdown"></a>
                     <ul class="dropdown-menu">
                         <li>
                             <a href="student_profile.html"><i class="fa fa-fw fa-user"></i> Profile</a>
@@ -70,13 +74,13 @@
                         <a href="#"><i class="fa fa-fw fa-dashboard"></i>&nbsp;Dashboard</a>
                     </li>
                     <li class="active">
-                        <a href="#"><i class="fa fa-fw fa-bars"></i>&nbsp;List Courses</a>
+                        <a href='/api.courseregistration/list_courses.html'><i class="fa fa-fw fa-bars"></i>&nbsp;List Courses</a>
                     </li>
                     <li class="active">
-                        <a href="list_professors.html"><i class="fa fa-fw fa-users"></i>&nbsp;List Professor</a>
+                        <a href='/api.courseregistration/list_professors.html'><i class="fa fa-fw fa-users"></i>&nbsp;List Professor</a>
                     </li>
                     <li class="active">
-                        <a href="search.html"><i class="fa fa-fw fa-search "></i>&nbsp;Search</a>
+                        <a href=/api.courseregistration/search.html'><i class="fa fa-fw fa-search "></i>&nbsp;Search</a>
                     </li>
 
                 </ul>
@@ -107,7 +111,7 @@
                                         <i class="fa fa-bars fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">5</div>
+                                        <div id="enrolledCourses" class="huge"></div>
                                         <div>Enrolled courses</div>
                                     </div>
                                 </div>
@@ -121,7 +125,7 @@
                             </a>
                         </div>
                     </div>
-                    
+
                     <div class="col-lg-4 col-md-6">
                         <div class="panel panel-yellow">
                             <div class="panel-heading">
@@ -170,7 +174,7 @@
                 <!-- /.row -->
 
                 <div class="row">
-                    
+
                     <div class="col-lg-12">
                         <!-- -->
                         <div class="panel panel-default">
@@ -182,34 +186,17 @@
                                     <table class="table table-bordered table-hover table-striped">
                                         <thead>
                                             <tr>
-                                            	<th>Course Code</th>
                                                 <th>Course Name</th>
                                                 <th>Professor Name</th>
-                                                <th>Mode of Instruction</th>
                                                 <th>Day of week</th>
                                                 <th>Semester</th>
                                                 <th>Price in USD</th>
+                                                <th>Start Date</th>
+                                                <th>End Date</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Cmpe-283</td>
-                                                <td>Virtualization</td>
-                                                <td>Thomas H</td>
-                                                <td>In class</td>
-                                                <td>Monaday</td>
-                                                <td>Fall-2015</td>
-                                                <td>200</td>
-                                             </tr>
-                                             <tr>
-                                                <td>Cmpe-282</td>
-                                                <td>Virtualization</td>
-                                                <td>Thomas H</td>
-                                                <td>In class</td>
-                                                <td>Monaday</td>
-                                                <td>Fall-2015</td>
-                                                <td>200</td>
-                                             </tr>
+                                        <tbody id="courseDetailsBody">
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -244,6 +231,55 @@
     <script src="js/plugins/flot/jquery.flot.resize.js"></script>
     <script src="js/plugins/flot/jquery.flot.pie.js"></script>
     <script src="js/plugins/flot/flot-data.js"></script>
+    <script type="text/javascript" src="assets/js/digestAuthRequest.js"></script>
+<script language="JavaScript">
+
+
+  $(window).load(function() {
+    var currentUser=JSON.parse(window.sessionStorage.getItem('currentUser'))
+
+    var getReq = new digestAuthRequest('GET', "/api.courseregistration/students/"+currentUser.userId,currentUser.username, currentUser.password);
+    getReq.request(function(data) {
+      var studentResponse = data
+
+      window.sessionStorage.setItem('student',JSON.stringify(data));
+
+      document.getElementById('username').innerHTML='<i class=\"fa fa-user\"></i>'+studentResponse.student.username +'<b class=\"caret\"></b>'
+      document.getElementById('enrolledCourses').innerHTML=studentResponse.student.sections.length
+      document.getElementById('courseDetailsBody').innerHTML=studentResponse.student.sections.map(function (section, index) {
+        return '<tr>' +
+          '<td>' + section.course.name + '</td>' +
+          '<td>' + section.professor.firstName +' '+section.professor.lastName+ '</td>' +
+          '<td>' + section.dayOfWeek + '</td>' +
+          '<td>' + section.semester + '</td>' +
+          '<td>' + section.price + '</td>' +
+          '<td>' + section.startDate + '</td>' +
+          '<td>' + section.endDate + '</td>' +
+          '</tr>'
+      })
+    },function(errorCode) {
+      if(304==errorCode){
+        var studentResponse = JSON.parse(window.sessionStorage.getItem('student'));
+        document.getElementById('username').innerHTML='<i class=\"fa fa-user\"></i>'+studentResponse.student.username +'<b class=\"caret\"></b>'
+        document.getElementById('enrolledCourses').innerHTML=studentResponse.student.sections.length
+        document.getElementById('courseDetailsBody').innerHTML=studentResponse.student.sections.map(function (section, index) {
+          return '<tr>' +
+            '<td>' + section.course.name + '</td>' +
+            '<td>' + section.professor.firstName +' '+section.professor.lastName+ '</td>' +
+            '<td>' + section.dayOfWeek + '</td>' +
+            '<td>' + section.semester + '</td>' +
+            '<td>' + section.price + '</td>' +
+            '<td>' + section.startDate + '</td>' +
+            '<td>' + section.endDate + '</td>' +
+            '</tr>'
+        })
+      }else{
+        document.getElementById('errorDiv').innerHTML='<div class=\"alert alert-danger\"><strong>Oh snap!</strong> Change a few things up and try submitting again.</div>'
+        console.log(JSON.stringify(errorCode))
+      }
+    })
+  });
+</script>
 
 </body>
 
