@@ -274,10 +274,16 @@
 
     function search() {
     	
-    	 alert('Going to search now!!');
+    	alert('Going to search now!!');
     	 
-    	 var courseName = document.getElementById('search-courseName').value;
-    	 alert('Coursename: ' + courseName);
+		var courseName = document.getElementById('search-courseName').value;
+		var lastName = document.getElementById('search-lastName').value;
+		var dayOfWeek = document.getElementById('search-dayOfWeek').value;
+		var semester = document.getElementById('search-semester').value;
+		var fromPrice = document.getElementById('search-fromPrice').value;
+		var toPrice = document.getElementById('search-toPrice').value;
+
+    	alert('Coursename: ' + courseName + lastName + dayOfWeek + semester + fromPrice + toPrice);
     }
     
     $(document).ready(function(){
