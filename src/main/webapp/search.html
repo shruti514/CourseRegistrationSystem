@@ -298,13 +298,17 @@
 		     data: getData,
 		     success: function(json_results) {
 		        alert('Result: '+JSON.stringify(json_results));
-		        document.getElementById('jsondata').innerHTML=JSON.stringify(json_results);
+		        //document.getElementById('jsondata').innerHTML=JSON.stringify(json_results);
 		         var sectionResponse = json_results; 
 		         $.each(sectionResponse.content, function(index, content) {
-		        	$.each(content.section, function(indexSection, section) {
+		        	 
+		        	 alert('Result: '+JSON.stringify(content));
+				     document.getElementById('jsondata').innerHTML=JSON.stringify(content);
+				        
+		        	/* $.each(content.section, function(indexSection, section) {
 		        		 var coursename = section.course.name;
 		        		alert('Price of ' + coursename + ': ' + section.price) 
-		        	}
+		        	} */
 		        } 
 		        
 		      },
