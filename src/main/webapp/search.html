@@ -299,13 +299,13 @@
 		     success: function(json_results) {
 		        alert('Result: '+JSON.stringify(json_results));
 		        document.getElementById('jsondata').innerHTML=JSON.stringify(json_results);
-		        var sectionResponse = json_results;
-		        $.each(sectionResponse.content, function(index, content) {
+		        /* var sectionResponse = json_results; 
+		         $.each(sectionResponse.content, function(index, content) {
 		        	$.each(content, function(indexSection, sectionResponse) {
-		        		var section = sectionResponse.section;
-		        		alert('Price of ' + indexSection + ': ' + section.price)
+		        		 var section = sectionResponse.section;
+		        		alert('Price of ' + indexSection + ': ' + section.price) 
 		        	}
-		        }
+		        } */
 		        
 		      },
 		  	 error: function(jaxHR) {
