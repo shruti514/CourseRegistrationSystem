@@ -1,6 +1,8 @@
 package org.courseregistration.dao;
 
 import static org.hibernate.jpa.criteria.predicate.ComparisonPredicate.ComparisonOperator.EQUAL;
+import static org.hibernate.jpa.criteria.predicate.ComparisonPredicate.ComparisonOperator.GREATER_THAN_OR_EQUAL;
+import static org.hibernate.jpa.criteria.predicate.ComparisonPredicate.ComparisonOperator.LESS_THAN_OR_EQUAL;
 
 import java.util.List;
 import java.util.Map;
@@ -119,26 +121,24 @@ public class SectionDAO extends GenericDAO<Section> {
 			}
 			return new ComparisonPredicate((CriteriaBuilderImpl) cb, EQUAL,
 					section.get("price"), price);
-			// case SECTION_PRICE_GREATER_EQUALS:
-			// int gteprice = 0;
-			// try {
-			// gteprice = Integer.parseInt(queryParam);
-			// } catch (Exception e) {
-			// return null;
-			// }
-			// return new ComparisonPredicate((CriteriaBuilderImpl) cb,
-			// ComparisonOperator.GREATER_THAN_OR_EQUAL,
-			// section.get("price"), gteprice);
-			// case SECTION_PRICE_LESS_EQUALS:
-			// int lteprice = 0;
-			// try {
-			// lteprice = Integer.parseInt(queryParam);
-			// } catch (Exception e) {
-			// return null;
-			// }
-			// return new ComparisonPredicate((CriteriaBuilderImpl) cb,
-			// ComparisonOperator.LESS_THAN_OR_EQUAL,
-			// section.get("price"), lteprice);
+		case SECTION_PRICE_GREATER_EQUALS:
+			int gteprice = 0;
+			try {
+				gteprice = Integer.parseInt(queryParam);
+			} catch (Exception e) {
+				return null;
+			}
+			return new ComparisonPredicate((CriteriaBuilderImpl) cb,
+					GREATER_THAN_OR_EQUAL, section.get("price"), gteprice);
+		case SECTION_PRICE_LESS_EQUALS:
+			int lteprice = 0;
+			try {
+				lteprice = Integer.parseInt(queryParam);
+			} catch (Exception e) {
+				return null;
+			}
+			return new ComparisonPredicate((CriteriaBuilderImpl) cb,
+					LESS_THAN_OR_EQUAL, section.get("price"), lteprice);
 		default:
 			return null;
 		}
