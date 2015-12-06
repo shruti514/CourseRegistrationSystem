@@ -284,6 +284,25 @@
 		var toPrice = document.getElementById('search-toPrice').value;
 
     	alert('Coursename: ' + courseName + lastName + dayOfWeek + semester + fromPrice + toPrice);
+    	
+    	var getData = {
+    	          lteprice: toPrice,
+    	          gteprice: fromPrice
+    	        }
+    	
+    	$.ajax({
+		     type: 'GET',
+		     url: "/api.courseregistration/sections/search?",
+		     data: getData,
+		     success: function(json_results) {
+		        alert(json_results);
+		      }
+		  	 error: function(jaxHR) {
+			 	alert(jaxHR);
+		  	  }
+		  });
+    	
+    	alert('processig');
     }
     
     $(document).ready(function(){
