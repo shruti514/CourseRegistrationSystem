@@ -106,7 +106,7 @@
 
                             <div class="panel-body">
                                 <div class="row">
-                                        <h4>Select any search criteria:</h4>
+                                        <h4>Search by following criteria: </h4>
                                 </div>
                                 <div class="form-responsive">
                                      <div class="row">
@@ -143,8 +143,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
+                                	<div class="row">
                                         <div class="form-group">
                                             <div class="col-xs-3 col-xs-offset-1 form-group">
                                                 <p class="pull-right">Semester:</p>
@@ -158,16 +157,16 @@
                                
                                 <div class="row">
                                         <div class="form-group">
-                                            <div class="col-xs-3 col-xs form-group">
+                                            <div class="col-xs-3 col-xs-offset-1 form-group">
                                                 <p class="pull-right">Price range:</p>
                                             </div>
                                             <div class="col-xs-3 col-xs form-group">
                                                 <label class="sr-only" for="search-fromPrice">From</label>
                                                 <input type="text" name="search-fromPrice" placeholder="from..." class="form-lastname form-control" id="search-fromPrice">
                                             </div>
-                                            <div class="col-xs-1 col-xs form-group">
+                                            <!-- <div class="col-xs col-xs form-group">
                                                 <p class="pull-right">To:</p>
-                                            </div>
+                                            </div> -->
                                             <div class="col-xs-3 form-group">
                                                 <label class="sr-only" for="search-toPrice">to</label>
                                                 <input type="text" name="search-toPrice" placeholder="To..." class="form-lastname form-control" id="search-toPrice">
@@ -179,11 +178,14 @@
                                         <div class="col-sm-6 col-xs-offset-4 text">
                                             <div class="description">
                                                 <button id="searchButton" onClick="search()" type="button" class="btn btn-primary">Submit Search</button>
-                                            
                                         </div>
+                                       
                                     </div>
+                                      </div>
                                     <br><br>
                                 </div>
+                                 <div class="row">
+                                <div id="errorDiv"></div> </div>
                             </div>
                             </div>    
                         </div>
@@ -191,7 +193,7 @@
                 </div> 
                 <!-- /.row -->
 
-                <div class="row">
+                <div id="tabledata" class="row">
                     
                     <div class="col-lg-12">
                         <!-- -->
@@ -200,40 +202,14 @@
                                 <h3 class="panel-title"><i class="fa fa-search fa-fw"></i>Course Details</h3>
                             </div>
                             <div class="panel-body">
-                            <div id="jsondata">
+                            
                             </div>
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-hover table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Course Code</th>
-                                                <th>Course Name</th>
-                                                <th>Professor Name</th>
-                                                <th>Mode of Instruction</th>
-                                                <th>Day of week</th>
-                                                <th>Semester</th>
-                                                <th>Price in USD</th>
-                                            </tr>
+                                        <thead id="thead">
+                                            
                                         </thead>
                                         <tbody id="tbody">
-                                            <tr>
-                                                <td>Cmpe-283</td>
-                                                <td>Virtualization</td>
-                                                <td>Thomas H</td>
-                                                <td>In class</td>
-                                                <td>Monaday</td>
-                                                <td>Fall-2015</td>
-                                                <td>200</td>
-                                             </tr>
-                                             <tr>
-                                                <td>Cmpe-282</td>
-                                                <td>Virtualization</td>
-                                                <td>Thomas H</td>
-                                                <td>In class</td>
-                                                <td>Monaday</td>
-                                                <td>Fall-2015</td>
-                                                <td>200</td>
-                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -276,8 +252,8 @@
 
     function search() {
     	
-    	alert('Going to search now!!');
-    	 
+    	document.getElementById('errorDiv').innerHTML = "";
+    	
 		var courseName = document.getElementById('search-courseName').value;
 		var lastName = document.getElementById('search-lastName').value;
 		var dayOfWeek = document.getElementById('search-dayOfWeek').value;
@@ -285,9 +261,11 @@
 		var fromPrice = document.getElementById('search-fromPrice').value;
 		var toPrice = document.getElementById('search-toPrice').value;
 
-    	alert('Coursename: ' + courseName + lastName + dayOfWeek + semester + fromPrice + toPrice);
-    	
     	var getData = {
+    			  coursename: courseName,
+    	          lastname: lastName,
+    	          dayofweek: dayOfWeek,
+    	          semester: semester,
     	          lteprice: toPrice,
     	          gteprice: fromPrice
     	        }
@@ -297,31 +275,50 @@
 		     url: "/api.courseregistration/sections/search?",
 		     data: getData,
 		     success: function(json_results) {
-		        alert('Result: '+JSON.stringify(json_results));
-		        //document.getElementById('jsondata').innerHTML=JSON.stringify(json_results);
-		         var sectionResponse = json_results; 
-		         $.each(sectionResponse.content, function(index, content) {
-		        	 
-		        	 alert('Result: '+JSON.stringify(content));
-				     document.getElementById('jsondata').innerHTML=JSON.stringify(content);
-				        
-		        	/* $.each(content.section, function(indexSection, section) {
-		        		 var coursename = section.course.name;
-		        		alert('Price of ' + coursename + ': ' + section.price) 
-		        	} */
-		        } 
-		        
+		    	var tbody ="";
+		        $.each(json_results.content,function(key,value){
+		           var section = value.section;
+		           var result = '<tr>'+ 
+			          '<td>'+ section.course.name +'</td>' +
+			          '<td>'+ section.course.name +'</td>' +
+			          '<td>'+ section.professor.firstName +' '+ section.professor.lastName +'</td>' +
+			          '<td>'+ section.modeOfInstruction +'</td>' +
+			          '<td>'+ section.dayOfWeek +'</td>' +
+			          '<td>'+ section.semester +'</td>' +
+			          '<td>'+ section.price +'</td>' +
+	               	  '</tr>';
+		           tbody+=result;
+		           
+		        });
+		        if(tbody=="") {		        	
+		        	 document.getElementById('errorDiv').innerHTML='<div class=\"alert alert-danger\"><strong>Oh snap!</strong> Courses as per your search are not available in the system currently.</div>'
+		        		 var result = '<tr>'+ 
+				          'No Data Found!!' +
+		               	  '</tr>';
+		             tbody+=result;
+		        } else {
+		        	var head = "<tr>"+
+                    "<th>Course Code</th>"+
+                    "<th>Course Name</th>"+
+                    "<th>Professor Name</th>"+
+                    "<th>Mode of Instruction</th>"+
+                    "<th>Day of week</th>"+
+                    "<th>Semester</th>"+
+                    "<th>Price in USD</th>"+
+                "</tr>";
+		        	document.getElementById('thead').innerHTML = head;
+		        	document.getElementById('tbody').innerHTML = tbody;
+		        }
 		      },
 		  	 error: function(jaxHR) {
-			 	alert('Error: '+ jaxHR);
+			 	document.getElementById('errorDiv').innerHTML='<div class=\"alert alert-danger\"><strong>Look!</strong> You forgot to provide search criteria.</div>'
 		  	  }
 		  });
     	 
-    	alert('processig');
     }
     
     $(document).ready(function(){
-    	alert('docuent ready');
+    	
         $('#searchButton').click(function(){
         	alert('Going to search now!!');
            search();
