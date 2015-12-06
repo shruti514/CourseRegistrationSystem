@@ -21,7 +21,7 @@
     <link href="css/plugins/morris.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="./font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -250,6 +250,7 @@
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
+	<script src="javascript/jquery-2.1.1.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
@@ -269,7 +270,7 @@
 
 </body>
 
- <script language="JavaScript">
+<script type="text/javascript">
 
     function search() {
     	
@@ -284,55 +285,8 @@
         });
       });
     
-    	 /*  var courseName = document.getElementById('search-courseName').value;
-    	  var lastName = document.getElementById('search-lastName').value;
-    	  var dayOfWeek = document.getElementById('search-dayOfWeek').value;
-    	  var semester = document.getElementById('search-semester').value;
-    	  var fromPrice = document.getElementById('search-fromPrice').value;
-    	  var toPrice = document.getElementById('search-toPrice').value;
-          
-    	  
-    	  alert('courseName: ' + courseName);
-    	  alert('lastName: ' + lastName);
-    	  alert('dayOfWeek: ' + dayOfWeek);
-    	  alert('semester: ' + semester);
-    	  alert('fromPrice: ' + fromPrice);
-    	  alert('toPrice: ' + toPrice);
-    	  
-    	  /* @QueryParam("coursename") String coursename,
-			@QueryParam("lastname") String lastname,
-			@QueryParam("price") int price,
-			@QueryParam("gteprice") int gteprice,
-			@QueryParam("lteprice") int lteprice,
-			@QueryParam("dayofweek") String dayofweek,
-			@QueryParam("semester") String semester,
-			@QueryParam("coursecode") String coursecode, */
-			
-        /*var getData = {
-          coursename: courseName,
-          lastname: lastName,
-          dayofweek: dayOfWeek,
-          semester: semester,
-          lteprice: toPrice,
-          gteprice: fromPrice
-        }
-        alert('getData: ' + getData);
-  	  
-
-		/* var dataObj = {page : paramPage}; /* change made here */ 
-		 /* $.ajax({
-		     type: 'GET',
-		     url: "/api.courseregistration/sections/search?",
-		     data: getData,
-		     dataType: 'jsonp',
-		     success: function(json_results) {
-		        alert(json_results);
-		      }
-		  	 error: function(jaxHR) {
-			 	alert(jaxHR);
-		  	  }
-		  }); */
+    	 
     
-    </script>
+</script>
     
 </html>
