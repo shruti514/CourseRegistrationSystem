@@ -280,11 +280,11 @@
 		           var section = value.section;
 		           var result = '<tr>'+ 
 			          '<td>'+ section.course.name +'</td>' +
-			          '<td>'+ section.course.name +'</td>' +
 			          '<td>'+ section.professor.firstName +' '+ section.professor.lastName +'</td>' +
 			          '<td>'+ section.modeOfInstruction +'</td>' +
 			          '<td>'+ section.dayOfWeek +'</td>' +
 			          '<td>'+ section.semester +'</td>' +
+			          '<td>'+ section.roomNumber +'</td>' +
 			          '<td>'+ section.price +'</td>' +
 	               	  '</tr>';
 		           tbody+=result;
@@ -296,14 +296,16 @@
 				          'No Data Found!!' +
 		               	  '</tr>';
 		             tbody+=result;
+		             document.getElementById('thead').innerHTML = "";
+			        document.getElementById('tbody').innerHTML = "";
 		        } else {
 		        	var head = "<tr>"+
-                    "<th>Course Code</th>"+
                     "<th>Course Name</th>"+
                     "<th>Professor Name</th>"+
                     "<th>Mode of Instruction</th>"+
                     "<th>Day of week</th>"+
                     "<th>Semester</th>"+
+                    "<th>Room Number</th>"+
                     "<th>Price in USD</th>"+
                 "</tr>";
 		        	document.getElementById('thead').innerHTML = head;
@@ -311,7 +313,7 @@
 		        }
 		      },
 		  	 error: function(jaxHR) {
-			 	document.getElementById('errorDiv').innerHTML='<div class=\"alert alert-danger\"><strong>Look!</strong> You forgot to provide search criteria.</div>'
+			 	document.getElementById('errorDiv').innerHTML='<div class=\"alert alert-danger\"><strong>Hey!</strong> You forgot to provide search criteria.</div>'
 		  	  }
 		  });
     	 
