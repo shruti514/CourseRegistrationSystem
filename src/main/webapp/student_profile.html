@@ -244,10 +244,19 @@
         });
 
       update=function(){
-        var email=document.getElementById('emailId')
+        var currentUser=JSON.parse(window.sessionStorage.getItem('currentUser'))
+        var email=document.getElementById('emailId').value
         var storedStudent=JSON.parse(window.sessionStorage.getItem('student'));
 
-        storedStudent['emailId'] = email;
+        storedStudent.student['emailId'] = email;
+        var studentPutData={
+          id:storedStudent.student.id,
+          firstName:storedStudent.student.firstName,
+          middleName:storedStudent.student.middleName,
+          lastName:storedStudent.student.lastName,
+          emailId:storedStudent.student.emailId,
+          phoneNumber:storedStudent.student.phoneNumber,
+        }
 
         var putReq = new digestAuthRequest('PUT', "/api.courseregistration/students/"+currentUser.userId,currentUser.username, currentUser.password);
 
@@ -264,7 +273,7 @@
             document.getElementById('errorMessage').innerHTML='<div class=\"alert alert-danger\"><strong>Oh snap!</strong> Error occured.Please try again!</div>'
           }
           console.log(JSON.stringify(errorCode))
-        }, storedStudent)
+        }, studentPutData)
       }
     </script>
 </body>
