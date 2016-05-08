@@ -1,6 +1,6 @@
 # CMPE-272-DB-TESTING
  - test some
-
+-test
 - To run the project you should have maven, java and mysql on your machine
 - To run it in eclipse
         - Clone git respository
